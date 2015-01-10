@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<component format="1" id="AndHUD">
+  <name>AndHUD</name>
+  <publisher>Redth</publisher>
+  <publisher-url>https://github.com/Redth/AndHUD</publisher-url>
+  <docs-url>https://github.com/Redth/AndHUD</docs-url>
+  <src-url>https://github.com/Redth/AndHUD</src-url>
+  <version>1.3.1</version>
+  <summary>Add amazing HUDs to your Android apps.</summary>
+  <samples>
+    <sample id="AndHUD.Sample">
+      <name>AndHUD Android Sample.</name>
+      <summary>Demonstrates how to implement Android HUD in an Android application</summary>
+    </sample>
+  </samples>
+</component>
