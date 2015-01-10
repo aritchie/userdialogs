@@ -13,13 +13,7 @@ namespace Acr.UserDialogs {
                 return;
 
             init = true;
-            var app = Android.App.Application.Context.ApplicationContext as Android.App.Application;
-            if (app == null)
-                throw new Exception("Application Context is not an application");
-
-            ActivityMonitor.CurrentTopActivity = activity;
-            app.RegisterActivityLifecycleCallbacks(new ActivityMonitor());
-            Instance = new UserDialogsImpl();
+            Instance = new UserDialogsImpl(activity);
         }
 #else
         public static void Init() {

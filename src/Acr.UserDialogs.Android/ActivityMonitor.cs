@@ -1,5 +1,4 @@
-﻿#if __ANDROID__
-using System;
+﻿using System;
 using Android.App;
 using Android.OS;
 
@@ -27,4 +26,3 @@ namespace Acr.UserDialogs {
         public void OnActivityStopped(Activity activity) {}
     }
 }
-#endif

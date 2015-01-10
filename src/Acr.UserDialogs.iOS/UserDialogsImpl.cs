@@ -62,7 +62,7 @@ namespace Acr.UserDialogs {
                     var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
                     dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnConfirm(true)));
                     dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => config.OnConfirm(false)));
-                    Present(dlg);
+                    this.Present(dlg);
                 }
                 else {
                     var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, config.CancelText, config.OkText);
@@ -101,8 +101,8 @@ namespace Acr.UserDialogs {
                 }
                 else {
                     var dlg = new UIAlertView { AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput };
-                    txtUser = dlg.GetTextField((nint)0);
-                    txtPass = dlg.GetTextField((nint)1);
+                    txtUser = dlg.GetTextField(0);
+                    txtPass = dlg.GetTextField(1);
 
                     txtUser.Placeholder = config.LoginPlaceholder;
                     txtUser.Text = config.LoginValue ?? String.Empty;
@@ -137,21 +137,26 @@ namespace Acr.UserDialogs {
                         config.OnResult(result);
                     }));
                     dlg.AddTextField(x => {
-                        x.SecureTextEntry = config.IsSecure;
+                        //x.SecureTextEntry = config.IsSecure;
+                        //x.KeyboardType = config.
                         x.Placeholder = config.Placeholder ?? String.Empty;
                         txt = x;
                     });
                     this.Present(dlg);
                 }
                 else {
+                    var isPassword = config.InputType == InputType.Password;
+
                     var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, config.CancelText, config.OkText) {
-                        AlertViewStyle = config.IsSecure
-                            ? UIAlertViewStyle.SecureTextInput 
+                        AlertViewStyle = isPassword
+                            ? UIAlertViewStyle.SecureTextInput
                             : UIAlertViewStyle.PlainTextInput
                     };
-                    var txt = dlg.GetTextField((nint)0);
-                    txt.SecureTextEntry = config.IsSecure;
+                    var txt = dlg.GetTextField(0);
                     txt.Placeholder = config.Placeholder;
+
+                    //if (!isPassword)
+                    //    txt.KeyboardType = 
 
                     dlg.Clicked += (s, e) => {
                         result.Ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);

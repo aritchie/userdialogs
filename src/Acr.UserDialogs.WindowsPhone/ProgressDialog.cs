@@ -1,105 +1,105 @@
-﻿//using System;
-//using System.Windows;
+﻿using System;
+using System.Windows;
 
 
-//namespace Acr.MvvmCross.Plugins.UserDialogs.WinPhone {
-    
-//    public class WinPhoneProgressDialog : IProgressDialog {
-//        private readonly ProgressPopUp progress = new ProgressPopUp();
+namespace Acr.UserDialogs {
 
-//        #region IProgressDialog Members
+    public class ProgressDialog : IProgressDialog {
+        private readonly ProgressPopUp progress = new ProgressPopUp();
 
-//        private string text;
-//        public string Title {
-//            get { return this.text; }
-//            set {
-//                if (this.text == value)
-//                    return;
+        #region IProgressDialog Members
 
-//                this.text = value;
-//                this.Refresh();
-//            }
-//        }
+        private string text;
+        public string Title {
+            get { return this.text; }
+            set {
+                if (this.text == value)
+                    return;
 
-
-//        private int percentComplete;
-//        public int PercentComplete {
-//            get { return this.percentComplete; }
-//            set {
-//                if (this.percentComplete == value)
-//                    return;
-
-//                if (value > 100) {
-//                    this.percentComplete = 100;
-//                }
-//                else if (value < 0) {
-//                    this.percentComplete = 0;
-//                }
-//                else {
-//                    this.percentComplete = value;
-//                }
-//                this.percentComplete = value;
-//                this.Refresh();
-//            }
-//        }
+                this.text = value;
+                this.Refresh();
+            }
+        }
 
 
-//        public bool IsDeterministic {
-//            get { return !this.progress.IsIndeterminate; }
-//            set { this.progress.IsIndeterminate = !value; }
-//        }
+        private int percentComplete;
+        public int PercentComplete {
+            get { return this.percentComplete; }
+            set {
+                if (this.percentComplete == value)
+                    return;
+
+                if (value > 100) {
+                    this.percentComplete = 100;
+                }
+                else if (value < 0) {
+                    this.percentComplete = 0;
+                }
+                else {
+                    this.percentComplete = value;
+                }
+                this.percentComplete = value;
+                this.Refresh();
+            }
+        }
 
 
-//        public bool IsShowing { get; private set; }
+        public bool IsDeterministic {
+            get { return !this.progress.IsIndeterminate; }
+            set { this.progress.IsIndeterminate = !value; }
+        }
 
 
-//        public void SetCancel(Action onCancel, string cancelText) {
-//            this.progress.SetCancel(onCancel, cancelText);
-//        }
+        public bool IsShowing { get; private set; }
 
 
-//        public void Show() {
-//            if (this.IsShowing)
-//                return;
-
-//            this.IsShowing = true;
-//            this.Dispatch(this.progress.Show);
-//        }
+        public void SetCancel(Action onCancel, string cancelText) {
+            this.progress.SetCancel(onCancel, cancelText);
+        }
 
 
-//        public void Hide() {
-//            if (!this.IsShowing)
-//                return;
+        public void Show() {
+            if (this.IsShowing)
+                return;
 
-//            this.IsShowing = false;
-//            this.Dispatch(this.progress.Dismiss);
-//        }
-
-
-//        protected void Dispatch(Action action) {
-//            Deployment.Current.Dispatcher.BeginInvoke(action);
-//        }
+            this.IsShowing = true;
+            this.Dispatch(this.progress.Show);
+        }
 
 
-//        private void Refresh() {
-//            this.Dispatch(() => {
-//                this.progress.LoadingText = this.text;
-//                if (this.IsDeterministic) { 
-//                    this.progress.PercentComplete = this.percentComplete;
-//                    this.progress.CompletionText = this.percentComplete + "%";
-//                }
-//            });
-//        }
+        public void Hide() {
+            if (!this.IsShowing)
+                return;
+
+            this.IsShowing = false;
+            this.Dispatch(this.progress.Dismiss);
+        }
 
 
-//        #endregion
+        protected void Dispatch(Action action) {
+            Deployment.Current.Dispatcher.BeginInvoke(action);
+        }
 
-//        #region IDisposable Members
 
-//        public void Dispose() {
-//            this.Hide();
-//        }
+        private void Refresh() {
+            this.Dispatch(() => {
+                this.progress.LoadingText = this.text;
+                if (this.IsDeterministic) { 
+                    this.progress.PercentComplete = this.percentComplete;
+                    this.progress.CompletionText = this.percentComplete + "%";
+                }
+            });
+        }
 
-//        #endregion
-//    }
-//}
+
+        #endregion
+
+        #region IDisposable Members
+
+        public void Dispose() {
+            this.Hide();
+        }
+
+        #endregion
+    }
+}

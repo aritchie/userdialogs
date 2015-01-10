@@ -1,10 +1,20 @@
 using System;
-using System.Threading.Tasks;
+using Android.App;
 
 
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
+
+        public UserDialogsImpl(Activity activity) {
+            var app = Android.App.Application.Context.ApplicationContext as Android.App.Application;
+            if (app == null)
+                throw new Exception("Application Context is not an application");
+
+            ActivityMonitor.CurrentTopActivity = activity;
+            app.RegisterActivityLifecycleCallbacks(new ActivityMonitor());
+        }
+
 
         public override void Alert(AlertConfig config) {
             throw new NotImplementedException();

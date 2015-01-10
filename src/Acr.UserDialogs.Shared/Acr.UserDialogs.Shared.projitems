@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AbstractUserDialogs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ActivityMonitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserDialogs.cs" />
   </ItemGroup>
