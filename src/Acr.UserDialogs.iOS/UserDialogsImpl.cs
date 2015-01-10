@@ -42,16 +42,16 @@ namespace Acr.UserDialogs {
                 this.Present(sheet);
             }
             else {
-                //var view = Utils.GetTopView();
+                var view = Utils.GetTopView();
 
-                //var action = new UIActionSheet(config.Title);
-                //config.Options.ToList().ForEach(x => action.AddButton(x.Text));
+                var action = new UIActionSheet(config.Title);
+                config.Options.ToList().ForEach(x => action.AddButton(x.Text));
 
-                //action.Dismissed += (sender, btn) => {
-                //    if ((int)btn.ButtonIndex > -1 && (int)btn.ButtonIndex < config.Options.Count)
-                //        config.Options[(int)btn.ButtonIndex].Action();
-                //};
-                //action.ShowInView(view);
+                action.Dismissed += (sender, btn) => {
+                    if ((int)btn.ButtonIndex > -1 && (int)btn.ButtonIndex < config.Options.Count)
+                        config.Options[(int)btn.ButtonIndex].Action();
+                };
+                action.ShowInView(view);
             }
         }
 
@@ -137,8 +137,7 @@ namespace Acr.UserDialogs {
                         config.OnResult(result);
                     }));
                     dlg.AddTextField(x => {
-                        //x.SecureTextEntry = config.IsSecure;
-                        //x.KeyboardType = config.
+                        Utils.SetInputType(x, config.InputType);
                         x.Placeholder = config.Placeholder ?? String.Empty;
                         txt = x;
                     });
@@ -153,10 +152,8 @@ namespace Acr.UserDialogs {
                             : UIAlertViewStyle.PlainTextInput
                     };
                     var txt = dlg.GetTextField(0);
+                    Utils.SetInputType(txt, config.InputType);
                     txt.Placeholder = config.Placeholder;
-
-                    //if (!isPassword)
-                    //    txt.KeyboardType = 
 
                     dlg.Clicked += (s, e) => {
                         result.Ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
@@ -183,68 +180,19 @@ namespace Acr.UserDialogs {
 
 
         protected virtual void Present(UIAlertController controller) {
-            //UIApplication.SharedApplication.InvokeOnMainThread(() => {
-            //    var top = Utils.GetTopViewController();
-            //    var po = controller.PopoverPresentationController;
-            //    if (po != null) {
-            //        po.SourceView = top.View;
-            //        var h = (top.View.Frame.Height / 2) - 400;
-            //        var v = (top.View.Frame.Width / 2) - 300;
-            //        po.SourceRect = new CGRect(v, h, 0, 0);
-            //        po.PermittedArrowDirections = UIPopoverArrowDirection.Any;
-            //    }
-            //    top.PresentViewController(controller, true, null);
-            //});
+            UIApplication.SharedApplication.InvokeOnMainThread(() => {
+                var top = Utils.GetTopViewController();
+                var po = controller.PopoverPresentationController;
+                if (po != null) {
+                    po.SourceView = top.View;
+                    var h = (top.View.Frame.Height / 2) - 400;
+                    var v = (top.View.Frame.Width / 2) - 300;
+                    po.SourceRect = new CGRect(v, h, 0, 0);
+                    po.PermittedArrowDirections = UIPopoverArrowDirection.Any;
+                }
+                top.PresentViewController(controller, true, null);
+            });
         }
-
-//        public static UIWindow GetTopWindow() {
-//            return UIApplication.SharedApplication
-//                .Windows
-//                .Reverse()
-//                .FirstOrDefault(x => 
-//                    x.WindowLevel == UIWindowLevel.Normal && 
-//                    !x.Hidden
-//                );
-
-//            //return 
-//            //    UIApplication.SharedApplication.KeyWindow
-//            //    ?? UIApplication.SharedApplication.Windows.Last()
-//            //    ?? UIApplication.SharedApplication.Delegate.Window;
-//        }
-
-
-//        public static UIView GetTopView() {
-//            return GetTopWindow().Subviews.Last();
-//        }
-
-
-//        public static UIViewController GetTopViewController() {
-//            var root = GetTopWindow().RootViewController;
-//            var tabs = root as UITabBarController;
-//            if (tabs != null)
-//                return tabs.SelectedViewController;
-
-//            var nav = root as UINavigationController;
-//            if (nav != null)
-//                return nav.VisibleViewController;
-
-//            if (root.PresentedViewController != null)
-//                return root.PresentedViewController;
-
-//            return root;
-//        }
-
-
-//        internal static UIKeyboardType GetKeyboardType(InputType inputType) {
-//            switch (inputType) {
-//                case InputType.Email:
-//                    return UIKeyboardType.EmailAddress;
-//                case InputType.Number:
-//                    return UIKeyboardType.NumberPad;
-//                default:
-//                    return UIKeyboardType.Default;
-//            }
-//        }
     }
 }
 

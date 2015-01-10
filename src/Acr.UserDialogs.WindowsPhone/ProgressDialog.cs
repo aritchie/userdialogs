@@ -29,15 +29,15 @@ namespace Acr.UserDialogs {
                 if (this.percentComplete == value)
                     return;
 
-                if (value > 100) {
+                if (value > 100)
                     this.percentComplete = 100;
-                }
-                else if (value < 0) {
+
+                else if (value < 0)
                     this.percentComplete = 0;
-                }
-                else {
+
+                else
                     this.percentComplete = value;
-                }
+
                 this.percentComplete = value;
                 this.Refresh();
             }
