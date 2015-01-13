@@ -16,6 +16,7 @@ namespace Acr.UserDialogs {
                 return;
 
             init = true;
+            Instance = new UserDialogsImpl(getActivity);
         }
 
 

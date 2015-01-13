@@ -15,7 +15,7 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Prompt
 - Toast
 
-Android Users: You must use API14+ and call UserDialogs.Init(Activity) from your splash screen
+Android Users: You must use API14+ and call UserDialogs.Init(Activity) or UserDialogs.Init(Factory Function) from your splash screen
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
