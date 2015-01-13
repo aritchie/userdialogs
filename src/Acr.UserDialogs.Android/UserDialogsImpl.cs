@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading;
 using Android.App;
 using Android.Text;
 using Android.Text.Method;
@@ -12,21 +11,18 @@ using AndroidHUD;
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
+        private readonly Func<Activity> getTopActivity;
+ 
 
-        public UserDialogsImpl(Activity activity) {
-            var app = Application.Context.ApplicationContext as Application;
-            if (app == null)
-                throw new Exception("Application Context is not an application");
-
-            ActivityMonitor.CurrentTopActivity = activity;
-            app.RegisterActivityLifecycleCallbacks(new ActivityMonitor());
+        public UserDialogsImpl(Func<Activity> getTopActivity) {
+            this.getTopActivity = getTopActivity;
         }
 
 
         public override void Alert(AlertConfig config) {
             Utils.RequestMainThread(() => 
                 new AlertDialog
-                    .Builder(ActivityMonitor.CurrentTopActivity)
+                    .Builder(this.getTopActivity())
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetPositiveButton(config.OkText, (o, e) => {
@@ -46,7 +42,7 @@ namespace Acr.UserDialogs {
 
             Utils.RequestMainThread(() => 
                 new AlertDialog
-                    .Builder(ActivityMonitor.CurrentTopActivity)
+                    .Builder(this.getTopActivity())
                     .SetTitle(config.Title)
                     .SetItems(array, (sender, args) => config.Options[args.Which].Action())
                     .Show()
@@ -57,7 +53,7 @@ namespace Acr.UserDialogs {
         public override void Confirm(ConfirmConfig config) {
             Utils.RequestMainThread(() => 
                 new AlertDialog
-                    .Builder(ActivityMonitor.CurrentTopActivity)
+                    .Builder(this.getTopActivity())
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetPositiveButton(config.OkText, (o, e) => config.OnConfirm(true))
@@ -68,13 +64,12 @@ namespace Acr.UserDialogs {
 
 
         public override void Login(LoginConfig config) {
-            var context = ActivityMonitor.CurrentTopActivity;
+            var context = this.getTopActivity();
             var txtUser = new EditText(context) {
                 Hint = config.LoginPlaceholder,
                 InputType = InputTypes.TextVariationVisiblePassword,
                 Text = config.LoginValue ?? String.Empty
             };
-
             var txtPass = new EditText(context) {
                 Hint = config.PasswordPlaceholder ?? "*"
             };
@@ -92,7 +87,7 @@ namespace Acr.UserDialogs {
 
             Utils.RequestMainThread(() => 
                 new AlertDialog
-                    .Builder(ActivityMonitor.CurrentTopActivity)
+                    .Builder(this.getTopActivity())
                     .SetTitle(config.Title)
                     .SetMessage(config.Message)
                     .SetView(layout)
@@ -109,17 +104,18 @@ namespace Acr.UserDialogs {
 
         public override void Prompt(PromptConfig config) {
             Utils.RequestMainThread(() => {
-                var txt = new EditText(ActivityMonitor.CurrentTopActivity) {
+                var activity = this.getTopActivity();
+
+                var txt = new EditText(activity) {
                     Hint = config.Placeholder
                 };
-
                 if (config.InputType != InputType.Default) 
                     txt.SetMaxLines(1);
 
                 this.SetInputType(txt, config.InputType);
 
                 new AlertDialog
-                    .Builder(ActivityMonitor.CurrentTopActivity)
+                    .Builder(activity)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetView(txt)
@@ -145,7 +141,7 @@ namespace Acr.UserDialogs {
                 onClick = onClick ?? (() => {});
 
                 AndHUD.Shared.ShowToast(
-                    ActivityMonitor.CurrentTopActivity,
+                    this.getTopActivity(),
                     message,
                     MaskType.Clear,
                     TimeSpan.FromSeconds(timeoutSeconds),

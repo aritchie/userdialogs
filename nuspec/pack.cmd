@@ -1,4 +1,4 @@
 @echo off
 del *.nupkg
-nuget pack *.nuspec
+nuget pack Acr.UserDialogs.nuspec
 pause

@@ -1,10 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>Acr.Settings</id>
-        <version>3.0.0</version>
-        <title>Settings Xplat Plugin for Xamarin and Windows</title>
-        <description>User Dialogs Xplat Plugin for Xamarin and Windows</description>
+        <id>Acr.UserDialogs</id>
+        <version>3.0.0-beta1</version>
+        <title>User Dialogs Xplat Plugin for Xamarin and Windows</title>
+        <description>
+Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
+- Action Sheet (multiple choice menu)
+- Alert
+- Confirm
+- Loading
+- Login
+- Progress
+- Prompt
+- Toast
+
+Android Users: You must use API14+ and call UserDialogs.Init(Activity) from your splash screen
+        </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
         <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
@@ -22,11 +34,6 @@
         <releaseNotes>
 3.0
 Bait and switch design
-Use better dialogs for android
-IMPROVED - Toast windows
-NEW - windows store implementation
-NEW - date and time dialog
-NEW - duration dialog
 
 2.3
 Update BTProgressHUD
@@ -79,15 +86,18 @@ Initial Release
     </metadata>
     <files>
         <!-- PCL -->
-        <file src="..\src\Acr.Settings\Release\bin\Acr.Settings.dll" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid10+Xamarin.iOS10\Acr.Settings.dll" />
+        <file src="..\src\Acr.UserDialogs\bin\Release\Acr.UserDialogs.dll" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid10+Xamarin.iOS10\Acr.UserDialogs.dll" />
 
         <!-- android -->
-        <file src="..\src\Acr.Settings.Android\bin\Release\Acr.Settings.dll" target="lib\MonoAndroid10\Acr.Settings.dll" />
+        <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.dll" target="lib\MonoAndroid10\Acr.UserDialogs.dll" />
 
         <!-- ios -->
-        <file src="..\src\Acr.Settings.iOS\bin\iPhone\Release\Acr.Settings.dll" target="lib\Xamarin.iOS10\Acr.Settings.dll" />
+        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.dll" target="lib\Xamarin.iOS10\Acr.UserDialogs.dll" />
 
-        <!-- win universal -->
-        <file src="..\src\Acr.Settings.Windows\bin\Release\Acr.Settings.dll" target="lib\wp8\Acr.Settings.dll" />
+        <!-- winphone -->
+        <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.dll" target="lib\wp8\Acr.UserDialogs.dll" />
+
+        <!-- winstore -->
+        <!--<file src="..\src\Acr.UserDialogs.WindowsStore\bin\Release\Acr.UserDialogs.dll" target="lib\wpa\Acr.UserDialogs.dll" />-->
     </files>
 </package>

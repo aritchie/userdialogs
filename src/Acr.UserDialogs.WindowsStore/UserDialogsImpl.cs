@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using WinRTXamlToolkit.Controls;
 
@@ -9,19 +8,15 @@ namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
 
-        public override void Alert(AlertConfig config) {
-            //var input = new InputDialog();
-
-            //input
-            //    .ShowAsync(title, message, okText)
-            //    .ContinueWith(x => {
-            //        if (onOk != null)
-            //            onOk();
-            //    });
+        public override async void Alert(AlertConfig config) {
+            var input = new InputDialog();
+            await input.ShowAsync(config.Title, config.Message, config.OkText);
+            if (config.OnOk != null)
+                config.OnOk();
         }
 
 
-        public override void ActionSheet(ActionSheetConfig config) {
+        public override async void ActionSheet(ActionSheetConfig config) {
             var input = new InputDialog {
                 ButtonsPanelOrientation = Orientation.Vertical
             };
@@ -31,27 +26,20 @@ namespace Acr.UserDialogs {
                 .Select(x => x.Text)
                 .ToArray();
 
-            //input
-            //    .ShowAsync(options.Title, null, buttons)
-            //    .ContinueWith(x => 
-            //        options
-            //            .Options
-            //            .Single(y => y.Text == x.Result)
-            //            .Action() 
-        //    );
+            var choice = await input.ShowAsync(config.Title, null, buttons);
+            var opt = config.Options.SingleOrDefault(x => x.Text == choice);
+            if (opt != null && opt.Action != null)
+                opt.Action();
         }
 
 
-        public override void Confirm(ConfirmConfig config) {
-//            var input = new InputDialog {
-//                AcceptButton = okText,
-//                CancelButton = cancelText
-//            };
-//            input
-//                .ShowAsync(title, message)
-//                .ContinueWith(x => {
-//                    // TODO: how to get button click for this scenario?
-//                });
+        public override async void Confirm(ConfirmConfig config) {
+            var input = new InputDialog {
+                AcceptButton = config.OkText,
+                CancelButton = config.CancelText
+            };
+            var choice = await input.ShowAsync(config.Title, config.Message);
+            config.OnConfirm(config.OkText == choice);
         }
 
 
@@ -60,12 +48,13 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Prompt(PromptConfig config) {
-//            var input = new InputDialog {
-//                AcceptButton = okText,
-//                CancelButton = cancelText,
-//                InputText = hint
-//            };
+        public override async void Prompt(PromptConfig config) {
+            var input = new InputDialog {
+                AcceptButton = config.OkText,
+                CancelButton = config.CancelText,
+                InputText = config.Placeholder
+            };
+            var result = await input.ShowAsync(config.Title, config.Message);
 //            input
 //                .ShowAsync(title, message)
 //                .ContinueWith(x => {

@@ -49,7 +49,7 @@ namespace Acr.UserDialogs {
             };
             list.SelectionChanged += (sender, args) => sheet.Dismiss();
             sheet.Content = new ScrollViewer {
-                Content = list  
+                Content = list
             };
             sheet.Dismissed += (sender, args) => {
                 var txt = list.SelectedValue as TextBlock;
@@ -83,20 +83,22 @@ namespace Acr.UserDialogs {
                 LeftButtonContent = config.OkText,
                 RightButtonContent = config.CancelText
             };
-
             var txtUser = new PhoneTextBox {
-                //Hint = config.LoginPlaceholder,
+                PlaceholderText = config.LoginPlaceholder,
                 Text = config.LoginValue ?? String.Empty
             };
-            var txtPass = new PasswordBox();
+            var txtPass = new PhonePasswordBox {
+                PlaceholderText = config.PasswordPlaceholder
+            };
             var stack = new StackPanel();
+
             stack.Children.Add(txtUser);
             stack.Children.Add(txtPass);
             prompt.Content = stack;
 
             prompt.Dismissed += (sender, args) => config.OnResult(new LoginResult(
-                txtUser.Text, 
-                txtPass.Password, 
+                txtUser.Text,
+                txtPass.Password,
                 args.Result == CustomMessageBoxResult.LeftButton
             ));
             this.Dispatch(prompt.Show);
@@ -114,7 +116,7 @@ namespace Acr.UserDialogs {
             var password = new PasswordBox();
             var inputScope = this.GetInputScope(config.InputType);
             var txt = new PhoneTextBox {
-                //Hint = config.Placeholder, 
+                PlaceholderText = config.Placeholder,
                 InputScope = inputScope
             };
             var isSecure = config.InputType == InputType.Password;
@@ -154,7 +156,7 @@ namespace Acr.UserDialogs {
                 Child = wrapper,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            if (onClick != null) { 
+            if (onClick != null) {
                 tb.Tap += (sender, args) => {
                     SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                     popup.IsOpen = false;
