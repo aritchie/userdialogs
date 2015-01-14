@@ -157,6 +157,11 @@ namespace Acr.UserDialogs {
         }
 
 
+        protected override IProgressDialog CreateNetworkIndicator() {
+            return new NetworkIndicator(this.getTopActivity());
+        }
+
+
         protected void SetInputType(TextView txt, InputType inputType) {
             switch (inputType) {
                 case InputType.Email:

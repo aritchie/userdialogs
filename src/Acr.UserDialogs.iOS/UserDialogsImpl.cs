@@ -193,6 +193,11 @@ namespace Acr.UserDialogs {
                 top.PresentViewController(controller, true, null);
             });
         }
+
+
+        protected override IProgressDialog CreateNetworkIndicator() {
+            return new NetworkIndicator();
+        }
     }
 }
 

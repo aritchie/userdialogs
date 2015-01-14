@@ -81,5 +81,10 @@ namespace Acr.UserDialogs {
         protected override IProgressDialog CreateDialogInstance() {
             throw new NotImplementedException();
         }
+
+
+        protected override IProgressDialog CreateNetworkIndicator() {
+            return new NetworkIndicator();
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 
 namespace Acr.UserDialogs {
-    
+
     public class ProgressConfig {
 
         public bool AutoShow { get; set; }

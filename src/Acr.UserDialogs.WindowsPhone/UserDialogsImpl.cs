@@ -181,6 +181,11 @@ namespace Acr.UserDialogs {
         }
 
 
+        protected override IProgressDialog CreateNetworkIndicator() {
+            return new NetworkIndicator();
+        }
+
+
         protected virtual InputScope GetInputScope(InputType inputType) {
             var name = new InputScopeName();
             var scope = new InputScope();
