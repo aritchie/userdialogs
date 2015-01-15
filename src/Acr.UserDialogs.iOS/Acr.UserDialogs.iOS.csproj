@@ -2,9 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DFA982A2-F6F7-4FFD-9F86-A1AF11F7C4A1}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -43,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Acr.UserDialogs.Interfaces\Acr.UserDialogs.Interfaces.csproj">
-      <Project>{961471e0-e428-4735-b882-bd00dac7a1f1}</Project>
+      <Project>{961471E0-E428-4735-B882-BD00DAC7A1F1}</Project>
       <Name>Acr.UserDialogs.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
@@ -58,8 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="btprogresshud">
-      <Visible>False</Visible>
       <Version>1.15</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
   <Import Project="..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems" Label="Shared" Condition="Exists('..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems')" />
