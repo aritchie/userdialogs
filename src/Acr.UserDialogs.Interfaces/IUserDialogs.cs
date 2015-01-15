@@ -14,8 +14,8 @@ namespace Acr.UserDialogs {
         void Login(LoginConfig config);
         //void DateTimePrompt(DateTimePromptConfig config);
         //void DurationPrompt(DurationPromptConfig config);
-        IProgressDialog NetworkIndication(ProgressConfig config);
-        IProgressDialog Progress(ProgressConfig config);
+		IProgressIndicator NetworkIndication(ProgressConfig config);
+        IProgressDialog Progress(ProgressDialogConfig config);
         IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = "Cancel", bool show = true);
         IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = "Cancel", bool show = true);
 

@@ -157,7 +157,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected override IProgressDialog CreateNetworkIndicator() {
+		protected override IProgressIndicator CreateNetworkIndicator() {
             return new NetworkIndicator(this.getTopActivity());
         }
 

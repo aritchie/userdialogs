@@ -14,7 +14,7 @@ namespace Acr.UserDialogs {
         //public abstract void DurationPrompt(DurationPromptConfig config);
         public abstract void Prompt(PromptConfig config);
         public abstract void Toast(string message, int timeoutSeconds = 3, Action onClick = null);
-        protected abstract IProgressDialog CreateNetworkIndicator();
+        protected abstract IProgressIndicator CreateNetworkIndicator();
         protected abstract IProgressDialog CreateDialogInstance();
 
 
@@ -43,7 +43,7 @@ namespace Acr.UserDialogs {
 
 
         public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show) {
-            return this.Progress(new ProgressConfig {
+            return this.Progress(new ProgressDialogConfig {
                 Title = title,
                 AutoShow = show,
                 CancelText = cancelText,
@@ -54,7 +54,7 @@ namespace Acr.UserDialogs {
 
 
         public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show) {
-            return this.Progress(new ProgressConfig {
+			return this.Progress(new ProgressDialogConfig {
                 Title = title,
                 AutoShow = show,
                 CancelText = cancelText,
@@ -64,7 +64,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual IProgressDialog NetworkIndication(ProgressConfig config) {
+		public virtual IProgressIndicator NetworkIndication(ProgressConfig config) {
             var indicator = this.CreateNetworkIndicator();
             indicator.Title = config.Title;
             indicator.IsDeterministic = config.IsDeterministic;
@@ -75,7 +75,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual IProgressDialog Progress(ProgressConfig config) {
+		public virtual IProgressDialog Progress(ProgressDialogConfig config) {
             var dlg = this.CreateDialogInstance();
             dlg.Title = config.Title;
             dlg.IsDeterministic = config.IsDeterministic;
