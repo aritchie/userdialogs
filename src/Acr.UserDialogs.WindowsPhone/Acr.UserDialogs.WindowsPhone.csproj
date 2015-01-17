@@ -88,12 +88,6 @@
     <Compile Include="UserDialogsImpl.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Acr.UserDialogs.Interfaces\Acr.UserDialogs.Interfaces.csproj">
-      <Project>{961471e0-e428-4735-b882-bd00dac7a1f1}</Project>
-      <Name>Acr.UserDialogs.Interfaces</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />

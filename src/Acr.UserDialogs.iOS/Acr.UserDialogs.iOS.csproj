@@ -40,12 +40,6 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Acr.UserDialogs.Interfaces\Acr.UserDialogs.Interfaces.csproj">
-      <Project>{961471E0-E428-4735-B882-BD00DAC7A1F1}</Project>
-      <Name>Acr.UserDialogs.Interfaces</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="BTProgressHUD">
       <HintPath>..\Components\btprogresshud-1.15\lib\ios-unified\BTProgressHUD.dll</HintPath>
     </Reference>

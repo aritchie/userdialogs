@@ -38,7 +38,6 @@ namespace Acr.UserDialogs {
                 else
                     this.percentComplete = value;
 
-                this.percentComplete = value;
                 this.Refresh();
             }
         }

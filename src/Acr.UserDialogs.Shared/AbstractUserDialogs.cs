@@ -64,11 +64,9 @@ namespace Acr.UserDialogs {
         }
 
 
-		public virtual IProgressIndicator NetworkIndication(ProgressConfig config) {
+		public virtual IProgressIndicator NetworkIndication(bool show = true) {
             var indicator = this.CreateNetworkIndicator();
-            indicator.Title = config.Title;
-            indicator.IsDeterministic = config.IsDeterministic;
-            if (config.AutoShow)
+            if (show)
                 indicator.Show();
 
             return indicator;

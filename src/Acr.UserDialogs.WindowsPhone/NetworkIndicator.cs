@@ -5,26 +5,29 @@ using Microsoft.Phone.Shell;
 
 namespace Acr.UserDialogs {
 
-    public class NetworkIndicator : IProgressDialog {
+    public class NetworkIndicator : IProgressIndicator {
         private readonly ProgressIndicator progress = new ProgressIndicator();
 
-        public string Title {
-            get { return this.progress.Text; }
-            set { this.progress.Text = value; }
-        }
 
-
+        private int percentComplete;
         public int PercentComplete {
-            get { return 0; }
+            get { return this.percentComplete; }
             set {
-                this.progress.Value = value;
+                if (this.percentComplete == value)
+                    return;
+
+                this.progress.IsIndeterminate = false;
+                if (value > 100)
+                    this.percentComplete = 100;
+
+                else if (value < 0)
+                    this.percentComplete = 0;
+
+                else
+                    this.percentComplete = value;
+
+                this.progress.Value = this.percentComplete;
             }
-        }
-
-
-        public bool IsDeterministic {
-            get { return !this.progress.IsIndeterminate; }
-            set { this.progress.IsIndeterminate = !value; }
         }
 
 
@@ -35,9 +38,6 @@ namespace Acr.UserDialogs {
                 SystemTray.SetProgressIndicator(Deployment.Current, value ? this.progress : null);
             }
         }
-
-
-        public void SetCancel(Action onCancel, string cancelText = "Cancel") {}
 
 
         public void Show() {

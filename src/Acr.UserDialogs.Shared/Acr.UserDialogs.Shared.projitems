@@ -10,7 +10,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AbstractUserDialogs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ActionSheetConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ActionSheetOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AlertConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConfirmConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InputType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IProgressDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IProgressIndicator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IUserDialogs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoginConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoginResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProgressDialogConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PromptConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PromptResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserDialogs.cs" />
   </ItemGroup>
 </Project>

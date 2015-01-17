@@ -4,7 +4,7 @@ using UIKit;
 
 namespace Acr.UserDialogs {
 
-    public class NetworkIndicator : IProgressDialog {
+    public class NetworkIndicator : IProgressIndicator {
 
         public string Title { get; set; }
         public int PercentComplete { get; set; }
@@ -14,9 +14,6 @@ namespace Acr.UserDialogs {
         public bool IsShowing {
             get { return UIApplication.SharedApplication.NetworkActivityIndicatorVisible; }
         }
-
-
-        public void SetCancel(Action onCancel, string cancelText = "Cancel") {}
 
 
         public void Show() {
