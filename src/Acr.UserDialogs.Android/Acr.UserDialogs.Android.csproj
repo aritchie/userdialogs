@@ -39,9 +39,6 @@
     <Reference Include="AndHUD">
       <HintPath>..\Components\AndHUD-1.3.1\lib\android\AndHUD.dll</HintPath>
     </Reference>
-    <Reference Include="BetterPickers">
-      <HintPath>..\Components\betterpickers-1.5.2.1\lib\android\BetterPickers.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -63,10 +60,6 @@
   <ItemGroup>
     <XamarinComponentReference Include="AndHUD">
       <Version>1.3.1</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="betterpickers">
-      <Version>1.5.2.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

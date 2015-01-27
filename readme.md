@@ -6,7 +6,7 @@ Allows for messagebox style dialogs to be called from your shared/PCL code
 
 To use, simply reference the nuget package in each of your platform projects.
 ANDROID USERS: You must call UserDialogs.Init(Activity)
-MVVMCROSS USERS: In your platform setup.cs, add Mvx.RegisterSingleton<IUserDialogs>(new UserDialogsImpl());
+ALL OTHERS: UserDialogs.Init()
 
 * Action Sheet (multiple choice menu)
 * Alert

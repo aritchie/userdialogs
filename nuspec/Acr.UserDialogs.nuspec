@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.0.0-beta2</version>
+        <version>3.0.0-beta3</version>
         <title>User Dialogs Xplat Plugin for Xamarin and Windows</title>
         <description>
 Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
@@ -90,9 +90,11 @@ Initial Release
 
         <!-- android -->
         <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.dll" target="lib\MonoAndroid10\Acr.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs.Android\bin\Release\AndHUD.dll" target="lib\MonoAndroid10\AndHUD.dll" />
 
         <!-- ios -->
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.dll" target="lib\Xamarin.iOS10\Acr.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
 
         <!-- winphone -->
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.dll" target="lib\wp8\Acr.UserDialogs.dll" />

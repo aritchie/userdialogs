@@ -7,20 +7,18 @@ using Android.App;
 namespace Acr.UserDialogs {
 
     public static class UserDialogs {
-        private static bool init;
 
 
 #if __ANDROID__
         public static void Init(Func<Activity> getActivity) {
-            if (init)
-                return;
-
-            init = true;
-            Instance = new UserDialogsImpl(getActivity);
+            if (Instance == null)
+                Instance = new UserDialogsImpl(getActivity);
         }
 
 
         public static void Init(Activity activity) {
+            if (Instance != null)
+                return;
             var app = Application.Context.ApplicationContext as Application;
             if (app == null)
                 throw new Exception("Application Context is not an application");
@@ -32,12 +30,9 @@ namespace Acr.UserDialogs {
         }
 #else
         public static void Init() {
-            if (init)
-                return;
-
-            init = true;
 #if __PLATFORM__
-            Instance = new UserDialogsImpl();
+            if (Instance == null)
+                Instance = new UserDialogsImpl();
 #endif
         }
 #endif
