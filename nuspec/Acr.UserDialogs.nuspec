@@ -96,6 +96,10 @@ Initial Release
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.dll" target="lib\Xamarin.iOS10\Acr.UserDialogs.dll" />
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
 
+        <!-- ios class -->
+        <file src="..\src\Acr.UserDialogs.iOSClassic\bin\iPhone\Release\Acr.UserDialogs.dll" target="lib\MonoTouch10\Acr.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs.iOSClassic\bin\iPhone\Release\BTProgressHUD.dll" target="lib\MonoTouch10\BTProgressHUD.dll" />
+
         <!-- winphone -->
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.dll" target="lib\wp8\Acr.UserDialogs.dll" />
 

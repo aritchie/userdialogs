@@ -20,13 +20,14 @@ namespace Acr.UserDialogs {
 
 
         public override void Alert(AlertConfig config) {
-            Utils.RequestMainThread(() => 
+            Utils.RequestMainThread(() =>
                 new AlertDialog
                     .Builder(this.getTopActivity())
+                    .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetPositiveButton(config.OkText, (o, e) => {
-                        if (config.OnOk != null) 
+                        if (config.OnOk != null)
                             config.OnOk();
                     })
                     .Show()
@@ -43,6 +44,7 @@ namespace Acr.UserDialogs {
             Utils.RequestMainThread(() => 
                 new AlertDialog
                     .Builder(this.getTopActivity())
+                    .SetCancelable(false)
                     .SetTitle(config.Title)
                     .SetItems(array, (sender, args) => config.Options[args.Which].Action())
                     .Show()
@@ -54,6 +56,7 @@ namespace Acr.UserDialogs {
             Utils.RequestMainThread(() => 
                 new AlertDialog
                     .Builder(this.getTopActivity())
+                    .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetPositiveButton(config.OkText, (o, e) => config.OnConfirm(true))
@@ -88,6 +91,7 @@ namespace Acr.UserDialogs {
             Utils.RequestMainThread(() => 
                 new AlertDialog
                     .Builder(this.getTopActivity())
+                    .SetCancelable(false)
                     .SetTitle(config.Title)
                     .SetMessage(config.Message)
                     .SetView(layout)
@@ -116,6 +120,7 @@ namespace Acr.UserDialogs {
 
                 new AlertDialog
                     .Builder(activity)
+                    .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetView(txt)
@@ -162,7 +167,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected void SetInputType(TextView txt, InputType inputType) {
+        protected virtual void SetInputType(TextView txt, InputType inputType) {
             switch (inputType) {
                 case InputType.Email:
                     txt.InputType = InputTypes.TextVariationEmailAddress;

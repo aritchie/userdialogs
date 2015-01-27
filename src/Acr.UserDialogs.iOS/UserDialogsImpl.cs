@@ -1,8 +1,13 @@
 using System;
 using System.Linq;
 using BigTed;
+#if __UNIFIED__
 using CoreGraphics;
 using UIKit;
+#else
+using MonoTouch.UIKit;
+using MonoTouch.CoreGraphics;
+#endif
 
 
 namespace Acr.UserDialogs {
@@ -42,8 +47,7 @@ namespace Acr.UserDialogs {
                 this.Present(sheet);
             }
             else {
-                var view = Utils.GetTopView();
-
+                var view = this.GetTopView();
                 var action = new UIActionSheet(config.Title);
                 config.Options.ToList().ForEach(x => action.AddButton(x.Text));
 
@@ -137,7 +141,7 @@ namespace Acr.UserDialogs {
                         config.OnResult(result);
                     }));
                     dlg.AddTextField(x => {
-                        Utils.SetInputType(x, config.InputType);
+                        this.SetInputType(x, config.InputType);
                         x.Placeholder = config.Placeholder ?? String.Empty;
                         txt = x;
                     });
@@ -152,7 +156,7 @@ namespace Acr.UserDialogs {
                             : UIAlertViewStyle.PlainTextInput
                     };
                     var txt = dlg.GetTextField(0);
-                    Utils.SetInputType(txt, config.InputType);
+                    this.SetInputType(txt, config.InputType);
                     txt.Placeholder = config.Placeholder;
 
                     dlg.Clicked += (s, e) => {
@@ -174,6 +178,11 @@ namespace Acr.UserDialogs {
         }
 
 
+        protected override IProgressIndicator CreateNetworkIndicator() {
+            return new NetworkIndicator();
+        }
+
+
         protected override IProgressDialog CreateDialogInstance() {
             return new ProgressDialog();
         }
@@ -181,13 +190,17 @@ namespace Acr.UserDialogs {
 
         protected virtual void Present(UIAlertController controller) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                var top = Utils.GetTopViewController();
+                var top = this.GetTopViewController();
                 var po = controller.PopoverPresentationController;
                 if (po != null) {
                     po.SourceView = top.View;
                     var h = (top.View.Frame.Height / 2) - 400;
                     var v = (top.View.Frame.Width / 2) - 300;
+#if __UNIFIED__
                     po.SourceRect = new CGRect(v, h, 0, 0);
+#else
+                    po.SourceRect = new System.Drawing.RectangleF(v, h, 0, 0);
+#endif
                     po.PermittedArrowDirections = UIPopoverArrowDirection.Any;
                 }
                 top.PresentViewController(controller, true, null);
@@ -195,9 +208,60 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected override IProgressIndicator CreateNetworkIndicator() {
-            return new NetworkIndicator();
+        protected virtual void SetInputType(UITextField txt, InputType inputType) {
+            switch (inputType) {
+                case InputType.Email  :
+                    txt.KeyboardType = UIKeyboardType.EmailAddress;
+                    break;
+
+                case InputType.Number: 
+                    txt.KeyboardType = UIKeyboardType.NumberPad;
+                    break;
+
+                case InputType.Password:
+                    txt.SecureTextEntry = true;
+                    break;
+
+                default :
+                    txt.KeyboardType = UIKeyboardType.Default;
+                    break;
+            }
         }
+
+
+        protected virtual UIWindow GetTopWindow() {
+            return UIApplication.SharedApplication
+                .Windows
+                .Reverse()
+                .FirstOrDefault(x => 
+                    x.WindowLevel == UIWindowLevel.Normal && 
+                    !x.Hidden
+                );
+        }
+
+
+        protected virtual UIView GetTopView() {
+            return this.GetTopWindow().Subviews.Last();
+        }
+
+
+        protected virtual UIViewController GetTopViewController() {
+            var root = this.GetTopWindow().RootViewController;
+            var tabs = root as UITabBarController;
+            if (tabs != null)
+                return tabs.SelectedViewController;
+
+            var nav = root as UINavigationController;
+            if (nav != null)
+                return nav.VisibleViewController;
+
+            if (root.PresentedViewController != null)
+                return root.PresentedViewController;
+
+            return root;
+        }
+
+
     }
 }
 
