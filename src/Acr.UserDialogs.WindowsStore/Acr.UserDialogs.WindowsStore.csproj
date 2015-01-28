@@ -100,6 +100,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="NetworkIndicator.cs" />
+    <Compile Include="ProgressDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDialogsImpl.cs" />
   </ItemGroup>

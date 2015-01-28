@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml.Controls;
 using WinRTXamlToolkit.Controls;
 
@@ -64,17 +65,11 @@ namespace Acr.UserDialogs {
 
 
         public override void Toast(string message, int timeoutSeconds = 3, Action onClick = null) {
-//            //http://msdn.microsoft.com/en-us/library/windows/apps/hh465391.aspx
-//            //  TODO: Windows.UI.Notifications.
-
-//            //var toast = new ToastPrompt {
-//            //    Message = message,
-//            //    MillisecondsUntilHidden = timeoutSeconds * 1000
-//            //};
-//            //if (onClick != null) {
-//            //    toast.Tap += (sender, args) => onClick();
-//            //}
-//            //toast.Show();
+ //var toastXmlString = string.Format("<toast><visual version='1'><binding template='ToastText01'><text id='1'>{0}</text></binding></visual></toast>", message);
+ //  var xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
+ //  xmlDoc.LoadXml(toastXmlString);
+ //  var toast = new ToastNotification(xmlDoc);
+ //  ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
 
 
