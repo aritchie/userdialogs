@@ -88,8 +88,8 @@ namespace Acr.UserDialogs {
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            Utils.RequestMainThread(() => 
-                new AlertDialog
+            Utils.RequestMainThread(() => {
+                var dialog = new AlertDialog
                     .Builder(this.getTopActivity())
                     .SetCancelable(false)
                     .SetTitle(config.Title)
@@ -100,9 +100,10 @@ namespace Acr.UserDialogs {
                     )
                     .SetNegativeButton(config.CancelText, (o, e) =>
                         config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))
-                    )
-                    .Show()
-            );
+                    ).Create();
+                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+                dialog.Show();
+            });
         }
 
 
@@ -118,7 +119,7 @@ namespace Acr.UserDialogs {
 
                 this.SetInputType(txt, config.InputType);
 
-                new AlertDialog
+                var dialog = new AlertDialog
                     .Builder(activity)
                     .SetCancelable(false)
                     .SetMessage(config.Message)
@@ -135,8 +136,9 @@ namespace Acr.UserDialogs {
                             Ok = false, 
                             Text = txt.Text
                         })
-                    )
-                    .Show();
+                    ).Create();
+                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+                dialog.Show();
             });
         }
 
