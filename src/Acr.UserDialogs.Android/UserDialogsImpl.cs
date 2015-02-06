@@ -137,6 +137,7 @@ namespace Acr.UserDialogs {
                             Text = txt.Text
                         })
                     ).Create();
+
                 dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
                 dialog.Show();
             });

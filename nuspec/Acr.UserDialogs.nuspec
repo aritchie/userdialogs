@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.0.0-beta4</version>
+        <version>3.0.0</version>
         <title>User Dialogs Xplat Plugin for Xamarin and Windows</title>
         <description>
 Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
@@ -11,11 +11,15 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Confirm
 - Loading
 - Login
+- Network Activity
 - Progress
 - Prompt
 - Toast
 
-Android Users: You must use API14+ and call UserDialogs.Init(Activity) or UserDialogs.Init(Factory Function) from your splash screen
+To initialize:
+iOS AppDelegate: UserDialogs.Init();
+WinPhone8: MainPage or App, UserDialogs.Init();
+Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Function)
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -27,9 +31,9 @@ Android Users: You must use API14+ and call UserDialogs.Init(Activity) or UserDi
             <group targetFramework="wp8">
                 <dependency id="WPtoolkit.Kinnara" version="[4.2014.11.22, 5.0)" />
             </group>
-            <group targetFramework="win81">
+            <!--<group targetFramework="win81">
                 <dependency id="WinRTXamlToolkit.Windows" version="[1.7.9.0, 2.0)" />
-            </group>
+            </group>-->
         </dependencies>
         <releaseNotes>
 3.0
@@ -96,7 +100,7 @@ Initial Release
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.dll" target="lib\Xamarin.iOS10\Acr.UserDialogs.dll" />
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
 
-        <!-- ios class -->
+        <!-- ios classic -->
         <file src="..\src\Acr.UserDialogs.iOSClassic\bin\iPhone\Release\Acr.UserDialogs.dll" target="lib\MonoTouch10\Acr.UserDialogs.dll" />
         <file src="..\src\Acr.UserDialogs.iOSClassic\bin\iPhone\Release\BTProgressHUD.dll" target="lib\MonoTouch10\BTProgressHUD.dll" />
 
