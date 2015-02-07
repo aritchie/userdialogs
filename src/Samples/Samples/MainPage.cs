@@ -13,22 +13,25 @@ namespace Samples {
         public MainPage() {
             this.lblResult = new Label();
 
-            this.Content = new StackLayout {
-                Children = {
-                    this.lblResult,
-                    Btn("Alert", this.Alert),
-                    Btn("ActionSheet", this.ActionSheet),
-                    Btn("Confirm", this.Confirm),
-                    Btn("Login", this.Login),
-                    Btn("Network Activity", this.NetworkActivity),
-                    Btn("Prompt", () => this.PromptCommand(false)),
-                    Btn("Prompt (Secure)", () => this.PromptCommand(true)),
-                    Btn("Progress", this.Progress),
-                    Btn("Progress (No Cancel)", this.ProgressNoCancel),
-                    Btn("Loading", this.Loading),
-                    Btn("Loading (No Cancel)", this.LoadingNoCancel),
-                    Btn("Toast", this.Toast)
-                }
+			this.Content = new ScrollView {
+				Orientation = ScrollOrientation.Vertical,
+				Content = new StackLayout {
+	                Children = {
+	                    this.lblResult,
+	                    Btn("Alert", this.Alert),
+	                    Btn("ActionSheet", this.ActionSheet),
+	                    Btn("Confirm", this.Confirm),
+	                    Btn("Login", this.Login),
+	                    Btn("Network Activity", this.NetworkActivity),
+	                    Btn("Prompt", () => this.PromptCommand(false)),
+	                    Btn("Prompt (Secure)", () => this.PromptCommand(true)),
+	                    Btn("Progress", this.Progress),
+	                    Btn("Progress (No Cancel)", this.ProgressNoCancel),
+	                    Btn("Loading", this.Loading),
+	                    Btn("Loading (No Cancel)", this.LoadingNoCancel),
+	                    Btn("Toast", this.Toast)
+	                }
+				}
             };
         }
 
