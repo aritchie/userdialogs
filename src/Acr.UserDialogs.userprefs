@@ -1,1 +1,8 @@
-﻿<Properties StartupItem="Acr.UserDialogs.Interfaces/Acr.UserDialogs.Interfaces.csproj" />
+﻿<Properties StartupItem="Samples/Samples.iOS/Samples.iOS.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
