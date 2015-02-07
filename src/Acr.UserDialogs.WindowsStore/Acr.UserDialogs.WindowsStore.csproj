@@ -105,8 +105,9 @@
     <Compile Include="UserDialogsImpl.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="WinRTXamlToolkit">
-      <HintPath>..\packages\WinRTXamlToolkit.Windows.1.7.9.0\lib\netcore451\WinRTXamlToolkit.dll</HintPath>
+    <Reference Include="WinRTXamlToolkit, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WinRTXamlToolkit.Windows.1.8.1.0\lib\netcore451\WinRTXamlToolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
