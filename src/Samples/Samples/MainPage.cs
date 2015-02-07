@@ -9,10 +9,9 @@ namespace Samples {
 
     public class MainPage : ContentPage {
         private readonly Label lblResult;
-
+ 
         public MainPage() {
-            this.lblResult = new Label();
-
+			this.lblResult = new Label();
 			this.Content = new ScrollView {
 				Orientation = ScrollOrientation.Vertical,
 				Content = new StackLayout {
@@ -23,8 +22,7 @@ namespace Samples {
 	                    Btn("Confirm", this.Confirm),
 	                    Btn("Login", this.Login),
 	                    Btn("Network Activity", this.NetworkActivity),
-	                    Btn("Prompt", () => this.PromptCommand(false)),
-	                    Btn("Prompt (Secure)", () => this.PromptCommand(true)),
+	                    Btn("Prompt", this.Prompt),
 	                    Btn("Progress", this.Progress),
 	                    Btn("Progress (No Cancel)", this.ProgressNoCancel),
 	                    Btn("Loading", this.Loading),
@@ -85,13 +83,22 @@ namespace Samples {
         }
 
 
-        private async void PromptCommand(bool secure) {
-            var type = (secure ? "secure text" : "text");
-            var msg = String.Format("Enter a {0} value", type.ToUpper());
-            var r = await UserDialogs.Instance.PromptAsync(msg, inputType: InputType.Password);
+		private async void Prompt() {
+			UserDialogs.Instance.ActionSheet(new ActionSheetConfig()
+				.Add("Default", () => this.PromptCommand(InputType.Default))
+				.Add("E-Mail", () => this.PromptCommand(InputType.Email))
+				.Add("Number", () => this.PromptCommand(InputType.Number))
+				.Add("Password", () => this.PromptCommand(InputType.Password))
+			);
+		}
+
+
+		private async void PromptCommand(InputType inputType) {
+			var msg = String.Format("Enter a {0} value", inputType.ToString().ToUpper());
+			var r = await UserDialogs.Instance.PromptAsync(msg, inputType: inputType);
             this.lblResult.Text = r.Ok
                 ? "OK " + r.Text
-                : secure + " Prompt Cancelled";
+                : "Prompt Cancelled";
         }
 
 

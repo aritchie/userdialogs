@@ -2,8 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Allan's iPhone" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Samples/Samples/MainPage.cs">
     <Files>
-      <File FileName="Samples/Samples/App.cs" Line="43" Column="43" />
-      <File FileName="Samples/Samples/MainPage.cs" Line="46" Column="46" />
+      <File FileName="Samples/Samples/MainPage.cs" Line="33" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
