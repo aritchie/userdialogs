@@ -22,10 +22,8 @@
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>7.1</string>
-	<key>CFBundleDisplayName</key>
-	<string>Samples</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.acrapps.samples</string>
+	<string>com.acrapps.userdialogs</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>
@@ -50,5 +48,7 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1</string>
+	<key>CFBundleDisplayName</key>
+	<string>User Dialogs</string>
 </dict>
 </plist>
