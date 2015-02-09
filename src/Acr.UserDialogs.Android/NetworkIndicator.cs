@@ -30,33 +30,28 @@ namespace Acr.UserDialogs {
                 else
                     this.percentComplete = value;
 
-                ;
                 this.activity.SetProgress(this.percentComplete);
             }
         }
 
 
         public bool IsDeterministic { get; set; }
-
-
-        public bool IsShowing {
-            get { return true; }
-        }
+		public bool IsShowing { get; private set; }
 
 
         public void Show() {
-            this.activity.RequestWindowFeature(WindowFeatures.Progress);
-            this.activity.RequestWindowFeature(WindowFeatures.IndeterminateProgress);
             Utils.RequestMainThread(() => {
-                //this.activity.SetProgress(0);
-                //this.activity.SetProgressBarVisibility(true);
-                //this.activity.SetProgressBarIndeterminateVisibility(true);
-                //this.activity.SetProgressBarIndeterminate(true);
+                this.activity.SetProgress(0);
+                this.activity.SetProgressBarVisibility(true);
+				//this.activity.SetProgressBarIndeterminate(true);
+				//this.activity.SetProgressBarIndeterminateVisibility(true);
             });
         }
 
 
         public void Hide() {
+			this.activity.SetProgressBarIndeterminateVisibility(false);
+			this.activity.SetProgressBarVisibility(false);
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.OS;
+using Android.Views;
 
 
 namespace Acr.UserDialogs {
@@ -10,6 +11,8 @@ namespace Acr.UserDialogs {
 
 
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState) {
+			activity.RequestWindowFeature(WindowFeatures.Progress);
+			activity.RequestWindowFeature(WindowFeatures.IndeterminateProgress);
             CurrentTopActivity = activity;
         }
 

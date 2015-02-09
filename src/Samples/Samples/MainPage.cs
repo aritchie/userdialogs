@@ -85,6 +85,7 @@ namespace Samples {
 
 		private async void Prompt() {
 			UserDialogs.Instance.ActionSheet(new ActionSheetConfig()
+				.SetTitle("Choose Type")
 				.Add("Default", () => this.PromptCommand(InputType.Default))
 				.Add("E-Mail", () => this.PromptCommand(InputType.Email))
 				.Add("Number", () => this.PromptCommand(InputType.Number))
