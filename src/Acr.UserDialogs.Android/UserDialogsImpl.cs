@@ -41,14 +41,20 @@ namespace Acr.UserDialogs {
                 .Select(x => x.Text)
                 .ToArray();
 
-            Utils.RequestMainThread(() => 
-                new AlertDialog
-                    .Builder(this.getTopActivity())
-                    .SetCancelable(false)
-                    .SetTitle(config.Title)
-                    .SetItems(array, (sender, args) => config.Options[args.Which].Action())
-                    .Show()
-            );
+			var dlg = new AlertDialog
+				.Builder(this.getTopActivity())
+				.SetCancelable(false)
+				.SetTitle(config.Title);
+
+			dlg.SetItems(array, (sender, args) => config.Options[args.Which].TryExecute());
+
+			if (config.Destructive != null)
+				dlg.SetNegativeButton(config.Destructive.Text, (sender, e) => config.Destructive.TryExecute());
+
+			if (config.Cancel != null)
+				dlg.SetNeutralButton(config.Cancel.Text, (sender, e) => config.Cancel.TryExecute());
+
+			Utils.RequestMainThread(() => dlg.Show());
         }
 
 

@@ -38,12 +38,17 @@ namespace Acr.UserDialogs {
         public override void ActionSheet(ActionSheetConfig config) {
             if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
                 var sheet = UIAlertController.Create(config.Title ?? String.Empty, String.Empty, UIAlertControllerStyle.ActionSheet);
-                config.Options.ToList().ForEach(x => 
-                    sheet.AddAction(UIAlertAction.Create(x.Text, UIAlertActionStyle.Default, y => {
-                        if (x.Action != null)
-                            x.Action();
-                    }))
-                );
+				config
+					.Options
+					.ToList()
+					.ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default));
+					
+				if (config.Destructive != null) 
+					this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
+
+				if (config.Cancel != null) 
+					this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
+
                 this.Present(sheet);
             }
             else {
@@ -51,9 +56,25 @@ namespace Acr.UserDialogs {
                 var action = new UIActionSheet(config.Title);
                 config.Options.ToList().ForEach(x => action.AddButton(x.Text));
 
+				if (config.Destructive != null) {
+					action.AddButton(config.Destructive.Text);
+					action.DestructiveButtonIndex = config.Options.Count + 1;
+				}
+
+				if (config.Cancel != null) {
+					action.AddButton(config.Cancel.Text);
+					action.CancelButtonIndex = config.Options.Count + 2;
+				}
+
                 action.Dismissed += (sender, btn) => {
-                    if ((int)btn.ButtonIndex > -1 && (int)btn.ButtonIndex < config.Options.Count)
-                        config.Options[(int)btn.ButtonIndex].Action();
+					if (btn.ButtonIndex == action.DestructiveButtonIndex) 
+						config.Destructive.TryExecute();
+
+					else if (btn.ButtonIndex == action.CancelButtonIndex)
+						config.Cancel.TryExecute();
+
+					else if (btn.ButtonIndex > -1)
+						config.Options[(int)btn.ButtonIndex].TryExecute();
                 };
                 action.ShowInView(view);
             }
@@ -178,6 +199,11 @@ namespace Acr.UserDialogs {
         }
 
 
+		protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style) {
+			controller.AddAction(UIAlertAction.Create(opt.Text, style, x => opt.TryExecute()));
+		}
+
+
         protected override IProgressIndicator CreateNetworkIndicator() {
             return new NetworkIndicator();
         }
@@ -260,8 +286,6 @@ namespace Acr.UserDialogs {
 
             return root;
         }
-
-
     }
 }
 

@@ -38,6 +38,8 @@ Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Functi
         <releaseNotes>
 3.0
 Bait and switch design
+Add destructive and cancel buttons to actionsheets
+Add network activity dialog
 
 2.3
 Update BTProgressHUD
