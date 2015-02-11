@@ -5,7 +5,7 @@ using Android.Views;
 
 namespace Acr.UserDialogs {
 
-    public class NetworkIndicator : IProgressIndicator {
+    public class NetworkIndicator : INetworkIndicator {
         private readonly Activity activity;
 
 
@@ -14,45 +14,25 @@ namespace Acr.UserDialogs {
         }
 
 
-        private int percentComplete;
-        public int PercentComplete {
-            get { return this.percentComplete; }
-            set {
-                if (this.percentComplete == value)
-                    return;
-
-                if (value > 100)
-                    this.percentComplete = 100;
-
-                else if (value < 0)
-                    this.percentComplete = 0;
-
-                else
-                    this.percentComplete = value;
-
-                this.activity.SetProgress(this.percentComplete);
-            }
-        }
-
-
-        public bool IsDeterministic { get; set; }
 		public bool IsShowing { get; private set; }
 
 
         public void Show() {
-            Utils.RequestMainThread(() => {
-                this.activity.SetProgress(0);
-                this.activity.SetProgressBarVisibility(true);
-				//this.activity.SetProgressBarIndeterminate(true);
-				//this.activity.SetProgressBarIndeterminateVisibility(true);
-            });
+			Utils.RequestMainThread(() => {
+				this.IsShowing = true;
+				this.activity.SetProgressBarVisibility(true);
+				this.activity.SetProgressBarIndeterminateVisibility(true);
+			});
         }
 
 
         public void Hide() {
-			this.activity.SetProgressBarIndeterminateVisibility(false);
-			this.activity.SetProgressBarVisibility(false);
-        }
+			Utils.RequestMainThread(() => {
+				this.IsShowing = false;
+				this.activity.SetProgressBarIndeterminateVisibility(false);
+				this.activity.SetProgressBarVisibility(false);
+			});
+		}
 
 
         public void Dispose() {
@@ -60,35 +40,3 @@ namespace Acr.UserDialogs {
         }
     }
 }
-
-/*
-public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-    requestWindowFeature(Window.FEATURE_PROGRESS);
-    currentURL = BrowserActivity.this.getIntent().getExtras().getString("currentURL");
-
-    setContentView(R.layout.browser);
-
-    setProgressBarIndeterminateVisibility(true);
-    setProgressBarVisibility(true);
-
-    try {
-        mWebView = (WebView) findViewById(R.id.webview);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new browserActivityClient());
-
-        mWebView.setWebChromeClient(new WebChromeClient() {
-           public void onProgressChanged(WebView view, int progress) {
-               setProgress(progress * 100);
-              if(progress == 100) {
-                 setProgressBarIndeterminateVisibility(false);
-                 setProgressBarVisibility(false);
-              }
-           }
-        });
-        mWebView.loadUrl(currentURL);
-    } catch (Exception e) {
-        Log.e(getClass().getSimpleName(), "Browser: " + e.getMessage());
-        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-    } */

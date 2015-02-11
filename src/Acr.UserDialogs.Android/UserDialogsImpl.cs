@@ -26,10 +26,7 @@ namespace Acr.UserDialogs {
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-                    .SetPositiveButton(config.OkText, (o, e) => {
-                        if (config.OnOk != null)
-                            config.OnOk();
-                    })
+					.SetPositiveButton(config.OkText, (o, e) => config.OnOk.TryExecute())
                     .Show()
             );
         }
@@ -46,13 +43,13 @@ namespace Acr.UserDialogs {
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-			dlg.SetItems(array, (sender, args) => config.Options[args.Which].TryExecute());
+			dlg.SetItems(array, (sender, args) => config.Options[args.Which].Action.TryExecute());
 
 			if (config.Destructive != null)
-				dlg.SetNegativeButton(config.Destructive.Text, (sender, e) => config.Destructive.TryExecute());
+				dlg.SetNegativeButton(config.Destructive.Text, (sender, e) => config.Destructive.Action.TryExecute());
 
 			if (config.Cancel != null)
-				dlg.SetNeutralButton(config.Cancel.Text, (sender, e) => config.Cancel.TryExecute());
+				dlg.SetNeutralButton(config.Cancel.Text, (sender, e) => config.Cancel.Action.TryExecute());
 
 			Utils.RequestMainThread(() => dlg.Show());
         }
@@ -106,7 +103,9 @@ namespace Acr.UserDialogs {
                     )
                     .SetNegativeButton(config.CancelText, (o, e) =>
                         config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))
-                    ).Create();
+                    )
+					.Create();
+
                 dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
                 dialog.Show();
             });
@@ -171,7 +170,7 @@ namespace Acr.UserDialogs {
         }
 
 
-		protected override IProgressIndicator CreateNetworkIndicator() {
+		protected override INetworkIndicator CreateNetworkIndicator() {
             return new NetworkIndicator(this.getTopActivity());
         }
 

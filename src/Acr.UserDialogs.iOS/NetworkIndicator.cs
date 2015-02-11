@@ -8,11 +8,9 @@ using MonoTouch.UIKit;
 
 namespace Acr.UserDialogs {
 
-    public class NetworkIndicator : IProgressIndicator {
+    public class NetworkIndicator : INetworkIndicator {
 
         public string Title { get; set; }
-        public int PercentComplete { get; set; }
-        public bool IsDeterministic { get; set; }
 
 
         public bool IsShowing {

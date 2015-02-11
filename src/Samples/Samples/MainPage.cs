@@ -79,14 +79,14 @@ namespace Samples {
 
 
         private async void NetworkActivity() {
-            using (UserDialogs.Instance.NetworkIndication())
-                await Task.Delay(TimeSpan.FromSeconds(3));
+			using (UserDialogs.Instance.NetworkIndication())
+				await Task.Delay(TimeSpan.FromSeconds(3));
 
             this.lblResult.Text = "Done network activity";
         }
 
 
-		private async void Prompt() {
+		private void Prompt() {
 			UserDialogs.Instance.ActionSheet(new ActionSheetConfig()
 				.SetTitle("Choose Type")
 				.Add("Default", () => this.PromptCommand(InputType.Default))

@@ -204,7 +204,7 @@ namespace Acr.UserDialogs {
 		}
 
 
-        protected override IProgressIndicator CreateNetworkIndicator() {
+        protected override INetworkIndicator CreateNetworkIndicator() {
             return new NetworkIndicator();
         }
 

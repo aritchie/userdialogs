@@ -7,11 +7,7 @@ namespace Samples {
     public class App : Application {
     
         public App() {
-			this.MainPage = new Samples.MainPage();
+			this.MainPage = new NavigationPage(new Samples.MainPage());
         }
-
-        protected override void OnStart() {}
-        protected override void OnSleep() {}
-        protected override void OnResume() {}
     }
 }

@@ -39,5 +39,11 @@ namespace Acr.UserDialogs {
 
 
         public static IUserDialogs Instance { get; set; }
+
+
+		internal static void TryExecute(this Action action) {
+			if (action != null)
+				action();
+		}
     }
 }

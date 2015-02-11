@@ -10,11 +10,9 @@ namespace Acr.UserDialogs {
         public abstract void ActionSheet(ActionSheetConfig config);
         public abstract void Confirm(ConfirmConfig config);
         public abstract void Login(LoginConfig config);
-        //public abstract void DateTimePrompt(DateTimePromptConfig config);
-        //public abstract void DurationPrompt(DurationPromptConfig config);
         public abstract void Prompt(PromptConfig config);
         public abstract void Toast(string message, int timeoutSeconds = 3, Action onClick = null);
-        protected abstract IProgressIndicator CreateNetworkIndicator();
+		protected abstract INetworkIndicator CreateNetworkIndicator();
         protected abstract IProgressDialog CreateDialogInstance();
 
 
@@ -64,7 +62,7 @@ namespace Acr.UserDialogs {
         }
 
 
-		public virtual IProgressIndicator NetworkIndication(bool show = true) {
+		public virtual INetworkIndicator NetworkIndication(bool show = true) {
             var indicator = this.CreateNetworkIndicator();
             if (show)
                 indicator.Show();

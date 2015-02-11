@@ -1,8 +1,8 @@
 ﻿ACR User Dialogs for Xamarin and Windows
 =========================================
 
-##User Dialogs
-Allows for messagebox style dialogs to be called from your shared/PCL code
+A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
+Supports Android, iOS, Windows Phone 8, and Windows Store  
 
 To use, simply reference the nuget package in each of your platform projects.
 ANDROID USERS: You must call UserDialogs.Init(Activity)
