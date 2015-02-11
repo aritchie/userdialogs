@@ -26,7 +26,7 @@ Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Functi
         <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
         <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <tags>xamarin xam.pcl dialogs</tags>
+        <tags>windows xamarin xam.pcl dialogs</tags>
         <dependencies>
             <group targetFramework="wp8">
                 <dependency id="WPtoolkit.Kinnara" version="[4.2014.11.22, 5.0)" />
