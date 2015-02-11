@@ -3,7 +3,7 @@
     <metadata>
         <id>Acr.UserDialogs</id>
         <version>3.0.0</version>
-        <title>User Dialogs Xplat Plugin for Xamarin and Windows</title>
+        <title>ACR User Dialogs Xplat Plugin for Xamarin and Windows</title>
         <description>
 Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Action Sheet (multiple choice menu)

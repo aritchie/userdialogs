@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using Windows.Phone.Speech.VoiceCommands;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -22,8 +23,7 @@ namespace Acr.UserDialogs {
                     LeftButtonContent = config.OkText,
                     IsRightButtonEnabled = false
                 };
-                if (config.OnOk != null)
-                    alert.Dismissed += (sender, args) => config.OnOk();
+                alert.Dismissed += (sender, args) => config.OnOk.TryExecute();
 
                 alert.Show();
             });
@@ -32,10 +32,23 @@ namespace Acr.UserDialogs {
 
         public override void ActionSheet(ActionSheetConfig config) {
             var sheet = new CustomMessageBox {
-                Caption = config.Title,
-                IsLeftButtonEnabled = false,
-                IsRightButtonEnabled = false
+                Caption = config.Title
             };
+            if (config.Cancel != null) {
+                sheet.IsRightButtonEnabled = true;
+                sheet.RightButtonContent = this.CreateButton(config.Cancel.Text, () => {
+                    sheet.Dismiss();
+                    config.Cancel.Action.TryExecute();
+                });
+            }
+            if (config.Destructive != null) {
+                sheet.IsLeftButtonEnabled = true;
+                sheet.LeftButtonContent = this.CreateButton(config.Destructive.Text, () => {
+                    sheet.Dismiss();
+                    config.Destructive.Action.TryExecute();
+                });
+            }
+
             var list = new ListBox {
                 FontSize = 36,
                 Margin = new Thickness(12.0),
@@ -181,8 +194,15 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected override IProgressIndicator CreateNetworkIndicator() {
+        protected override INetworkIndicator CreateNetworkIndicator() {
             return new NetworkIndicator();
+        }
+
+
+        protected virtual Button CreateButton(string text, Action action) {
+            var btn = new Button { Content = text };
+            btn.Click += (sender, args) => action();
+            return btn;
         }
 
 

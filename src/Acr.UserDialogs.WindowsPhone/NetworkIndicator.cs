@@ -5,30 +5,8 @@ using Microsoft.Phone.Shell;
 
 namespace Acr.UserDialogs {
 
-    public class NetworkIndicator : IProgressIndicator {
+    public class NetworkIndicator : INetworkIndicator {
         private readonly ProgressIndicator progress = new ProgressIndicator();
-
-
-        private int percentComplete;
-        public int PercentComplete {
-            get { return this.percentComplete; }
-            set {
-                if (this.percentComplete == value)
-                    return;
-
-                this.progress.IsIndeterminate = false;
-                if (value > 100)
-                    this.percentComplete = 100;
-
-                else if (value < 0)
-                    this.percentComplete = 0;
-
-                else
-                    this.percentComplete = value;
-
-                this.progress.Value = this.percentComplete;
-            }
-        }
 
 
         public bool IsShowing {

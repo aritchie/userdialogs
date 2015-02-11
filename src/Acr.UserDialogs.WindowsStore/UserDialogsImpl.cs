@@ -19,7 +19,9 @@ namespace Acr.UserDialogs {
 
         public override async void ActionSheet(ActionSheetConfig config) {
             var input = new InputDialog {
-                ButtonsPanelOrientation = Orientation.Vertical
+                ButtonsPanelOrientation = Orientation.Vertical,
+                AcceptButton = config.Destructive == null ? null : config.Destructive.Text,
+                CancelButton = config.Cancel == null ? null : config.Cancel.Text
             };
 
             var buttons = config
@@ -78,7 +80,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected override IProgressIndicator CreateNetworkIndicator() {
+        protected override INetworkIndicator CreateNetworkIndicator() {
             return new NetworkIndicator();
         }
     }
