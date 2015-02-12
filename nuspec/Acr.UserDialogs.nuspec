@@ -4,6 +4,7 @@
         <id>Acr.UserDialogs</id>
         <version>3.0.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
+        <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
 Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Action Sheet (multiple choice menu)
