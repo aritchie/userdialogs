@@ -23,6 +23,7 @@ namespace Samples {
 	                    Btn("Login", this.Login),
 	                    Btn("Network Activity", this.NetworkActivity),
 	                    Btn("Prompt", this.Prompt),
+						Btn("Prompt /w Text/No Cancel", this.PromptWithTextAndNoCancel),
 	                    Btn("Progress", this.Progress),
 	                    Btn("Progress (No Cancel)", this.ProgressNoCancel),
 	                    Btn("Loading", this.Loading),
@@ -94,6 +95,16 @@ namespace Samples {
 				.Add("Number", () => this.PromptCommand(InputType.Number))
 				.Add("Password", () => this.PromptCommand(InputType.Password))
 			);
+		}
+
+
+		private async void PromptWithTextAndNoCancel() {
+			var result = await UserDialogs.Instance.PromptAsync(new PromptConfig {
+				Title = "PromptWithTextAndNoCancel",
+				Text = "Existing Text",
+				IsCancellable = false
+			});
+			this.lblResult.Text = String.Format("Result - {0}", result.Text);
 		}
 
 

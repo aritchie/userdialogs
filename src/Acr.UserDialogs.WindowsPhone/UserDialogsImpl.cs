@@ -122,9 +122,10 @@ namespace Acr.UserDialogs {
             var prompt = new CustomMessageBox {
                 Caption = config.Title,
                 Message = config.Message,
-                LeftButtonContent = config.OkText,
-                RightButtonContent = config.CancelText
+                LeftButtonContent = config.OkText
             };
+			if (config.IsCancellable) 
+				prompt.RightButtonContent = config.CancelText;
 
             var password = new PasswordBox();
             var inputScope = this.GetInputScope(config.InputType);
@@ -132,6 +133,9 @@ namespace Acr.UserDialogs {
                 PlaceholderText = config.Placeholder,
                 InputScope = inputScope
             };
+			if (config.Text != null)
+				txt.Text = config.Text;
+
             var isSecure = config.InputType == InputType.Password;
             if (isSecure)
                 prompt.Content = password;

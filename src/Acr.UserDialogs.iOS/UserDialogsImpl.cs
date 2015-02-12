@@ -36,48 +36,10 @@ namespace Acr.UserDialogs {
 
 
         public override void ActionSheet(ActionSheetConfig config) {
-            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
-                var sheet = UIAlertController.Create(config.Title ?? String.Empty, String.Empty, UIAlertControllerStyle.ActionSheet);
-				config
-					.Options
-					.ToList()
-					.ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default));
-					
-				if (config.Destructive != null) 
-					this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
-
-				if (config.Cancel != null) 
-					this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
-
-                this.Present(sheet);
-            }
-            else {
-                var view = this.GetTopView();
-                var action = new UIActionSheet(config.Title);
-                config.Options.ToList().ForEach(x => action.AddButton(x.Text));
-
-				if (config.Destructive != null) {
-					action.AddButton(config.Destructive.Text);
-					action.DestructiveButtonIndex = config.Options.Count + 1;
-				}
-
-				if (config.Cancel != null) {
-					action.AddButton(config.Cancel.Text);
-					action.CancelButtonIndex = config.Options.Count + 2;
-				}
-
-                action.Dismissed += (sender, btn) => {
-					if (btn.ButtonIndex == action.DestructiveButtonIndex) 
-						config.Destructive.TryExecute();
-
-					else if (btn.ButtonIndex == action.CancelButtonIndex)
-						config.Cancel.TryExecute();
-
-					else if (btn.ButtonIndex > -1)
-						config.Options[(int)btn.ButtonIndex].TryExecute();
-                };
-                action.ShowInView(view);
-            }
+			if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+				this.ShowIOS8ActionSheet(config);
+			else
+				this.ShowIOS7ActionSheet(config);
         }
 
 
@@ -145,48 +107,10 @@ namespace Acr.UserDialogs {
 
         public override void Prompt(PromptConfig config) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                var result = new PromptResult();
-
-                if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
-                    var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                    UITextField txt = null;
-
-                    dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => {
-                        result.Ok = true;
-                        result.Text = txt.Text.Trim();
-                        config.OnResult(result);
-                    }));
-                    dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => {
-                        result.Ok = false;
-                        result.Text = txt.Text.Trim();
-                        config.OnResult(result);
-                    }));
-                    dlg.AddTextField(x => {
-                        this.SetInputType(x, config.InputType);
-                        x.Placeholder = config.Placeholder ?? String.Empty;
-                        txt = x;
-                    });
-                    this.Present(dlg);
-                }
-                else {
-                    var isPassword = config.InputType == InputType.Password;
-
-                    var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, config.CancelText, config.OkText) {
-                        AlertViewStyle = isPassword
-                            ? UIAlertViewStyle.SecureTextInput
-                            : UIAlertViewStyle.PlainTextInput
-                    };
-                    var txt = dlg.GetTextField(0);
-                    this.SetInputType(txt, config.InputType);
-                    txt.Placeholder = config.Placeholder;
-
-                    dlg.Clicked += (s, e) => {
-                        result.Ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
-                        result.Text = txt.Text.Trim();
-                        config.OnResult(result);
-                    };
-                    dlg.Show();
-                }
+				if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) 
+					this.ShowIOS8Prompt(config);
+                else 
+					this.ShowIOS7Prompt(config);
             });
         }
 
@@ -212,6 +136,109 @@ namespace Acr.UserDialogs {
         protected override IProgressDialog CreateDialogInstance() {
             return new ProgressDialog();
         }
+
+
+		protected virtual void ShowIOS7ActionSheet(ActionSheetConfig config) {
+			var view = this.GetTopView();
+			var action = new UIActionSheet(config.Title);
+			config.Options.ToList().ForEach(x => action.AddButton(x.Text));
+			var index = config.Options.Count - 1;
+
+			if (config.Destructive != null) {
+				index++;
+				action.AddButton(config.Destructive.Text);
+				action.DestructiveButtonIndex = index;
+			}
+
+			if (config.Cancel != null) {
+				index++;
+				action.AddButton(config.Cancel.Text);
+				action.CancelButtonIndex = index;
+			}
+
+			action.Dismissed += (sender, btn) => {
+				if (btn.ButtonIndex == action.DestructiveButtonIndex) 
+					config.Destructive.TryExecute();
+
+				else if (btn.ButtonIndex == action.CancelButtonIndex)
+					config.Cancel.TryExecute();
+
+				else if (btn.ButtonIndex > -1)
+					config.Options[(int)btn.ButtonIndex].TryExecute();
+			};
+			action.ShowInView(view);
+		}
+
+
+		protected virtual void ShowIOS8ActionSheet(ActionSheetConfig config) {
+			var sheet = UIAlertController.Create(config.Title ?? String.Empty, String.Empty, UIAlertControllerStyle.ActionSheet);
+			config
+				.Options
+				.ToList()
+				.ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default));
+
+			if (config.Destructive != null)
+				this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
+
+			if (config.Cancel != null)
+				this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
+
+			this.Present(sheet);
+		}
+
+
+		protected virtual void ShowIOS7Prompt(PromptConfig config) {
+			var result = new PromptResult();
+			var isPassword = config.InputType == InputType.Password;
+			var cancelText = config.IsCancellable ? config.CancelText : null;
+
+			var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, cancelText, config.OkText) {
+				AlertViewStyle = isPassword
+					? UIAlertViewStyle.SecureTextInput
+					: UIAlertViewStyle.PlainTextInput
+			};
+			var txt = dlg.GetTextField(0);
+			this.SetInputType(txt, config.InputType);
+			txt.Placeholder = config.Placeholder;
+			if (config.Text != null)
+				txt.Text = config.Text;
+
+			dlg.Clicked += (s, e) => {
+				result.Ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
+				result.Text = txt.Text.Trim();
+				config.OnResult(result);
+			};
+			dlg.Show();
+		}
+
+
+		protected virtual void ShowIOS8Prompt(PromptConfig config) {
+			var result = new PromptResult();
+			var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+			UITextField txt = null;
+
+			dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => {
+				result.Ok = true;
+				result.Text = txt.Text.Trim();
+				config.OnResult(result);
+			}));
+			if (config.IsCancellable) {
+				dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => {
+					result.Ok = false;
+					result.Text = txt.Text.Trim();
+					config.OnResult(result);
+				}));
+			}
+			dlg.AddTextField(x => {
+				this.SetInputType(x, config.InputType);
+				x.Placeholder = config.Placeholder ?? String.Empty;
+				if (config.Text != null)
+					x.Text = config.Text;
+
+				txt = x;
+			});
+			this.Present(dlg);
+		}
 
 
         protected virtual void Present(UIAlertController controller) {
