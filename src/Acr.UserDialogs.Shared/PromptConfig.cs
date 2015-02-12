@@ -8,7 +8,9 @@ namespace Acr.UserDialogs {
         public string Message { get; set; }
         public Action<PromptResult> OnResult { get; set; }
 
-        // TODO: can cancel
+		public bool IsCancellable { get; set; }
+		public string Text { get; set; }
+
         public string OkText { get; set; }
         public string CancelText { get; set; }
         public string Placeholder { get; set; }
@@ -18,15 +20,8 @@ namespace Acr.UserDialogs {
         public PromptConfig() {
             this.OkText = "OK";
             this.CancelText = "Cancel";
+			this.IsCancellable = true;
         }
-
-
-        //public static PromptConfig Create(string message, Action<PromptResult> onResult) {
-        //    return new PromptConfig {
-        //        Message = message,
-        //        OnResult = onResult
-        //    };
-        //}
 
 
         public PromptConfig SetTitle(string title) {
@@ -41,13 +36,26 @@ namespace Acr.UserDialogs {
         }
 
 
+		public PromptConfig SetCancellable(bool cancel) {
+			this.IsCancellable = cancel;
+			return this;
+		}
+
+
         public PromptConfig SetOkText(string text) {
             this.OkText = text;
             return this;
         }
 
 
+		public PromptConfig SetText(string text) {
+			this.Text = text;
+			return this;
+		}
+
+
         public PromptConfig SetCancelText(string cancelText) {
+			this.IsCancellable = true;
             this.CancelText = cancelText;
             return this;
         }

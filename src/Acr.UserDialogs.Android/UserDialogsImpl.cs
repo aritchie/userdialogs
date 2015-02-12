@@ -119,12 +119,15 @@ namespace Acr.UserDialogs {
                 var txt = new EditText(activity) {
                     Hint = config.Placeholder
                 };
+				if (config.Text != null)
+					txt.Text = config.Text;
+
                 if (config.InputType != InputType.Default) 
                     txt.SetMaxLines(1);
 
                 this.SetInputType(txt, config.InputType);
 
-                var dialog = new AlertDialog
+                var builder = new AlertDialog
                     .Builder(activity)
                     .SetCancelable(false)
                     .SetMessage(config.Message)
@@ -135,14 +138,18 @@ namespace Acr.UserDialogs {
                             Ok = true, 
                             Text = txt.Text
                         })
-                    )
-                    .SetNegativeButton(config.CancelText, (o, e) => 
+					);
+
+				if (config.IsCancellable) {
+					builder.SetNegativeButton(config.CancelText, (o, e) => 
                         config.OnResult(new PromptResult {
                             Ok = false, 
                             Text = txt.Text
                         })
-                    ).Create();
+					);
+				}
 
+				var dialog = builder.Create();
                 dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
                 dialog.Show();
             });
