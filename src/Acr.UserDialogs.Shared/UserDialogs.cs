@@ -19,6 +19,7 @@ namespace Acr.UserDialogs {
         public static void Init(Activity activity) {
             if (Instance != null)
                 return;
+
             var app = Application.Context.ApplicationContext as Application;
             if (app == null)
                 throw new Exception("Application Context is not an application");
@@ -28,12 +29,10 @@ namespace Acr.UserDialogs {
 
             Instance = new UserDialogsImpl(() => ActivityMonitor.CurrentTopActivity);
         }
-#else
+#elif __PLATFORM__
         public static void Init() {
-#if __PLATFORM__
             if (Instance == null)
                 Instance = new UserDialogsImpl();
-#endif
         }
 #endif
 
