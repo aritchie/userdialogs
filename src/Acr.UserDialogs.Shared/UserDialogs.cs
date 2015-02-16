@@ -34,6 +34,10 @@ namespace Acr.UserDialogs {
             if (Instance == null)
                 Instance = new UserDialogsImpl();
         }
+#else
+        [Obsolete("You must call the Init() method from the platform project, not this PCL version")]
+        public static void Init() {
+        }
 #endif
 
 

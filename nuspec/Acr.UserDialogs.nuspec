@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.0.1</version>
+        <version>3.0.2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -12,7 +12,6 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Confirm
 - Loading
 - Login
-- Network Activity
 - Progress
 - Prompt
 - Toast
@@ -37,6 +36,9 @@ Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Functi
             </group>-->
         </dependencies>
         <releaseNotes>
+3.0.2
+Remove network activity dialog.  Too many issues with Android
+
 3.0.1
 Add ability to remove cancel from prompt
 Add ability to have existing text in prompt
