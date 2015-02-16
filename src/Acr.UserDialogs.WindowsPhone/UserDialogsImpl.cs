@@ -198,11 +198,6 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected override INetworkIndicator CreateNetworkIndicator() {
-            return new NetworkIndicator();
-        }
-
-
         protected virtual Button CreateButton(string text, Action action) {
             var btn = new Button { Content = text };
             btn.Click += (sender, args) => action();

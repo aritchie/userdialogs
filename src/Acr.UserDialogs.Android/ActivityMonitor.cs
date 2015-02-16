@@ -11,8 +11,6 @@ namespace Acr.UserDialogs {
 
 
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState) {
-			activity.RequestWindowFeature(WindowFeatures.Progress);
-			activity.RequestWindowFeature(WindowFeatures.IndeterminateProgress);
             CurrentTopActivity = activity;
         }
 

@@ -12,7 +12,6 @@ namespace Acr.UserDialogs {
         public abstract void Login(LoginConfig config);
         public abstract void Prompt(PromptConfig config);
         public abstract void Toast(string message, int timeoutSeconds = 3, Action onClick = null);
-		protected abstract INetworkIndicator CreateNetworkIndicator();
         protected abstract IProgressDialog CreateDialogInstance();
 
 
@@ -59,15 +58,6 @@ namespace Acr.UserDialogs {
                 IsDeterministic = true,
                 OnCancel = onCancel
             });
-        }
-
-
-		public virtual INetworkIndicator NetworkIndication(bool show = true) {
-            var indicator = this.CreateNetworkIndicator();
-            if (show)
-                indicator.Show();
-
-            return indicator;
         }
 
 

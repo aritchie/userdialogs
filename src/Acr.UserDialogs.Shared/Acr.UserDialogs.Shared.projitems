@@ -24,6 +24,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)PromptResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserDialogs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IProgressDialog.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)INetworkIndicator.cs" />
   </ItemGroup>
 </Project>

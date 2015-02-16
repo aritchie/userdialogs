@@ -21,7 +21,6 @@ namespace Samples {
 	                    Btn("ActionSheet", this.ActionSheet),
 	                    Btn("Confirm", this.Confirm),
 	                    Btn("Login", this.Login),
-	                    Btn("Network Activity", this.NetworkActivity),
 	                    Btn("Prompt", this.Prompt),
 						Btn("Prompt /w Text/No Cancel", this.PromptWithTextAndNoCancel),
 	                    Btn("Progress", this.Progress),
@@ -76,14 +75,6 @@ namespace Samples {
                 r.LoginText,
                 r.Password
             );
-        }
-
-
-        private async void NetworkActivity() {
-			using (UserDialogs.Instance.NetworkIndication())
-				await Task.Delay(TimeSpan.FromSeconds(3));
-
-            this.lblResult.Text = "Done network activity";
         }
 
 

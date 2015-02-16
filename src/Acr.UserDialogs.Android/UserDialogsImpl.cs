@@ -177,11 +177,6 @@ namespace Acr.UserDialogs {
         }
 
 
-		protected override INetworkIndicator CreateNetworkIndicator() {
-            return new NetworkIndicator(this.getTopActivity());
-        }
-
-
         protected virtual void SetInputType(TextView txt, InputType inputType) {
             switch (inputType) {
                 case InputType.Email:
