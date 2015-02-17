@@ -262,6 +262,9 @@ namespace Acr.UserDialogs {
                     txt.KeyboardType = UIKeyboardType.EmailAddress;
                     break;
 
+				case InputType.Name:
+					break;
+
                 case InputType.Number: 
                     txt.KeyboardType = UIKeyboardType.NumberPad;
                     break;
@@ -270,9 +273,13 @@ namespace Acr.UserDialogs {
                     txt.SecureTextEntry = true;
                     break;
 
-                default :
-                    txt.KeyboardType = UIKeyboardType.Default;
-                    break;
+				case InputType.Phone:
+					txt.KeyboardType = UIKeyboardType.PhonePad;
+					break;
+
+				case InputType.Url:
+					txt.KeyboardType = UIKeyboardType.Url;
+					break;
             }
         }
 
@@ -297,7 +304,7 @@ namespace Acr.UserDialogs {
             var root = this.GetTopWindow().RootViewController;
             var tabs = root as UITabBarController;
             if (tabs != null)
-                return tabs.SelectedViewController;
+				return tabs.PresentedViewController ?? tabs.SelectedViewController;
 
             var nav = root as UINavigationController;
             if (nav != null)

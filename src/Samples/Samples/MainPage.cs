@@ -21,6 +21,7 @@ namespace Samples {
 	                    Btn("ActionSheet", this.ActionSheet),
 	                    Btn("Confirm", this.Confirm),
 	                    Btn("Login", this.Login),
+						Btn("Manual Loading", this.ManualLoading),
 	                    Btn("Prompt", this.Prompt),
 						Btn("Prompt /w Text/No Cancel", this.PromptWithTextAndNoCancel),
 	                    Btn("Progress", this.Progress),
@@ -161,5 +162,12 @@ namespace Samples {
                 this.lblResult.Text = "Toast Pressed";
             });
         }
+
+
+		private async void ManualLoading() {
+			UserDialogs.Instance.ShowLoading("Manual Loading");
+			await Task.Delay(3000);
+			UserDialogs.Instance.HideLoading();
+		}
     }
 }

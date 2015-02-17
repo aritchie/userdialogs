@@ -2,7 +2,10 @@
     public enum InputType {
         Default,
         Email,
+		Name,
         Number,
-        Password
+        Password,
+		Phone,
+		Url
     }
 }

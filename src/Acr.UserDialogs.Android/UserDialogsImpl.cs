@@ -179,9 +179,14 @@ namespace Acr.UserDialogs {
 
         protected virtual void SetInputType(TextView txt, InputType inputType) {
             switch (inputType) {
+
                 case InputType.Email:
                     txt.InputType = InputTypes.TextVariationEmailAddress;
                     break;
+
+				case InputType.Name:
+					txt.InputType = InputTypes.TextVariationPersonName;
+					break;
 
                 case InputType.Number:
                     txt.InputType = InputTypes.ClassNumber;
@@ -191,6 +196,14 @@ namespace Acr.UserDialogs {
                     txt.TransformationMethod = PasswordTransformationMethod.Instance;
                     txt.InputType = InputTypes.ClassText | InputTypes.TextVariationPassword;
                     break;
+
+				case InputType.Phone:
+					txt.InputType = InputTypes.ClassPhone;
+					break;
+
+				case InputType.Url:
+					txt.InputType = InputTypes.TextVariationUri;
+					break;
             }
         }
     }

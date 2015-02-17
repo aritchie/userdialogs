@@ -218,7 +218,7 @@ namespace Acr.UserDialogs {
                     name.NameValue = InputScopeNameValue.Number;
                     break;
 
-                default:
+				default:
                     name.NameValue = InputScopeNameValue.Default;
                     break;
             }
