@@ -84,8 +84,11 @@ namespace Samples {
 				.SetTitle("Choose Type")
 				.Add("Default", () => this.PromptCommand(InputType.Default))
 				.Add("E-Mail", () => this.PromptCommand(InputType.Email))
+                .Add("Name", () => this.PromptCommand(InputType.Name))
 				.Add("Number", () => this.PromptCommand(InputType.Number))
 				.Add("Password", () => this.PromptCommand(InputType.Password))
+                .Add("Phone", () => this.PromptCommand(InputType.Phone))
+                .Add("Url", () => this.PromptCommand(InputType.Url))
 			);
 		}
 

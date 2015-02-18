@@ -214,8 +214,20 @@ namespace Acr.UserDialogs {
                     name.NameValue = InputScopeNameValue.EmailNameOrAddress;
                     break;
 
+                case InputType.Name:
+                    name.NameValue = InputScopeNameValue.PersonalFullName;
+                    break;
+
                 case InputType.Number:
                     name.NameValue = InputScopeNameValue.Number;
+                    break;
+
+                case InputType.Phone:
+                    name.NameValue = InputScopeNameValue.NameOrPhoneNumber;
+                    break;
+
+                case InputType.Url:
+                    name.NameValue = InputScopeNameValue.Url;
                     break;
 
 				default:
