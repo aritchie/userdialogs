@@ -29,13 +29,17 @@ Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Functi
         <tags>windows xamarin xam.pcl dialogs</tags>
         <dependencies>
             <group targetFramework="wp8">
-                <dependency id="WPtoolkit.Kinnara" version="[4.2014.11.22, 5.0)" />
+                <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
+                <!--<dependency id="WPtoolkit.Kinnara" version="[4.2014.11.22, 5.0)" />-->
             </group>
             <!--<group targetFramework="win81">
                 <dependency id="WinRTXamlToolkit.Windows" version="[1.7.9.0, 2.0)" />
             </group>-->
         </dependencies>
         <releaseNotes>
+3.0.4
+Several fixes for winphone.  Unfortunately, placeholders will be removed for now
+
 3.0.3
 Calling Init will throw an error if already initialized
 Add additional keyboard types for prompt (Name, Phone, Url)
@@ -51,55 +55,6 @@ Fix iOS7 actionsheet
 3.0
 Bait and switch design
 Add destructive and cancel buttons to actionsheets
-Add network activity dialog
-
-2.3
-Update BTProgressHUD
-Fix issue with actionsheet being dismissed without index in iOS7
-Bring async methods into abstract class for easier mocking
-Use dismissed event on iOS7 actionsheet, instead of clicked
-
-2.2
-Update to profile259
-BTProgressHUD Update
-Fix android issues with password autocompletes
-
-
-2.1.1
-Fix for iPad/iOS 8
-
-2.1
-* BREAKING - this changes the profile from 158 to 78 to support MvvmCross 3.2.1
-* NEW - Login dialog on all platforms
-Use AlertController on iOS8
-Update to latest BTProgressHUD
-
-2.0.1
-Fix null reference with action sheet and back button on WP8
-Fix scrolling issue with action sheet in WP8
-
-2.0
-Create better method structure on main class
-WP dialogs are now driven by WP Toolkit
-NEW - Secure text prompt
-
-1.1.3
-Nuspec fix
-
-1.1.2
-Fix issue with nullreferenceexception in fluent actionsheet member
-
-1.1.1
-Minor Bugfixes to WinPhone dispatching
-Additional overrides for actionsheet to prepare for future updates
-Switching to profile 158
-Fix nuget issue with winphone
-
-1.1
-Adds Windows Phone 8 Support
-
-1.0
-Initial Release
         </releaseNotes>
     </metadata>
     <files>

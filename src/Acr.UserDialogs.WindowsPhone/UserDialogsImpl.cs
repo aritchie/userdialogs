@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using Windows.Phone.Speech.VoiceCommands;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -97,12 +96,13 @@ namespace Acr.UserDialogs {
                 RightButtonContent = config.CancelText
             };
             var txtUser = new PhoneTextBox {
-                PlaceholderText = config.LoginPlaceholder,
+                //PlaceholderText = config.LoginPlaceholder,
                 Text = config.LoginValue ?? String.Empty
             };
-            var txtPass = new PhonePasswordBox {
-                PlaceholderText = config.PasswordPlaceholder
-            };
+            var txtPass = new PasswordBox();
+            //var txtPass = new PhonePasswordBox {
+                //PlaceholderText = config.PasswordPlaceholder
+            //};
             var stack = new StackPanel();
 
             stack.Children.Add(txtUser);
@@ -130,7 +130,7 @@ namespace Acr.UserDialogs {
             var password = new PasswordBox();
             var inputScope = this.GetInputScope(config.InputType);
             var txt = new PhoneTextBox {
-                PlaceholderText = config.Placeholder,
+                //PlaceholderText = config.Placeholder,
                 InputScope = inputScope
             };
 			if (config.Text != null)
