@@ -49,10 +49,15 @@ namespace Samples {
 
 
         private void ActionSheet() {
-            var cfg = new ActionSheetConfig().SetTitle("Test Title");
-            for (var i = 0; i < 8; i++) {
+			var cfg = new ActionSheetConfig()
+				.SetTitle("Test Title");
+
+            for (var i = 0; i < 5; i++) {
                 var display = (i + 1);
-                cfg.Add("Option " + display, () => this.lblResult.Text = String.Format("Option {0} Selected", display));
+                cfg.Add(
+					"Option " + display, 
+					() => this.lblResult.Text = String.Format("Option {0} Selected", display)
+				);
             }
 			cfg.SetDestructive("BOOM", () => this.lblResult.Text = "Destructive BOOM Selected");
 			cfg.SetCancel("Cancel", () => this.lblResult.Text = "Cancel Selected");
