@@ -1,9 +1,13 @@
 ﻿using System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 
 namespace Acr.UserDialogs {
 
     public class ProgressDialog : IProgressDialog {
+        private readonly ProgressBar progress = new ProgressBar();
+
 
         #region IProgressDialog Members
 
@@ -36,18 +40,31 @@ namespace Acr.UserDialogs {
                 else
                     this.percentComplete = value;
 
-                //this.Refresh();
+                this.progress.Value = this.percentComplete;
             }
         }
 
 
-        public bool IsDeterministic { get; set; }
+        public bool IsDeterministic {
+            get { return !this.progress.IsIndeterminate; }
+            set { this.progress.IsIndeterminate = !value; }
+        }
 
 
-        public bool IsShowing { get; private set; }
+        public bool IsShowing {
+            get { return (this.progress.Visibility == Visibility.Visible); }
+            private set {
+
+                this.progress.Visibility = value
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            }
+        }
 
 
         public void SetCancel(Action onCancel, string cancelText) {
+            this.progress.IsTapEnabled = true;
+            this.progress.Tapped += (sender, args) => onCancel();
         }
 
 
