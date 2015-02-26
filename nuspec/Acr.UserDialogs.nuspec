@@ -38,7 +38,8 @@ Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Functi
         </dependencies>
         <releaseNotes>
 3.0.4
-Several fixes for winphone.  Unfortunately, placeholders will be removed for now
+Several fixes for winphone.  Unfortunately, placeholders will be removed for now.
+Fix blank message in iOS8 actionsheet
 
 3.0.3
 Calling Init will throw an error if already initialized

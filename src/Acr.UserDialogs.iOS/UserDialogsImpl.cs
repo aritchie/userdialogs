@@ -166,7 +166,7 @@ namespace Acr.UserDialogs {
 
 
 		protected virtual void ShowIOS8ActionSheet(ActionSheetConfig config) {
-			var sheet = UIAlertController.Create(config.Title ?? String.Empty, String.Empty, UIAlertControllerStyle.ActionSheet);
+			var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
 			config
 				.Options
 				.ToList()
