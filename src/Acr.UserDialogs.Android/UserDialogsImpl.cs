@@ -158,15 +158,19 @@ namespace Acr.UserDialogs {
 
         public override void Toast(string message, int timeoutSeconds = 3, Action onClick = null) {
             Utils.RequestMainThread(() => {
-                onClick = onClick ?? (() => {});
 
+				var top = this.getTopActivity();
                 AndHUD.Shared.ShowToast(
-                    this.getTopActivity(),
+                    top,
                     message,
-                    MaskType.Clear,
+					MaskType.Clear,
                     TimeSpan.FromSeconds(timeoutSeconds),
                     false,
-                    onClick
+					() => {
+						AndHUD.Shared.Dismiss();
+						if (onClick != null)
+							onClick();
+					}
                 );
             });
         }

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -37,6 +37,9 @@ Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Functi
             </group>-->
         </dependencies>
         <releaseNotes>
+3.0.5
+AndHud dialog should be dismissed onclick even if user does not supply onclick argument
+
 3.0.4
 Several fixes for winphone.  Unfortunately, placeholders will be removed for now.
 Fix blank message in iOS8 actionsheet
