@@ -1,10 +1,17 @@
 using System;
 using AndroidHUD;
+using Android.App;
 
 
 namespace Acr.UserDialogs {
 
     public class ProgressDialog : IProgressDialog {
+		private readonly Activity activity;
+
+
+		public ProgressDialog(Activity activity) {
+			this.activity = activity;
+		}
 
         #region IProgressDialog Members
 
@@ -63,7 +70,7 @@ namespace Acr.UserDialogs {
 
         public virtual void Hide() {
             this.IsShowing = false;
-            Utils.RequestMainThread(() => AndHUD.Shared.Dismiss(ActivityMonitor.CurrentTopActivity));
+			Utils.RequestMainThread(() => AndHUD.Shared.Dismiss(this.activity));
         }
 
         #endregion
@@ -96,7 +103,7 @@ namespace Acr.UserDialogs {
                 txt += "\n" + this.cancelText;
 
             Utils.RequestMainThread(() => AndHUD.Shared.Show(
-                ActivityMonitor.CurrentTopActivity, 
+				this.activity, 
                 txt,
                 p, 
                 MaskType.Black,

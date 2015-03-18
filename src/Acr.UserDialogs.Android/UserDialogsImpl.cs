@@ -177,7 +177,7 @@ namespace Acr.UserDialogs {
 
 
         protected override IProgressDialog CreateDialogInstance() {
-            return new ProgressDialog();
+			return new ProgressDialog(this.getTopActivity());
         }
 
 
