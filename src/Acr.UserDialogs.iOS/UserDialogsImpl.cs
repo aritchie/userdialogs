@@ -87,13 +87,20 @@ namespace Acr.UserDialogs {
                     this.Present(dlg);
                 }
                 else {
-                    var dlg = new UIAlertView { AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput };
+                    var dlg = new UIAlertView {
+                        AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput,
+                        Title = config.Title
+                    };
                     txtUser = dlg.GetTextField(0);
                     txtPass = dlg.GetTextField(1);
 
                     txtUser.Placeholder = config.LoginPlaceholder;
                     txtUser.Text = config.LoginValue ?? String.Empty;
                     txtPass.Placeholder = config.PasswordPlaceholder;
+
+                    dlg.AddButton(config.OkText);
+                    dlg.AddButton(config.CancelText);
+                    dlg.CancelButtonIndex = 1;
 
                     dlg.Clicked += (s, e) => {
                         var ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.0.5</version>
+        <version>3.1.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -19,7 +19,9 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 To initialize:
 iOS AppDelegate: UserDialogs.Init();
 WinPhone8: MainPage or App, UserDialogs.Init();
-Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Function)
+Android Xamarin Forms: UserDialogs.Init(() => BarCodes.Init(() => (Activity)Forms.Context);
+Android MvvmCross: UserDialogs.Init(() => BarCodes.Init(() => Mvx.Resolve&lt;ITopActivity&gt;.TopActivity;
+Android Manually: UserDialogs.Init(Activity Factory Function);
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -37,6 +39,9 @@ Android (API 14+): UserDialogs.Init(Activity) or UserDialogs.Init(Factory Functi
             </group>-->
         </dependencies>
         <releaseNotes>
+3.1
+BREAKING ANDROID: Support old API 10+.  There is no longer an Init(Activity) signature.
+
 3.0.5
 AndHud dialog should be dismissed onclick even if user does not supply onclick argument
 Android progress dialog should be using the same top activity factory as every other control

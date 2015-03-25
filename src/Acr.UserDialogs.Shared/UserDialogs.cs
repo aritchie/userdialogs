@@ -18,19 +18,19 @@ namespace Acr.UserDialogs {
         }
 
 
-        public static void Init(Activity activity) {
-            if (Instance != null)
-				throw new ArgumentException("UserDialogs has already been initialized");
+        //public static void Init(Activity activity) {
+        //    if (Instance != null)
+        //        throw new ArgumentException("UserDialogs has already been initialized");
 
-            var app = Application.Context.ApplicationContext as Application;
-            if (app == null)
-                throw new Exception("Application Context is not an application");
+        //    var app = Application.Context.ApplicationContext as Application;
+        //    if (app == null)
+        //        throw new Exception("Application Context is not an application");
 
-            ActivityMonitor.CurrentTopActivity = activity;
-            app.RegisterActivityLifecycleCallbacks(new ActivityMonitor());
+        //    ActivityMonitor.CurrentTopActivity = activity;
+        //    app.RegisterActivityLifecycleCallbacks(new ActivityMonitor());
 
-            Instance = new UserDialogsImpl(() => ActivityMonitor.CurrentTopActivity);
-        }
+        //    Instance = new UserDialogsImpl(() => ActivityMonitor.CurrentTopActivity);
+        //}
 #elif __PLATFORM__
         public static void Init() {
             if (Instance != null)
