@@ -41,6 +41,7 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
         <releaseNotes>
 3.1
 BREAKING ANDROID: Support old API 10+.  There is no longer an Init(Activity) signature.
+iOS7 - Fix some labelling defects with login dialog
 
 3.0.5
 AndHud dialog should be dismissed onclick even if user does not supply onclick argument
