@@ -74,7 +74,14 @@ namespace Samples {
 
 
         private async void Login() {
-            var r = await UserDialogs.Instance.LoginAsync();
+			var r = await UserDialogs.Instance.LoginAsync(new LoginConfig {
+				Title = "HIGH SECURITY",
+				Message = "DANGER",
+				LoginPlaceholder = "User Name Placeholder",
+				PasswordPlaceholder = "Password Placeholder",
+				OkText = "LOGIN",
+				CancelText = "NO"
+			});
             this.lblResult.Text = String.Format(
                 "Login {0} - User Name: {1} - Password: {2}",
                 r.Ok ? "Success" : "Cancelled",

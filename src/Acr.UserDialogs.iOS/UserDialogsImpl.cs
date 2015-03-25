@@ -89,7 +89,8 @@ namespace Acr.UserDialogs {
                 else {
                     var dlg = new UIAlertView {
                         AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput,
-                        Title = config.Title
+                        Title = config.Title,
+						Message = config.Message
                     };
                     txtUser = dlg.GetTextField(0);
                     txtPass = dlg.GetTextField(1);
