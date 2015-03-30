@@ -185,7 +185,7 @@ namespace Acr.UserDialogs {
             switch (inputType) {
 
                 case InputType.Email:
-                    txt.InputType = InputTypes.TextVariationEmailAddress;
+                    txt.InputType = InputTypes.ClassText | InputTypes.TextVariationEmailAddress;
                     break;
 
 				case InputType.Name:
