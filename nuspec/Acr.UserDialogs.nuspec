@@ -41,6 +41,7 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
         <releaseNotes>
 3.2
 Android and iOS now support mask type on loading/progress HUDs
+Android and iOS now support mask type on toast windows
 FIX: Wrap all iOS loading/progress HUDs in UI thread dispatch call
 
 3.1

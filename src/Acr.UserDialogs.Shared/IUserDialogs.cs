@@ -18,7 +18,7 @@ namespace Acr.UserDialogs {
 
 		void ShowLoading(string title = "Loading", MaskType maskType = MaskType.Black);
         void HideLoading();
-        void Toast(string message, int timeoutSeconds = 3, Action onClick = null);
+		void Toast(string message, int timeoutSeconds = 3, Action onClick = null, MaskType? maskType = null);
 
         Task AlertAsync(string message, string title = null, string okText = "OK");
         Task AlertAsync(AlertConfig config);

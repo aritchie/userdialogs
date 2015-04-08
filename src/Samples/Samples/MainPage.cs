@@ -31,7 +31,10 @@ namespace Samples {
                         Btn("Loading (Gradient iOS)", () => this.Loading(MaskType.Gradient)),
                         Btn("Loading (None)", () => this.Loading(MaskType.Black)),
 	                    Btn("Loading (No Cancel)", this.LoadingNoCancel),
-	                    Btn("Toast", this.Toast)
+						Btn("Toast (Clear - Default)", () => this.Toast(MaskType.Clear)),
+						Btn("Toast (Black)", () => this.Toast(MaskType.Black)),
+						Btn("Toast (Gradient - iOS)", () => this.Toast(MaskType.Gradient)),
+						Btn("Toast (None)", () => this.Toast(MaskType.None)),
 	                }
 				}
             };
@@ -174,11 +177,11 @@ namespace Samples {
         }
 
 
-        private void Toast() {
+		private void Toast(MaskType maskType) {
             this.lblResult.Text = "Toast Shown";
-            UserDialogs.Instance.Toast("Test Toast", onClick: () => {
+            UserDialogs.Instance.Toast("Test Toast", 3, () => {
                 this.lblResult.Text = "Toast Pressed";
-            });
+            }, maskType);
         }
 
 

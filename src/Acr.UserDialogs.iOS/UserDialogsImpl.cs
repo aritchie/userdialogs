@@ -125,10 +125,15 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Toast(string message, int timeoutSeconds = 3, Action onClick = null) {
+		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType? maskType) {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>  {
                 var ms = timeoutSeconds * 1000;
-                BTProgressHUD.ShowToast(message, false, ms);
+                BTProgressHUD.ShowToast(
+					message,
+					(maskType ?? Acr.UserDialogs.MaskType.Clear).ToNative(),
+					false, 
+					ms
+				);
             });
         }
 

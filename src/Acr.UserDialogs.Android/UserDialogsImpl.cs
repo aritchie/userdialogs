@@ -156,14 +156,14 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Toast(string message, int timeoutSeconds = 3, Action onClick = null) {
+		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType? maskType) {
             Utils.RequestMainThread(() => {
 
 				var top = this.getTopActivity();
                 AndHUD.Shared.ShowToast(
                     top,
                     message,
-					AndroidHUD.MaskType.Clear, // TODO: configurable?
+					(maskType ?? MaskType.Clear).ToNative(),
                     TimeSpan.FromSeconds(timeoutSeconds),
                     false,
 					() => {
