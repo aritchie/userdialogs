@@ -26,7 +26,10 @@ namespace Samples {
 						Btn("Prompt /w Text/No Cancel", this.PromptWithTextAndNoCancel),
 	                    Btn("Progress", this.Progress),
 	                    Btn("Progress (No Cancel)", this.ProgressNoCancel),
-	                    Btn("Loading", this.Loading),
+	                    Btn("Loading (Black - Default)", () => this.Loading(MaskType.Black)),
+                        Btn("Loading (Clear)", () => this.Loading(MaskType.Clear)),
+                        Btn("Loading (Gradient iOS)", () => this.Loading(MaskType.Gradient)),
+                        Btn("Loading (None)", () => this.Loading(MaskType.Black)),
 	                    Btn("Loading (No Cancel)", this.LoadingNoCancel),
 	                    Btn("Toast", this.Toast)
 	                }
@@ -148,10 +151,11 @@ namespace Samples {
         }
 
 
-        private async void Loading() {
+        private async void Loading(MaskType maskType) {
             var cancelSrc = new CancellationTokenSource();
 
             using (var dlg = UserDialogs.Instance.Loading("Loading")) {
+                dlg.MaskType = maskType;
                 dlg.SetCancel(cancelSrc.Cancel);
 
                 try {
