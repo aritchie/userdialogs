@@ -56,7 +56,7 @@ namespace Acr.UserDialogs {
 
 
         public override void Confirm(ConfirmConfig config) {
-            Utils.RequestMainThread(() => 
+            Utils.RequestMainThread(() =>
                 new AlertDialog
                     .Builder(this.getTopActivity())
                     .SetCancelable(false)
@@ -156,14 +156,14 @@ namespace Acr.UserDialogs {
         }
 
 
-		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType? maskType) {
+		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
             Utils.RequestMainThread(() => {
 
 				var top = this.getTopActivity();
                 AndHUD.Shared.ShowToast(
                     top,
                     message,
-					(maskType ?? MaskType.Clear).ToNative(),
+					maskType.ToNative(),
                     TimeSpan.FromSeconds(timeoutSeconds),
                     false,
 					() => {

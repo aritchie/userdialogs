@@ -28,7 +28,7 @@ namespace Acr.UserDialogs {
                 }
                 else {
                     var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, null, config.OkText);
-                    if (config.OnOk != null) 
+                    if (config.OnOk != null)
                         dlg.Clicked += (s, e) => config.OnOk();
 
                     dlg.Show();
@@ -117,21 +117,21 @@ namespace Acr.UserDialogs {
 
         public override void Prompt(PromptConfig config) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-				if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) 
+				if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
 					this.ShowIOS8Prompt(config);
-                else 
+                else
 					this.ShowIOS7Prompt(config);
             });
         }
 
 
-		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType? maskType) {
+		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>  {
                 var ms = timeoutSeconds * 1000;
                 BTProgressHUD.ShowToast(
 					message,
-					(maskType ?? Acr.UserDialogs.MaskType.Clear).ToNative(),
-					false, 
+					maskType.ToNative(),
+					false,
 					ms
 				);
             });
@@ -167,7 +167,7 @@ namespace Acr.UserDialogs {
 			}
 
 			action.Dismissed += (sender, btn) => {
-				if (btn.ButtonIndex == action.DestructiveButtonIndex) 
+				if (btn.ButtonIndex == action.DestructiveButtonIndex)
 					config.Destructive.TryExecute();
 
 				else if (btn.ButtonIndex == action.CancelButtonIndex)
@@ -280,7 +280,7 @@ namespace Acr.UserDialogs {
 				case InputType.Name:
 					break;
 
-                case InputType.Number: 
+                case InputType.Number:
                     txt.KeyboardType = UIKeyboardType.NumberPad;
                     break;
 
@@ -303,7 +303,7 @@ namespace Acr.UserDialogs {
             return UIApplication.SharedApplication
                 .Windows
                 .Reverse()
-                .FirstOrDefault(x => 
+                .FirstOrDefault(x =>
                     x.WindowLevel == UIWindowLevel.Normal && 
                     !x.Hidden
                 );

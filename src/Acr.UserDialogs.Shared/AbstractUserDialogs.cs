@@ -11,7 +11,7 @@ namespace Acr.UserDialogs {
         public abstract void Confirm(ConfirmConfig config);
         public abstract void Login(LoginConfig config);
         public abstract void Prompt(PromptConfig config);
-        public abstract void Toast(string message, int timeoutSeconds, Action onClick, MaskType? maskType);
+        public abstract void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType);
         protected abstract IProgressDialog CreateDialogInstance();
 
 

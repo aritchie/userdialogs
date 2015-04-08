@@ -152,7 +152,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Toast(string message, int timeoutSeconds = 3, Action onClick = null) {
+        public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
             var resources = Application.Current.Resources;
 
             var tb = new TextBlock {

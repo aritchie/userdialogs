@@ -66,7 +66,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Toast(string message, int timeoutSeconds = 3, Action onClick = null) {
+        public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
  //var toastXmlString = string.Format("<toast><visual version='1'><binding template='ToastText01'><text id='1'>{0}</text></binding></visual></toast>", message);
  //  var xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
  //  xmlDoc.LoadXml(toastXmlString);
