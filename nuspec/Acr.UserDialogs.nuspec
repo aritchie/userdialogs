@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -39,6 +39,10 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
             </group>-->
         </dependencies>
         <releaseNotes>
+3.2
+Android and iOS now support mask type on loading/progress HUDs
+FIX: Wrap all iOS loading/progress HUDs in UI thread dispatch call
+
 3.1
 BREAKING ANDROID: Support old API 10+.  There is no longer an Init(Activity) signature.
 iOS7 - Fix some labelling defects with login dialog

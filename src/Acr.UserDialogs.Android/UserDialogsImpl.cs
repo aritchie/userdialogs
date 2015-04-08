@@ -12,7 +12,7 @@ namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
         private readonly Func<Activity> getTopActivity;
- 
+
 
         public UserDialogsImpl(Func<Activity> getTopActivity) {
             this.getTopActivity = getTopActivity;
@@ -122,7 +122,7 @@ namespace Acr.UserDialogs {
 				if (config.Text != null)
 					txt.Text = config.Text;
 
-                if (config.InputType != InputType.Default) 
+                if (config.InputType != InputType.Default)
                     txt.SetMaxLines(1);
 
                 this.SetInputType(txt, config.InputType);
@@ -135,15 +135,15 @@ namespace Acr.UserDialogs {
                     .SetView(txt)
                     .SetPositiveButton(config.OkText, (o, e) =>
                         config.OnResult(new PromptResult {
-                            Ok = true, 
+                            Ok = true,
                             Text = txt.Text
                         })
 					);
 
 				if (config.IsCancellable) {
-					builder.SetNegativeButton(config.CancelText, (o, e) => 
+					builder.SetNegativeButton(config.CancelText, (o, e) =>
                         config.OnResult(new PromptResult {
-                            Ok = false, 
+                            Ok = false,
                             Text = txt.Text
                         })
 					);
@@ -163,7 +163,7 @@ namespace Acr.UserDialogs {
                 AndHUD.Shared.ShowToast(
                     top,
                     message,
-					MaskType.Clear,
+					AndroidHUD.MaskType.Clear, // TODO: configurable?
                     TimeSpan.FromSeconds(timeoutSeconds),
                     false,
 					() => {

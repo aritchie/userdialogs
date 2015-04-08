@@ -1,10 +1,20 @@
 using System;
 using BigTed;
+#if __UNIFIED__
+using UIKit;
+#else
+using MonoTouch.UIKit;
+#endif
 
 
 namespace Acr.UserDialogs {
 
     public class ProgressDialog : IProgressDialog {
+
+        public ProgressDialog() {
+            this.MaskType = MaskType.Black;
+        }
+
 
         #region IProgressDialog Members
 
@@ -19,6 +29,9 @@ namespace Acr.UserDialogs {
                 this.Refresh();
             }
         }
+
+
+        public MaskType MaskType { get; set; }
 
 
         private int percentComplete;
@@ -60,7 +73,7 @@ namespace Acr.UserDialogs {
 
         public virtual void Hide() {
             this.IsShowing = false;
-            BTProgressHUD.Dismiss();
+            UIApplication.SharedApplication.InvokeOnMainThread(BTProgressHUD.Dismiss);
         }
 
         #endregion
@@ -89,22 +102,24 @@ namespace Acr.UserDialogs {
                 txt += this.PercentComplete + "%";
             }
 
-            if (this.cancelAction == null) {
-                BTProgressHUD.Show(
-                    this.Title,
-                    p,
-                    ProgressHUD.MaskType.Black
-                );
-            }
-            else {
-                BTProgressHUD.Show(
-                    this.cancelText, 
-                    this.cancelAction,
-                    txt,
-                    p,
-                    ProgressHUD.MaskType.Black
-                );
-            }
+            UIApplication.SharedApplication.InvokeOnMainThread(() => {
+                if (this.cancelAction == null) {
+                    BTProgressHUD.Show(
+                        this.Title,
+                        p,
+                        this.MaskType.ToNative()
+                    );
+                }
+                else {
+                    BTProgressHUD.Show(
+                        this.cancelText, 
+                        this.cancelAction,
+                        txt,
+                        p,
+                        this.MaskType.ToNative()
+                    );
+                }
+            });
         }
 
         #endregion

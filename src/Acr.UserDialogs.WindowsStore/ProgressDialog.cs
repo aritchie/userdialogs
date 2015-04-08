@@ -11,6 +11,9 @@ namespace Acr.UserDialogs {
 
         #region IProgressDialog Members
 
+        public MaskType MaskType { get; set; }
+
+
         private string text;
         public string Title {
             get { return this.text; }

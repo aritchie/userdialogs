@@ -9,6 +9,7 @@ namespace Acr.UserDialogs {
 		int PercentComplete { get; set; }
 		bool IsDeterministic { get; set; }
 		bool IsShowing { get; }
+        MaskType MaskType { get; set; }
 
 		void Show();
 		void Hide();

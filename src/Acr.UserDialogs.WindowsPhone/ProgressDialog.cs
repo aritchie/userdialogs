@@ -9,8 +9,11 @@ namespace Acr.UserDialogs {
 
         #region IProgressDialog Members
 
+        public MaskType MaskType { get; set; }
+
+
         private string text;
-        public string Title {
+        public virtual string Title {
             get { return this.text; }
             set {
                 if (this.text == value)
@@ -23,7 +26,7 @@ namespace Acr.UserDialogs {
 
 
         private int percentComplete;
-        public int PercentComplete {
+        public virtual int PercentComplete {
             get { return this.percentComplete; }
             set {
                 if (this.percentComplete == value)
@@ -49,10 +52,10 @@ namespace Acr.UserDialogs {
         }
 
 
-        public bool IsShowing { get; private set; }
+        public bool IsShowing { get; protected set; }
 
 
-        public void SetCancel(Action onCancel, string cancelText) {
+        public virtual void SetCancel(Action onCancel, string cancelText) {
             this.progress.SetCancel(onCancel, cancelText);
         }
 
@@ -66,7 +69,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        public void Hide() {
+        public virtual void Hide() {
             if (!this.IsShowing)
                 return;
 
@@ -75,7 +78,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected void Dispatch(Action action) {
+        protected virtual void Dispatch(Action action) {
             Deployment.Current.Dispatcher.BeginInvoke(action);
         }
 

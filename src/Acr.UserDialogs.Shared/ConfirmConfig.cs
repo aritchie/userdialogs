@@ -2,7 +2,7 @@
 
 
 namespace Acr.UserDialogs {
-    
+
     public class ConfirmConfig {
 
         public string Title { get; set; }

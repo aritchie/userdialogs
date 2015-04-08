@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IUserDialogs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoginConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoginResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MaskType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProgressDialogConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PromptConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PromptResult.cs" />

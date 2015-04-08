@@ -13,6 +13,8 @@ using MonoTouch.CoreGraphics;
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
+        public ProgressHUD.MaskType? MaskType { get; set; }
+
 
         public override void Alert(AlertConfig config) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {

@@ -33,6 +33,9 @@
     <DefineConstants>__MOBILE__;__IOS__;__PLATFORM__</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Acr.UserDialogs.iOS\Extensions.cs">
+      <Link>Extensions.cs</Link>
+    </Compile>
     <Compile Include="..\Acr.UserDialogs.iOS\ProgressDialog.cs">
       <Link>ProgressDialog.cs</Link>
     </Compile>

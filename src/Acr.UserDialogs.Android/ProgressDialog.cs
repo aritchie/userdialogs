@@ -11,12 +11,13 @@ namespace Acr.UserDialogs {
 
 		public ProgressDialog(Activity activity) {
 			this.activity = activity;
+            this.MaskType = MaskType.Black;
 		}
 
         #region IProgressDialog Members
 
         private string title;
-        public virtual string Title { 
+        public virtual string Title {
             get { return this.title; }
             set {
                 if (this.title == value)
@@ -26,6 +27,9 @@ namespace Acr.UserDialogs {
                 this.Refresh();
             }
         }
+
+
+        public MaskType MaskType { get; set; }
 
 
         private int percentComplete;
@@ -93,20 +97,20 @@ namespace Acr.UserDialogs {
             var txt = this.Title;
             if (this.IsDeterministic) {
                 p = this.PercentComplete;
-                if (!String.IsNullOrWhiteSpace(txt)) 
+                if (!String.IsNullOrWhiteSpace(txt))
                     txt += "\n";
 
                 txt += p + "%\n";
             }
 
-            if (this.cancelAction != null) 
+            if (this.cancelAction != null)
                 txt += "\n" + this.cancelText;
 
             Utils.RequestMainThread(() => AndHUD.Shared.Show(
-				this.activity, 
+				this.activity,
                 txt,
-                p, 
-                MaskType.Black,
+                p,
+                this.MaskType.ToNative(),
                 null,
                 this.OnCancelClick
             ));
