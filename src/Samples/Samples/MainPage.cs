@@ -154,8 +154,7 @@ namespace Samples {
         private async void Loading(MaskType maskType) {
             var cancelSrc = new CancellationTokenSource();
 
-            using (var dlg = UserDialogs.Instance.Loading("Loading")) {
-                dlg.MaskType = maskType;
+			using (var dlg = UserDialogs.Instance.Loading("Loading", maskType: maskType)) {
                 dlg.SetCancel(cancelSrc.Cancel);
 
                 try {

@@ -25,9 +25,9 @@ namespace Acr.UserDialogs {
 
 
         private IProgressDialog loading;
-        public virtual void ShowLoading(string title) {
+		public virtual void ShowLoading(string title, MaskType maskType) {
             if (this.loading == null)
-                this.loading = this.Loading(title, null, null, true);
+				this.loading = this.Loading(title, null, null, true, maskType);
         }
 
 
@@ -39,22 +39,24 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show) {
+		public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show, MaskType maskType) {
             return this.Progress(new ProgressDialogConfig {
                 Title = title,
                 AutoShow = show,
                 CancelText = cancelText,
+				MaskType = maskType,
                 IsDeterministic = false,
                 OnCancel = onCancel
             });
         }
 
 
-        public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show) {
+		public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show, MaskType maskType) {
 			return this.Progress(new ProgressDialogConfig {
                 Title = title,
                 AutoShow = show,
                 CancelText = cancelText,
+				MaskType = maskType,
                 IsDeterministic = true,
                 OnCancel = onCancel
             });
@@ -65,6 +67,7 @@ namespace Acr.UserDialogs {
             var dlg = this.CreateDialogInstance();
             dlg.Title = config.Title;
             dlg.IsDeterministic = config.IsDeterministic;
+			dlg.MaskType = config.MaskType;
 
             if (config.OnCancel != null)
                 dlg.SetCancel(config.OnCancel, config.CancelText);

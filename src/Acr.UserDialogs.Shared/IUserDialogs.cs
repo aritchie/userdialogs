@@ -13,10 +13,10 @@ namespace Acr.UserDialogs {
         void Prompt(PromptConfig config);
         void Login(LoginConfig config);
         IProgressDialog Progress(ProgressDialogConfig config);
-        IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = "Cancel", bool show = true);
-        IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = "Cancel", bool show = true);
+		IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = "Cancel", bool show = true, MaskType maskType = MaskType.Black);
+		IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = "Cancel", bool show = true, MaskType maskType = MaskType.Black);
 
-        void ShowLoading(string title = "Loading");
+		void ShowLoading(string title = "Loading", MaskType maskType = MaskType.Black);
         void HideLoading();
         void Toast(string message, int timeoutSeconds = 3, Action onClick = null);
 
