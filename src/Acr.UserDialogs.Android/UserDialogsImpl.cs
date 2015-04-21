@@ -20,6 +20,13 @@ namespace Acr.UserDialogs {
 
 
         public override void Alert(AlertConfig config) {
+            //var context = this.getTopActivity();
+            //var layout = new LinearLayout(context) {
+            //    Orientation = Orientation.Vertical,
+            //    OverScrollMode = OverScrollMode.IfContentScrolls
+            //};
+            //var txt = new TextView(context);
+
             Utils.RequestMainThread(() =>
                 new AlertDialog
                     .Builder(this.getTopActivity())

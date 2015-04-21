@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Linq;
+using System.Xml.Linq;
+using Windows.Foundation;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 
 namespace Acr.UserDialogs.Windows {
@@ -16,7 +22,17 @@ namespace Acr.UserDialogs.Windows {
 
 
         public override void ActionSheet(ActionSheetConfig config) {
-            throw new NotImplementedException();
+            var sheet = new PopupMenu();
+            foreach (var opt in config.Options)
+                sheet.Commands.Add(new UICommand(opt.Text, x => opt.TryExecute()));
+
+            if (config.Cancel != null)
+                sheet.Commands.Add(new UICommand(config.Cancel.Text, x => config.Cancel.TryExecute()));
+
+            if (config.Destructive != null)
+                sheet.Commands.Add(new UICommand(config.Destructive.Text, x => config.Destructive.TryExecute()));
+
+            sheet.ShowAsync(new Point(0, 0));
         }
 
 
