@@ -54,6 +54,16 @@ namespace Acr.UserDialogs.Windows {
         }
 
 
+        public override void ShowSuccess(string message, int timeoutSeconds) {
+            throw new NotImplementedException();
+        }
+
+
+        public override void ShowError(string message, int timeoutSeconds) {
+            throw new NotImplementedException();
+        }
+
+
         public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
             throw new NotImplementedException();
         }

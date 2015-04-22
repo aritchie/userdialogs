@@ -125,8 +125,22 @@ namespace Acr.UserDialogs {
         }
 
 
+        public override void ShowError(string message, int timeoutSeconds) {
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutSeconds * 1000)
+            );
+        }
+
+
+        public override void ShowSuccess(string message, int timeoutSeconds) {
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutSeconds * 1000)
+            );
+        }
+
+
 		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
-            UIApplication.SharedApplication.InvokeOnMainThread(() =>  {
+            UIApplication.SharedApplication.InvokeOnMainThread(() => {
                 var ms = timeoutSeconds * 1000;
                 BTProgressHUD.ShowToast(
 					message,

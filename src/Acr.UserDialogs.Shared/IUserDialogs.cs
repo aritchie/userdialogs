@@ -28,5 +28,8 @@ namespace Acr.UserDialogs {
         Task<LoginResult> LoginAsync(LoginConfig config);
         Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default);
         Task<PromptResult> PromptAsync(PromptConfig config);
+
+        void ShowSuccess(string message, int timeout = 3);
+        void ShowError(string message, int timeout = 3);
     }
 }

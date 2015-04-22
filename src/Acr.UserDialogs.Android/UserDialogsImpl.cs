@@ -163,9 +163,22 @@ namespace Acr.UserDialogs {
         }
 
 
-		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
-            Utils.RequestMainThread(() => {
+        public override void ShowSuccess(string message, int timeoutSeconds) {
+            Utils.RequestMainThread(() =>
+                AndHUD.Shared.ShowSuccess(this.getTopActivity(), message, timeout: TimeSpan.FromSeconds(timeoutSeconds))
+            );
+        }
 
+
+        public override void ShowError(string message, int timeoutSeconds) {
+            Utils.RequestMainThread(() =>
+                AndHUD.Shared.ShowError(this.getTopActivity(), message, timeout: TimeSpan.FromSeconds(timeoutSeconds))
+            );
+        }
+
+
+        public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
+            Utils.RequestMainThread(() => {
 				var top = this.getTopActivity();
                 AndHUD.Shared.ShowToast(
                     top,
