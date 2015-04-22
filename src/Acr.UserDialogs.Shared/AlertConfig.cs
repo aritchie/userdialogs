@@ -2,8 +2,14 @@
 
 
 namespace Acr.UserDialogs {
-    
+
     public class AlertConfig {
+        public static string DefaultOkText { get; set; }
+
+        static AlertConfig() {
+            DefaultOkText = "Ok";
+        }
+
 
         public string OkText { get; set; }
         public string Title { get; set; }
@@ -12,15 +18,9 @@ namespace Acr.UserDialogs {
 
 
         public AlertConfig() {
-            this.OkText = "OK";
+            this.OkText = DefaultOkText;
         }
 
-
-        //public static AlertConfig Create(string message) {
-        //    return new AlertConfig {
-        //        Message = message
-        //    };
-        //}
 
         public AlertConfig SetOkText(string text) {
             this.OkText = text;

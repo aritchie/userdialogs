@@ -2,7 +2,17 @@
 
 
 namespace Acr.UserDialogs {
+
     public class PromptConfig {
+        public static string DefaultOkText { get; set; }
+        public static string DefaultCancelText { get; set; }
+
+
+        static PromptConfig() {
+            DefaultOkText = "Ok";
+            DefaultCancelText = "Cancel";
+        }
+
 
         public string Title { get; set; }
         public string Message { get; set; }
@@ -18,8 +28,8 @@ namespace Acr.UserDialogs {
 
 
         public PromptConfig() {
-            this.OkText = "OK";
-            this.CancelText = "Cancel";
+            this.OkText = DefaultOkText;
+            this.CancelText = DefaultCancelText;
 			this.IsCancellable = true;
         }
 

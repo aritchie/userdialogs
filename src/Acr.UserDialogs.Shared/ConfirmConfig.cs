@@ -4,6 +4,18 @@
 namespace Acr.UserDialogs {
 
     public class ConfirmConfig {
+        public static string DefaultYes { get; set; }
+        public static string DefaultNo { get; set; }
+        public static string DefaultOkText { get; set; }
+        public static string DefaultCancelText { get; set; }
+
+        static ConfirmConfig() {
+            DefaultYes = "Yes";
+            DefaultNo = "No";
+            DefaultOkText = "Ok";
+            DefaultCancelText = "Cancel";
+        }
+
 
         public string Title { get; set; }
         public string Message { get; set; }
@@ -14,22 +26,14 @@ namespace Acr.UserDialogs {
 
 
         public ConfirmConfig() {
-            this.OkText = "OK";
-            this.CancelText = "Cancel";
+            this.OkText = DefaultOkText;
+            this.CancelText = DefaultCancelText;
         }
 
 
-        //public static ConfirmConfig Create(string message, Action<bool> onConfirm = null) {
-        //    return new ConfirmConfig {
-        //        Message = message,
-        //        OnConfirm = onConfirm
-        //    };
-        //}
-
-
         public ConfirmConfig UseYesNo() {
-            this.OkText = "Yes";
-            this.CancelText = "No";
+            this.OkText = DefaultYes;
+            this.CancelText = DefaultNo;
             return this;
         }
 

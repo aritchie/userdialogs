@@ -3,8 +3,15 @@ using System.Collections.Generic;
 
 
 namespace Acr.UserDialogs {
-    
+
     public class ActionSheetConfig {
+        public static string DefaultCancelText { get; set; }
+
+
+        static ActionSheetConfig() {
+            DefaultCancelText = "Cancel";
+        }
+
 
         public string Title { get; set; }
 		public ActionSheetOption Cancel { get; set; }
@@ -23,8 +30,8 @@ namespace Acr.UserDialogs {
         }
 
 
-		public ActionSheetConfig SetCancel(string text = "Cancel", Action action = null) {
-			this.Cancel = new ActionSheetOption(text, action);
+		public ActionSheetConfig SetCancel(string text = null, Action action = null) {
+			this.Cancel = new ActionSheetOption(text ?? DefaultCancelText, action);
 			return this;
 		}
 

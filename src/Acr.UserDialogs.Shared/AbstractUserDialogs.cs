@@ -19,13 +19,13 @@ namespace Acr.UserDialogs {
             this.Alert(new AlertConfig {
                 Message = message,
                 Title = title,
-                OkText = okText
+                OkText = okText ?? AlertConfig.DefaultOkText
             });
         }
 
 
         private IProgressDialog loading;
-		public virtual void ShowLoading(string title, MaskType maskType) {
+		public virtual void ShowLoading(string title, MaskType? maskType) {
             if (this.loading == null)
 				this.loading = this.Loading(title, null, null, true, maskType);
         }
@@ -39,24 +39,24 @@ namespace Acr.UserDialogs {
         }
 
 
-		public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show, MaskType maskType) {
+		public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show, MaskType? maskType) {
             return this.Progress(new ProgressDialogConfig {
-                Title = title,
+                Title = title ?? ProgressDialogConfig.DefaultTitle,
                 AutoShow = show,
-                CancelText = cancelText,
-				MaskType = maskType,
+                CancelText = cancelText ?? ProgressDialogConfig.DefaultCancelText,
+				MaskType = maskType ?? ProgressDialogConfig.DefaultMaskType,
                 IsDeterministic = false,
                 OnCancel = onCancel
             });
         }
 
 
-		public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show, MaskType maskType) {
+		public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show, MaskType? maskType) {
 			return this.Progress(new ProgressDialogConfig {
-                Title = title,
+                Title = title ?? ProgressDialogConfig.DefaultTitle,
                 AutoShow = show,
-                CancelText = cancelText,
-				MaskType = maskType,
+                CancelText = cancelText ?? ProgressDialogConfig.DefaultCancelText,
+				MaskType = maskType ?? ProgressDialogConfig.DefaultMaskType,
                 IsDeterministic = true,
                 OnCancel = onCancel
             });
@@ -84,7 +84,7 @@ namespace Acr.UserDialogs {
             this.Alert(new AlertConfig {
                 Message = message,
                 Title = title,
-                OkText = okText,
+                OkText = okText ?? AlertConfig.DefaultOkText,
                 OnOk = () => tcs.TrySetResult(null)
             });
             return tcs.Task;
@@ -104,8 +104,8 @@ namespace Acr.UserDialogs {
             this.Confirm(new ConfirmConfig {
                 Message = message,
                 Title = title,
-                CancelText = cancelText,
-                OkText = okText,
+                CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
+                OkText = okText ?? ConfirmConfig.DefaultOkText,
                 OnConfirm = x => tcs.TrySetResult(x)
             });
             return tcs.Task;
@@ -122,7 +122,7 @@ namespace Acr.UserDialogs {
 
         public virtual Task<LoginResult> LoginAsync(string title, string message) {
             return this.LoginAsync(new LoginConfig {
-                Title = title,
+                Title = title ?? LoginConfig.DefaultTitle,
                 Message = message
             });
         }
@@ -141,8 +141,8 @@ namespace Acr.UserDialogs {
             this.Prompt(new PromptConfig {
                 Message = message,
                 Title = title,
-                CancelText = cancelText,
-                OkText = okText,
+                CancelText = cancelText ?? PromptConfig.DefaultCancelText,
+                OkText = okText ?? PromptConfig.DefaultOkText,
                 Placeholder = placeholder,
                 InputType = inputType,
                 OnResult = x => tcs.TrySetResult(x)
