@@ -20,7 +20,7 @@ namespace Acr.UserDialogs {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
                 if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
                     var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                    alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, x => {
+                    alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => {
                         if (config.OnOk != null)
                             config.OnOk();
                     }));
