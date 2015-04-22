@@ -35,6 +35,42 @@ namespace Samples {
 						Btn("Toast (Black)", () => this.Toast(MaskType.Black)),
 						Btn("Toast (Gradient - iOS)", () => this.Toast(MaskType.Gradient)),
 						Btn("Toast (None)", () => this.Toast(MaskType.None)),
+                        Btn("Change Default Settings", () => {
+                            // CANCEL
+                            ActionSheetConfig.DefaultCancelText = ConfirmConfig.DefaultCancelText = LoginConfig.DefaultCancelText = PromptConfig.DefaultCancelText = ProgressDialogConfig.DefaultCancelText = "NO WAY";
+
+                            // OK
+                            AlertConfig.DefaultOkText = ConfirmConfig.DefaultOkText = LoginConfig.DefaultOkText = PromptConfig.DefaultOkText = "Sure";
+
+                            // CUSTOM
+                            ActionSheetConfig.DefaultDestructiveText = "BOOM!";
+                            ConfirmConfig.DefaultYes = "SIGN LIFE AWAY";
+                            ConfirmConfig.DefaultNo = "NO WAY";
+                            LoginConfig.DefaultTitle = "HIGH SECURITY";
+                            LoginConfig.DefaultLoginPlaceholder = "WHO ARE YOU?";
+                            LoginConfig.DefaultPasswordPlaceholder = "SUPER SECRET PASSWORD";
+                            ProgressDialogConfig.DefaultTitle = "WAIT A MINUTE";
+
+                            UserDialogs.Instance.Alert("Default Settings Updated - Now run samples");
+                        }),
+                        Btn("Reset Default Settings", () => {
+                            // CANCEL
+                            ActionSheetConfig.DefaultCancelText = ConfirmConfig.DefaultCancelText = LoginConfig.DefaultCancelText = PromptConfig.DefaultCancelText = ProgressDialogConfig.DefaultCancelText = "Cancel";
+
+                            // OK
+                            AlertConfig.DefaultOkText = ConfirmConfig.DefaultOkText = LoginConfig.DefaultOkText = PromptConfig.DefaultOkText = "Ok";
+
+                            // CUSTOM
+                            ActionSheetConfig.DefaultDestructiveText = "Remove";
+                            ConfirmConfig.DefaultYes = "Yes";
+                            ConfirmConfig.DefaultNo = "No";
+                            LoginConfig.DefaultTitle = "Login";
+                            LoginConfig.DefaultLoginPlaceholder = "User Name";
+                            LoginConfig.DefaultPasswordPlaceholder = "Password";
+                            ProgressDialogConfig.DefaultTitle = "Loading";
+
+                            UserDialogs.Instance.Alert("Default Settings Restored");
+                        })
 	                }
 				}
             };
@@ -49,7 +85,7 @@ namespace Samples {
 
 
         private async void Alert() {
-            await UserDialogs.Instance.AlertAsync("Test alert", "Alert Title", "CHANGE ME!");
+            await UserDialogs.Instance.AlertAsync("Test alert", "Alert Title");
             this.lblResult.Text = "Returned from alert!";
         }
 
@@ -65,15 +101,15 @@ namespace Samples {
 					() => this.lblResult.Text = String.Format("Option {0} Selected", display)
 				);
             }
-			cfg.SetDestructive("BOOM", () => this.lblResult.Text = "Destructive BOOM Selected");
-			cfg.SetCancel("Cancel", () => this.lblResult.Text = "Cancel Selected");
+			cfg.SetDestructive(action: () => this.lblResult.Text = "Destructive BOOM Selected");
+			cfg.SetCancel(action: () => this.lblResult.Text = "Cancel Selected");
 
             UserDialogs.Instance.ActionSheet(cfg);
         }
 
 
         private async void Confirm() {
-            var r = await UserDialogs.Instance.ConfirmAsync("Pick a choice", "Pick Title", "Yes", "No");
+            var r = await UserDialogs.Instance.ConfirmAsync("Pick a choice", "Pick Title");
             var text = (r ? "Yes" : "No");
             this.lblResult.Text = "Confirmation Choice: " + text;
         }
@@ -81,12 +117,7 @@ namespace Samples {
 
         private async void Login() {
 			var r = await UserDialogs.Instance.LoginAsync(new LoginConfig {
-				Title = "HIGH SECURITY",
-				Message = "DANGER",
-				LoginPlaceholder = "User Name Placeholder",
-				PasswordPlaceholder = "Password Placeholder",
-				OkText = "LOGIN",
-				CancelText = "NO"
+				Message = "DANGER"
 			});
             this.lblResult.Text = String.Format(
                 "Login {0} - User Name: {1} - Password: {2}",

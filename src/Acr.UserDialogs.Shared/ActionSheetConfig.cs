@@ -6,10 +6,12 @@ namespace Acr.UserDialogs {
 
     public class ActionSheetConfig {
         public static string DefaultCancelText { get; set; }
+        public static string DefaultDestructiveText { get; set; }
 
 
         static ActionSheetConfig() {
             DefaultCancelText = "Cancel";
+            DefaultDestructiveText = "Remove";
         }
 
 
@@ -36,8 +38,8 @@ namespace Acr.UserDialogs {
 		}
 
 
-		public ActionSheetConfig SetDestructive(string text, Action action = null) {
-			this.Destructive = new ActionSheetOption(text, action);
+		public ActionSheetConfig SetDestructive(string text = null, Action action = null) {
+			this.Destructive = new ActionSheetOption(text ?? DefaultDestructiveText, action);
 			return this;
 		}
 
