@@ -213,7 +213,7 @@ namespace Acr.UserDialogs {
 
 		protected virtual void ShowIOS7Prompt(PromptConfig config) {
 			var result = new PromptResult();
-			var isPassword = config.InputType == InputType.Password;
+			var isPassword = (config.InputType == InputType.Password || config.InputType == InputType.NumericPassword);
 			var cancelText = config.IsCancellable ? config.CancelText : null;
 
 			var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, cancelText, config.OkText) {
@@ -295,6 +295,11 @@ namespace Acr.UserDialogs {
 					break;
 
                 case InputType.Number:
+                    txt.KeyboardType = UIKeyboardType.NumberPad;
+                    break;
+
+                case InputType.NumericPassword:
+                    txt.SecureTextEntry = true;
                     txt.KeyboardType = UIKeyboardType.NumberPad;
                     break;
 

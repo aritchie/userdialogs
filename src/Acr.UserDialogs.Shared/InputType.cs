@@ -5,6 +5,7 @@
 		Name,
         Number,
         Password,
+        NumericPassword,
 		Phone,
 		Url
     }

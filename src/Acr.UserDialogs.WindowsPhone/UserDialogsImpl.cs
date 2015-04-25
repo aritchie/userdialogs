@@ -124,7 +124,7 @@ namespace Acr.UserDialogs {
                 Message = config.Message,
                 LeftButtonContent = config.OkText
             };
-			if (config.IsCancellable) 
+			if (config.IsCancellable)
 				prompt.RightButtonContent = config.CancelText;
 
             var password = new PasswordBox();
@@ -136,7 +136,7 @@ namespace Acr.UserDialogs {
 			if (config.Text != null)
 				txt.Text = config.Text;
 
-            var isSecure = config.InputType == InputType.Password;
+            var isSecure = (config.InputType == InputType.NumericPassword || config.InputType == InputType.Password);
             if (isSecure)
                 prompt.Content = password;
             else

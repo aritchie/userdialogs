@@ -4,6 +4,7 @@ using Android.App;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidHUD;
 
@@ -129,9 +130,6 @@ namespace Acr.UserDialogs {
 				if (config.Text != null)
 					txt.Text = config.Text;
 
-                if (config.InputType != InputType.Default)
-                    txt.SetMaxLines(1);
-
                 this.SetInputType(txt, config.InputType);
 
                 var builder = new AlertDialog
@@ -206,14 +204,22 @@ namespace Acr.UserDialogs {
 
                 case InputType.Email:
                     txt.InputType = InputTypes.ClassText | InputTypes.TextVariationEmailAddress;
+                    txt.SetSingleLine(true);
                     break;
 
 				case InputType.Name:
 					txt.InputType = InputTypes.TextVariationPersonName;
+                    txt.SetSingleLine(true);
 					break;
 
                 case InputType.Number:
                     txt.InputType = InputTypes.ClassNumber;
+                    txt.SetSingleLine(true);
+                    break;
+
+                case InputType.NumericPassword:
+                    txt.TransformationMethod = PasswordTransformationMethod.Instance;
+                    txt.InputType = InputTypes.ClassNumber | InputTypes.TextVariationPassword;
                     break;
 
                 case InputType.Password:
@@ -223,10 +229,12 @@ namespace Acr.UserDialogs {
 
 				case InputType.Phone:
 					txt.InputType = InputTypes.ClassPhone;
+                    txt.SetSingleLine(true);
 					break;
 
 				case InputType.Url:
 					txt.InputType = InputTypes.TextVariationUri;
+                    txt.SetSingleLine(true);
 					break;
             }
         }

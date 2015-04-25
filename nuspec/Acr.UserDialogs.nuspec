@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.3.0</version>
+        <version>3.3.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -39,6 +39,9 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
             </group>-->
         </dependencies>
         <releaseNotes>
+3.3.1
+* NEW - Numeric Password (PIN) prompt input type
+
 3.3
 * NEW - Default text/mask values added as static properties in each dialog configuration class (great for multilingual apps)
 * NEW - ShowSuccess/ShowError dialogs for iOS and Android - not ready for WP8 yet

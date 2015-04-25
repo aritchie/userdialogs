@@ -136,6 +136,7 @@ namespace Samples {
                 .Add("Name", () => this.PromptCommand(InputType.Name))
 				.Add("Number", () => this.PromptCommand(InputType.Number))
 				.Add("Password", () => this.PromptCommand(InputType.Password))
+                .Add("Numeric Password (PIN)", () => this.PromptCommand(InputType.NumericPassword))
                 .Add("Phone", () => this.PromptCommand(InputType.Phone))
                 .Add("Url", () => this.PromptCommand(InputType.Url))
 			);
