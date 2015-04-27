@@ -31,6 +31,8 @@ namespace Samples {
                         Btn("Loading (Gradient iOS)", () => this.Loading(MaskType.Gradient)),
                         Btn("Loading (None)", () => this.Loading(MaskType.Black)),
 	                    Btn("Loading (No Cancel)", this.LoadingNoCancel),
+                        Btn("Error", this.Error),
+                        Btn("Success", this.Success),
 						Btn("Toast (Clear - Default)", () => this.Toast(MaskType.Clear)),
 						Btn("Toast (Black)", () => this.Toast(MaskType.Black)),
 						Btn("Toast (Gradient - iOS)", () => this.Toast(MaskType.Gradient)),
@@ -78,9 +80,10 @@ namespace Samples {
 
 
         private static Button Btn(string text, Action action) {
-            var btn = new Button { Text = text };
-            btn.Clicked += (sender, args) => action();
-            return btn;
+            return new Button {
+                Text = text,
+                Command = new Command(action)
+            };
         }
 
 
@@ -185,6 +188,15 @@ namespace Samples {
             }
         }
 
+
+        private void Error() {
+            UserDialogs.Instance.ShowError("ERROR!");
+        }
+
+
+        private void Success() {
+            UserDialogs.Instance.ShowSuccess("Success");
+        }
 
         private async void Loading(MaskType maskType) {
             var cancelSrc = new CancellationTokenSource();

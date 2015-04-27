@@ -218,8 +218,8 @@ namespace Acr.UserDialogs {
                     break;
 
                 case InputType.NumericPassword:
+                    txt.InputType = InputTypes.ClassNumber;
                     txt.TransformationMethod = PasswordTransformationMethod.Instance;
-                    txt.InputType = InputTypes.ClassNumber | InputTypes.TextVariationPassword;
                     break;
 
                 case InputType.Password:
