@@ -5,8 +5,20 @@ A cross platform library that allows you to call for standard user dialogs from 
 Supports Android, iOS, and Windows Phone 8
 
 To use, simply reference the nuget package in each of your platform projects.
-ANDROID USERS: You must call UserDialogs.Init(Activity)
-ALL OTHERS: UserDialogs.Init()
+
+Additional Android Initialization (In your main activity)
+Android Xamarin Forms:
+
+    UserDialogs.Init(() => (Activity)Forms.Context);
+
+Android MvvmCross:
+
+    UserDialogs.Init(() => Mvx.Resolve<IMvxAndroidCurrentTopActivity>.Activity);
+
+Android Manually:
+
+    UserDialogs.Init(Activity Factory Function);
+
 
 * Action Sheet (multiple choice menu)
 * Alert

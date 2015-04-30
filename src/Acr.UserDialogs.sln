@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6BC05413-873B-460E-BDA0-82BD63FC13DC}"
 	ProjectSection(SolutionItems) = preProject
 		..\nuspec\Acr.UserDialogs.nuspec = ..\nuspec\Acr.UserDialogs.nuspec
+		..\..\notifications\license.txt = ..\..\notifications\license.txt
 		..\nuspec\pack.cmd = ..\nuspec\pack.cmd
 		..\nuspec\push.cmd = ..\nuspec\push.cmd
 		..\readme.md = ..\readme.md

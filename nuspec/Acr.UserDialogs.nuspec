@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.3.1</version>
+        <version>3.3.2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -16,11 +16,9 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Prompt
 - Toast
 
-To initialize:
-iOS AppDelegate: UserDialogs.Init();
-WinPhone8: MainPage or App, UserDialogs.Init();
-Android Xamarin Forms: UserDialogs.Init(() => BarCodes.Init(() => (Activity)Forms.Context);
-Android MvvmCross: UserDialogs.Init(() => BarCodes.Init(() => Mvx.Resolve&lt;ITopActivity&gt;.TopActivity;
+Android Initialization
+Android Xamarin Forms: UserDialogs.Init(() => (Activity)Forms.Context);
+Android MvvmCross: UserDialogs.Init(() => Mvx.Resolve&lt;IMvxAndroidCurrentTopActivity&gt;.Activity);
 Android Manually: UserDialogs.Init(Activity Factory Function);
         </description>
         <authors>Allan Ritchie</authors>
@@ -39,6 +37,9 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
             </group>-->
         </dependencies>
         <releaseNotes>
+3.3.2
+Init only necessary in Android now
+
 3.3.1
 * NEW - Numeric Password (PIN) prompt input type
 

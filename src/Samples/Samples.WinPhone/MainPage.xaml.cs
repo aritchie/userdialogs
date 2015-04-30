@@ -1,5 +1,4 @@
 ﻿using System;
-using Acr.UserDialogs;
 using Microsoft.Phone.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WinPhone;
@@ -13,7 +12,6 @@ namespace Samples.WinPhone {
             this.InitializeComponent();
             this.SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
             Forms.Init();
-            UserDialogs.Init();
             this.LoadApplication(new Samples.App());
         }
     }

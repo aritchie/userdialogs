@@ -7,46 +7,32 @@ using Android.App;
 namespace Acr.UserDialogs {
 
     public static class UserDialogs {
-
+        private static readonly Lazy<IUserDialogs> instanceInit = new Lazy<IUserDialogs>(() => {
+#if __ANDROID__
+            if (getActivity == null)
+                throw new ArgumentException("Android requires that you pass an activity factory function to Init() from your main activity");
+            return new UserDialogsImpl(getActivity);
+#elif __PLATFORM__
+            return new UserDialogsImpl();
+#else
+            throw new ArgumentException("No platform implementation found.  Did you install this package into your application project?");
+#endif
+        }, false);
 
 #if __ANDROID__
-        public static void Init(Func<Activity> getActivity) {
-            if (Instance != null)
-				throw new ArgumentException("UserDialogs has already been initialized");
-
-            Instance = new UserDialogsImpl(getActivity);
+        private static Func<Activity> getActivity;
+        public static void Init(Func<Activity> activityFactory) {
+            getActivity = activityFactory;
         }
 
-
-        //public static void Init(Activity activity) {
-        //    if (Instance != null)
-        //        throw new ArgumentException("UserDialogs has already been initialized");
-
-        //    var app = Application.Context.ApplicationContext as Application;
-        //    if (app == null)
-        //        throw new Exception("Application Context is not an application");
-
-        //    ActivityMonitor.CurrentTopActivity = activity;
-        //    app.RegisterActivityLifecycleCallbacks(new ActivityMonitor());
-
-        //    Instance = new UserDialogsImpl(() => ActivityMonitor.CurrentTopActivity);
-        //}
-#elif __PLATFORM__
-        public static void Init() {
-            if (Instance != null)
-				throw new ArgumentException("UserDialogs has already been initialized");
-            
-			Instance = new UserDialogsImpl();
-        }
-#else
-        [Obsolete("You must call the Init() method from the platform project, not this PCL version")]
-        public static void Init() {
-			throw new ArgumentException("You must call the Init() method from the platform project, not this PCL version");
-        }
 #endif
 
 
-        public static IUserDialogs Instance { get; set; }
+        private static IUserDialogs customInstance;
+        public static IUserDialogs Instance {
+            get { return customInstance ?? instanceInit.Value; }
+            set { customInstance = value; }
+        }
 
 
 		internal static void TryExecute(this Action action) {

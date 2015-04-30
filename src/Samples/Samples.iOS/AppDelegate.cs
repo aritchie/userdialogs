@@ -1,5 +1,4 @@
 ﻿using System;
-using Acr.UserDialogs;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
@@ -12,7 +11,6 @@ namespace Samples.iOS {
 
         public override bool FinishedLaunching(UIApplication app, NSDictionary options) {
             Forms.Init();
-            UserDialogs.Init();
             this.LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
