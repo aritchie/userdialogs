@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.3.2</version>
+        <version>3.3.3</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -37,6 +37,9 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
             </group>-->
         </dependencies>
         <releaseNotes>
+3.3.3
+Init is required on all platforms again to prevent confusion, but less annoying about secondary init calls
+
 3.3.2
 Init only necessary in Android now
 
