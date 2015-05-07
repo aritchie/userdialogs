@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BTProgressHUD">
-      <HintPath>..\Components\btprogresshud-1.15\lib\ios-unified\BTProgressHUD.dll</HintPath>
+      <HintPath>..\Components\btprogresshud-1.16\lib\ios-unified\BTProgressHUD.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
