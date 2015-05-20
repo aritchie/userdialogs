@@ -26,45 +26,6 @@ namespace OldAndroid
 		
 		public static void UpdateIdValues()
 		{
-			global::Acr.UserDialogs.Resource.Attribute.ahBarColor = global::OldAndroid.Resource.Attribute.ahBarColor;
-			global::Acr.UserDialogs.Resource.Attribute.ahBarLength = global::OldAndroid.Resource.Attribute.ahBarLength;
-			global::Acr.UserDialogs.Resource.Attribute.ahBarWidth = global::OldAndroid.Resource.Attribute.ahBarWidth;
-			global::Acr.UserDialogs.Resource.Attribute.ahCircleColor = global::OldAndroid.Resource.Attribute.ahCircleColor;
-			global::Acr.UserDialogs.Resource.Attribute.ahDelayMillis = global::OldAndroid.Resource.Attribute.ahDelayMillis;
-			global::Acr.UserDialogs.Resource.Attribute.ahRadius = global::OldAndroid.Resource.Attribute.ahRadius;
-			global::Acr.UserDialogs.Resource.Attribute.ahRimColor = global::OldAndroid.Resource.Attribute.ahRimColor;
-			global::Acr.UserDialogs.Resource.Attribute.ahRimWidth = global::OldAndroid.Resource.Attribute.ahRimWidth;
-			global::Acr.UserDialogs.Resource.Attribute.ahSpinSpeed = global::OldAndroid.Resource.Attribute.ahSpinSpeed;
-			global::Acr.UserDialogs.Resource.Attribute.ahText = global::OldAndroid.Resource.Attribute.ahText;
-			global::Acr.UserDialogs.Resource.Attribute.ahTextColor = global::OldAndroid.Resource.Attribute.ahTextColor;
-			global::Acr.UserDialogs.Resource.Attribute.ahTextSize = global::OldAndroid.Resource.Attribute.ahTextSize;
-			global::Acr.UserDialogs.Resource.Drawable.ic_errorstatus = global::OldAndroid.Resource.Drawable.ic_errorstatus;
-			global::Acr.UserDialogs.Resource.Drawable.ic_successstatus = global::OldAndroid.Resource.Drawable.ic_successstatus;
-			global::Acr.UserDialogs.Resource.Drawable.roundedbg = global::OldAndroid.Resource.Drawable.roundedbg;
-			global::Acr.UserDialogs.Resource.Drawable.roundedbgdark = global::OldAndroid.Resource.Drawable.roundedbgdark;
-			global::Acr.UserDialogs.Resource.Id.loadingImage = global::OldAndroid.Resource.Id.loadingImage;
-			global::Acr.UserDialogs.Resource.Id.loadingProgressBar = global::OldAndroid.Resource.Id.loadingProgressBar;
-			global::Acr.UserDialogs.Resource.Id.loadingProgressWheel = global::OldAndroid.Resource.Id.loadingProgressWheel;
-			global::Acr.UserDialogs.Resource.Id.textViewStatus = global::OldAndroid.Resource.Id.textViewStatus;
-			global::Acr.UserDialogs.Resource.Layout.loading = global::OldAndroid.Resource.Layout.loading;
-			global::Acr.UserDialogs.Resource.Layout.loadingimage = global::OldAndroid.Resource.Layout.loadingimage;
-			global::Acr.UserDialogs.Resource.Layout.loadingprogress = global::OldAndroid.Resource.Layout.loadingprogress;
-			global::Acr.UserDialogs.Resource.String.ApplicationName = global::OldAndroid.Resource.String.ApplicationName;
-			global::Acr.UserDialogs.Resource.String.Hello = global::OldAndroid.Resource.String.Hello;
-			global::Acr.UserDialogs.Resource.String.library_name = global::OldAndroid.Resource.String.library_name;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel = global::OldAndroid.Resource.Styleable.ProgressWheel;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahBarColor = global::OldAndroid.Resource.Styleable.ProgressWheel_ahBarColor;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahBarLength = global::OldAndroid.Resource.Styleable.ProgressWheel_ahBarLength;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahBarWidth = global::OldAndroid.Resource.Styleable.ProgressWheel_ahBarWidth;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahCircleColor = global::OldAndroid.Resource.Styleable.ProgressWheel_ahCircleColor;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahDelayMillis = global::OldAndroid.Resource.Styleable.ProgressWheel_ahDelayMillis;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahRadius = global::OldAndroid.Resource.Styleable.ProgressWheel_ahRadius;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahRimColor = global::OldAndroid.Resource.Styleable.ProgressWheel_ahRimColor;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahRimWidth = global::OldAndroid.Resource.Styleable.ProgressWheel_ahRimWidth;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahSpinSpeed = global::OldAndroid.Resource.Styleable.ProgressWheel_ahSpinSpeed;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahText = global::OldAndroid.Resource.Styleable.ProgressWheel_ahText;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahTextColor = global::OldAndroid.Resource.Styleable.ProgressWheel_ahTextColor;
-			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahTextSize = global::OldAndroid.Resource.Styleable.ProgressWheel_ahTextSize;
 			global::AndroidHUD.Resource.Attribute.ahBarColor = global::OldAndroid.Resource.Attribute.ahBarColor;
 			global::AndroidHUD.Resource.Attribute.ahBarLength = global::OldAndroid.Resource.Attribute.ahBarLength;
 			global::AndroidHUD.Resource.Attribute.ahBarWidth = global::OldAndroid.Resource.Attribute.ahBarWidth;
