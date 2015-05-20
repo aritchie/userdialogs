@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.MvvmCross.Plugins.UserDialogs</id>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <title>MvvmCross User Dialogs</title>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -22,7 +22,7 @@
             </group>
         </dependencies>
         <releaseNotes>
-Built on Acr.UserDialogs now
+Update nuspec to support profile 259 on PCL
         </releaseNotes>
     </metadata>
     <files>
