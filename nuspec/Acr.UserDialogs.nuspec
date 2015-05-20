@@ -37,6 +37,9 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
             </group>-->
         </dependencies>
         <releaseNotes>
+3.3.4
+Update nuspec to profile 259 for the PCL
+
 3.3.3
 Init is required on all platforms again to prevent confusion, but less annoying about secondary init calls
 
@@ -87,7 +90,7 @@ Add destructive and cancel buttons to actionsheets
     </metadata>
     <files>
         <!-- PCL -->
-        <file src="..\src\Acr.UserDialogs\bin\Release\Acr.UserDialogs.dll" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid10+Xamarin.iOS10\Acr.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs\bin\Release\Acr.UserDialogs.dll" target="lib\portable-win+net45+wp8+win8+wpa81\Acr.UserDialogs.dll" />
 
         <!-- android -->
         <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.dll" target="lib\MonoAndroid10\Acr.UserDialogs.dll" />

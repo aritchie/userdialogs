@@ -27,7 +27,7 @@ Built on Acr.UserDialogs now
     </metadata>
     <files>
         <!-- PCL -->
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.dll" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid10+Xamarin.iOS10\Acr.MvvmCross.Plugins.UserDialogs.dll" />
+        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.dll" target="lib\portable-win+net45+wp8+win8+wpa81\Acr.MvvmCross.Plugins.UserDialogs.dll" />
 
         <!-- droid -->
         <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.dll" target="lib\MonoAndroid10\Acr.MvvmCross.Plugins.UserDialogs.dll" />
