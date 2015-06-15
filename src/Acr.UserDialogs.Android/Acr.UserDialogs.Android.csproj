@@ -61,6 +61,12 @@
   <ItemGroup>
     <Folder Include="Resources\Values\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
+      <Project>{6a0ae941-711d-4c36-a311-960b65534b22}</Project>
+      <Name>Acr.UserDialogs.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems" Label="Shared" Condition="Exists('..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

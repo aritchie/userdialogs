@@ -1,4 +1,4 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("Acr.UserDialogs.WindowsStore")]
+[assembly: AssemblyTitle("Acr.UserDialogs.Interface")]
 [assembly: AssemblyDescription("")]
