@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>3.4.0</version>
+        <version>3.4.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -41,6 +41,7 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
 Split out interface library for proper abstraction
 [ios][fix] actionsheet on ipads
 [ios][fix] modal dialogs won't display any dialogs
+[wp][fix] success and error will now show alerts
 
 3.3.4
 Update nuspec to profile 259 for the PCL
