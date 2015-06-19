@@ -339,9 +339,15 @@ namespace Acr.UserDialogs {
                 return nav.VisibleViewController;
 
             if (root.PresentedViewController != null)
-                return root.PresentedViewController;
+                return this.GetCorrectPresentedViewController(root.PresentedViewController);
 
             return root;
+        }
+
+        private UIViewController GetCorrectPresentedViewController(UIViewController viewController) {
+            if (viewController.PresentedViewController != null)
+                return this.GetCorrectPresentedViewController(viewController.PresentedViewController);
+            return viewController;
         }
     }
 }
