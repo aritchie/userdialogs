@@ -271,14 +271,8 @@ namespace Acr.UserDialogs {
                 var po = controller.PopoverPresentationController;
                 if (po != null) {
                     po.SourceView = top.View;
-                    var h = (top.View.Frame.Height / 2) - 400;
-                    var v = (top.View.Frame.Width / 2) - 300;
-#if __UNIFIED__
-                    po.SourceRect = new CGRect(v, h, 0, 0);
-#else
-                    po.SourceRect = new System.Drawing.RectangleF(v, h, 0, 0);
-#endif
-                    po.PermittedArrowDirections = UIPopoverArrowDirection.Any;
+                    po.SourceRect = top.View.Bounds;
+                    po.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
                 }
                 top.PresentViewController(controller, true, null);
             });
@@ -323,7 +317,7 @@ namespace Acr.UserDialogs {
                 .Windows
                 .Reverse()
                 .FirstOrDefault(x =>
-                    x.WindowLevel == UIWindowLevel.Normal && 
+                    x.WindowLevel == UIWindowLevel.Normal &&
                     !x.Hidden
                 );
         }

@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
 
-namespace Acr.UserDialogs.Windows {
+namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
 

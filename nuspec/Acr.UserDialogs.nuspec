@@ -39,6 +39,8 @@ Android Manually: UserDialogs.Init(Activity Factory Function);
         <releaseNotes>
 3.4
 Split out interface library for proper abstraction
+[ios][fix] actionsheet on ipads
+[ios][fix] modal dialogs won't display any dialogs
 
 3.3.4
 Update nuspec to profile 259 for the PCL

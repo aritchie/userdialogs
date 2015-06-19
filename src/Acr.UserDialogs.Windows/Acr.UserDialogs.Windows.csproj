@@ -8,8 +8,8 @@
     <ProjectGuid>{C938521F-737B-47E6-AFA8-28AA38465F15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Acr.UserDialogs.Windows</RootNamespace>
-    <AssemblyName>Acr.UserDialogs.Windows</AssemblyName>
+    <RootNamespace>Acr.UserDialogs</RootNamespace>
+    <AssemblyName>Acr.UserDialogs</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
