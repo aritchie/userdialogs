@@ -153,12 +153,12 @@ namespace Acr.UserDialogs {
 
 
         public override void ShowError(string message, int timeoutSeconds) {
-            // TODO
+            this.Alert(message, null, null);
         }
 
 
         public override void ShowSuccess(string message, int timeoutSeconds) {
-            // TODO
+            this.Alert(message, null, null);
         }
 
 
