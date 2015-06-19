@@ -1,13 +1,9 @@
 using System;
 using System.Linq;
-using BigTed;
-#if __UNIFIED__
+using Foundation;
 using CoreGraphics;
 using UIKit;
-#else
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
-#endif
+using BigTed;
 
 
 namespace Acr.UserDialogs {
@@ -265,16 +261,19 @@ namespace Acr.UserDialogs {
 		}
 
 
-        protected virtual void Present(UIAlertController controller) {
+        protected virtual void Present(UIAlertController alert) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                var top = this.GetTopViewController();
-                var po = controller.PopoverPresentationController;
-                if (po != null) {
-                    po.SourceView = top.View;
-                    po.SourceRect = top.View.Bounds;
-                    po.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
-                }
-                top.PresentViewController(controller, true, null);
+				var top = this.GetTopViewController();
+				if (alert.PopoverPresentationController != null) {
+					var x = top.View.Bounds.Width / 2;
+					var y = top.View.Bounds.Bottom;
+					var rect = new CGRect(x, y, 0, 0);
+
+					alert.PopoverPresentationController.SourceView = top.View;
+					alert.PopoverPresentationController.SourceRect = rect;
+					alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
+				}
+				top.PresentViewController(alert, true, null);
             });
         }
 
