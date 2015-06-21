@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Acr.UserDialogs.Android.AppCompat.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Acr.UserDialogs.Resource", IsApplication=false)]
 
-namespace Acr.UserDialogs.Android.AppCompat
+namespace Acr.UserDialogs
 {
 	
 	
@@ -1841,12 +1841,6 @@ namespace Acr.UserDialogs.Android.AppCompat
 		
 		public partial class String
 		{
-			
-			// aapt resource value: 0x7f050014
-			public static int ApplicationName = 2131034132;
-			
-			// aapt resource value: 0x7f050013
-			public static int Hello = 2131034131;
 			
 			// aapt resource value: 0x7f050000
 			public static int abc_action_bar_home_description = 2131034112;

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.MvvmCross.Plugins.UserDialogs</id>
-        <version>3.0.1</version>
+        <version>3.1.0</version>
         <title>MvvmCross User Dialogs</title>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -14,15 +14,15 @@
         <dependencies>
             <group>
                 <dependency id="MvvmCross.HotTuna.CrossCore" version="[3.5, 4.0)" />
-                <dependency id="Acr.UserDialogs" version="[3.3.3, 4.0)" />
+                <dependency id="Acr.UserDialogs" version="[3.4.1, 4.0)" />
             </group>
             <group targetFramework="wp8">
-                <dependency id="Acr.UserDialogs" version="[3.3.3, 4.0)" />
+                <dependency id="Acr.UserDialogs" version="[3.4.1, 4.0)" />
                 <dependency id="MvvmCross.HotTuna.CrossCore" version="[3.5, 4.0)" />
             </group>
         </dependencies>
         <releaseNotes>
-Update nuspec to support profile 259 on PCL
+Update to Acr.UserDialogs 3.4.1
         </releaseNotes>
     </metadata>
     <files>
