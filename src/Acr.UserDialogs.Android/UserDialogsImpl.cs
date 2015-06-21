@@ -4,9 +4,11 @@ using Android.App;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
-using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidHUD;
+#if __APPCOMPAT__
+using AlertDialog = Android.Support.V7.App.AlertDialog;
+#endif
 
 
 namespace Acr.UserDialogs {
