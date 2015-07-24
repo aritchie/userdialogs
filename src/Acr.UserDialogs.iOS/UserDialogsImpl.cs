@@ -330,14 +330,20 @@ namespace Acr.UserDialogs {
         protected virtual UIViewController GetTopViewController() {
             var root = this.GetTopWindow().RootViewController;
             var tabs = root as UITabBarController;
-            if (tabs != null)
-				return tabs.PresentedViewController ?? tabs.SelectedViewController;
+			if (tabs != null) {
+				root = tabs.PresentedViewController ?? tabs.SelectedViewController;
+
+				while (root.PresentedViewController != null)
+					root = this.GetTopViewController (root.PresentedViewController);
+
+				return root;
+			}
 
             var nav = root as UINavigationController;
             if (nav != null)
                 return nav.VisibleViewController;
 
-            if (root.PresentedViewController != null)
+            while (root.PresentedViewController != null)
                 root = this.GetTopViewController(root.PresentedViewController);
 
             return root;
