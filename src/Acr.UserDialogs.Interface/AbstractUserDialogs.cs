@@ -32,6 +32,7 @@ namespace Acr.UserDialogs {
             foreach (var btn in buttons)
                 cfg.Add(btn, () => tcs.TrySetResult(btn));
 
+			this.ActionSheet(cfg);
             return tcs.Task;
         }
 
