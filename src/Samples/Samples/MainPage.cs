@@ -9,7 +9,7 @@ namespace Samples {
 
     public class MainPage : ContentPage {
         private readonly Label lblResult;
- 
+
         public MainPage() {
 			this.lblResult = new Label();
 			this.Content = new ScrollView {
@@ -19,6 +19,7 @@ namespace Samples {
 	                    this.lblResult,
 	                    Btn("Alert", this.Alert),
 	                    Btn("ActionSheet", this.ActionSheet),
+                        Btn("ActionSheet (async)", this.ActionSheetAsync),
 	                    Btn("Confirm", this.Confirm),
 	                    Btn("Login", this.Login),
 						Btn("Manual Loading", this.ManualLoading),
@@ -100,14 +101,20 @@ namespace Samples {
             for (var i = 0; i < 5; i++) {
                 var display = (i + 1);
                 cfg.Add(
-					"Option " + display, 
-					() => this.lblResult.Text = String.Format("Option {0} Selected", display)
+					"Option " + display,
+					() => this.lblResult.Text = $"Option {display} Selected"
 				);
             }
 			cfg.SetDestructive(action: () => this.lblResult.Text = "Destructive BOOM Selected");
 			cfg.SetCancel(action: () => this.lblResult.Text = "Cancel Selected");
 
             UserDialogs.Instance.ActionSheet(cfg);
+        }
+
+
+        public async void ActionSheetAsync() {
+            var result = await UserDialogs.Instance.ActionSheetAsync("Test Title", "Cancel", "Destroy", "Button1", "Button2", "Button3");
+            this.lblResult.Text = result;
         }
 
 
@@ -214,7 +221,7 @@ namespace Samples {
 
 
         private async void LoadingNoCancel() {
-            using (UserDialogs.Instance.Loading("Loading (No Cancel)")) 
+            using (UserDialogs.Instance.Loading("Loading (No Cancel)"))
                 await Task.Delay(TimeSpan.FromSeconds(3));
 
             this.lblResult.Text = "Loading Complete";

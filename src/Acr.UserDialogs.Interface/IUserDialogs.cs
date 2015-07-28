@@ -20,6 +20,7 @@ namespace Acr.UserDialogs {
         void HideLoading();
 		void Toast(string message, int timeoutSeconds = 3, Action onClick = null, MaskType maskType = MaskType.None);
 
+        Task<string> ActionSheetAsync(string title, string cancel, string destructive, params string[] buttons);
         Task AlertAsync(string message, string title = null, string okText = null);
         Task AlertAsync(AlertConfig config);
         Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null);

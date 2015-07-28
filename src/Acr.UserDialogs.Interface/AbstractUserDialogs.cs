@@ -17,6 +17,25 @@ namespace Acr.UserDialogs {
         protected abstract IProgressDialog CreateDialogInstance();
 
 
+        public virtual Task<string> ActionSheetAsync(string title, string cancel, string destructive, params string[] buttons) {
+            var tcs = new TaskCompletionSource<string>();
+            var cfg = new ActionSheetConfig();
+            if (title != null)
+                cfg.Title = title;
+
+            if (cancel != null)
+                cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
+
+            if (destructive != null)
+                cfg.SetDestructive(destructive, () => tcs.TrySetResult(destructive));
+
+            foreach (var btn in buttons)
+                cfg.Add(btn, () => tcs.TrySetResult(btn));
+
+            return tcs.Task;
+        }
+
+
         public virtual void Alert(string message, string title, string okText) {
             this.Alert(new AlertConfig {
                 Message = message,
