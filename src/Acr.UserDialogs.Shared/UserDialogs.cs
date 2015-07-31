@@ -9,8 +9,15 @@ namespace Acr.UserDialogs {
     public static class UserDialogs {
 
 #if __ANDROID__
-        public static void Init(Func<Activity> getActivity) {
-            Instance = new UserDialogsImpl(getActivity);
+        /// <summary>
+        /// You need to provide a factory function
+        /// </summary>
+        public static void Init(bool useMaterialDesign = false) {
+            if (Instance != null)
+                return;
+
+            ((Application)Application.Context).RegisterActivityLifecycleCallbacks(new ActivityLifecycleCallbacks());
+            Instance = new UserDialogsImpl(() => ActivityLifecycleCallbacks.CurrentTopActivity);
         }
 #elif PCL
         [Obsolete("You must call the Init() method from the platform project, not this PCL version")]
@@ -24,11 +31,5 @@ namespace Acr.UserDialogs {
 #endif
 
         public static IUserDialogs Instance { get; set; }
-
-
-		internal static void TryExecute(this Action action) {
-			if (action != null)
-				action();
-		}
     }
 }

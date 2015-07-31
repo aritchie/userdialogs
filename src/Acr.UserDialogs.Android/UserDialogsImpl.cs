@@ -1,14 +1,13 @@
 using System;
 using System.Linq;
 using Android.App;
+using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
 using AndroidHUD;
-#if __APPCOMPAT__
-using AlertDialog = Android.Support.V7.App.AlertDialog;
-#endif
+//using AlertDialog = Android.Support.V7.App.AlertDialog;
 
 
 namespace Acr.UserDialogs {
@@ -36,7 +35,7 @@ namespace Acr.UserDialogs {
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-					.SetPositiveButton(config.OkText, (o, e) => config.OnOk.TryExecute())
+					.SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke())
                     .Show()
             );
         }
@@ -53,13 +52,13 @@ namespace Acr.UserDialogs {
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-			dlg.SetItems(array, (sender, args) => config.Options[args.Which].Action.TryExecute());
+			dlg.SetItems(array, (sender, args) => config.Options[args.Which].Action?.Invoke());
 
 			if (config.Destructive != null)
-				dlg.SetNegativeButton(config.Destructive.Text, (sender, e) => config.Destructive.Action.TryExecute());
+				dlg.SetNegativeButton(config.Destructive.Text, (sender, e) => config.Destructive.Action?.Invoke());
 
 			if (config.Cancel != null)
-				dlg.SetNeutralButton(config.Cancel.Text, (sender, e) => config.Cancel.Action.TryExecute());
+				dlg.SetNeutralButton(config.Cancel.Text, (sender, e) => config.Cancel.Action?.Invoke());
 
 			Utils.RequestMainThread(() => dlg.Show());
         }
@@ -180,18 +179,30 @@ namespace Acr.UserDialogs {
         public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
             Utils.RequestMainThread(() => {
 				var top = this.getTopActivity();
-                AndHUD.Shared.ShowToast(
-                    top,
-                    message,
-					maskType.ToNative(),
-                    TimeSpan.FromSeconds(timeoutSeconds),
-                    false,
-					() => {
-						AndHUD.Shared.Dismiss();
-						if (onClick != null)
-							onClick();
-					}
-                );
+                var view = top.FindViewById(Android.Resource.Id.Content).RootView;
+                var snackBar = Snackbar.Make(view, message, timeoutSeconds * 1000);
+
+                if (onClick != null)
+                    // TODO: action text
+                    snackBar.SetAction("Ok", x => onClick());
+
+                snackBar.Show();
+
+                // TODO: on dismiss
+                    //.SetActionTextColor()
+
+     //           AndHUD.Shared.ShowToast(
+     //               top,
+     //               message,
+					//maskType.ToNative(),
+     //               TimeSpan.FromSeconds(timeoutSeconds),
+     //               false,
+					//() => {
+					//	AndHUD.Shared.Dismiss();
+					//	if (onClick != null)
+					//		onClick();
+					//}
+     //           );
             });
         }
 

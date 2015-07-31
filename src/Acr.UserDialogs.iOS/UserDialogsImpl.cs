@@ -4,6 +4,8 @@ using Foundation;
 using CoreGraphics;
 using UIKit;
 using BigTed;
+using MessageBar;
+using Splat;
 
 
 namespace Acr.UserDialogs {
@@ -123,6 +125,7 @@ namespace Acr.UserDialogs {
 
         public override void ShowError(string message, int timeoutSeconds) {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                // splat image
                 BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutSeconds * 1000)
             );
         }
@@ -130,20 +133,48 @@ namespace Acr.UserDialogs {
 
         public override void ShowSuccess(string message, int timeoutSeconds) {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                // splat image
                 BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutSeconds * 1000)
             );
         }
 
 
+        public class AcrMessageBarStyleSheet : MessageBarStyleSheet {
+            // TODO: default colours/images for success, info, error
+            // TODO: add warning category
+            // TODO: custom incoming images/colours
+
+            public override UIColor StrokeColorForMessageType(MessageType type) {
+                return base.StrokeColorForMessageType(type);
+            }
+
+
+            public override UIColor BackgroundColorForMessageType(MessageType type) {
+                return base.BackgroundColorForMessageType(type);
+            }
+
+
+            public override UIImage IconImageForMessageType(MessageType type) {
+                return base.IconImageForMessageType(type);
+            }
+        }
+
+
+
 		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                var ms = timeoutSeconds * 1000;
-                BTProgressHUD.ShowToast(
-					message,
-					maskType.ToNative(),
-					false,
-					ms
-				);
+                // TODO: title, description, top/bottom, success/error/info, dismiss click
+                MessageBarManager.SharedInstance.ShowAtTheBottom = true;
+                MessageBarManager.SharedInstance.ShowMessage("title", "description", MessageType.Success, onClick);
+                //Splat.IBitmap bit;
+                //BTProgressHUD.ShowImage(bit.ToNative());
+    //            var ms = timeoutSeconds * 1000;
+    //            BTProgressHUD.ShowToast(
+				//	message,
+				//	maskType.ToNative(),
+				//	false,
+				//	ms
+				//);
             });
         }
 

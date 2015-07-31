@@ -22,7 +22,7 @@ namespace Acr.UserDialogs {
                     LeftButtonContent = config.OkText,
                     IsRightButtonEnabled = false
                 };
-                alert.Dismissed += (sender, args) => config.OnOk.TryExecute();
+                alert.Dismissed += (sender, args) => config.OnOk?.Invoke();
 
                 alert.Show();
             });
@@ -37,14 +37,14 @@ namespace Acr.UserDialogs {
                 sheet.IsRightButtonEnabled = true;
                 sheet.RightButtonContent = this.CreateButton(config.Cancel.Text, () => {
                     sheet.Dismiss();
-                    config.Cancel.Action.TryExecute();
+                    config.Cancel.Action?.Invoke();
                 });
             }
             if (config.Destructive != null) {
                 sheet.IsLeftButtonEnabled = true;
                 sheet.LeftButtonContent = this.CreateButton(config.Destructive.Text, () => {
                     sheet.Dismiss();
-                    config.Destructive.Action.TryExecute();
+                    config.Destructive.Action?.Invoke();
                 });
             }
 
