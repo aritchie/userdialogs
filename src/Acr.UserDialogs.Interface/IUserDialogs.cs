@@ -18,7 +18,8 @@ namespace Acr.UserDialogs {
 
 		void ShowLoading(string title = null, MaskType? maskType = null);
         void HideLoading();
-		void Toast(string message, int timeoutSeconds = 3, Action onClick = null, MaskType maskType = MaskType.None);
+		void Toast(string message, int timeoutMillis = 3000, Action onTap = null);
+        void Toast(ToastConfig cfg);
 
         Task<string> ActionSheetAsync(string title, string cancel, string destructive, params string[] buttons);
         Task AlertAsync(string message, string title = null, string okText = null);
@@ -30,7 +31,7 @@ namespace Acr.UserDialogs {
         Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default);
         Task<PromptResult> PromptAsync(PromptConfig config);
 
-        void ShowSuccess(string message, int timeout = 3);
-        void ShowError(string message, int timeout = 3);
+        void ShowSuccess(string message, int timeoutMillis = 3000);
+        void ShowError(string message, int timeoutMillis = 3000);
     }
 }

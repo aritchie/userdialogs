@@ -18,17 +18,12 @@ namespace Acr.UserDialogs {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
                 if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
                     var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                    alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => {
-                        if (config.OnOk != null)
-                            config.OnOk();
-                    }));
+                    alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnOk?.Invoke()));
                     this.Present(alert);
                 }
                 else {
                     var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, null, config.OkText);
-                    if (config.OnOk != null)
-                        dlg.Clicked += (s, e) => config.OnOk();
-
+                    dlg.Clicked += (s, e) => config.OnOk?.Invoke();
                     dlg.Show();
                 }
             });
@@ -123,64 +118,54 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void ShowError(string message, int timeoutSeconds) {
+        public override void ShowError(string message, int timeoutMillis) {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
                 // splat image
-                BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutSeconds * 1000)
+                BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutMillis)
             );
         }
 
 
-        public override void ShowSuccess(string message, int timeoutSeconds) {
+        public override void ShowSuccess(string message, int timeoutMillis) {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
                 // splat image
-                BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutSeconds * 1000)
+                BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutMillis)
             );
         }
 
 
-        public class AcrMessageBarStyleSheet : MessageBarStyleSheet {
-            // TODO: default colours/images for success, info, error
-            // TODO: add warning category
-            // TODO: custom incoming images/colours
+        //public class AcrMessageBarStyleSheet : MessageBarStyleSheet {
+        //    // TODO: default colours/images for success, info, error
+        //    // TODO: add warning category
+        //    // TODO: custom incoming images/colours
 
-            public override UIColor StrokeColorForMessageType(MessageType type) {
-                return base.StrokeColorForMessageType(type);
-            }
-
-
-            public override UIColor BackgroundColorForMessageType(MessageType type) {
-                return base.BackgroundColorForMessageType(type);
-            }
+        //    public override UIColor StrokeColorForMessageType(MessageType type) {
+        //        return base.StrokeColorForMessageType(type);
+        //    }
 
 
-            public override UIImage IconImageForMessageType(MessageType type) {
-                return base.IconImageForMessageType(type);
-            }
-        }
+        //    public override UIColor BackgroundColorForMessageType(MessageType type) {
+        //        return base.BackgroundColorForMessageType(type);
+        //    }
+
+
+        //    public override UIImage IconImageForMessageType(MessageType type) {
+        //        return base.IconImageForMessageType(type);
+        //    }
+        //}
 
 
 
-		public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
+		public override void Toast(ToastConfig cfg) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                // TODO: title, description, top/bottom, success/error/info, dismiss click
                 MessageBarManager.SharedInstance.ShowAtTheBottom = true;
-                MessageBarManager.SharedInstance.ShowMessage("title", "description", MessageType.Success, onClick);
-                //Splat.IBitmap bit;
-                //BTProgressHUD.ShowImage(bit.ToNative());
-    //            var ms = timeoutSeconds * 1000;
-    //            BTProgressHUD.ShowToast(
-				//	message,
-				//	maskType.ToNative(),
-				//	false,
-				//	ms
-				//);
+                MessageBarManager.SharedInstance.ShowMessage("TODO", cfg.Message, MessageType.Success, () => cfg.OnTap?.Invoke());
             });
         }
 
 
 		protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style) {
-			controller.AddAction(UIAlertAction.Create(opt.Text, style, x => opt.TryExecute()));
+			controller.AddAction(UIAlertAction.Create(opt.Text, style, x => opt.Action?.Invoke()));
 		}
 
 
@@ -209,13 +194,13 @@ namespace Acr.UserDialogs {
 
 			action.Dismissed += (sender, btn) => {
 				if (btn.ButtonIndex == action.DestructiveButtonIndex)
-					config.Destructive.TryExecute();
+					config.Destructive.Action?.Invoke();
 
 				else if (btn.ButtonIndex == action.CancelButtonIndex)
-					config.Cancel.TryExecute();
+					config.Cancel.Action?.Invoke();
 
 				else if (btn.ButtonIndex > -1)
-					config.Options[(int)btn.ButtonIndex].TryExecute();
+					config.Options[(int)btn.ButtonIndex].Action?.Invoke();
 			};
 			action.ShowInView(view);
 		}

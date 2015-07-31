@@ -24,13 +24,13 @@ namespace Acr.UserDialogs {
         public override void ActionSheet(ActionSheetConfig config) {
             var sheet = new PopupMenu();
             foreach (var opt in config.Options)
-                sheet.Commands.Add(new UICommand(opt.Text, x => opt.TryExecute()));
+                sheet.Commands.Add(new UICommand(opt.Text, x => opt.Action?.Invoke()));
 
             if (config.Cancel != null)
-                sheet.Commands.Add(new UICommand(config.Cancel.Text, x => config.Cancel.TryExecute()));
+                sheet.Commands.Add(new UICommand(config.Cancel.Text, x => config.Cancel.Action?.Invoke()));
 
             if (config.Destructive != null)
-                sheet.Commands.Add(new UICommand(config.Destructive.Text, x => config.Destructive.TryExecute()));
+                sheet.Commands.Add(new UICommand(config.Destructive.Text, x => config.Destructive.Action?.Invoke()));
 
             sheet.ShowAsync(new Point(0, 0));
         }
@@ -64,7 +64,7 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
+        public override void Toast(ToastConfig cfg) {
             throw new NotImplementedException();
         }
 

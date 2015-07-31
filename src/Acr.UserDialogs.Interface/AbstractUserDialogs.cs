@@ -11,7 +11,7 @@ namespace Acr.UserDialogs {
         public abstract void Confirm(ConfirmConfig config);
         public abstract void Login(LoginConfig config);
         public abstract void Prompt(PromptConfig config);
-        public abstract void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType);
+        public abstract void Toast(ToastConfig config);
         public abstract void ShowError(string message, int timeoutSeconds);
         public abstract void ShowSuccess(string message, int timeoutSeconds);
         protected abstract IProgressDialog CreateDialogInstance();
@@ -178,6 +178,15 @@ namespace Acr.UserDialogs {
             config.OnResult = x => tcs.TrySetResult(x);
             this.Prompt(config);
             return tcs.Task;
+        }
+
+
+        public virtual void Toast(string message, int timeoutMillis, Action onTap) {
+            this.Toast(new ToastConfig {
+                Message = message,
+                OnTap = onTap,
+                Duration = TimeSpan.FromMilliseconds(timeoutMillis)
+            });
         }
     }
 }

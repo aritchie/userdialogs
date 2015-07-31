@@ -69,8 +69,7 @@ namespace Acr.UserDialogs {
                     return;
 
                 var action = txt.DataContext as ActionSheetOption;
-                if (action != null && action.Action != null)
-                    action.Action();
+                action?.Action?.Invoke();
             };
             this.Dispatch(sheet.Show);
         }
@@ -162,7 +161,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
+        public override void Toast(ToastConfig cfg) {
+            // TODO: colours, logos!
             var resources = Application.Current.Resources;
 
             var tb = new TextBlock {
@@ -170,7 +170,7 @@ namespace Acr.UserDialogs {
                 FontSize = (double)resources["PhoneFontSizeMedium"],
                 Margin = new Thickness(24, 32, 24, 12),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Text = message
+                Text = cfg.Message
             };
             var wrapper = new StackPanel {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -183,11 +183,11 @@ namespace Acr.UserDialogs {
                 Child = wrapper,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            if (onClick != null) {
+            if (cfg.OnTap != null) {
                 tb.Tap += (sender, args) => {
                     SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                     popup.IsOpen = false;
-                    onClick();
+                    cfg.OnTap();
                 };
             }
 
@@ -195,7 +195,7 @@ namespace Acr.UserDialogs {
                 SystemTray.BackgroundColor = (Color)resources["PhoneAccentColor"];
                 popup.IsOpen = true;
             });
-            Task.Delay(TimeSpan.FromSeconds(timeoutSeconds))
+            Task.Delay(cfg.Duration)
                 .ContinueWith(x => this.Dispatch(() => {
                     SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                     popup.IsOpen = false;

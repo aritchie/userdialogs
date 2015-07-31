@@ -162,48 +162,34 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void ShowSuccess(string message, int timeoutSeconds) {
+        public override void ShowSuccess(string message, int timeoutMillis) {
             Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowSuccess(this.getTopActivity(), message, timeout: TimeSpan.FromSeconds(timeoutSeconds))
+                AndHUD.Shared.ShowSuccess(this.getTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
 
-        public override void ShowError(string message, int timeoutSeconds) {
+        public override void ShowError(string message, int timeoutMillis) {
             Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowError(this.getTopActivity(), message, timeout: TimeSpan.FromSeconds(timeoutSeconds))
+                AndHUD.Shared.ShowError(this.getTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
 
-        public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
-            Utils.RequestMainThread(() => {
-				var top = this.getTopActivity();
-                var view = top.FindViewById(Android.Resource.Id.Content).RootView;
-                var snackBar = Snackbar.Make(view, message, timeoutSeconds * 1000);
+        public override void Toast(ToastConfig cfg) {
 
-                if (onClick != null)
-                    // TODO: action text
-                    snackBar.SetAction("Ok", x => onClick());
+			var top = this.getTopActivity();
+            //var view = top.FindViewById(Android.Resource.Id.Content).RootView;
+            //var view = top.Window.DecorView.RootView;
+            var view = top.Window.DecorView.FindViewById(Android.Resource.Id.Content);
+            Console.WriteLine("View is " + (view == null ? "NULL" : view.Id.ToString()));
+            var snackBar = Snackbar.Make(view, cfg.Message, (int)cfg.Duration.TotalMilliseconds);
 
-                snackBar.Show();
+            if (cfg.OnTap != null)
+                //snackBar.SetActionTextColor("") TODO: action text
+                snackBar.SetAction("Ok", x => cfg.OnTap?.Invoke());
 
-                // TODO: on dismiss
-                    //.SetActionTextColor()
-
-     //           AndHUD.Shared.ShowToast(
-     //               top,
-     //               message,
-					//maskType.ToNative(),
-     //               TimeSpan.FromSeconds(timeoutSeconds),
-     //               false,
-					//() => {
-					//	AndHUD.Shared.Dismiss();
-					//	if (onClick != null)
-					//		onClick();
-					//}
-     //           );
-            });
+            Utils.RequestMainThread(snackBar.Show);
         }
 
 
