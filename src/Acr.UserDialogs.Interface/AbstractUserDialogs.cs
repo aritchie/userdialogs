@@ -12,8 +12,6 @@ namespace Acr.UserDialogs {
         public abstract void Login(LoginConfig config);
         public abstract void Prompt(PromptConfig config);
         public abstract void Toast(ToastConfig config);
-        public abstract void ShowError(string message, int timeoutSeconds);
-        public abstract void ShowSuccess(string message, int timeoutSeconds);
         protected abstract IProgressDialog CreateDialogInstance();
 
 
@@ -54,10 +52,8 @@ namespace Acr.UserDialogs {
 
 
         public virtual void HideLoading() {
-            if (this.loading != null) {
-                this.loading.Dispose();
-                this.loading = null;
-            }
+            this.loading?.Dispose();
+            this.loading = null;
         }
 
 
@@ -181,10 +177,28 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual void Toast(string message, int timeoutMillis, Action onTap) {
-            this.Toast(new ToastConfig {
-                Message = message,
-                OnTap = onTap,
+        public virtual void InfoToast(string message, int timeoutMillis) {
+            this.Toast(ToastEvent.Info, message, timeoutMillis);
+        }
+
+
+        public virtual void SuccessToast(string message, int timeoutMillis) {
+            this.Toast(ToastEvent.Success, message, timeoutMillis);
+        }
+
+
+        public virtual void WarnToast(string message, int timeoutMillis) {
+            this.Toast(ToastEvent.Warn, message, timeoutMillis);
+        }
+
+
+        public virtual void ErrorToast(string message, int timeoutMillis) {
+            this.Toast(ToastEvent.Error, message, timeoutMillis);
+        }
+
+
+        public virtual void Toast(ToastEvent toastEvent, string message, int timeoutMillis) {
+            this.Toast(new ToastConfig(toastEvent, message) {
                 Duration = TimeSpan.FromMilliseconds(timeoutMillis)
             });
         }

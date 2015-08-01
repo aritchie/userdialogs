@@ -5,14 +5,9 @@ using System.Collections.Generic;
 namespace Acr.UserDialogs {
 
     public class ActionSheetConfig {
-        public static string DefaultCancelText { get; set; }
-        public static string DefaultDestructiveText { get; set; }
+        public static string DefaultCancelText { get; set; } = "Cancel";
+        public static string DefaultDestructiveText { get; set; } = "Remove";
 
-
-        static ActionSheetConfig() {
-            DefaultCancelText = "Cancel";
-            DefaultDestructiveText = "Remove";
-        }
 
 
         public string Title { get; set; }

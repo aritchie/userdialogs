@@ -1,10 +1,6 @@
 using System;
 using BigTed;
-#if __UNIFIED__
 using UIKit;
-#else
-using MonoTouch.UIKit;
-#endif
 
 
 namespace Acr.UserDialogs {
@@ -112,7 +108,7 @@ namespace Acr.UserDialogs {
                 }
                 else {
                     BTProgressHUD.Show(
-                        this.cancelText, 
+                        this.cancelText,
                         this.cancelAction,
                         txt,
                         p,

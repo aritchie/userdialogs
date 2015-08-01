@@ -54,16 +54,6 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void ShowSuccess(string message, int timeoutSeconds) {
-            throw new NotImplementedException();
-        }
-
-
-        public override void ShowError(string message, int timeoutSeconds) {
-            throw new NotImplementedException();
-        }
-
-
         public override void Toast(ToastConfig cfg) {
             throw new NotImplementedException();
         }

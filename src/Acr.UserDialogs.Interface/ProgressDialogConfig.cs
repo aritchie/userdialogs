@@ -4,15 +4,9 @@
 namespace Acr.UserDialogs {
 
     public class ProgressDialogConfig {
-        public static string DefaultCancelText { get; set; }
-        public static string DefaultTitle { get; set; }
-        public static MaskType DefaultMaskType { get; set; }
-
-        static ProgressDialogConfig() {
-            DefaultTitle = "Loading";
-            DefaultCancelText = "Cancel";
-            DefaultMaskType = MaskType.Black;
-        }
+        public static string DefaultCancelText { get; set; } = "Cancel";
+        public static string DefaultTitle { get; set; } = "Loading";
+        public static MaskType DefaultMaskType { get; set; } = MaskType.Black;
 
 
         public string CancelText { get; set; }

@@ -7,11 +7,12 @@ namespace Acr.UserDialogs {
 
     public class ActivityLifecycleCallbacks : Java.Lang.Object, Application.IActivityLifecycleCallbacks {
 
-        static Activity currentActivity;
-        public static Activity CurrentTopActivity {
-            get { return currentActivity ?? Application.Context as Activity; }
-            protected set { currentActivity = value; }
+        public static void Register(Activity activity) {
+            activity.Application.RegisterActivityLifecycleCallbacks(new ActivityLifecycleCallbacks());
+            CurrentTopActivity = activity;
         }
+
+        public static Activity CurrentTopActivity { get; protected set; }
 
 
         public virtual void OnActivityCreated(Activity activity, Bundle savedInstanceState) {

@@ -12,7 +12,6 @@ namespace Samples.WinPhone {
         public MainPage() {
             this.InitializeComponent();
             this.SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
-            UserDialogs.Init();
             Forms.Init();
             this.LoadApplication(new Samples.App());
         }

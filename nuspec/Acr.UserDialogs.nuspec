@@ -31,9 +31,6 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             <group targetFramework="monoandroid">
                 <dependency id="Xamarin.Android.Support.Design" version="[22.2.1.0, 23)" />
             </group>
-            <group targetFramework="xamarinios1">
-                <dependency id="MessageBarLib" version="[1.2.1.1, 2.0)" />
-            </group>
             <group targetFramework="wp8">
                 <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
                 <!--<dependency id="WPtoolkit.Kinnara" version="[4.2014.11.22, 5.0)" />-->
@@ -46,9 +43,9 @@ In your platform project, make sure to call UserDialogs.Init() before using!
 4.0
 [feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
 [feature] images and colours now powered by Splat
-[feature] windows support!
-[android] material design support!
-[android] no longer requires top activity function
+[feature] windows support
+[android] material design support!  Call UserDialogs.UseMaterialDesignDialogs(); in your android project
+[breaking] Init is gone
 [breaking] android no longer support anything less than v4
 
 3.4.2

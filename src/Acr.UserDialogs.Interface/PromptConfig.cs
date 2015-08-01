@@ -4,14 +4,8 @@
 namespace Acr.UserDialogs {
 
     public class PromptConfig {
-        public static string DefaultOkText { get; set; }
-        public static string DefaultCancelText { get; set; }
-
-
-        static PromptConfig() {
-            DefaultOkText = "Ok";
-            DefaultCancelText = "Cancel";
-        }
+        public static string DefaultOkText { get; set; } = "Ok";
+        public static string DefaultCancelText { get; set; } = "Cancel";
 
 
         public string Title { get; set; }

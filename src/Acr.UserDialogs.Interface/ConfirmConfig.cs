@@ -4,17 +4,10 @@
 namespace Acr.UserDialogs {
 
     public class ConfirmConfig {
-        public static string DefaultYes { get; set; }
-        public static string DefaultNo { get; set; }
-        public static string DefaultOkText { get; set; }
-        public static string DefaultCancelText { get; set; }
-
-        static ConfirmConfig() {
-            DefaultYes = "Yes";
-            DefaultNo = "No";
-            DefaultOkText = "Ok";
-            DefaultCancelText = "Cancel";
-        }
+        public static string DefaultYes { get; set; } = "Yes";
+        public static string DefaultNo { get; set; } = "No";
+        public static string DefaultOkText { get; set; } = "Ok";
+        public static string DefaultCancelText { get; set; } = "Cancel";
 
 
         public string Title { get; set; }

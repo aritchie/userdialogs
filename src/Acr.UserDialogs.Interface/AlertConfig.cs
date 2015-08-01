@@ -4,12 +4,7 @@
 namespace Acr.UserDialogs {
 
     public class AlertConfig {
-        public static string DefaultOkText { get; set; }
-
-        static AlertConfig() {
-            DefaultOkText = "Ok";
-        }
-
+        public static string DefaultOkText { get; set; } = "Ok";
 
         public string OkText { get; set; }
         public string Title { get; set; }

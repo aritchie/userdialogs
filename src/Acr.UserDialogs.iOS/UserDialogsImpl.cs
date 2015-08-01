@@ -1,17 +1,15 @@
 using System;
 using System.Linq;
-using Foundation;
 using CoreGraphics;
 using UIKit;
 using BigTed;
 using MessageBar;
-using Splat;
 
 
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
-        public ProgressHUD.MaskType? MaskType { get; set; }
+        //public ProgressHUD.MaskType? MaskType { get; set; }
 
 
         public override void Alert(AlertConfig config) {
@@ -118,48 +116,12 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void ShowError(string message, int timeoutMillis) {
-            UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                // splat image
-                BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutMillis)
-            );
-        }
-
-
-        public override void ShowSuccess(string message, int timeoutMillis) {
-            UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                // splat image
-                BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutMillis)
-            );
-        }
-
-
-        //public class AcrMessageBarStyleSheet : MessageBarStyleSheet {
-        //    // TODO: default colours/images for success, info, error
-        //    // TODO: add warning category
-        //    // TODO: custom incoming images/colours
-
-        //    public override UIColor StrokeColorForMessageType(MessageType type) {
-        //        return base.StrokeColorForMessageType(type);
-        //    }
-
-
-        //    public override UIColor BackgroundColorForMessageType(MessageType type) {
-        //        return base.BackgroundColorForMessageType(type);
-        //    }
-
-
-        //    public override UIImage IconImageForMessageType(MessageType type) {
-        //        return base.IconImageForMessageType(type);
-        //    }
-        //}
-
-
-
-		public override void Toast(ToastConfig cfg) {
+        public override void Toast(ToastConfig cfg) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                MessageBarManager.SharedInstance.ShowAtTheBottom = true;
-                MessageBarManager.SharedInstance.ShowMessage("TODO", cfg.Message, MessageType.Success, () => cfg.OnTap?.Invoke());
+                // TODO: doesn't stack well at the moment, should sync this!
+                //MessageBarManager.SharedInstance.ShowAtTheBottom = true;
+                MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
+                MessageBarManager.SharedInstance.ShowMessage(null, cfg.Text, MessageType.Success, () => cfg.Action?.Invoke());
             });
         }
 

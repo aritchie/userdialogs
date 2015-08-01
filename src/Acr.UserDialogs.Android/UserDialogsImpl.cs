@@ -1,23 +1,29 @@
 using System;
 using System.Linq;
 using Android.App;
-using Android.Support.Design.Widget;
+using Android.Graphics.Drawables;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
-using AndroidHUD;
-//using AlertDialog = Android.Support.V7.App.AlertDialog;
+using com.dbeattie;
+using Splat;
 
 
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
-        private readonly Func<Activity> getTopActivity;
+        readonly Func<Activity> getTopActivity;
+        readonly Func<IAlertDialog> dialogBuilder;
 
 
-        public UserDialogsImpl(Func<Activity> getTopActivity) {
-            this.getTopActivity = getTopActivity;
+        public UserDialogsImpl(Func<Activity> getTopActivity, bool useMaterialDesign) {
+            this.getTopActivity = getTopActivity ?? (() => ActivityLifecycleCallbacks.CurrentTopActivity);
+
+            if (useMaterialDesign)
+                this.dialogBuilder = () => new AppCompatAlertDialog(this.getTopActivity());
+            else
+                this.dialogBuilder = () => new StandardAlertDialog(this.getTopActivity());
         }
 
 
@@ -30,12 +36,11 @@ namespace Acr.UserDialogs {
             //var txt = new TextView(context);
 
             Utils.RequestMainThread(() =>
-                new AlertDialog
-                    .Builder(this.getTopActivity())
+                this.dialogBuilder()
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-					.SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke())
+					.SetPositiveButton(config.OkText, () => config.OnOk?.Invoke())
                     .Show()
             );
         }
@@ -47,18 +52,17 @@ namespace Acr.UserDialogs {
                 .Select(x => x.Text)
                 .ToArray();
 
-			var dlg = new AlertDialog
-				.Builder(this.getTopActivity())
+			var dlg = this.dialogBuilder()
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-			dlg.SetItems(array, (sender, args) => config.Options[args.Which].Action?.Invoke());
+            dlg.SetItems(array, index => config.Options[index].Action?.Invoke());
 
 			if (config.Destructive != null)
-				dlg.SetNegativeButton(config.Destructive.Text, (sender, e) => config.Destructive.Action?.Invoke());
+				dlg.SetNegativeButton(config.Destructive.Text, () => config.Destructive.Action?.Invoke());
 
 			if (config.Cancel != null)
-				dlg.SetNeutralButton(config.Cancel.Text, (sender, e) => config.Cancel.Action?.Invoke());
+				dlg.SetNeutralButton(config.Cancel.Text, () => config.Cancel.Action?.Invoke());
 
 			Utils.RequestMainThread(() => dlg.Show());
         }
@@ -66,13 +70,12 @@ namespace Acr.UserDialogs {
 
         public override void Confirm(ConfirmConfig config) {
             Utils.RequestMainThread(() =>
-                new AlertDialog
-                    .Builder(this.getTopActivity())
+                this.dialogBuilder()
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-                    .SetPositiveButton(config.OkText, (o, e) => config.OnConfirm(true))
-                    .SetNegativeButton(config.CancelText, (o, e) => config.OnConfirm(false))
+                    .SetPositiveButton(config.OkText, () => config.OnConfirm(true))
+                    .SetNegativeButton(config.CancelText, () => config.OnConfirm(false))
                     .Show()
             );
         }
@@ -100,24 +103,20 @@ namespace Acr.UserDialogs {
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            Utils.RequestMainThread(() => {
-                var dialog = new AlertDialog
-                    .Builder(this.getTopActivity())
+            Utils.RequestMainThread(() =>
+                this.dialogBuilder()
                     .SetCancelable(false)
                     .SetTitle(config.Title)
                     .SetMessage(config.Message)
                     .SetView(layout)
-                    .SetPositiveButton(config.OkText, (o, e) =>
+                    .SetPositiveButton(config.OkText, () =>
                         config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))
                     )
-                    .SetNegativeButton(config.CancelText, (o, e) =>
+                    .SetNegativeButton(config.CancelText, () =>
                         config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))
                     )
-					.Create();
-
-                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-                dialog.Show();
-            });
+                    .Show()
+            );
         }
 
 
@@ -133,13 +132,12 @@ namespace Acr.UserDialogs {
 
                 this.SetInputType(txt, config.InputType);
 
-                var builder = new AlertDialog
-                    .Builder(activity)
+                var builder = this.dialogBuilder()
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetView(txt)
-                    .SetPositiveButton(config.OkText, (o, e) =>
+                    .SetPositiveButton(config.OkText, () =>
                         config.OnResult(new PromptResult {
                             Ok = true,
                             Text = txt.Text
@@ -147,7 +145,7 @@ namespace Acr.UserDialogs {
 					);
 
 				if (config.IsCancellable) {
-					builder.SetNegativeButton(config.CancelText, (o, e) =>
+					builder.SetNegativeButton(config.CancelText, () =>
                         config.OnResult(new PromptResult {
                             Ok = false,
                             Text = txt.Text
@@ -155,41 +153,58 @@ namespace Acr.UserDialogs {
 					);
 				}
 
-				var dialog = builder.Create();
-                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-                dialog.Show();
+				builder.Show();
             });
         }
 
 
-        public override void ShowSuccess(string message, int timeoutMillis) {
-            Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowSuccess(this.getTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
-            );
-        }
+        class ToastListener : IActionClickListener {
+            readonly Action onClick;
+            public ToastListener(Action onClick) {
+                this.onClick = onClick;
+            }
 
-
-        public override void ShowError(string message, int timeoutMillis) {
-            Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowError(this.getTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
-            );
+            public void OnActionClicked(Snackbar snackbar) {
+                this.onClick?.Invoke();
+            }
         }
 
 
         public override void Toast(ToastConfig cfg) {
-
 			var top = this.getTopActivity();
+            var bar = Snackbar
+                .With(top)
+                .Duration((long)cfg.Duration.TotalMilliseconds)
+                .DismissOnActionClicked(true)
+                .Color(cfg.TextColor.ToNative())
+                .Text(cfg.Text);
+
+            bar.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
+            if (cfg.Action != null)
+                bar
+                    .ActionLabel(cfg.ActionText)
+                    .ActionColor(cfg.ActionTextColor.ToNative())
+                    .ActionListener(new ToastListener(cfg.Action));
+
+            //if (cfg.BackgroundColor != null)
+            //    bar.Color(cfg.BackgroundColor.Value.ToNative());
+
+            // TEXT COLOR - ACTION COLOR
+            //Utils.RequestMainThread(() => bar.Show(top));
+            //Utils.RequestMainThread(() => SnackbarManager.Show(bar));
             //var view = top.FindViewById(Android.Resource.Id.Content).RootView;
             //var view = top.Window.DecorView.RootView;
-            var view = top.Window.DecorView.FindViewById(Android.Resource.Id.Content);
-            Console.WriteLine("View is " + (view == null ? "NULL" : view.Id.ToString()));
-            var snackBar = Snackbar.Make(view, cfg.Message, (int)cfg.Duration.TotalMilliseconds);
+            //var view = top.Window.DecorView.FindViewById(Android.Resource.Id.Content);
+            //Console.WriteLine("View is " + (view == null ? "NULL" : view.Id.ToString()));
+            //var snackBar = Snackbar.Make(view, cfg.Message, (int)cfg.Duration.TotalMilliseconds);
 
-            if (cfg.OnTap != null)
-                //snackBar.SetActionTextColor("") TODO: action text
-                snackBar.SetAction("Ok", x => cfg.OnTap?.Invoke());
+            ////if (cfg.BackgroundColor != null)
+            ////    snackBar.SetActionTextColor()
 
-            Utils.RequestMainThread(snackBar.Show);
+            //if (cfg.OnTap != null)
+            //    snackBar.SetAction("Ok", x => cfg.OnTap?.Invoke());
+
+            //Utils.RequestMainThread(snackBar.Show);
         }
 
 
