@@ -2,28 +2,23 @@ using System;
 using System.Linq;
 using Android.App;
 using Android.Graphics.Drawables;
+using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
-using com.dbeattie;
 using Splat;
+using AlertDialog = Android.Support.V7.App.AlertDialog;
 
 
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
         readonly Func<Activity> getTopActivity;
-        readonly Func<IAlertDialog> dialogBuilder;
 
 
-        public UserDialogsImpl(Func<Activity> getTopActivity, bool useMaterialDesign) {
+        public UserDialogsImpl(Func<Activity> getTopActivity) {
             this.getTopActivity = getTopActivity ?? (() => ActivityLifecycleCallbacks.CurrentTopActivity);
-
-            if (useMaterialDesign)
-                this.dialogBuilder = () => new AppCompatAlertDialog(this.getTopActivity());
-            else
-                this.dialogBuilder = () => new StandardAlertDialog(this.getTopActivity());
         }
 
 
@@ -36,12 +31,13 @@ namespace Acr.UserDialogs {
             //var txt = new TextView(context);
 
             Utils.RequestMainThread(() =>
-                this.dialogBuilder()
+                new AlertDialog
+                    .Builder(this.getTopActivity())
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-					.SetPositiveButton(config.OkText, () => config.OnOk?.Invoke())
-                    .Show()
+					.SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke())
+                    .ShowExt()
             );
         }
 
@@ -52,31 +48,33 @@ namespace Acr.UserDialogs {
                 .Select(x => x.Text)
                 .ToArray();
 
-			var dlg = this.dialogBuilder()
+			var dlg = new AlertDialog
+                .Builder(this.getTopActivity())
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-            dlg.SetItems(array, index => config.Options[index].Action?.Invoke());
+            dlg.SetItems(array, (s, args) => config.Options[args.Which].Action?.Invoke());
 
 			if (config.Destructive != null)
-				dlg.SetNegativeButton(config.Destructive.Text, () => config.Destructive.Action?.Invoke());
+				dlg.SetNegativeButton(config.Destructive.Text, (s, a) => config.Destructive.Action?.Invoke());
 
 			if (config.Cancel != null)
-				dlg.SetNeutralButton(config.Cancel.Text, () => config.Cancel.Action?.Invoke());
+				dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
 
-			Utils.RequestMainThread(() => dlg.Show());
+			Utils.RequestMainThread(() => dlg.ShowExt());
         }
 
 
         public override void Confirm(ConfirmConfig config) {
             Utils.RequestMainThread(() =>
-                this.dialogBuilder()
+                new AlertDialog
+                    .Builder(this.getTopActivity())
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-                    .SetPositiveButton(config.OkText, () => config.OnConfirm(true))
-                    .SetNegativeButton(config.CancelText, () => config.OnConfirm(false))
-                    .Show()
+                    .SetPositiveButton(config.OkText, (s, a) => config.OnConfirm(true))
+                    .SetNegativeButton(config.CancelText, (s, a) => config.OnConfirm(false))
+                    .ShowExt()
             );
         }
 
@@ -104,18 +102,19 @@ namespace Acr.UserDialogs {
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
             Utils.RequestMainThread(() =>
-                this.dialogBuilder()
+                new AlertDialog
+                    .Builder(context)
                     .SetCancelable(false)
                     .SetTitle(config.Title)
                     .SetMessage(config.Message)
                     .SetView(layout)
-                    .SetPositiveButton(config.OkText, () =>
+                    .SetPositiveButton(config.OkText, (s, a) =>
                         config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))
                     )
-                    .SetNegativeButton(config.CancelText, () =>
+                    .SetNegativeButton(config.CancelText, (s, a) =>
                         config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))
                     )
-                    .Show()
+                    .ShowExt()
             );
         }
 
@@ -132,12 +131,13 @@ namespace Acr.UserDialogs {
 
                 this.SetInputType(txt, config.InputType);
 
-                var builder = this.dialogBuilder()
+                var builder = new AlertDialog
+                    .Builder(activity)
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetView(txt)
-                    .SetPositiveButton(config.OkText, () =>
+                    .SetPositiveButton(config.OkText, (s, a) =>
                         config.OnResult(new PromptResult {
                             Ok = true,
                             Text = txt.Text
@@ -145,7 +145,7 @@ namespace Acr.UserDialogs {
 					);
 
 				if (config.IsCancellable) {
-					builder.SetNegativeButton(config.CancelText, () =>
+					builder.SetNegativeButton(config.CancelText, (s, a) =>
                         config.OnResult(new PromptResult {
                             Ok = false,
                             Text = txt.Text
@@ -158,53 +158,25 @@ namespace Acr.UserDialogs {
         }
 
 
-        class ToastListener : IActionClickListener {
-            readonly Action onClick;
-            public ToastListener(Action onClick) {
-                this.onClick = onClick;
-            }
-
-            public void OnActionClicked(Snackbar snackbar) {
-                this.onClick?.Invoke();
-            }
-        }
-
-
         public override void Toast(ToastConfig cfg) {
-			var top = this.getTopActivity();
-            var bar = Snackbar
-                .With(top)
-                .Duration((long)cfg.Duration.TotalMilliseconds)
-                .DismissOnActionClicked(true)
-                .Color(cfg.TextColor.ToNative())
-                .Text(cfg.Text);
+            var top = this.getTopActivity();
+            var view = top.Window.DecorView.RootView;
+            var snackBar = Snackbar.Make(view, cfg.Text, (int)cfg.Duration.TotalMilliseconds);
+            snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
 
-            bar.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
-            if (cfg.Action != null)
-                bar
-                    .ActionLabel(cfg.ActionText)
-                    .ActionColor(cfg.ActionTextColor.ToNative())
-                    .ActionListener(new ToastListener(cfg.Action));
+            //android.support.design.R.id.snackbar_text // TODO
+            //snackBar.View.FindViewById<TextView>().SetTextColor
 
-            //if (cfg.BackgroundColor != null)
-            //    bar.Color(cfg.BackgroundColor.Value.ToNative());
-
-            // TEXT COLOR - ACTION COLOR
-            //Utils.RequestMainThread(() => bar.Show(top));
-            //Utils.RequestMainThread(() => SnackbarManager.Show(bar));
-            //var view = top.FindViewById(Android.Resource.Id.Content).RootView;
-            //var view = top.Window.DecorView.RootView;
-            //var view = top.Window.DecorView.FindViewById(Android.Resource.Id.Content);
-            //Console.WriteLine("View is " + (view == null ? "NULL" : view.Id.ToString()));
-            //var snackBar = Snackbar.Make(view, cfg.Message, (int)cfg.Duration.TotalMilliseconds);
-
+            snackBar.View.Click += (sender, args) => {
+                snackBar.Dismiss();
+                cfg.Action?.Invoke();
+            };
             ////if (cfg.BackgroundColor != null)
             ////    snackBar.SetActionTextColor()
-
             //if (cfg.OnTap != null)
             //    snackBar.SetAction("Ok", x => cfg.OnTap?.Invoke());
 
-            //Utils.RequestMainThread(snackBar.Show);
+            Utils.RequestMainThread(snackBar.Show);
         }
 
 

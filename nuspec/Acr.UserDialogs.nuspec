@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.0.0</version>
+        <version>4.0.0-beta1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -35,18 +35,18 @@ In your platform project, make sure to call UserDialogs.Init() before using!
                 <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
                 <!--<dependency id="WPtoolkit.Kinnara" version="[4.2014.11.22, 5.0)" />-->
             </group>
-            <group targetFramework="win81">
+            <!--<group targetFramework="win81">
                 <dependency id="WinRTXamlToolkit.Windows" version="[1.7.9.0, 2.0)" />
-            </group>
+            </group>-->
         </dependencies>
         <releaseNotes>
-4.0
+4.0-beta1
 [feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
 [feature] images and colours now powered by Splat
-[feature] windows support
-[android] material design support!  Call UserDialogs.UseMaterialDesignDialogs(); in your android project
-[breaking] Init is gone
-[breaking] android no longer support anything less than v4
+[android] material design support (flag in Init)
+[breaking] Init is gone from everything but android
+[breaking] android no longer supports anything less than API 15
+d
 
 3.4.2
 [feature] ActionSheetAsync - the xamarin forms way of doing this.  I still recommend ActionSheet for maximum flexibility

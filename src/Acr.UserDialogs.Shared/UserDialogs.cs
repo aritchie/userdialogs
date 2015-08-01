@@ -19,9 +19,9 @@ namespace Acr.UserDialogs {
 
 
         /// <summary>
-        /// Initialize android user dialogs.  Material design does not currently work on xamarin forms
+        /// Initialize android user dialogs
         /// </summary>
-        public static void Init(Android.App.Activity activity, bool useMaterialDesign = false) {
+        public static void Init(Android.App.Activity activity) {
             ActivityLifecycleCallbacks.Register(activity);
             Instance = new UserDialogsImpl(null, useMaterialDesign);
         }

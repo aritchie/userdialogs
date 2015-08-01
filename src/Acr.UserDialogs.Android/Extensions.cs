@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using Android.Support.V7.App;
+using Android.Views;
 
 
 namespace Acr.UserDialogs {
@@ -24,6 +26,13 @@ namespace Acr.UserDialogs {
                 default:
                     throw new ArgumentException("Invalid Mask Type");
             }
+        }
+
+
+        public static void ShowExt(this AlertDialog.Builder builder) {
+            var dialog = builder.Create();
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            dialog.Show();
         }
     }
 }

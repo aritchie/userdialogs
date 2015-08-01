@@ -121,7 +121,7 @@ namespace Acr.UserDialogs {
                 // TODO: doesn't stack well at the moment, should sync this!
                 //MessageBarManager.SharedInstance.ShowAtTheBottom = true;
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
-                MessageBarManager.SharedInstance.ShowMessage(null, cfg.Text, MessageType.Success, () => cfg.Action?.Invoke());
+                MessageBarManager.SharedInstance.ShowMessage(cfg.Text, String.Empty, MessageType.Success, () => cfg.Action?.Invoke());
             });
         }
 

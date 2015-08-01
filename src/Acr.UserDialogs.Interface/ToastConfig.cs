@@ -15,18 +15,21 @@ namespace Acr.UserDialogs {
 
     public class ToastConfig {
 
+        // icons only on ios
+        // action text only on android, tap action is on all!
+
         public static IBitmap InfoIcon { get; set; }
-        public static Color InfoActionTextColor { get; set; } = Color.Black;
-        public static Color InfoBackgroundColor { get; set; } = Color.AliceBlue; //Color.FromArgb(96, 0, 482, 1);
+        //public static Color InfoActionTextColor { get; set; } = Color.Black;
+        public static Color InfoBackgroundColor { get; set; } = Color.Gainsboro; //Color.FromArgb(96, 0, 482, 1);
         public static Color InfoTextColor { get; set; } = Color.Black;
 
         public static IBitmap SuccessIcon { get; set; }
-        public static Color SuccessActionTextColor { get; set; } = Color.White;
+        //public static Color SuccessActionTextColor { get; set; } = Color.White;
         public static Color SuccessBackgroundColor { get; set; } = Color.LawnGreen; //Color.FromArgb(96, 0, 831, 176);
         public static Color SuccessTextColor { get; set; } = Color.White;
 
         public static IBitmap WarnIcon { get; set; }
-        public static Color WarnActionTextColor { get; set; } = Color.GhostWhite;
+        //public static Color WarnActionTextColor { get; set; } = Color.GhostWhite;
         public static Color WarnBackgroundColor { get; set; } = Color.Coral;
         public static Color WarnTextColor { get; set; } = Color.White;
 
@@ -44,9 +47,8 @@ namespace Acr.UserDialogs {
         public Color TextColor { get; set; }
         public TimeSpan Duration { get; set; }
         public Action Action { get; set; }
-        public string ActionText { get; set; }
-        public Color ActionTextColor { get; set; }
-
+        //public string ActionText { get; set; }
+        //public Color ActionTextColor { get; set; }
 
 
         public ToastConfig(ToastEvent @event, string text) {
@@ -56,27 +58,27 @@ namespace Acr.UserDialogs {
             switch (@event) {
                 case ToastEvent.Info:
                     this.BackgroundColor = InfoBackgroundColor;
-                    this.ActionTextColor = InfoActionTextColor;
+                    //this.ActionTextColor = InfoActionTextColor;
                     this.TextColor = InfoTextColor;
                     this.Icon = WarnIcon;
                     break;
 
                 case ToastEvent.Success:
-                    this.ActionTextColor = SuccessActionTextColor;
+                    //this.ActionTextColor = SuccessActionTextColor;
                     this.BackgroundColor = SuccessBackgroundColor;
                     this.TextColor = SuccessTextColor;
                     this.Icon = SuccessIcon;
                     break;
 
                 case ToastEvent.Warn:
-                    this.ActionTextColor = WarnActionTextColor;
+                    //this.ActionTextColor = WarnActionTextColor;
                     this.BackgroundColor = WarnBackgroundColor;
                     this.TextColor = WarnTextColor;
                     this.Icon = WarnIcon;
                     break;
 
                 case ToastEvent.Error:
-                    this.ActionTextColor = ErrorActionTextColor;
+                    //this.ActionTextColor = ErrorActionTextColor;
                     this.BackgroundColor = ErrorBackgroundColor;
                     this.TextColor = ErrorTextColor;
                     this.Icon = ErrorIcon;
@@ -102,16 +104,16 @@ namespace Acr.UserDialogs {
         }
 
 
-        public ToastConfig SetColorList(Color? bg, Color? text, Color? action) {
+        public ToastConfig SetColorList(Color? bg, Color? text) {
             if (bg != null) this.BackgroundColor = bg.Value;
             if (text != null) this.TextColor = text.Value;
-            if (action != null) this.ActionTextColor = action.Value;
+            //if (action != null) this.ActionTextColor = action.Value;
             return this;
         }
 
 
-        public ToastConfig SetAction(string actionText, Action action) {
-            this.ActionText = actionText;
+        public ToastConfig SetAction(Action action) {
+            //this.ActionText = actionText;
             this.Action = action;
             return this;
         }

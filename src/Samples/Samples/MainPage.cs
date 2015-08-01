@@ -11,6 +11,7 @@ namespace Samples {
         private readonly Label lblResult;
 
         public MainPage() {
+            this.Title = "User Dialogs";
 			this.lblResult = new Label();
 			this.Content = new ScrollView {
 				Orientation = ScrollOrientation.Vertical,
