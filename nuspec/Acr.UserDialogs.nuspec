@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.0.0-beta1</version>
+        <version>4.0.0-beta2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -40,7 +40,7 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>-->
         </dependencies>
         <releaseNotes>
-4.0-beta1
+4.0-beta
 [feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
 [feature] images and colours now powered by Splat
 [android] material design support (flag in Init)

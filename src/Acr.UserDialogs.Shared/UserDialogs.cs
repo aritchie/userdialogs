@@ -23,7 +23,7 @@ namespace Acr.UserDialogs {
         /// </summary>
         public static void Init(Android.App.Activity activity) {
             ActivityLifecycleCallbacks.Register(activity);
-            Instance = new UserDialogsImpl(null, useMaterialDesign);
+            Instance = new UserDialogsImpl(null);
         }
 #endif
 
