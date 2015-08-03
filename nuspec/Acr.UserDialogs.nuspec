@@ -46,7 +46,6 @@ In your platform project, make sure to call UserDialogs.Init() before using!
 [android] material design support (flag in Init)
 [breaking] Init is gone from everything but android
 [breaking] android no longer supports anything less than API 15
-d
 
 3.4.2
 [feature] ActionSheetAsync - the xamarin forms way of doing this.  I still recommend ActionSheet for maximum flexibility
