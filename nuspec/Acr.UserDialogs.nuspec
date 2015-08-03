@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.0.0-beta2</version>
+        <version>4.0.0-beta3</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -43,6 +43,7 @@ In your platform project, make sure to call UserDialogs.Init() before using!
 4.0-beta
 [feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
 [feature] images and colours now powered by Splat
+[feature] Universal windows platform support
 [android] material design support (flag in Init)
 [breaking] Init is gone from everything but android
 [breaking] android no longer supports anything less than API 15
@@ -51,61 +52,6 @@ In your platform project, make sure to call UserDialogs.Init() before using!
 [feature] ActionSheetAsync - the xamarin forms way of doing this.  I still recommend ActionSheet for maximum flexibility
 [ios][fix] More top viewcontroller fixes (around tab controllers) courtesy of @RTodorov
 
-3.4
-Split out interface library for proper abstraction
-[ios][fix] actionsheet on ipads
-[ios][fix] modal dialogs won't display any dialogs
-[wp][fix] success and error will now show alerts
-
-3.3.4
-Update nuspec to profile 259 for the PCL
-
-3.3.3
-Init is required on all platforms again to prevent confusion, but less annoying about secondary init calls
-
-3.3.2
-Init only necessary in Android now
-
-3.3.1
-* NEW - Numeric Password (PIN) prompt input type
-
-3.3
-* NEW - Default text/mask values added as static properties in each dialog configuration class (great for multilingual apps)
-* NEW - ShowSuccess/ShowError dialogs for iOS and Android - not ready for WP8 yet
-Update to BTProgressHUD 1.16
-
-3.2
-Android and iOS now support mask type on loading/progress HUDs
-Android and iOS now support mask type on toast windows
-FIX: Wrap all iOS loading/progress HUDs in UI thread dispatch call
-
-3.1
-BREAKING ANDROID: Support old API 10+.  There is no longer an Init(Activity) signature.
-iOS7 - Fix some labelling defects with login dialog
-
-3.0.5
-AndHud dialog should be dismissed onclick even if user does not supply onclick argument
-Android progress dialog should be using the same top activity factory as every other control
-
-3.0.4
-Several fixes for winphone.  Unfortunately, placeholders will be removed for now.
-Fix blank message in iOS8 actionsheet
-
-3.0.3
-Calling Init will throw an error if already initialized
-Add additional keyboard types for prompt (Name, Phone, Url)
-
-3.0.2
-Remove network activity dialog.  Too many issues with Android
-
-3.0.1
-Add ability to remove cancel from prompt
-Add ability to have existing text in prompt
-Fix iOS7 actionsheet
-
-3.0
-Bait and switch design
-Add destructive and cancel buttons to actionsheets
         </releaseNotes>
     </metadata>
     <files>
@@ -127,7 +73,9 @@ Add destructive and cancel buttons to actionsheets
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.dll" target="lib\wp8\Acr.UserDialogs.dll" />
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wp8\Acr.UserDialogs.Interface.dll" />
 
-        <!-- winstore -->
-        <!--<file src="..\src\Acr.UserDialogs.WindowsStore\bin\Release\Acr.UserDialogs.dll" target="lib\wpa\Acr.UserDialogs.dll" />-->
+        <!-- uwp -->
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0\Acr.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\uap10.0\Acr.UserDialogs.Interface.dll" />
+        <file src="..\src\Acr.UserDialogs.Uwp\Properties\Acr.UserDialogs.Uwp.rd.xml" target="lib\uap10.0\Acr.UserDialogs.Uwp.rd.xml" />
     </files>
 </package>
