@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityLifecycleCallbacks.cs" />
+    <Compile Include="AppCompatUserDialogsImpl.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -76,13 +76,13 @@ namespace Acr.UserDialogs {
 
             if (config.IsCancellable) {
                 dialog.SecondaryButtonText = config.CancelText;
-                dialog.SecondaryButtonCommand = new Common.RelayCommand(() => {
-                    config.OnResult?.Invoke(new PromptResult {
-                        Ok = false,
-                        Text = txt.Text.Trim()
-                    });
-                    dialog.Hide();
-                });
+                //dialog.SecondaryButtonCommand = new Command(() => {
+                //    config.OnResult?.Invoke(new PromptResult {
+                //        Ok = false,
+                //        Text = txt.Text.Trim()
+                //    });
+                //    dialog.Hide();
+                //});
             }
             dialog.ShowAsync();
         }

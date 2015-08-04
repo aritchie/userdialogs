@@ -1,6 +1,4 @@
 using System;
-using System.Diagnostics;
-using Android.Support.V7.App;
 using Android.Views;
 
 
@@ -17,7 +15,7 @@ namespace Acr.UserDialogs {
                     return AndroidHUD.MaskType.Clear;
 
                 case MaskType.Gradient :
-                    Debug.WriteLine("Warning - Gradient mask type is not supported on android");
+                    Console.WriteLine("Warning - Gradient mask type is not supported on android");
                     return AndroidHUD.MaskType.Black;
 
                 case MaskType.None :
@@ -29,7 +27,14 @@ namespace Acr.UserDialogs {
         }
 
 
-        public static void ShowExt(this AlertDialog.Builder builder) {
+        public static void ShowExt(this Android.Support.V7.App.AlertDialog.Builder builder) {
+            var dialog = builder.Create();
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            dialog.Show();
+        }
+
+
+        public static void ShowExt(this Android.App.AlertDialog.Builder builder) {
             var dialog = builder.Create();
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.Show();
