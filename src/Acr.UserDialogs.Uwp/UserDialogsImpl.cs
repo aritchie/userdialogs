@@ -88,6 +88,21 @@ namespace Acr.UserDialogs {
         }
 
 
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
+            throw new NotImplementedException();
+        }
+
+
+        public override void ShowError(string message, int timeoutMillis) {
+            throw new NotImplementedException();
+        }
+
+
+        public override void ShowSuccess(string message, int timeoutMillis) {
+            throw new NotImplementedException();
+        }
+
+
         protected override IProgressDialog CreateDialogInstance() {
             var pb = new ProgressBar();
 

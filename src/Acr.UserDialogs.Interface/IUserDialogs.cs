@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Splat;
 
 
 namespace Acr.UserDialogs {
@@ -28,6 +29,10 @@ namespace Acr.UserDialogs {
         Task<LoginResult> LoginAsync(LoginConfig config);
         Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default);
         Task<PromptResult> PromptAsync(PromptConfig config);
+
+        void ShowImage(IBitmap image, string message, int timeoutMillis = 3000);
+        void ShowSuccess(string message, int timeoutMillis = 3000);
+        void ShowError(string message, int timeoutMillis = 3000);
 
         void InfoToast(string message, int timeoutMillis = 3000);
         void SuccessToast(string message, int timeoutMillis = 3000);

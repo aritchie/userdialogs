@@ -4,6 +4,7 @@ using CoreGraphics;
 using UIKit;
 using BigTed;
 using MessageBar;
+using Splat;
 
 
 namespace Acr.UserDialogs {
@@ -116,9 +117,29 @@ namespace Acr.UserDialogs {
         }
 
 
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis)
+            );
+        }
+
+
+        public override void ShowError(string message, int timeoutMillis) {
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutMillis)
+            );
+        }
+
+
+        public override void ShowSuccess(string message, int timeoutMillis) {
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutMillis)
+            );
+        }
+
+
         public override void Toast(ToastConfig cfg) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                // TODO: doesn't stack well at the moment, should sync this!
                 //MessageBarManager.SharedInstance.ShowAtTheBottom = true;
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
                 MessageBarManager.SharedInstance.ShowMessage(cfg.Text, String.Empty, MessageType.Success, () => cfg.Action?.Invoke());

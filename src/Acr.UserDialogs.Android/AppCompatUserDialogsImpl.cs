@@ -157,7 +157,7 @@ namespace Acr.UserDialogs {
             var top = this.GetTopActivity();
             var view = top.Window.DecorView.RootView;
             var snackBar = Snackbar.Make(view, cfg.Text, (int)cfg.Duration.TotalMilliseconds);
-            //snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
+            snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
 
             //android.support.design.R.id.snackbar_text // TODO
             //snackBar.View.FindViewById<TextView>().SetTextColor
@@ -175,3 +175,15 @@ namespace Acr.UserDialogs {
         }
     }
 }
+/*
+Snackbar snack = Snackbar.make(...);
+ViewGroup group = (ViewGroup) snack.getView();
+for (int i = 0; i < group.getChildCount(); i++) {
+    View v = group.getChildAt(i);
+    if (v instanceof TextView) {
+        TextView t = (TextView) v;
+        t.setTextColor(...)
+    }
+}
+snack.show();
+*/

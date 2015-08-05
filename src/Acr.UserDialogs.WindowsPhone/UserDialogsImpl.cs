@@ -152,6 +152,21 @@ namespace Acr.UserDialogs {
         }
 
 
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
+            this.InfoToast(message, timeoutMillis);
+        }
+
+
+        public override void ShowError(string message, int timeoutMillis) {
+            this.ErrorToast(message, timeoutMillis);
+        }
+
+
+        public override void ShowSuccess(string message, int timeoutMillis) {
+            this.SuccessToast(message, timeoutMillis);
+        }
+
+
         public override void Toast(ToastConfig cfg) {
             // TODO: icon?
             var resources = Application.Current.Resources;

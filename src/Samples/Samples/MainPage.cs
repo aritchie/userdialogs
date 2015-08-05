@@ -33,6 +33,8 @@ namespace Samples {
                         Btn("Loading (Gradient iOS)", () => this.Loading(MaskType.Gradient)),
                         Btn("Loading (None)", () => this.Loading(MaskType.Black)),
 	                    Btn("Loading (No Cancel)", this.LoadingNoCancel),
+                        Btn("Error", () => UserDialogs.Instance.ShowError("ERROR!")),
+                        Btn("Success", () => UserDialogs.Instance.ShowSuccess("ERROR!")),
 						Btn("Toast (Success)", () => this.Toast(ToastEvent.Success)),
 						Btn("Toast (Info)", () => this.Toast(ToastEvent.Info)),
 						Btn("Toast (Warning)", () => this.Toast(ToastEvent.Warn)),

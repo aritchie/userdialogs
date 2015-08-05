@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Splat;
 
 
 namespace Acr.UserDialogs {
@@ -11,6 +12,9 @@ namespace Acr.UserDialogs {
         public abstract void Confirm(ConfirmConfig config);
         public abstract void Login(LoginConfig config);
         public abstract void Prompt(PromptConfig config);
+        public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
+        public abstract void ShowError(string message, int timeoutMillis);
+        public abstract void ShowSuccess(string message, int timeoutMillis);
         public abstract void Toast(ToastConfig config);
         protected abstract IProgressDialog CreateDialogInstance();
 

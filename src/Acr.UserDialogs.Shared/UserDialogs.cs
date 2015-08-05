@@ -21,9 +21,12 @@ namespace Acr.UserDialogs {
         /// <summary>
         /// Initialize android user dialogs
         /// </summary>
-        public static void Init(Android.App.Activity activity) {
+        public static void Init(Android.App.Activity activity, bool useAppCompat = false) {
             ActivityLifecycleCallbacks.Register(activity);
-            Instance = new UserDialogsImpl(null);
+            if (useAppCompat)
+                Instance = new AppCompatUserDialogsImpl(null);
+            else
+                Instance = new UserDialogsImpl(null);
         }
 #endif
 

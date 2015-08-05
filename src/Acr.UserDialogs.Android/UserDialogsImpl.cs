@@ -7,6 +7,7 @@ using Android.Text;
 using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
+using AndroidHUD;
 using Splat;
 using AlertDialog = Android.App.AlertDialog;
 
@@ -158,26 +159,42 @@ namespace Acr.UserDialogs {
         }
 
 
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
+            Utils.RequestMainThread(() =>
+                AndHUD.Shared.ShowImage(this.GetTopActivity(), image.ToNative(), message, AndroidHUD.MaskType.Black, TimeSpan.FromMilliseconds(timeoutMillis))
+            );
+        }
+
+
+        public override void ShowSuccess(string message, int timeoutMillis) {
+            Utils.RequestMainThread(() =>
+                AndHUD.Shared.ShowSuccess(this.GetTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+            );
+        }
+
+
+        public override void ShowError(string message, int timeoutMillis) {
+            Utils.RequestMainThread(() =>
+                AndHUD.Shared.ShowError(this.GetTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+            );
+        }
+
+
         public override void Toast(ToastConfig cfg) {
-            // TODO: restore shitty toast
-            //var top = this.GetTopActivity();
-            //var view = top.Window.DecorView.RootView;
-            //var snackBar = Snackbar.Make(view, cfg.Text, (int)cfg.Duration.TotalMilliseconds);
-            //snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
-
-            ////android.support.design.R.id.snackbar_text // TODO
-            ////snackBar.View.FindViewById<TextView>().SetTextColor
-
-            //snackBar.View.Click += (sender, args) => {
-            //    snackBar.Dismiss();
-            //    cfg.Action?.Invoke();
-            //};
-            //////if (cfg.BackgroundColor != null)
-            //////    snackBar.SetActionTextColor()
-            ////if (cfg.OnTap != null)
-            ////    snackBar.SetAction("Ok", x => cfg.OnTap?.Invoke());
-
-            //Utils.RequestMainThread(snackBar.Show);
+            Utils.RequestMainThread(() => {
+				var top = this.GetTopActivity();
+                AndHUD.Shared.ShowToast(
+                    top,
+                    cfg.Text,
+					AndroidHUD.MaskType.Black,
+                    cfg.Duration,
+                    false,
+					() => {
+						AndHUD.Shared.Dismiss();
+                        cfg.Action?.Invoke();
+					}
+                );
+            });
         }
 
 

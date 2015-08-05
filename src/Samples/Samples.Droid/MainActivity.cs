@@ -15,7 +15,7 @@ namespace Samples.Droid {
         protected override void OnCreate(Bundle bundle) {
             base.OnCreate(bundle);
             Forms.Init(this, bundle);
-            UserDialogs.Init(this);
+            UserDialogs.Init(this, true);
             this.LoadApplication(new App());
         }
     }

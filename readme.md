@@ -1,6 +1,4 @@
-﻿#4.0 AND XAMARIN FORMS USERS: You must install NativeCode.Mobile.AppCompat on your android project for the material design support.  This is only until xamarin updates forms to do this!
-
-#ACR User Dialogs for Xamarin and Windows
+﻿#ACR User Dialogs for Xamarin and Windows
 
 ---
 
@@ -20,7 +18,7 @@ Supports Android, iOS, and Windows Phone 8
 * Login
 * Progress
 * Prompt
-* Toast
+* Toasts
 
 [examples](https://github.com/aritchie/userdialogs/blob/master/src/Samples/Samples/MainPage.cs)
 
@@ -34,7 +32,45 @@ Powered By:
 
 ###Themes/Defaults
 
-    TODO
+All config objects contain static vars that contain defaults which are basically used as a poor man's stylesheet.  These save you time of always have to pass what the text for OK should be.  This is particularily useful for multilingual applications.
+
+- ActionSheetConfig
+    - DefaultCancelText
+    - DefaultDestructiveText
+- AlertConfig
+    - DefaultOkText
+- ConfirmConfig
+    - DefaultYes
+    - DefaultNo
+    - DefaultOkText
+    - DefaultCancelText
+- LoginConfig
+    - DefaultTitle
+    - DefaultOkText
+    - DefaultCancelText
+    - DefaultLoginPlaceholder
+    - DefaultPasswordPlaceholder
+- ProgressDialogConfig
+    - DefaultCancelText
+    - DefaultTitle
+    - DefaultMaskType
+- PromptConfig
+    - DefaultOkText
+    - DefaultCancelText
+-ToastConfig
+    - InfoIcon
+    - InfoBackgroundColor
+    - InfoTextColor
+    - SuccessIcon
+    - SuccessBackgroundColor
+    - SuccessTextColor
+    - WarnIcon
+    - WarnBackgroundColor
+    - WarnTextColor
+    - ErrorIcon
+    - ErrorBackgroundColor
+    - ErrorTextColor
+    - DefaultDuration
 
 ##How To Setup
 
@@ -43,5 +79,6 @@ Powered By:
 To use, simply reference the nuget package in each of your platform projects.
 
 ###Android Initialization (In your main activity)
-    UserDialogs.Init(this);
+    UserDialogs.Init(this, useAppCompat); // pass true for appcompat/material design
 
+###XAMARIN FORMS USERS: You must install NativeCode.Mobile.AppCompat on your android project for the material design support.  This is only until xamarin updates forms to do this!
