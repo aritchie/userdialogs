@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Splat;
@@ -64,42 +65,38 @@ namespace Acr.UserDialogs {
             };
             dialog.Content = stack;
 
-
             dialog.PrimaryButtonText = config.OkText;
-            dialog.PrimaryButtonClick += (sender, args) => {
+            dialog.PrimaryButtonCommand = new Command(() => {
                 config.OnResult?.Invoke(new PromptResult {
                     Ok = true,
                     Text = txt.Text.Trim()
                 });
                 dialog.Hide();
-            };
+            });
 
             if (config.IsCancellable) {
                 dialog.SecondaryButtonText = config.CancelText;
-                //dialog.SecondaryButtonCommand = new Command(() => {
-                //    config.OnResult?.Invoke(new PromptResult {
-                //        Ok = false,
-                //        Text = txt.Text.Trim()
-                //    });
-                //    dialog.Hide();
-                //});
+                dialog.SecondaryButtonCommand = new Command(() => {
+                    config.OnResult?.Invoke(new PromptResult {
+                        Ok = false,
+                        Text = txt.Text.Trim()
+                    });
+                    dialog.Hide();
+                });
             }
             dialog.ShowAsync();
         }
 
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
-            throw new NotImplementedException();
         }
 
 
         public override void ShowError(string message, int timeoutMillis) {
-            throw new NotImplementedException();
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis) {
-            throw new NotImplementedException();
         }
 
 
@@ -112,12 +109,24 @@ namespace Acr.UserDialogs {
 
         public override void Toast(ToastConfig config) {
             // TODO: action text and action command will work here!
-            var dialog = new ContentDialog {
-                Title = config.Text
-            };
-            //dialog.PrimaryButtonText = config
-            dialog.Background = new SolidColorBrush(config.BackgroundColor.ToNative());
+            var stack = new StackPanel { Orientation = Orientation.Horizontal };
+            if (config.Icon != null) {
+                var icon = config.Icon.ToNative();
+                stack.Children.Add(new Image { Source = icon });
+            }
+            stack.Children.Add(new TextBlock {
+                Text = config.Text,
+                Foreground = new SolidColorBrush(config.TextColor.ToNative())
+            });
 
+            var dialog = new ContentDialog {
+                Content = stack,
+                Background = new SolidColorBrush(config.BackgroundColor.ToNative())
+            };
+            dialog.Tapped += (sender, args) => {
+                dialog.Hide();
+                config.Action?.Invoke();
+            };
             dialog.ShowAsync();
             Task.Delay(config.Duration)
                 .ContinueWith(x => dialog.Hide());

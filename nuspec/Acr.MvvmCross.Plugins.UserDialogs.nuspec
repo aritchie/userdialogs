@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.MvvmCross.Plugins.UserDialogs</id>
-        <version>3.1.0</version>
+        <version>4.0.0</version>
         <title>MvvmCross User Dialogs</title>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -23,6 +23,10 @@
         </dependencies>
         <releaseNotes>
 Update to Acr.UserDialogs 4.0
+[android] Uses appcompat/material design out of the box
+[feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
+[feature] images and colours now powered by Splat
+[breaking] android no longer supports anything less than API 15
         </releaseNotes>
     </metadata>
     <files>

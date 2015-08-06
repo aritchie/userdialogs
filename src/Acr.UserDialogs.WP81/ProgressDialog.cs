@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Windows;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 
 namespace Acr.UserDialogs {
@@ -7,6 +11,11 @@ namespace Acr.UserDialogs {
     public class ProgressDialog : IProgressDialog {
         private readonly ProgressPopUp progress = new ProgressPopUp();
 
+
+        public ProgressDialog() {
+            var pu = new Popup();
+
+        }
         #region IProgressDialog Members
 
         public MaskType MaskType { get; set; }
@@ -65,7 +74,9 @@ namespace Acr.UserDialogs {
                 return;
 
             this.IsShowing = true;
-            this.Dispatch(this.progress.Show);
+            this.Dispatch(() => {
+
+            });
         }
 
 
@@ -74,19 +85,24 @@ namespace Acr.UserDialogs {
                 return;
 
             this.IsShowing = false;
-            this.Dispatch(this.progress.Dismiss);
+            this.Dispatch(() => {
+
+            });
         }
 
 
         protected virtual void Dispatch(Action action) {
-            Deployment.Current.Dispatcher.BeginInvoke(action);
+            CoreWindow
+                .GetForCurrentThread()
+                .Dispatcher
+                .RunAsync(CoreDispatcherPriority.Normal, action);
         }
 
 
         private void Refresh() {
             this.Dispatch(() => {
                 this.progress.LoadingText = this.text;
-                if (this.IsDeterministic) { 
+                if (this.IsDeterministic) {
                     this.progress.PercentComplete = this.percentComplete;
                     this.progress.CompletionText = this.percentComplete + "%";
                 }
