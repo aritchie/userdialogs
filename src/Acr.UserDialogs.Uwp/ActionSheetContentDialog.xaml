@@ -8,29 +8,31 @@
     Title="{Binding Title}"
     DataContext="Ac"
     mc:Ignorable="d">
-
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="{Binding Title}" />
-        <ListBox ItemsSource="{Binding Options}">
-            <ListBox.Items>
-                <DataTemplate>
-                    <Button Content="{Binding Text}" Command="{Binding Action}" />
-                </DataTemplate>
-            </ListBox.Items>
-        </ListBox>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button
-                DataContext="{Binding Destructive}"
-                Content="{Binding Text}"
-                Command="{Binding Action}"
-                Visibility="{Binding Visible}"
-            />
-            <Button
-                DataContext="{Binding Cancel}"
-                Content="{Binding Text}"
-                Command="{Binding Action}"
-                Visibility="{Binding Visible}"
-            />
+    <ContentDialog.Content>
+        <StackPanel>
+            <!--Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
+            <TextBlock Text="{Binding Title}" />
+            <ListBox ItemsSource="{Binding Options}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Text}" Command="{Binding Action}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button
+                    DataContext="{Binding Destructive}"
+                    Content="{Binding Text}"
+                    Command="{Binding Action}"
+                    Visibility="{Binding Visible}"
+                />
+                <Button
+                    DataContext="{Binding Cancel}"
+                    Content="{Binding Text}"
+                    Command="{Binding Action}"
+                    Visibility="{Binding Visible}"
+                />
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </ContentDialog.Content>
 </ContentDialog>

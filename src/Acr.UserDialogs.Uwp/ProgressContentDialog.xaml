@@ -7,8 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="{Binding Title}">
-    <StackPanel>
-        <ProgressBar Value="{Binding PercentComplete}" IsIndeterminate="{Binding IsIndeterminate}" />
-        <Button Visibility="{Binding CancelVisibility}" Content="{Binding CancelText}" Click="{Binding Cancel}" />
-    </StackPanel>
+    <ContentDialog.Content>
+        <StackPanel>
+            <ProgressBar Value="{Binding PercentComplete}" IsIndeterminate="{Binding IsIndeterminate}" />
+            <Button Visibility="{Binding CancelVisibility}" Content="{Binding CancelText}" Click="{Binding Cancel}" />
+        </StackPanel>
+    </ContentDialog.Content>
 </ContentDialog>
