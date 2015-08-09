@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "PropertyChanged.Fody": "1.50.2",
     "Splat": "1.6.2"
   },
   "frameworks": {

@@ -1,69 +1,126 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using Windows.UI.Xaml;
 
 
 namespace Acr.UserDialogs {
 
-    public class ProgressDialog : IProgressDialog {
+    public class ProgressDialog : IProgressDialog, INotifyPropertyChanged {
+        readonly ProgressContentDialog dialog;
+        Action cancelAction;
+
+
+        public ProgressDialog() {
+            this.CancelVisibility = Visibility.Collapsed;
+            this.dialog = new ProgressContentDialog { DataContext = this };
+            this.Cancel = new Command(() => this.cancelAction?.Invoke());
+        }
+
+
+        public bool IsIndeterministic { get; private set; }
+
+        bool deter;
         public bool IsDeterministic {
-            get {
-                throw new NotImplementedException();
-            }
-
+            get { return this.deter; }
             set {
-                throw new NotImplementedException();
+                this.deter = value;
+                this.IsIndeterministic = !value;
+                this.Change();
+                this.Change("IsIndeterministic");
             }
         }
 
-        public bool IsShowing {
-            get {
-                throw new NotImplementedException();
-            }
-        }
 
-        public MaskType MaskType {
-            get {
-                throw new NotImplementedException();
-            }
+        public bool IsShowing { get; private set; }
 
-            set {
-                throw new NotImplementedException();
-            }
-        }
+        public MaskType MaskType { get; set; }
 
+
+        int percent;
         public int PercentComplete {
-            get {
-                throw new NotImplementedException();
-            }
-
+            get { return this.percent; }
             set {
-                throw new NotImplementedException();
+                if (value > 100)
+                    this.percent = 100;
+                else if (value < 0)
+                    this.percent = 0;
+                else
+                    this.percent = value;
+                this.Change();
             }
         }
 
+
+        string title;
         public string Title {
-            get {
-                throw new NotImplementedException();
-            }
-
+            get { return this.title; }
             set {
-                throw new NotImplementedException();
+                this.title = value;
+                this.Change();
             }
         }
+
 
         public void Dispose() {
-            throw new NotImplementedException();
+            this.Hide();
         }
+
 
         public void Hide() {
-            throw new NotImplementedException();
+            if (!this.IsShowing)
+                return;
+
+            this.dialog.Hide();
+            this.IsShowing = false;
         }
+
 
         public void SetCancel(Action onCancel, string cancelText = "Cancel") {
-            throw new NotImplementedException();
+            this.CancelVisibility = Visibility.Visible;
+            this.cancelAction = onCancel;
+            this.CancelText = cancelText;
         }
 
+
         public void Show() {
-            throw new NotImplementedException();
+            if (this.IsShowing)
+                return;
+
+            this.IsShowing = true;
+            this.dialog.ShowAsync();
         }
+
+
+        void Change([CallerMemberName] string property = null) {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+
+        public ICommand Cancel { get; }
+
+
+        string cancelText;
+        public string CancelText {
+            get { return this.cancelText; }
+            set {
+                this.cancelText = value;
+                this.Change();
+            }
+        }
+
+
+        Visibility cancelVisible;
+        public Visibility CancelVisibility {
+            get { return this.cancelVisible; }
+            private set {
+                this.cancelVisible = value;
+                this.Change();
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Splat;
@@ -20,19 +20,31 @@ namespace Acr.UserDialogs {
 
 
         public override void ActionSheet(ActionSheetConfig config) {
-            // TODO: need contentdialog /w listview
-            var dialog = new MessageDialog(String.Empty, config.Title);
-            config.Options.ToList().ForEach(x => dialog.Commands.Add(new UICommand(x.Text, y => x.Action?.Invoke())));
+            var dlg = new ActionSheetContentDialog();
 
-            if (config.Destructive != null) {
-                //dialog.Commands.Add();
-                // TODO: color red!
-            }
-            if (config.Cancel != null) {
-                dialog.Commands.Add(new UICommand(config.Cancel.Text, x => config.Cancel.Action?.Invoke()));
-                dialog.CancelCommandIndex = (uint)dialog.Commands.Count;
-            }
-            dialog.ShowAsync();
+            var vm = new ActionSheetViewModel {
+                Title = config.Title,
+                Cancel = new ActionSheetOptionViewModel(config.Cancel != null,config.Cancel?.Text, () => {
+                    dlg.Hide();
+                    config.Cancel?.Action?.Invoke();
+                }),
+
+                Destructive = new ActionSheetOptionViewModel(config.Destructive != null, config.Destructive?.Text, () => {
+                    dlg.Hide();
+                    config.Destructive?.Action?.Invoke();
+                }),
+
+                Options = config
+                    .Options
+                    .Select(x => new ActionSheetOptionViewModel(true, x.Text, () => {
+                        dlg.Hide();
+                        x.Action?.Invoke();
+                    }))
+                    .ToList()
+            };
+
+            dlg.DataContext = vm;
+            dlg.ShowAsync();
         }
 
 
@@ -48,10 +60,24 @@ namespace Acr.UserDialogs {
 
 
         public override void Login(LoginConfig config) {
-            var dialog = new ContentDialog();
-            dialog.Content = new LoginPage();
-
-            dialog.ShowAsync();
+            var dlg = new LoginContentDialog();
+            var vm = new LoginViewModel {
+                LoginText = config.LoginValue,
+                Title = config.Title,
+                Message = config.Message,
+                UserName = config.LoginValue,
+                UserNamePlaceholder = config.LoginPlaceholder,
+                PasswordPlaceholder = config.PasswordPlaceholder,
+                CancelText = config.CancelText
+            };
+            vm.Login = new Command(() =>
+                config.OnResult?.Invoke(new LoginResult(vm.UserName, vm.Password, true))
+            );
+            vm.Cancel = new Command(() =>
+                config.OnResult?.Invoke(new LoginResult(vm.UserName, vm.Password, false))
+            );
+            dlg.DataContext = vm;
+            dlg.ShowAsync();
         }
 
 
@@ -93,17 +119,27 @@ namespace Acr.UserDialogs {
 
 
         public override void ShowError(string message, int timeoutMillis) {
+            this.Show(null, message, ToastConfig.ErrorBackgroundColor, timeoutMillis);
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis) {
+            this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
+        }
+
+
+        void Show(IBitmap image, string message, Color bgColor, int timeoutMillis) {
+            var cd = new ContentDialog {
+                Background = new SolidColorBrush(bgColor.ToNative()),
+                Content = new TextBlock { Text = message }
+            };
+            cd.ShowAsync();
+            Task.Delay(TimeSpan.FromMilliseconds(timeoutMillis)).ContinueWith(x => cd.Hide());
         }
 
 
         protected override IProgressDialog CreateDialogInstance() {
-            var pb = new ProgressBar();
-
-            return null;
+            return new ProgressDialog();
         }
 
 

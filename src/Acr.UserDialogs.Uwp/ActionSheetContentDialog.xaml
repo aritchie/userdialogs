@@ -1,0 +1,36 @@
+﻿<ContentDialog
+    x:Class="Acr.UserDialogs.ActionSheetContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Acr.UserDialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{Binding Title}"
+    DataContext="Ac"
+    mc:Ignorable="d">
+
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock Text="{Binding Title}" />
+        <ListBox ItemsSource="{Binding Options}">
+            <ListBox.Items>
+                <DataTemplate>
+                    <Button Content="{Binding Text}" Command="{Binding Action}" />
+                </DataTemplate>
+            </ListBox.Items>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button
+                DataContext="{Binding Destructive}"
+                Content="{Binding Text}"
+                Command="{Binding Action}"
+                Visibility="{Binding Visible}"
+            />
+            <Button
+                DataContext="{Binding Cancel}"
+                Content="{Binding Text}"
+                Command="{Binding Action}"
+                Visibility="{Binding Visible}"
+            />
+        </StackPanel>
+    </StackPanel>
+</ContentDialog>
