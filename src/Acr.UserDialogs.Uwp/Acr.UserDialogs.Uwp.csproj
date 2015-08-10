@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;__PLATFORM__</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -113,19 +113,19 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionSheetOptionViewModel.cs" />
     <Compile Include="ActionSheetContentDialog.xaml.cs">
       <DependentUpon>ActionSheetContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ActionSheetOptionViewModel.cs" />
     <Compile Include="ActionSheetViewModel.cs" />
     <Compile Include="Command.cs" />
-    <Compile Include="ProgressContentDialog.xaml.cs">
-      <DependentUpon>ProgressContentDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LoginContentDialog.xaml.cs">
       <DependentUpon>LoginContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginViewModel.cs" />
+    <Compile Include="ProgressContentDialog.xaml.cs">
+      <DependentUpon>ProgressContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProgressDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDialogsImpl.cs" />

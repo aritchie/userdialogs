@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="ff495f24-001d-4557-a45b-ab05addc4221"
+    Name="79ea10ce-f461-4523-a22e-ebb34ff419ce"
     Publisher="CN=aritchie"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="ff495f24-001d-4557-a45b-ab05addc4221" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="79ea10ce-f461-4523-a22e-ebb34ff419ce" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Samples.Windows</DisplayName>
+    <DisplayName>Samples.Uwp</DisplayName>
     <PublisherDisplayName>aritchie</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="Samples.Windows.App">
+      EntryPoint="Samples.Uwp.App">
       <uap:VisualElements
-        DisplayName="Samples.Windows"
+        DisplayName="Samples.Uwp"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Samples.Windows"
+        Description="Samples.Uwp"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

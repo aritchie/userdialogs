@@ -15,14 +15,13 @@
     IsSecondaryButtonEnabled="True">
     <ContentDialog.Content>
         <StackPanel>
-            <!--<StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
             <TextBlock Text="{Binding Message}" />
 
             <TextBlock Text="{Binding UserNameText}" />
             <TextBox PlaceholderText="{Binding UserNamePlaceholder}" Text="{Binding UserName}" />
 
             <TextBlock Text="{Binding PasswordText}" />
-            <TextBox PlaceholderText="{Binding PasswordPlaceholder}" Text="{Binding Password}" />
+            <PasswordBox PlaceholderText="{Binding PasswordPlaceholder}" Password="{Binding Password}" />
         </StackPanel>
     </ContentDialog.Content>
 </ContentDialog>

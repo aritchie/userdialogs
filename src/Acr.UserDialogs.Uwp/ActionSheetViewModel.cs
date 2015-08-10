@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
-using PropertyChanged;
 
 
 namespace Acr.UserDialogs {
 
-    [ImplementPropertyChanged]
     public class ActionSheetViewModel {
 
         public string Title { get; set; }

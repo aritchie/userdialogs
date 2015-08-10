@@ -14,6 +14,7 @@ namespace Acr.UserDialogs {
 
         public ProgressDialog() {
             this.CancelVisibility = Visibility.Collapsed;
+            this.IsIndeterministic = true;
             this.dialog = new ProgressContentDialog { DataContext = this };
             this.Cancel = new Command(() => this.cancelAction?.Invoke());
         }

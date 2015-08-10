@@ -62,7 +62,7 @@ namespace Acr.UserDialogs {
         public override void Login(LoginConfig config) {
             var dlg = new LoginContentDialog();
             var vm = new LoginViewModel {
-                LoginText = config.LoginValue,
+                LoginText = config.OkText,
                 Title = config.Title,
                 Message = config.Message,
                 UserName = config.LoginValue,
@@ -82,11 +82,15 @@ namespace Acr.UserDialogs {
 
 
         public override void Prompt(PromptConfig config) {
-            var dialog = new ContentDialog();
-            var txt = new TextBox();
+            var dialog = new ContentDialog { Title = config.Title };
+            var txt = new TextBox {
+                PlaceholderText = config.Placeholder,
+                Text = config.Text ?? String.Empty
+            };
             var stack = new StackPanel {
                 Children = {
-                    new TextBlock { Text = config.Message }
+                    new TextBlock { Text = config.Message },
+                    txt
                 }
             };
             dialog.Content = stack;
@@ -165,7 +169,12 @@ namespace Acr.UserDialogs {
             };
             dialog.ShowAsync();
             Task.Delay(config.Duration)
-                .ContinueWith(x => dialog.Hide());
+                .ContinueWith(x => {
+                    try {
+                        dialog.Hide();
+                    }
+                    catch { } // swallow race condition
+                });
         }
     }
 }

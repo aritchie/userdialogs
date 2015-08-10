@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Windows.Input;
-using PropertyChanged;
 
 
 namespace Acr.UserDialogs {
 
-    [ImplementPropertyChanged]
     public class LoginViewModel {
 
-        public ICommand Login { get; }
-        public ICommand Cancel { get; }
+        public ICommand Login { get; set; }
+        public ICommand Cancel { get; set; }
         public string UserNameText { get; set; }
         public string UserNamePlaceholder { get; set; }
         public string PasswordText { get; set; }

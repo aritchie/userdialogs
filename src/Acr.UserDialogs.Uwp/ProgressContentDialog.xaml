@@ -10,7 +10,7 @@
     <ContentDialog.Content>
         <StackPanel>
             <ProgressBar Value="{Binding PercentComplete}" IsIndeterminate="{Binding IsIndeterminate}" />
-            <Button Visibility="{Binding CancelVisibility}" Content="{Binding CancelText}" Click="{Binding Cancel}" />
+            <Button Visibility="{Binding CancelVisibility}" Content="{Binding CancelText}" Command="{Binding Cancel}" />
         </StackPanel>
     </ContentDialog.Content>
 </ContentDialog>
