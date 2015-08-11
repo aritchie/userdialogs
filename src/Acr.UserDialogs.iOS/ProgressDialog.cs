@@ -14,7 +14,7 @@ namespace Acr.UserDialogs {
 
         #region IProgressDialog Members
 
-        private string title;
+        string title;
         public virtual string Title {
             get { return this.title; }
             set {
@@ -30,7 +30,7 @@ namespace Acr.UserDialogs {
         public MaskType MaskType { get; set; }
 
 
-        private int percentComplete;
+        int percentComplete;
         public virtual int PercentComplete {
             get { return this.percentComplete; }
             set {
@@ -52,8 +52,8 @@ namespace Acr.UserDialogs {
         public virtual bool IsShowing { get; private set; }
 
 
-        private string cancelText;
-        private Action cancelAction;
+        string cancelText;
+        Action cancelAction;
         public virtual void SetCancel(Action onCancel, string cancel) {
             this.cancelAction = onCancel;
             this.cancelText = cancel;

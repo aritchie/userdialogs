@@ -10,8 +10,6 @@ using Splat;
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
-        //public ProgressHUD.MaskType? MaskType { get; set; }
-
 
         public override void Alert(AlertConfig config) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
@@ -141,8 +139,9 @@ namespace Acr.UserDialogs {
         public override void Toast(ToastConfig cfg) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
                 //MessageBarManager.SharedInstance.ShowAtTheBottom = true;
+                MessageBarManager.SharedInstance.HideAll();
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
-                MessageBarManager.SharedInstance.ShowMessage(cfg.Text, String.Empty, MessageType.Success, () => cfg.Action?.Invoke());
+                MessageBarManager.SharedInstance.ShowMessage(cfg.Text, String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
             });
         }
 
@@ -311,48 +310,17 @@ namespace Acr.UserDialogs {
 
 
         protected virtual UIWindow GetTopWindow() {
-            return UIApplication.SharedApplication
-                .Windows
-                .Reverse()
-                .FirstOrDefault(x =>
-                    x.WindowLevel == UIWindowLevel.Normal &&
-                    !x.Hidden
-                );
+            return Extensions.GetTopWindow();
         }
 
 
         protected virtual UIView GetTopView() {
-            return this.GetTopWindow().Subviews.Last();
+            return Extensions.GetTopView();
         }
 
 
         protected virtual UIViewController GetTopViewController() {
-            var root = this.GetTopWindow().RootViewController;
-            var tabs = root as UITabBarController;
-			if (tabs != null) {
-				root = tabs.PresentedViewController ?? tabs.SelectedViewController;
-
-				while (root.PresentedViewController != null)
-					root = this.GetTopViewController (root.PresentedViewController);
-
-				return root;
-			}
-
-            var nav = root as UINavigationController;
-            if (nav != null)
-                return nav.VisibleViewController;
-
-            while (root.PresentedViewController != null)
-                root = this.GetTopViewController(root.PresentedViewController);
-
-            return root;
-        }
-
-        protected virtual UIViewController GetTopViewController(UIViewController viewController) {
-            if (viewController.PresentedViewController != null)
-                return this.GetTopViewController(viewController.PresentedViewController);
-
-            return viewController;
+            return Extensions.GetTopViewController();
         }
     }
 }

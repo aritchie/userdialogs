@@ -32,6 +32,8 @@ using CoreGraphics;
 using Foundation;
 using System.Collections.Generic;
 using System.Threading;
+using Acr.UserDialogs;
+
 
 namespace MessageBar
 {
@@ -82,12 +84,6 @@ namespace MessageBar
 			}
 		}
 
-		UIView MessageWindowView{
-			get{
-				return  GetMessageBarViewController ().View;
-			}
-		}
-
 		nfloat initialPosition = 0;
 		nfloat showPosition = 0;
 		/// <summary>
@@ -110,7 +106,7 @@ namespace MessageBar
 		/// <param name="type">Message type</param>
 		public void ShowMessage (string title, string description, MessageType type)
 		{
-			ShowMessage (title, description, type, null);
+			ShowMessage (title, description, type, null, null);
 		}
 
 		/// <summary>
@@ -120,12 +116,13 @@ namespace MessageBar
 		/// <param name="description">Messagebar description</param>
 		/// <param name="type">Message type</param>
 		/// <param name = "onDismiss">OnDismiss callback</param>
-		public void ShowMessage (string title, string description, MessageType type, Action onDismiss)
+		public void ShowMessage (string title, string description, MessageType type, Action onDismiss, Action onTap)
 		{
 			var messageView = new MessageView (title, description, type);
 			messageView.StylesheetProvider = this;
 			messageView.OnDismiss = onDismiss;
 			messageView.Hidden = true;
+            messageView.OnTap = onTap;
 
 			//UIApplication.SharedApplication.KeyWindow.InsertSubview (messageView, 1);
 
@@ -134,9 +131,8 @@ namespace MessageBar
 
 			MessageBarQueue.Enqueue (messageView);
 
-			if (!MessageVisible) {
+			if (!MessageVisible)
 				ShowNextMessage ();
-			}
 		}
 
 		void ShowNextMessage ()
@@ -161,12 +157,12 @@ namespace MessageBar
 				var gest = new UITapGestureRecognizer (MessageTapped);
 				messageView.AddGestureRecognizer (gest);
 				if (messageView == null)
-					return; 
+					return;
 
-				UIView.Animate (DismissAnimationDuration, 
-					() => 
-					messageView.Frame = new CGRect (messageView.Frame.X, 
-						showPosition, 
+				UIView.Animate (DismissAnimationDuration,
+					() =>
+					messageView.Frame = new CGRect (messageView.Frame.X,
+						showPosition,
 						messageView.Width, messageView.Height)
 				);
 
@@ -228,6 +224,7 @@ namespace MessageBar
 			var view = recognizer.View as MessageView;
 			if (view != null) {
 				DismissMessage (view);
+                view.OnTap?.Invoke();
 			}
 		}
 
@@ -244,21 +241,18 @@ namespace MessageBar
 			if (messageView != null && !messageView.Hit) {
 
 				messageView.Hit = true;
-				UIView.Animate (DismissAnimationDuration, 
+				UIView.Animate (DismissAnimationDuration,
 					delegate {
 						messageView.Frame = new CGRect (
-							messageView.Frame.X, 
-							initialPosition, 
+							messageView.Frame.X,
+							initialPosition,
 							messageView.Frame.Width, messageView.Frame.Height);
-					}, 
+					},
 					delegate {
 						MessageVisible = false;
 						messageView.RemoveFromSuperview ();
 
-						var action = messageView.OnDismiss;
-						if (action != null) {
-							action ();
-						}
+						messageView.OnDismiss?.Invoke();
 
 						if (MessageBarQueue.Count > 0) {
 							ShowNextMessage ();
@@ -270,25 +264,35 @@ namespace MessageBar
 			}
 		}
 
-		MessageBarViewController GetMessageBarViewController ()
-		{
-			if (messageWindow == null) {
-				messageWindow = new MessageWindow () {
-					Frame = UIApplication.SharedApplication.KeyWindow.Frame,
-					Hidden = false,
-					WindowLevel = UIWindowLevel.Normal,
-					BackgroundColor = UIColor.Clear,
-					RootViewController = new MessageBarViewController()
-				};
-
-			}
-
-			return (MessageBarViewController) messageWindow.RootViewController;
+		UIView MessageWindowView{
+			get{
+                return GetMessageBarViewController().View;
+                //return Extensions.GetTopView();
+            }
 		}
 
+        MessageWindow messageWindow;
+        MessageBarViewController GetMessageBarViewController() {
+            var win = Extensions.GetTopWindow();
 
-		MessageWindow messageWindow;
-		const float DisplayDelay = 3.0f;
+            if (messageWindow == null) {
+                messageWindow = new MessageWindow {
+                    //Frame = UIApplication.SharedApplication.KeyWindow.Frame,
+                    Frame = win.Frame,
+                    Hidden = false,
+                    WindowLevel = UIWindowLevel.Normal,
+                    BackgroundColor = UIColor.Clear,
+                    RootViewController = new MessageBarViewController()
+                };
+
+            }
+
+            return (MessageBarViewController)messageWindow.RootViewController;
+        }
+
+
+
+        const float DisplayDelay = 3.0f;
 		const float DismissAnimationDuration = 0.25f;
 		MessageBarStyleSheet styleSheet;
 		readonly Queue<MessageView> messageBarQueue;
@@ -310,4 +314,3 @@ namespace MessageBar
 		}
 	}
 }
- 

@@ -53,7 +53,7 @@ namespace MessageBar
 		MessageType MessageType { get; set; }
 
 		public Action OnDismiss { get; set; }
-
+        public Action OnTap { get; set; }
 		public bool Hit { get; set; }
 
 
@@ -105,7 +105,7 @@ namespace MessageBar
 		internal MessageView (string title, string description, MessageType type)
 			: this ((NSString)title, (NSString)description, type)
 		{
-			
+
 		}
 
 		internal MessageView (NSString title, NSString description, MessageType type)
@@ -179,12 +179,12 @@ namespace MessageBar
 			context.RestoreState ();
 			context.SaveState ();
 
-			
+
 			nfloat xOffset = Padding;
 			nfloat yOffset = Padding;
 			styleSheet.IconImageForMessageType (MessageType).Draw (new CGRect (xOffset, yOffset, IconSize, IconSize));
 			context.SaveState ();
-				
+
 			yOffset -= TextOffset;
 			xOffset += IconSize + Padding;
 			CGSize titleLabelSize = TitleSize ();
@@ -193,11 +193,11 @@ namespace MessageBar
 			}
 
 			TitleColor.SetColor ();
-				
+
 			var titleRectangle = new CGRect (xOffset, yOffset, titleLabelSize.Width, titleLabelSize.Height);
 			Title.DrawString (titleRectangle, TitleFont, UILineBreakMode.TailTruncation, UITextAlignment.Left);
 			yOffset += titleLabelSize.Height;
-				
+
 			CGSize descriptionLabelSize = DescriptionSize ();
 			DescriptionColor.SetColor ();
 			var descriptionRectangle = new CGRect (xOffset, yOffset, descriptionLabelSize.Width, descriptionLabelSize.Height);
