@@ -11,6 +11,7 @@ namespace Samples {
         private readonly Label lblResult;
 
         public MainPage() {
+            this.Title = "User Dialogs";
 			this.lblResult = new Label();
 			this.Content = new ScrollView {
 				Orientation = ScrollOrientation.Vertical,
@@ -32,12 +33,12 @@ namespace Samples {
                         Btn("Loading (Gradient iOS)", () => this.Loading(MaskType.Gradient)),
                         Btn("Loading (None)", () => this.Loading(MaskType.Black)),
 	                    Btn("Loading (No Cancel)", this.LoadingNoCancel),
-                        Btn("Error", this.Error),
-                        Btn("Success", this.Success),
-						Btn("Toast (Clear - Default)", () => this.Toast(MaskType.Clear)),
-						Btn("Toast (Black)", () => this.Toast(MaskType.Black)),
-						Btn("Toast (Gradient - iOS)", () => this.Toast(MaskType.Gradient)),
-						Btn("Toast (None)", () => this.Toast(MaskType.None)),
+                        Btn("Error", () => UserDialogs.Instance.ShowError("ERROR!")),
+                        Btn("Success", () => UserDialogs.Instance.ShowSuccess("ERROR!")),
+						Btn("Toast (Success)", () => this.Toast(ToastEvent.Success)),
+						Btn("Toast (Info)", () => this.Toast(ToastEvent.Info)),
+						Btn("Toast (Warning)", () => this.Toast(ToastEvent.Warn)),
+						Btn("Toast (Error)", () => this.Toast(ToastEvent.Error)),
                         Btn("Change Default Settings", () => {
                             // CANCEL
                             ActionSheetConfig.DefaultCancelText = ConfirmConfig.DefaultCancelText = LoginConfig.DefaultCancelText = PromptConfig.DefaultCancelText = ProgressDialogConfig.DefaultCancelText = "NO WAY";
@@ -53,6 +54,13 @@ namespace Samples {
                             LoginConfig.DefaultLoginPlaceholder = "WHO ARE YOU?";
                             LoginConfig.DefaultPasswordPlaceholder = "SUPER SECRET PASSWORD";
                             ProgressDialogConfig.DefaultTitle = "WAIT A MINUTE";
+
+                            // TOAST
+                            ToastConfig.DefaultDuration = TimeSpan.FromSeconds(5);
+                            ToastConfig.InfoBackgroundColor = System.Drawing.Color.Aqua;
+                            ToastConfig.SuccessBackgroundColor = System.Drawing.Color.BurlyWood;
+                            ToastConfig.WarnBackgroundColor = System.Drawing.Color.BlueViolet;
+                            ToastConfig.ErrorBackgroundColor = System.Drawing.Color.DeepPink;
 
                             UserDialogs.Instance.Alert("Default Settings Updated - Now run samples");
                         }),
@@ -71,8 +79,11 @@ namespace Samples {
                             LoginConfig.DefaultLoginPlaceholder = "User Name";
                             LoginConfig.DefaultPasswordPlaceholder = "Password";
                             ProgressDialogConfig.DefaultTitle = "Loading";
+                            ToastConfig.DefaultDuration = TimeSpan.FromSeconds(3);
 
                             UserDialogs.Instance.Alert("Default Settings Restored");
+
+                            // TODO: toast defaults
                         })
 	                }
 				}
@@ -80,7 +91,7 @@ namespace Samples {
         }
 
 
-        private static Button Btn(string text, Action action) {
+        static Button Btn(string text, Action action) {
             return new Button {
                 Text = text,
                 Command = new Command(action)
@@ -88,13 +99,13 @@ namespace Samples {
         }
 
 
-        private async void Alert() {
+        async void Alert() {
             await UserDialogs.Instance.AlertAsync("Test alert", "Alert Title");
             this.lblResult.Text = "Returned from alert!";
         }
 
 
-        private void ActionSheet() {
+        void ActionSheet() {
 			var cfg = new ActionSheetConfig()
 				.SetTitle("Test Title");
 
@@ -118,27 +129,23 @@ namespace Samples {
         }
 
 
-        private async void Confirm() {
+        async void Confirm() {
             var r = await UserDialogs.Instance.ConfirmAsync("Pick a choice", "Pick Title");
             var text = (r ? "Yes" : "No");
             this.lblResult.Text = "Confirmation Choice: " + text;
         }
 
 
-        private async void Login() {
+        async void Login() {
 			var r = await UserDialogs.Instance.LoginAsync(new LoginConfig {
 				Message = "DANGER"
 			});
-            this.lblResult.Text = String.Format(
-                "Login {0} - User Name: {1} - Password: {2}",
-                r.Ok ? "Success" : "Cancelled",
-                r.LoginText,
-                r.Password
-            );
+            var status = r.Ok ? "Success" : "Cancelled";
+            this.lblResult.Text = $"Login {status} - User Name: {r.LoginText} - Password: {r.Password}";
         }
 
 
-		private void Prompt() {
+		void Prompt() {
 			UserDialogs.Instance.ActionSheet(new ActionSheetConfig()
 				.SetTitle("Choose Type")
 				.Add("Default", () => this.PromptCommand(InputType.Default))
@@ -153,18 +160,18 @@ namespace Samples {
 		}
 
 
-		private async void PromptWithTextAndNoCancel() {
+		async void PromptWithTextAndNoCancel() {
 			var result = await UserDialogs.Instance.PromptAsync(new PromptConfig {
 				Title = "PromptWithTextAndNoCancel",
 				Text = "Existing Text",
 				IsCancellable = false
 			});
-			this.lblResult.Text = String.Format("Result - {0}", result.Text);
+			this.lblResult.Text = $"Result - {result.Text}";
 		}
 
 
-		private async void PromptCommand(InputType inputType) {
-			var msg = String.Format("Enter a {0} value", inputType.ToString().ToUpper());
+		async void PromptCommand(InputType inputType) {
+			var msg = $"Enter a {inputType.ToString().ToUpper()} value";
 			var r = await UserDialogs.Instance.PromptAsync(msg, inputType: inputType);
             this.lblResult.Text = r.Ok
                 ? "OK " + r.Text
@@ -172,7 +179,7 @@ namespace Samples {
         }
 
 
-        private async void Progress() {
+        async void Progress() {
             var cancelled = false;
 
             using (var dlg = UserDialogs.Instance.Progress("Test Progress")) {
@@ -186,7 +193,7 @@ namespace Samples {
         }
 
 
-        private async void ProgressNoCancel() {
+        async void ProgressNoCancel() {
             using (var dlg = UserDialogs.Instance.Progress("Progress (No Cancel)")) {
                 while (dlg.PercentComplete < 100) {
                     await Task.Delay(TimeSpan.FromSeconds(1));
@@ -196,16 +203,7 @@ namespace Samples {
         }
 
 
-        private void Error() {
-            UserDialogs.Instance.ShowError("ERROR!");
-        }
-
-
-        private void Success() {
-            UserDialogs.Instance.ShowSuccess("Success");
-        }
-
-        private async void Loading(MaskType maskType) {
+        async void Loading(MaskType maskType) {
             var cancelSrc = new CancellationTokenSource();
 
 			using (var dlg = UserDialogs.Instance.Loading("Loading", maskType: maskType)) {
@@ -220,7 +218,7 @@ namespace Samples {
         }
 
 
-        private async void LoadingNoCancel() {
+        async void LoadingNoCancel() {
             using (UserDialogs.Instance.Loading("Loading (No Cancel)"))
                 await Task.Delay(TimeSpan.FromSeconds(3));
 
@@ -228,15 +226,15 @@ namespace Samples {
         }
 
 
-		private void Toast(MaskType maskType) {
-            this.lblResult.Text = "Toast Shown";
-            UserDialogs.Instance.Toast("Test Toast", 3, () => {
-                this.lblResult.Text = "Toast Pressed";
-            }, maskType);
+		void Toast(ToastEvent @event) {
+            UserDialogs.Instance.Toast(new ToastConfig(@event, "Test Toast") {
+                Duration = TimeSpan.FromSeconds(3),
+                Action = () => this.lblResult.Text = "Toast Pressed"
+            });
         }
 
 
-		private async void ManualLoading() {
+		async void ManualLoading() {
 			UserDialogs.Instance.ShowLoading("Manual Loading");
 			await Task.Delay(3000);
 			UserDialogs.Instance.HideLoading();

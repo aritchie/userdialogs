@@ -2,7 +2,7 @@
 
 
 namespace Acr.UserDialogs {
-    
+
     public class ActionSheetOption {
 
         public string Text { get; set; }
@@ -13,11 +13,5 @@ namespace Acr.UserDialogs {
             this.Text = text;
             this.Action = (action ?? (() => {}));
         }
-
-
-		public void TryExecute() {
-			if (this.Action != null)
-				this.Action();
-		}
     }
 }

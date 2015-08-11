@@ -1,29 +1,30 @@
 using System;
 using System.Linq;
 using Android.App;
+using Android.Graphics.Drawables;
+using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
 using AndroidHUD;
-#if __APPCOMPAT__
-using AlertDialog = Android.Support.V7.App.AlertDialog;
-#endif
+using Splat;
+using AlertDialog = Android.App.AlertDialog;
 
 
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
-        private readonly Func<Activity> getTopActivity;
+        protected Func<Activity> GetTopActivity { get; set; }
 
 
         public UserDialogsImpl(Func<Activity> getTopActivity) {
-            this.getTopActivity = getTopActivity;
+            this.GetTopActivity = getTopActivity ?? (() => ActivityLifecycleCallbacks.CurrentTopActivity);
         }
 
 
         public override void Alert(AlertConfig config) {
-            //var context = this.getTopActivity();
+            //var context = this.GetTopActivity();
             //var layout = new LinearLayout(context) {
             //    Orientation = Orientation.Vertical,
             //    OverScrollMode = OverScrollMode.IfContentScrolls
@@ -32,12 +33,12 @@ namespace Acr.UserDialogs {
 
             Utils.RequestMainThread(() =>
                 new AlertDialog
-                    .Builder(this.getTopActivity())
+                    .Builder(this.GetTopActivity())
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-					.SetPositiveButton(config.OkText, (o, e) => config.OnOk.TryExecute())
-                    .Show()
+					.SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke())
+                    .ShowExt()
             );
         }
 
@@ -49,38 +50,38 @@ namespace Acr.UserDialogs {
                 .ToArray();
 
 			var dlg = new AlertDialog
-				.Builder(this.getTopActivity())
+                .Builder(this.GetTopActivity())
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-			dlg.SetItems(array, (sender, args) => config.Options[args.Which].Action.TryExecute());
+            dlg.SetItems(array, (s, args) => config.Options[args.Which].Action?.Invoke());
 
 			if (config.Destructive != null)
-				dlg.SetNegativeButton(config.Destructive.Text, (sender, e) => config.Destructive.Action.TryExecute());
+				dlg.SetNegativeButton(config.Destructive.Text, (s, a) => config.Destructive.Action?.Invoke());
 
 			if (config.Cancel != null)
-				dlg.SetNeutralButton(config.Cancel.Text, (sender, e) => config.Cancel.Action.TryExecute());
+				dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
 
-			Utils.RequestMainThread(() => dlg.Show());
+			Utils.RequestMainThread(() => dlg.ShowExt());
         }
 
 
         public override void Confirm(ConfirmConfig config) {
             Utils.RequestMainThread(() =>
                 new AlertDialog
-                    .Builder(this.getTopActivity())
+                    .Builder(this.GetTopActivity())
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-                    .SetPositiveButton(config.OkText, (o, e) => config.OnConfirm(true))
-                    .SetNegativeButton(config.CancelText, (o, e) => config.OnConfirm(false))
-                    .Show()
+                    .SetPositiveButton(config.OkText, (s, a) => config.OnConfirm(true))
+                    .SetNegativeButton(config.CancelText, (s, a) => config.OnConfirm(false))
+                    .ShowExt()
             );
         }
 
 
         public override void Login(LoginConfig config) {
-            var context = this.getTopActivity();
+            var context = this.GetTopActivity();
             var txtUser = new EditText(context) {
                 Hint = config.LoginPlaceholder,
                 InputType = InputTypes.TextVariationVisiblePassword,
@@ -101,30 +102,27 @@ namespace Acr.UserDialogs {
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            Utils.RequestMainThread(() => {
-                var dialog = new AlertDialog
-                    .Builder(this.getTopActivity())
+            Utils.RequestMainThread(() =>
+                new AlertDialog
+                    .Builder(context)
                     .SetCancelable(false)
                     .SetTitle(config.Title)
                     .SetMessage(config.Message)
                     .SetView(layout)
-                    .SetPositiveButton(config.OkText, (o, e) =>
+                    .SetPositiveButton(config.OkText, (s, a) =>
                         config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))
                     )
-                    .SetNegativeButton(config.CancelText, (o, e) =>
+                    .SetNegativeButton(config.CancelText, (s, a) =>
                         config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))
                     )
-					.Create();
-
-                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-                dialog.Show();
-            });
+                    .ShowExt()
+            );
         }
 
 
         public override void Prompt(PromptConfig config) {
             Utils.RequestMainThread(() => {
-                var activity = this.getTopActivity();
+                var activity = this.GetTopActivity();
 
                 var txt = new EditText(activity) {
                     Hint = config.Placeholder
@@ -140,7 +138,7 @@ namespace Acr.UserDialogs {
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetView(txt)
-                    .SetPositiveButton(config.OkText, (o, e) =>
+                    .SetPositiveButton(config.OkText, (s, a) =>
                         config.OnResult(new PromptResult {
                             Ok = true,
                             Text = txt.Text
@@ -148,7 +146,7 @@ namespace Acr.UserDialogs {
 					);
 
 				if (config.IsCancellable) {
-					builder.SetNegativeButton(config.CancelText, (o, e) =>
+					builder.SetNegativeButton(config.CancelText, (s, a) =>
                         config.OnResult(new PromptResult {
                             Ok = false,
                             Text = txt.Text
@@ -156,40 +154,44 @@ namespace Acr.UserDialogs {
 					);
 				}
 
-				var dialog = builder.Create();
-                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-                dialog.Show();
+				builder.Show();
             });
         }
 
 
-        public override void ShowSuccess(string message, int timeoutSeconds) {
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
             Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowSuccess(this.getTopActivity(), message, timeout: TimeSpan.FromSeconds(timeoutSeconds))
+                AndHUD.Shared.ShowImage(this.GetTopActivity(), image.ToNative(), message, AndroidHUD.MaskType.Black, TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
 
-        public override void ShowError(string message, int timeoutSeconds) {
+        public override void ShowSuccess(string message, int timeoutMillis) {
             Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowError(this.getTopActivity(), message, timeout: TimeSpan.FromSeconds(timeoutSeconds))
+                AndHUD.Shared.ShowSuccess(this.GetTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
 
-        public override void Toast(string message, int timeoutSeconds, Action onClick, MaskType maskType) {
+        public override void ShowError(string message, int timeoutMillis) {
+            Utils.RequestMainThread(() =>
+                AndHUD.Shared.ShowError(this.GetTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+            );
+        }
+
+
+        public override void Toast(ToastConfig cfg) {
             Utils.RequestMainThread(() => {
-				var top = this.getTopActivity();
+				var top = this.GetTopActivity();
                 AndHUD.Shared.ShowToast(
                     top,
-                    message,
-					maskType.ToNative(),
-                    TimeSpan.FromSeconds(timeoutSeconds),
+                    cfg.Text,
+					AndroidHUD.MaskType.Black,
+                    cfg.Duration,
                     false,
 					() => {
 						AndHUD.Shared.Dismiss();
-						if (onClick != null)
-							onClick();
+                        cfg.Action?.Invoke();
 					}
                 );
             });
@@ -197,7 +199,7 @@ namespace Acr.UserDialogs {
 
 
         protected override IProgressDialog CreateDialogInstance() {
-			return new ProgressDialog(this.getTopActivity());
+			return new ProgressDialog(this.GetTopActivity());
         }
 
 

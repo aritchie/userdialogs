@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <TargetFrameworkVersion>v2.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,18 +35,6 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Acr.UserDialogs.3.4.1\lib\MonoAndroid10\Acr.UserDialogs.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Acr.UserDialogs.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Acr.UserDialogs.3.4.1\lib\MonoAndroid10\Acr.UserDialogs.Interface.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AndHUD, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Acr.UserDialogs.3.4.1\lib\MonoAndroid10\AndHUD.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.1\lib\MonoAndroid\Cirrious.CrossCore.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +84,14 @@
     <ProjectReference Include="..\Acr.MvvmCross.Plugins.UserDialogs\Acr.MvvmCross.Plugins.UserDialogs.csproj">
       <Project>{fb69b463-0dd5-49d2-afed-6e3a31eb37a1}</Project>
       <Name>Acr.MvvmCross.Plugins.UserDialogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acr.UserDialogs.Android\Acr.UserDialogs.Android.csproj">
+      <Project>{4a67e27e-0e7f-4ef2-b3e6-2c24e18ef442}</Project>
+      <Name>Acr.UserDialogs.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
+      <Project>{6a0ae941-711d-4c36-a311-960b65534b22}</Project>
+      <Name>Acr.UserDialogs.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

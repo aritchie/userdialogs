@@ -4,19 +4,11 @@
 namespace Acr.UserDialogs {
 
     public class LoginConfig {
-        public static string DefaultTitle { get; set; }
-        public static string DefaultOkText { get; set; }
-        public static string DefaultCancelText { get; set; }
-        public static string DefaultLoginPlaceholder { get; set; }
-        public static string DefaultPasswordPlaceholder { get; set; }
-
-        static LoginConfig() {
-            DefaultTitle = "Login";
-            DefaultOkText = "Ok";
-            DefaultCancelText = "Cancel";
-            DefaultLoginPlaceholder = "User Name";
-            DefaultPasswordPlaceholder = "Password";
-        }
+        public static string DefaultTitle { get; set; } = "Login";
+        public static string DefaultOkText { get; set; } = "Ok";
+        public static string DefaultCancelText { get; set; } = "Cancel";
+        public static string DefaultLoginPlaceholder { get; set; } = "User Name";
+        public static string DefaultPasswordPlaceholder { get; set; } = "Password";
 
 
         public string Title { get; set; }

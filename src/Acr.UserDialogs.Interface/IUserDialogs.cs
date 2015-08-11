@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Splat;
 
 
 namespace Acr.UserDialogs {
@@ -18,7 +19,6 @@ namespace Acr.UserDialogs {
 
 		void ShowLoading(string title = null, MaskType? maskType = null);
         void HideLoading();
-		void Toast(string message, int timeoutSeconds = 3, Action onClick = null, MaskType maskType = MaskType.None);
 
         Task<string> ActionSheetAsync(string title, string cancel, string destructive, params string[] buttons);
         Task AlertAsync(string message, string title = null, string okText = null);
@@ -30,7 +30,14 @@ namespace Acr.UserDialogs {
         Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default);
         Task<PromptResult> PromptAsync(PromptConfig config);
 
-        void ShowSuccess(string message, int timeout = 3);
-        void ShowError(string message, int timeout = 3);
+        void ShowImage(IBitmap image, string message, int timeoutMillis = 3000);
+        void ShowSuccess(string message, int timeoutMillis = 3000);
+        void ShowError(string message, int timeoutMillis = 3000);
+
+        void InfoToast(string message, int timeoutMillis = 3000);
+        void SuccessToast(string message, int timeoutMillis = 3000);
+        void WarnToast(string message, int timeoutMillis = 3000);
+        void ErrorToast(string message, int timeoutMillis = 3000);
+        void Toast(ToastConfig cfg);
     }
 }

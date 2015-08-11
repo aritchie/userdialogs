@@ -5,6 +5,8 @@
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
 Supports Android, iOS, and Windows Phone 8
 
+
+
 ##Features
 
 ---
@@ -16,15 +18,59 @@ Supports Android, iOS, and Windows Phone 8
 * Login
 * Progress
 * Prompt
-* Toast
+* Toasts
 
 [examples](https://github.com/aritchie/userdialogs/blob/master/src/Samples/Samples/MainPage.cs)
 
-* Android - Progress/Loading uses Redth's [AndHUD](https://github.com/Redth/AndHUD)
-* iOS - Progress/Loading uses Nic Wise's [BTProgressHUD](https://github.com/nicwise/BTProgressHUD)
-* WinPhone - All dialogs by [WPToolkit](http://coding4fun.codeplex.com/) 
+Powered By:
+
+    Android - Progress/Loading uses Redth's [AndHUD](https://github.com/Redth/AndHUD)
+    iOS - Progress/Loading uses Nic Wise's [BTProgressHUD](https://github.com/nicwise/BTProgressHUD)
+    iOS - Toasts powered by Xamarin-iOS-MessageBar
+    WinPhone - All dialogs by [WPToolkit](http://coding4fun.codeplex.com/) 
 
 
+###Themes/Defaults
+
+All config objects contain static vars that contain defaults which are basically used as a poor man's stylesheet.  These save you time of always have to pass what the text for OK should be.  This is particularily useful for multilingual applications.
+
+- ActionSheetConfig
+    - DefaultCancelText
+    - DefaultDestructiveText
+- AlertConfig
+    - DefaultOkText
+- ConfirmConfig
+    - DefaultYes
+    - DefaultNo
+    - DefaultOkText
+    - DefaultCancelText
+- LoginConfig
+    - DefaultTitle
+    - DefaultOkText
+    - DefaultCancelText
+    - DefaultLoginPlaceholder
+    - DefaultPasswordPlaceholder
+- ProgressDialogConfig
+    - DefaultCancelText
+    - DefaultTitle
+    - DefaultMaskType
+- PromptConfig
+    - DefaultOkText
+    - DefaultCancelText
+-ToastConfig
+    - InfoIcon
+    - InfoBackgroundColor
+    - InfoTextColor
+    - SuccessIcon
+    - SuccessBackgroundColor
+    - SuccessTextColor
+    - WarnIcon
+    - WarnBackgroundColor
+    - WarnTextColor
+    - ErrorIcon
+    - ErrorBackgroundColor
+    - ErrorTextColor
+    - DefaultDuration
 
 ##How To Setup
 
@@ -32,29 +78,7 @@ Supports Android, iOS, and Windows Phone 8
 
 To use, simply reference the nuget package in each of your platform projects.
 
-###iOS Initialization
-
-    public class AppDelegate : UIApplicationDelegate {  // or your custom appdelegate inheritance (xamarin forms, mvvmcross)
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options) {
-            UserDialogs.Init();
-            .. your init logic
-            return base.FinishedLaunching(app, options);
-        }
-    }
-
 ###Android Initialization (In your main activity)
+    UserDialogs.Init(this, useAppCompat); // pass true for appcompat/material design
 
-    // Xamarin Forms
-    UserDialogs.Init(() => (Activity)Forms.Context);
-
-    // MvvmCross
-    UserDialogs.Init(() => Mvx.Resolve<IMvxAndroidCurrentTopActivity>.Activity);
-
-    // Using your own activity provider (you need to manage what the top activity is)
-    UserDialogs.Init(Activity Factory Function);
-
-###Windows Phone
-
-    // in your mainpage constructor
-    UserDialogs.Init();
-
+###XAMARIN FORMS USERS: You must install NativeCode.Mobile.AppCompat on your android project for the material design support.  This is only until xamarin updates forms to do this!
