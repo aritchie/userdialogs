@@ -5,9 +5,9 @@ using Xamarin.Forms;
 namespace Samples {
 
     public class App : Application {
-    
+
         public App() {
-			this.MainPage = new NavigationPage(new Samples.MainPage());
+			this.MainPage = new Samples.MainPage();
         }
     }
 }

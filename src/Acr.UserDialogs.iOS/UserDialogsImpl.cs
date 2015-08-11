@@ -139,9 +139,10 @@ namespace Acr.UserDialogs {
         public override void Toast(ToastConfig cfg) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
                 //MessageBarManager.SharedInstance.ShowAtTheBottom = true;
+                var @event = this.ToastEventToMessageType(cfg.Event);
                 MessageBarManager.SharedInstance.HideAll();
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
-                MessageBarManager.SharedInstance.ShowMessage(cfg.Text, String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
+                MessageBarManager.SharedInstance.ShowMessage(cfg.Text, String.Empty, @event, null, () => cfg.Action?.Invoke());
             });
         }
 
@@ -153,6 +154,11 @@ namespace Acr.UserDialogs {
 
         protected override IProgressDialog CreateDialogInstance() {
             return new ProgressDialog();
+        }
+
+
+        protected MessageType ToastEventToMessageType(ToastEvent @event) {
+            return (MessageType)Enum.Parse(typeof(MessageType), @event.ToString());
         }
 
 

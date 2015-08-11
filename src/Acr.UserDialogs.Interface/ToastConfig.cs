@@ -41,6 +41,7 @@ namespace Acr.UserDialogs {
         public static TimeSpan DefaultDuration { get; set; } = TimeSpan.FromSeconds(2.5);
 
 
+        public ToastEvent Event { get; }
         public Color BackgroundColor { get; set; }
         public IBitmap Icon { get; set; }
         public string Text { get; set; }
@@ -52,6 +53,7 @@ namespace Acr.UserDialogs {
 
 
         public ToastConfig(ToastEvent @event, string text) {
+            this.Event = @event;
             this.Text = text;
             this.Duration = DefaultDuration;
 
