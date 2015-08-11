@@ -4,9 +4,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Acr.UserDialogs {
 
-    public sealed partial class ProgressContentDialog : ContentDialog {
+    public sealed partial class PromptContentDialog : ContentDialog {
 
-        public ProgressContentDialog() {
+        public PromptContentDialog() {
             this.InitializeComponent();
         }
     }

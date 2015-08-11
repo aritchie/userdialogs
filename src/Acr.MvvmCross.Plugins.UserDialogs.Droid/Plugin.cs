@@ -11,7 +11,7 @@ namespace Acr.MvvmCross.Plugins.UserDialogs.Droid {
 
         public void Load() {
             Mvx.CallbackWhenRegistered<IMvxAndroidCurrentTopActivity>(x => {
-                Acr.UserDialogs.UserDialogs.Instance = new AppCompatUserDialogsImpl(x.Activity);
+                Acr.UserDialogs.UserDialogs.Instance = new AppCompatUserDialogsImpl(() => Mvx.Resolve<IMvxAndroidCurrentTopActivity>().Activity);
                 Mvx.RegisterSingleton(Acr.UserDialogs.UserDialogs.Instance);
             });
         }

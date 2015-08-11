@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.0.0-beta3</version>
+        <version>4.0.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -31,19 +31,12 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             <group targetFramework="monoandroid">
                 <dependency id="Xamarin.Android.Support.Design" version="[22.2.1.0, 23)" />
             </group>
-            <group targetFramework="wp8">
-                <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
-                <!--<dependency id="WPtoolkit.Kinnara" version="[4.2014.11.22, 5.0)" />-->
-            </group>
-            <!--<group targetFramework="win81">
-                <dependency id="WinRTXamlToolkit.Windows" version="[1.7.9.0, 2.0)" />
-            </group>-->
         </dependencies>
         <releaseNotes>
-4.0-beta
+4.0
 [feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
 [feature] images and colours now powered by Splat
-[feature] Universal windows platform support
+[feature] Universal windows platform support (beta - still not pretty)
 [android] material design support (flag in Init)
 [breaking] Init is gone from everything but android
 [breaking] android no longer supports anything less than API 15
@@ -70,8 +63,8 @@ In your platform project, make sure to call UserDialogs.Init() before using!
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
 
         <!-- winphone -->
-        <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.dll" target="lib\wp8\Acr.UserDialogs.dll" />
-        <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wp8\Acr.UserDialogs.Interface.dll" />
+        <file src="..\src\Acr.UserDialogs.WP\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81\Acr.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs.WP\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wpa81\Acr.UserDialogs.Interface.dll" />
 
         <!-- uwp -->
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0\Acr.UserDialogs.dll" />
