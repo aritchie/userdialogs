@@ -119,6 +119,7 @@ namespace Acr.UserDialogs {
 
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
+            this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
         }
 
 

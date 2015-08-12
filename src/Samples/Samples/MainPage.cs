@@ -245,7 +245,7 @@ namespace Samples {
 
 
 		void Toast(ToastEvent @event) {
-            UserDialogs.Instance.Toast(new ToastConfig(@event, "Test Toast") {
+            UserDialogs.Instance.Toast(new ToastConfig(@event, @event.ToString(), "Testing toast functionality....fun!") {
                 Duration = TimeSpan.FromSeconds(3),
                 Action = () => this.Result("Toast Pressed")
             });
