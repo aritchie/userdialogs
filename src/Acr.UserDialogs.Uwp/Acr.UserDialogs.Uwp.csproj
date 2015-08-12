@@ -123,6 +123,11 @@
       <DependentUpon>LoginContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginViewModel.cs" />
+    <Compile Include="NotificationExtensions\BadgeContent.cs" />
+    <Compile Include="NotificationExtensions\Common.cs" />
+    <Compile Include="NotificationExtensions\ContentInterfaces.cs" />
+    <Compile Include="NotificationExtensions\TileContent.cs" />
+    <Compile Include="NotificationExtensions\ToastContent.cs" />
     <Compile Include="ProgressContentDialog.xaml.cs">
       <DependentUpon>ProgressContentDialog.xaml</DependentUpon>
     </Compile>

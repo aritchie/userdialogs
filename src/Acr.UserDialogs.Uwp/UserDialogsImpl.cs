@@ -2,9 +2,11 @@
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using NotificationsExtensions.ToastContent;
 using Splat;
 
 
@@ -149,41 +151,38 @@ namespace Acr.UserDialogs {
 
 
         public override void Toast(ToastConfig config) {
-            // TODO: action text and action command will work here!
-            var stack = new StackPanel { Orientation = Orientation.Horizontal };
-            if (config.Icon != null) {
-                var icon = config.Icon.ToNative();
-                stack.Children.Add(new Image { Source = icon });
-            }
-
-            var textBrush = new SolidColorBrush(config.TextColor.ToNative());
-            stack.Children.Add(new TextBlock {
-                Text = config.Title,
-                Foreground = textBrush
-            });
-            if (!String.IsNullOrWhiteSpace(config.Description)) {
-                stack.Children.Add(new TextBlock {
-                    Text = config.Description,
-                    Foreground = textBrush
-                });
-            }
-
-            var dialog = new ContentDialog {
-                Content = stack,
-                Background = new SolidColorBrush(config.BackgroundColor.ToNative())
-            };
-            dialog.Tapped += (sender, args) => {
-                dialog.Hide();
-                config.Action?.Invoke();
-            };
-            dialog.ShowAsync();
-            Task.Delay(config.Duration)
-                .ContinueWith(x => {
-                    try {
-                        dialog.Hide();
-                    }
-                    catch { } // swallow race condition
-                });
+            IToastNotificationContent toastContent = null;
+            //if (config.Icon == null) {
+                if (String.IsNullOrWhiteSpace(config.Description)) {
+                    var content = ToastContentFactory.CreateToastText01();
+                    content.TextBodyWrap.Text = config.Title;
+                    toastContent = content;
+                }
+                else {
+                    var content = ToastContentFactory.CreateToastText02();
+                    content.TextHeading.Text = config.Title;
+                    content.TextBodyWrap.Text = config.Description;
+                    toastContent = content;
+                }
+            //}
+            //else {
+            //    if (String.IsNullOrWhiteSpace(config.Description)) {
+            //        var content = ToastContentFactory.CreateToastImageAndText01();
+            //        content.TextBodyWrap.Text = config.Title;
+            //        //content.Image = config.Icon.ToNative()
+            //        toastContent = content;
+            //    }
+            //    else {
+            //        var content = ToastContentFactory.CreateToastImageAndText02();
+            //        content.TextHeading.Text = config.Title;
+            //        content.TextBodyWrap.Text = config.Description;
+            //        toastContent = content;
+            //    }
+            //}
+            var toast = toastContent.CreateNotification();
+            ToastNotificationManager
+                .CreateToastNotifier()
+                .Show(toast);
         }
     }
 }
