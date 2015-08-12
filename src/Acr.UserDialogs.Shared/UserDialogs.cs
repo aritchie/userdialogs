@@ -17,9 +17,19 @@ namespace Acr.UserDialogs {
 
 #if __ANDROID__
 
+        /// <summary>
+        /// Initialize android user dialogs.  DO NOT use appcompat if you don't know what it is or how to use it.  You will not get pretty toasts or material design
+        /// </summary>
+        public static void Init(Func<Android.App.Activity> topActivityFactory, bool useAppCompat = false) {
+            if (useAppCompat)
+                Instance = new AppCompatUserDialogsImpl(topActivityFactory);
+            else
+                Instance = new UserDialogsImpl(topActivityFactory);
+        }
+
 
         /// <summary>
-        /// Initialize android user dialogs
+        /// Initialize android user dialogs. DO NOT use appcompat if you don't know what it is or how to use it.  You will not get pretty toasts or material design
         /// </summary>
         public static void Init(Android.App.Activity activity, bool useAppCompat = false) {
             ActivityLifecycleCallbacks.Register(activity);
