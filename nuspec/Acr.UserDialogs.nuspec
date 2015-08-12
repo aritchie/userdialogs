@@ -29,6 +29,7 @@ In your platform project, make sure to call UserDialogs.Init() before using!
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
             <group targetFramework="monoandroid">
+                <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Xamarin.Android.Support.Design" version="[22.2.1.0, 23)" />
             </group>
         </dependencies>
