@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -35,8 +35,11 @@ In your platform project, make sure to call UserDialogs.Init() before using!
         </dependencies>
         <releaseNotes>
 4.0.3
+[feature] text and description for toasts
+[droid][fix] text color for toasts
 [droid][fix] add ability to pass activity factory function for android init
 [ios][fix] more default icon fixes
+WP81 and UWP still beta!
 
 4.0.2
 [ios][fix] default icons for messagebar
