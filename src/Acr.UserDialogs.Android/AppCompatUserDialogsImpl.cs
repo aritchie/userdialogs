@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Android.App;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.Design.Widget;
 using Android.Text;
@@ -8,6 +9,7 @@ using Android.Views;
 using Android.Widget;
 using Splat;
 using AlertDialog = Android.Support.V7.App.AlertDialog;
+using Color = System.Drawing.Color;
 
 
 namespace Acr.UserDialogs {
@@ -156,34 +158,32 @@ namespace Acr.UserDialogs {
         public override void Toast(ToastConfig cfg) {
             var top = this.GetTopActivity();
             var view = top.Window.DecorView.RootView;
-            var snackBar = Snackbar.Make(view, cfg.Text, (int)cfg.Duration.TotalMilliseconds);
-            snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
 
-            //android.support.design.R.id.snackbar_text // TODO
-            //snackBar.View.FindViewById<TextView>().SetTextColor
+            var text = cfg.Title;
+            if (!String.IsNullOrWhiteSpace(cfg.Description))
+                text += "\n" + cfg.Description;
+
+            var snackBar = Snackbar.Make(view, text, (int)cfg.Duration.TotalMilliseconds);
+            snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
+            SetTextColor(snackBar, cfg.TextColor);
 
             snackBar.View.Click += (sender, args) => {
                 snackBar.Dismiss();
                 cfg.Action?.Invoke();
             };
-            ////if (cfg.BackgroundColor != null)
-            ////    snackBar.SetActionTextColor()
-            //if (cfg.OnTap != null)
-            //    snackBar.SetAction("Ok", x => cfg.OnTap?.Invoke());
-
             Utils.RequestMainThread(snackBar.Show);
+        }
+
+
+        protected static void SetTextColor(Snackbar bar, Color textColor) {
+            var group = (ViewGroup)bar.View;
+            for (var i = 0; i < group.ChildCount; i++) {
+                var txt = group.GetChildAt(i) as TextView;
+                if (txt != null) {
+                    var c = textColor.ToNative();
+                    txt.SetTextColor(c);
+                }
+            }
         }
     }
 }
-/*
-Snackbar snack = Snackbar.make(...);
-ViewGroup group = (ViewGroup) snack.getView();
-for (int i = 0; i < group.getChildCount(); i++) {
-    View v = group.getChildAt(i);
-    if (v instanceof TextView) {
-        TextView t = (TextView) v;
-        t.setTextColor(...)
-    }
-}
-snack.show();
-*/

@@ -34,6 +34,10 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>
         </dependencies>
         <releaseNotes>
+4.0.3
+[droid][fix] add ability to pass activity factory function for android init
+[ios][fix] more default icon fixes
+
 4.0.2
 [ios][fix] default icons for messagebar
 

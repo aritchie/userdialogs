@@ -34,10 +34,10 @@ namespace Acr.UserDialogs {
         void ShowSuccess(string message, int timeoutMillis = 3000);
         void ShowError(string message, int timeoutMillis = 3000);
 
-        void InfoToast(string message, int timeoutMillis = 3000);
-        void SuccessToast(string message, int timeoutMillis = 3000);
-        void WarnToast(string message, int timeoutMillis = 3000);
-        void ErrorToast(string message, int timeoutMillis = 3000);
+        void InfoToast(string title, string description = null, int timeoutMillis = 3000);
+        void SuccessToast(string title, string description = null, int timeoutMillis = 3000);
+        void WarnToast(string title, string description = null, int timeoutMillis = 3000);
+        void ErrorToast(string title, string description = null, int timeoutMillis = 3000);
         void Toast(ToastConfig cfg);
     }
 }

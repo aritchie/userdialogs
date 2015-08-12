@@ -185,7 +185,7 @@ namespace Acr.UserDialogs {
 				var top = this.GetTopActivity();
                 AndHUD.Shared.ShowToast(
                     top,
-                    cfg.Text,
+                    cfg.Description,
 					AndroidHUD.MaskType.Black,
                     cfg.Duration,
                     false,

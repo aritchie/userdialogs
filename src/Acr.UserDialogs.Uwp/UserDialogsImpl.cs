@@ -154,10 +154,18 @@ namespace Acr.UserDialogs {
                 var icon = config.Icon.ToNative();
                 stack.Children.Add(new Image { Source = icon });
             }
+
+            var textBrush = new SolidColorBrush(config.TextColor.ToNative());
             stack.Children.Add(new TextBlock {
-                Text = config.Text,
-                Foreground = new SolidColorBrush(config.TextColor.ToNative())
+                Text = config.Title,
+                Foreground = textBrush
             });
+            if (!String.IsNullOrWhiteSpace(config.Description)) {
+                stack.Children.Add(new TextBlock {
+                    Text = config.Description,
+                    Foreground = textBrush
+                });
+            }
 
             var dialog = new ContentDialog {
                 Content = stack,

@@ -34,7 +34,6 @@ namespace Acr.UserDialogs {
         public static Color WarnTextColor { get; set; } = Color.White;
 
         public static IBitmap ErrorIcon { get; set; }
-        public static Color ErrorActionTextColor { get; set; } = Color.GhostWhite;
         public static Color ErrorBackgroundColor { get; set; } = Color.Red;
         public static Color ErrorTextColor { get; set; } = Color.White;
 
@@ -44,7 +43,8 @@ namespace Acr.UserDialogs {
         public ToastEvent Event { get; }
         public Color BackgroundColor { get; set; }
         public IBitmap Icon { get; set; }
-        public string Text { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
         public Color TextColor { get; set; }
         public TimeSpan Duration { get; set; }
         public Action Action { get; set; }
@@ -52,9 +52,10 @@ namespace Acr.UserDialogs {
         //public Color ActionTextColor { get; set; }
 
 
-        public ToastConfig(ToastEvent @event, string text) {
+        public ToastConfig(ToastEvent @event, string title, string description = null) {
             this.Event = @event;
-            this.Text = text;
+            this.Title = title;
+            this.Description = description;
             this.Duration = DefaultDuration;
 
             switch (@event) {
@@ -86,6 +87,12 @@ namespace Acr.UserDialogs {
                     this.Icon = ErrorIcon;
                     break;
             }
+        }
+
+
+        public ToastConfig SetDescription(string description) {
+            this.Description = description;
+            return this;
         }
 
 

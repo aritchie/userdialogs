@@ -181,28 +181,29 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual void InfoToast(string message, int timeoutMillis) {
-            this.Toast(ToastEvent.Info, message, timeoutMillis);
+        public virtual void InfoToast(string title, string description, int timeoutMillis) {
+            this.Toast(ToastEvent.Info, title, description, timeoutMillis);
         }
 
 
-        public virtual void SuccessToast(string message, int timeoutMillis) {
-            this.Toast(ToastEvent.Success, message, timeoutMillis);
+        public virtual void SuccessToast(string title, string description, int timeoutMillis) {
+            this.Toast(ToastEvent.Success, title, description, timeoutMillis);
         }
 
 
-        public virtual void WarnToast(string message, int timeoutMillis) {
-            this.Toast(ToastEvent.Warn, message, timeoutMillis);
+        public virtual void WarnToast(string title, string description, int timeoutMillis) {
+            this.Toast(ToastEvent.Warn, title, description, timeoutMillis);
         }
 
 
-        public virtual void ErrorToast(string message, int timeoutMillis) {
-            this.Toast(ToastEvent.Error, message, timeoutMillis);
+        public virtual void ErrorToast(string title, string description, int timeoutMillis) {
+            this.Toast(ToastEvent.Error, title, description, timeoutMillis);
         }
 
 
-        public virtual void Toast(ToastEvent toastEvent, string message, int timeoutMillis) {
-            this.Toast(new ToastConfig(toastEvent, message) {
+        public virtual void Toast(ToastEvent toastEvent, string title, string description, int timeoutMillis) {
+            this.Toast(new ToastConfig(toastEvent, title) {
+                Description = description,
                 Duration = TimeSpan.FromMilliseconds(timeoutMillis)
             });
         }
