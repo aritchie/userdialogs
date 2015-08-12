@@ -1,12 +1,13 @@
 using System;
 using AndroidHUD;
 using Android.App;
+using Utils = Acr.Support.Android.Extensions;
 
 
 namespace Acr.UserDialogs {
 
     public class ProgressDialog : IProgressDialog {
-		private readonly Activity activity;
+		readonly Activity activity;
 
 
 		public ProgressDialog(Activity activity) {
@@ -16,7 +17,7 @@ namespace Acr.UserDialogs {
 
         #region IProgressDialog Members
 
-        private string title;
+        string title;
         public virtual string Title {
             get { return this.title; }
             set {
@@ -32,7 +33,7 @@ namespace Acr.UserDialogs {
         public MaskType MaskType { get; set; }
 
 
-        private int percentComplete;
+        int percentComplete;
         public virtual int PercentComplete {
             get { return this.percentComplete; }
             set {
@@ -55,8 +56,8 @@ namespace Acr.UserDialogs {
         public virtual bool IsShowing { get; private set; }
 
 
-        private Action cancelAction;
-        private string cancelText;
+        Action cancelAction;
+        string cancelText;
         public virtual void SetCancel(Action onCancel, string cancel) {
             this.cancelAction = onCancel;
             this.cancelText = cancel;

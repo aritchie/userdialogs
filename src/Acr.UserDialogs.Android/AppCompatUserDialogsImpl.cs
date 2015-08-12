@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Android.App;
-using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.Design.Widget;
 using Android.Text;
@@ -9,7 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Splat;
 using AlertDialog = Android.Support.V7.App.AlertDialog;
-using Color = System.Drawing.Color;
+using Utils = Acr.Support.Android.Extensions;
 
 
 namespace Acr.UserDialogs {

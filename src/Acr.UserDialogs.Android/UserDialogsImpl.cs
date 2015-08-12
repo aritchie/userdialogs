@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using Android.App;
-using Android.Graphics.Drawables;
-using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
@@ -10,6 +8,7 @@ using Android.Widget;
 using AndroidHUD;
 using Splat;
 using AlertDialog = Android.App.AlertDialog;
+using Utils = Acr.Support.Android.Extensions;
 
 
 namespace Acr.UserDialogs {
@@ -19,7 +18,7 @@ namespace Acr.UserDialogs {
 
 
         public UserDialogsImpl(Func<Activity> getTopActivity) {
-            this.GetTopActivity = getTopActivity ?? (() => ActivityLifecycleCallbacks.CurrentTopActivity);
+            this.GetTopActivity = getTopActivity;
         }
 
 

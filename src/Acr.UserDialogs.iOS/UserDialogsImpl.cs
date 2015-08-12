@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Acr.Support.iOS;
 using CoreGraphics;
 using UIKit;
 using BigTed;
@@ -157,7 +158,7 @@ namespace Acr.UserDialogs {
 
 
 		protected virtual void ShowIOS7ActionSheet(ActionSheetConfig config) {
-			var view = this.GetTopView();
+			var view = UIApplication.SharedApplication.GetTopView();
 			var action = new UIActionSheet(config.Title);
 			config.Options.ToList().ForEach(x => action.AddButton(x.Text));
 			var index = config.Options.Count - 1;
@@ -261,7 +262,7 @@ namespace Acr.UserDialogs {
 
         protected virtual void Present(UIAlertController alert) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-				var top = this.GetTopViewController();
+				var top = UIApplication.SharedApplication.GetTopViewController();
 				if (alert.PopoverPresentationController != null) {
 					var x = top.View.Bounds.Width / 2;
 					var y = top.View.Bounds.Bottom;
@@ -306,21 +307,6 @@ namespace Acr.UserDialogs {
 					txt.KeyboardType = UIKeyboardType.Url;
 					break;
             }
-        }
-
-
-        protected virtual UIWindow GetTopWindow() {
-            return Extensions.GetTopWindow();
-        }
-
-
-        protected virtual UIView GetTopView() {
-            return Extensions.GetTopView();
-        }
-
-
-        protected virtual UIViewController GetTopViewController() {
-            return Extensions.GetTopViewController();
         }
     }
 }

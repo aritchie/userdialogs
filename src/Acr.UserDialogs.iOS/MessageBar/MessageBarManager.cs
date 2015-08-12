@@ -32,6 +32,7 @@ using CoreGraphics;
 using Foundation;
 using System.Collections.Generic;
 using System.Threading;
+using Acr.Support.iOS;
 using Acr.UserDialogs;
 
 
@@ -256,7 +257,8 @@ namespace MessageBar
 
 						if (MessageBarQueue.Count > 0) {
 							ShowNextMessage ();
-						}else{
+						}
+                        else {
 							lastMessage = null;
 						}
 					}
@@ -264,31 +266,27 @@ namespace MessageBar
 			}
 		}
 
-		UIView MessageWindowView{
-			get{
-                return GetMessageBarViewController().View;
-                //return Extensions.GetTopView();
-            }
-		}
 
-        MessageWindow messageWindow;
-        MessageBarViewController GetMessageBarViewController() {
-            var win = Extensions.GetTopWindow();
+        UIView MessageWindowView => UIApplication.SharedApplication.GetTopView();
+		//UIView MessageWindowView => this.GetMessageBarViewController().View;
+        //MessageWindow messageWindow;
+        //MessageBarViewController GetMessageBarViewController() {
+        //    var win = Extensions.GetTopWindow();
 
-            if (messageWindow == null) {
-                messageWindow = new MessageWindow {
-                    //Frame = UIApplication.SharedApplication.KeyWindow.Frame,
-                    Frame = win.Frame,
-                    Hidden = false,
-                    WindowLevel = UIWindowLevel.Normal,
-                    BackgroundColor = UIColor.Clear,
-                    RootViewController = new MessageBarViewController()
-                };
+        //    if (messageWindow == null) {
+        //        messageWindow = new MessageWindow {
+        //            //Frame = UIApplication.SharedApplication.KeyWindow.Frame,
+        //            Frame = win.Frame,
+        //            Hidden = false,
+        //            WindowLevel = UIWindowLevel.Normal,
+        //            BackgroundColor = UIColor.Clear,
+        //            RootViewController = new MessageBarViewController()
+        //        };
 
-            }
+        //    }
 
-            return (MessageBarViewController)messageWindow.RootViewController;
-        }
+        //    return (MessageBarViewController)messageWindow.RootViewController;
+        //}
 
 
 

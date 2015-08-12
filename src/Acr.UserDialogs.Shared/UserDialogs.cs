@@ -1,5 +1,8 @@
 ﻿using System;
-
+#if __ANDROID__
+using Android.App;
+using Acr.Support.Android;
+#endif
 
 namespace Acr.UserDialogs {
 
@@ -20,7 +23,7 @@ namespace Acr.UserDialogs {
         /// <summary>
         /// Initialize android user dialogs.  DO NOT use appcompat if you don't know what it is or how to use it.  You will not get pretty toasts or material design
         /// </summary>
-        public static void Init(Func<Android.App.Activity> topActivityFactory, bool useAppCompat = false) {
+        public static void Init(Func<Activity> topActivityFactory, bool useAppCompat = false) {
             if (useAppCompat)
                 Instance = new AppCompatUserDialogsImpl(topActivityFactory);
             else
@@ -31,12 +34,18 @@ namespace Acr.UserDialogs {
         /// <summary>
         /// Initialize android user dialogs. DO NOT use appcompat if you don't know what it is or how to use it.  You will not get pretty toasts or material design
         /// </summary>
-        public static void Init(Android.App.Activity activity, bool useAppCompat = false) {
+        public static void Init(Application app, bool useAppCompat = false) {
+            ActivityLifecycleCallbacks.Register(app);
+            Init((() => ActivityLifecycleCallbacks.CurrentTopActivity), useAppCompat);
+        }
+
+
+        /// <summary>
+        /// Initialize android user dialogs. DO NOT use appcompat if you don't know what it is or how to use it.  You will not get pretty toasts or material design
+        /// </summary>
+        public static void Init(Activity activity, bool useAppCompat = false) {
             ActivityLifecycleCallbacks.Register(activity);
-            if (useAppCompat)
-                Instance = new AppCompatUserDialogsImpl(null);
-            else
-                Instance = new UserDialogsImpl(null);
+            Init((() => ActivityLifecycleCallbacks.CurrentTopActivity), useAppCompat);
         }
 #endif
 
