@@ -12,21 +12,11 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>xamarin mvvmcross</tags>
         <dependencies>
-            <group>
-                <dependency id="MvvmCross.HotTuna.CrossCore" version="[3.5, 4.0)" />
-                <dependency id="Acr.UserDialogs" version="[4.0, 5.0)" />
-            </group>
-            <group targetFramework="wp8">
-                <dependency id="Acr.UserDialogs" version="[4.0, 5.0)" />
-                <dependency id="MvvmCross.HotTuna.CrossCore" version="[3.5, 4.0)" />
-            </group>
+            <dependency id="MvvmCross.HotTuna.CrossCore" version="[3.5, 4.0)" />
+            <dependency id="Acr.UserDialogs" version="[4.0, 5.0)" />
         </dependencies>
         <releaseNotes>
 Update to Acr.UserDialogs 4.0
-[android] Uses appcompat/material design out of the box
-[feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
-[feature] images and colours now powered by Splat
-[breaking] android no longer supports anything less than API 15
         </releaseNotes>
     </metadata>
     <files>
