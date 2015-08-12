@@ -27,10 +27,11 @@ namespace Acr.UserDialogs {
 
         public override UIImage IconImageForMessageType(MessageType type) {
             // ignore incoming type
-            if (this.config.Icon == null)
-                return base.IconImageForMessageType(type);
+            if (this.config.Icon != null)
+                return this.config.Icon.ToNative();
 
-            return this.config.Icon.ToNative();
+            var msgType = (MessageType)Enum.Parse(typeof(MessageType), config.Event.ToString());
+            return base.IconImageForMessageType(msgType);
         }
     }
 }
