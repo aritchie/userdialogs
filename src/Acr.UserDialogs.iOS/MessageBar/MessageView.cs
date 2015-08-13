@@ -195,13 +195,13 @@ namespace MessageBar
 			TitleColor.SetColor ();
 
 			var titleRectangle = new CGRect (xOffset, yOffset, titleLabelSize.Width, titleLabelSize.Height);
-			Title.DrawString (titleRectangle, TitleFont, UILineBreakMode.TailTruncation, UITextAlignment.Left);
+            Title.DrawString(titleRectangle, new UIStringAttributes { Font = TitleFont, ForegroundColor = TitleColor });
 			yOffset += titleLabelSize.Height;
 
 			CGSize descriptionLabelSize = DescriptionSize ();
 			DescriptionColor.SetColor ();
 			var descriptionRectangle = new CGRect (xOffset, yOffset, descriptionLabelSize.Width, descriptionLabelSize.Height);
-			Description.DrawString (descriptionRectangle, DescriptionFont, UILineBreakMode.TailTruncation, UITextAlignment.Left);
+            Description.DrawString(descriptionRectangle, new UIStringAttributes { Font = DescriptionFont, ForegroundColor = DescriptionColor });
 		}
 
 
