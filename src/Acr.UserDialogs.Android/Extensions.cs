@@ -26,18 +26,19 @@ namespace Acr.UserDialogs {
             }
         }
 
-
+#if APPCOMPAT
         public static void ShowExt(this Android.Support.V7.App.AlertDialog.Builder builder) {
             var dialog = builder.Create();
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.Show();
         }
 
-
+#else
         public static void ShowExt(this Android.App.AlertDialog.Builder builder) {
             var dialog = builder.Create();
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.Show();
         }
+#endif
     }
 }

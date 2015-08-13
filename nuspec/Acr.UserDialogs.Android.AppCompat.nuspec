@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Acr.UserDialogs.Android.AppCompat</id>
+        <version>1.0.0</version>
+        <title>ACR User Dialogs Plugin Android AppCompat Support</title>
+        <summary>ACR User Dialogs Android Support Library - AppCompat</summary>
+        <description>
+Allows for material design to run in place of standard user dialogs
+Install this into your android project INSTEAD of acr.userdialogs
+        </description>
+        <authors>Allan Ritchie</authors>
+        <owners>Allan Ritchie</owners>
+        <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
+        <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <tags>windows xamarin xam.pcl dialogs</tags>
+        <dependencies>
+            <dependency id="Splat" version="[1.6.2, 2.0)" />
+            <dependency id="Xamarin.Android.Support.Design" version="[22.2.1.0, 23)" />
+            <dependency id="Acr.Support" version="[1.0, 2.0)" />
+        </dependencies>
+        <releaseNotes>
+Initial Release
+        </releaseNotes>
+    </metadata>
+    <files>
+        <!-- android -->
+        <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.dll" target="lib\MonoAndroid10\Acr.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\MonoAndroid10\Acr.UserDialogs.Interface.dll" />
+        <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\AndHUD.dll" target="lib\MonoAndroid10\AndHUD.dll" />
+    </files>
+</package>
