@@ -26,7 +26,11 @@ namespace Acr.UserDialogs {
 
 
         public override UIImage IconImageForMessageType(MessageType type) {
-            // ignore incoming type
+
+            // if user implicitly set icon to null then ignore icon
+            if (this.config.Icon == null)
+                return null;
+            
             if (this.config.Icon != null)
                 return this.config.Icon.ToNative();
 
