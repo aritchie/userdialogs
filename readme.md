@@ -1,4 +1,4 @@
-﻿#ACR User Dialogs for Xamarin and Windows
+﻿# ACR User Dialogs for Xamarin and Windows
 
 ---
 
@@ -7,7 +7,7 @@ Supports Android, iOS, and Windows Phone 8
 
 
 
-##Features
+### Features
 
 ---
 
@@ -19,18 +19,30 @@ Supports Android, iOS, and Windows Phone 8
 * Progress
 * Prompt
 * Toasts
-
-[examples](https://github.com/aritchie/userdialogs/blob/master/src/Samples/Samples/MainPage.cs)
-
-Powered By:
-
-    Android - Progress/Loading uses Redth's [AndHUD](https://github.com/Redth/AndHUD)
-    iOS - Progress/Loading uses Nic Wise's [BTProgressHUD](https://github.com/nicwise/BTProgressHUD)
-    iOS - Toasts powered by Xamarin-iOS-MessageBar
-    WinPhone - All dialogs by [WPToolkit](http://coding4fun.codeplex.com/) 
+* [examples](https://github.com/aritchie/userdialogs/blob/master/src/Samples/Samples/MainPage.cs)
 
 
-###Themes/Defaults
+## Setup
+
+---
+
+To use, simply reference the nuget package in each of your platform projects.
+
+### iOS and Windows
+
+    Nothing is necessary any long as of v4.x
+
+### Android Initialization (In your main activity)
+
+    UserDialogs.Init(this);
+
+### Android Material Design/AppCompat
+
+    In your android project, use Acr.UserDialogs.Android.AppCompat from nuget instead of Acr.UserDialogs.  Call the Init just like above.
+    Xamarin Forms Users: DO NOT use appcompat unless you know how to use AppCompat.  Please wait for Xamarin to update to this or use an open source alternative
+
+
+### Themes/Defaults
 
 All config objects contain static vars that contain defaults which are basically used as a poor man's stylesheet.  These save you time of always have to pass what the text for OK should be.  This is particularily useful for multilingual applications.
 
@@ -72,13 +84,27 @@ All config objects contain static vars that contain defaults which are basically
     - ErrorTextColor
     - DefaultDuration
 
-##How To Setup
 
----
+### FAQ
 
-To use, simply reference the nuget package in each of your platform projects.
+    Q) I'm using Xamarin Forms and getting a nullreferenceexception when using loading
+    A) This happens when you run loading (or almost any dialog) from the constructor of your page or viewmodel.  The view hasn't been rendered yet, therefore there is nothing to render to.
 
-###Android Initialization (In your main activity)
-    UserDialogs.Init(this, useAppCompat); // pass true for appcompat/material design
+    Q) Is Windows 8 Support?
+    A) No.  I never got around to this, but I'm going to support 10 as soon as I figure it out.  It is in a very betaish mode now.  I'm hoping someone will help in this area!!
 
-###XAMARIN FORMS USERS: You must install NativeCode.Mobile.AppCompat on your android project for the material design support.  This is only until xamarin updates forms to do this!
+    Q) Is AppCompat/Material Dialogs supported on Android?
+    A) Yes.  It a separate package.  Please make sure to install Acr.UserDialogs to your PCL, but when installing on your android project.
+
+    Q) A new release just came out and the MvvmCross plugin is broken
+    A) I don't update the MvvmCross plugin right along side Acr.UserDialogs.  I'm happy to take a PR
+
+    Q) Do you take pull requests?
+    A) Absolutely.  I may not always accept them, but I do appreciate the help.
+
+### Powered By:
+
+    Android - Progress/Loading uses Redth's [AndHUD](https://github.com/Redth/AndHUD)
+    iOS - Progress/Loading uses Nic Wise's [BTProgressHUD](https://github.com/nicwise/BTProgressHUD)
+    iOS - Toasts powered by Xamarin-iOS-MessageBar
+    WinPhone - All dialogs by [WPToolkit](http://coding4fun.codeplex.com/) 
