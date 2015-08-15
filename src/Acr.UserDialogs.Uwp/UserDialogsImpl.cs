@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
-using NotificationsExtensions.ToastContent;
 using Splat;
 
 
@@ -141,7 +144,13 @@ namespace Acr.UserDialogs {
                 Content = new TextBlock { Text = message }
             };
             cd.ShowAsync();
-            Task.Delay(TimeSpan.FromMilliseconds(timeoutMillis)).ContinueWith(x => cd.Hide());
+            Task.Delay(TimeSpan.FromMilliseconds(timeoutMillis))
+                .ContinueWith(x => {
+                    try {
+                        cd.Hide();
+                    }
+                    catch { }
+                });
         }
 
 
@@ -151,38 +160,33 @@ namespace Acr.UserDialogs {
 
 
         public override void Toast(ToastConfig config) {
-            IToastNotificationContent toastContent = null;
-            //if (config.Icon == null) {
-                if (String.IsNullOrWhiteSpace(config.Description)) {
-                    var content = ToastContentFactory.CreateToastText01();
-                    content.TextBodyWrap.Text = config.Title;
-                    toastContent = content;
+            var style = new Style(typeof(Flyout));
+            style.Setters.Add(new Setter(Border.BorderThicknessProperty, 0));
+            style.Setters.Add(new Setter(Border.PaddingProperty, 0));
+
+            var frame = (Frame)Window.Current.Content;
+            var textColor = new SolidColorBrush(config.TextColor.ToNative());
+
+            var stack = new StackPanel {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Background = new SolidColorBrush(config.BackgroundColor.ToNative()),
+                Children = {
+                    new TextBlock {
+                        Text = config.Title ?? String.Empty,
+                        Foreground = textColor
+                    },
+                    new TextBlock {
+                        Text = config.Description ?? String.Empty,
+                        Foreground = textColor
+                    }
                 }
-                else {
-                    var content = ToastContentFactory.CreateToastText02();
-                    content.TextHeading.Text = config.Title;
-                    content.TextBodyWrap.Text = config.Description;
-                    toastContent = content;
-                }
-            //}
-            //else {
-            //    if (String.IsNullOrWhiteSpace(config.Description)) {
-            //        var content = ToastContentFactory.CreateToastImageAndText01();
-            //        content.TextBodyWrap.Text = config.Title;
-            //        //content.Image = config.Icon.ToNative()
-            //        toastContent = content;
-            //    }
-            //    else {
-            //        var content = ToastContentFactory.CreateToastImageAndText02();
-            //        content.TextHeading.Text = config.Title;
-            //        content.TextBodyWrap.Text = config.Description;
-            //        toastContent = content;
-            //    }
-            //}
-            var toast = toastContent.CreateNotification();
-            ToastNotificationManager
-                .CreateToastNotifier()
-                .Show(toast);
+            };
+            stack.Tapped += (sender, args) => config.Action?.Invoke();
+            var fly = new Flyout {
+                Placement = FlyoutPlacementMode.Top,
+                Content = stack
+            };
+            fly.ShowAt(frame);
         }
     }
 }

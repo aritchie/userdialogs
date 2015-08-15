@@ -40,6 +40,7 @@ In your platform project, make sure to call UserDialogs.Init() before using!
         <releaseNotes>
 4.0.5
 [BREAKING][droid] - appcompat now exists in a secondary package (Acr.UserDialogs.Android.AppCompat)
+[ios][fix] truncating text in toasts.  thanks to @highplans
 
 4.0.4
 [ios][fix] further fixes to toast top view

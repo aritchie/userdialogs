@@ -9,7 +9,7 @@
     Title="{Binding Title}">
 
     <ContentDialog.Content>
-        <StackPanel Margin="4,4,4,4" Padding="5" HorizontalAlignment="Stretch">
+        <StackPanel Margin="4,4,4,4" HorizontalAlignment="Stretch">
             <ProgressBar x:Name="ProgressBar" Value="{Binding PercentComplete}" HorizontalAlignment="Stretch" IsIndeterminate="{Binding IsIndeterministic}" />
             <TextBlock Text="{Binding PercentComplete}" HorizontalAlignment="Center" Visibility="{Binding TextPercentVisibility}" />
             <Button Visibility="{Binding CancelVisibility}" HorizontalAlignment="Center" Content="{Binding CancelText}" Command="{Binding Cancel}" />
