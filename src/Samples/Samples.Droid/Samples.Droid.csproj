@@ -114,9 +114,9 @@
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Acr.UserDialogs.Android\Acr.UserDialogs.Android.csproj">
-      <Project>{4A67E27E-0E7F-4EF2-B3E6-2C24E18EF442}</Project>
-      <Name>Acr.UserDialogs.Android</Name>
+    <ProjectReference Include="..\..\Acr.UserDialogs.Android.AppCompat\Acr.UserDialogs.Android.AppCompat.csproj">
+      <Project>{1e199593-bbb7-439e-b7f0-ec14f46b00ad}</Project>
+      <Name>Acr.UserDialogs.Android.AppCompat</Name>
     </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
       <Name>Samples</Name>
