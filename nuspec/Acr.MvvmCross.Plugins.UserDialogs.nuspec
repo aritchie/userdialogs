@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.MvvmCross.Plugins.UserDialogs</id>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
         <title>MvvmCross User Dialogs</title>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -13,7 +13,7 @@
         <tags>xamarin mvvmcross</tags>
         <dependencies>
             <dependency id="MvvmCross.HotTuna.CrossCore" version="[3.5, 4.0)" />
-            <dependency id="Acr.UserDialogs" version="[4.0.3, 5.0)" />
+            <dependency id="Acr.UserDialogs" version="[4.0.5, 5.0)" />
         </dependencies>
         <releaseNotes>
 Update to Acr.UserDialogs 4.0
