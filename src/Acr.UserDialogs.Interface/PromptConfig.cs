@@ -70,6 +70,7 @@ namespace Acr.UserDialogs {
             return this;
         }
 
+
         public PromptConfig SetInputMode(InputType inputType) {
             this.InputType = inputType;
             return this;

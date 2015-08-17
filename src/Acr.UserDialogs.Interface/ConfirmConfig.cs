@@ -49,6 +49,12 @@ namespace Acr.UserDialogs {
         }
 
 
+        public ConfirmConfig SetAction(Action<bool> onConfirm) {
+            this.OnConfirm = onConfirm;
+            return this;
+        }
+
+
         public ConfirmConfig SetCancelText(string text) {
             this.CancelText = text;
             return this;

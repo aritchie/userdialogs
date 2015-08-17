@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.0.5</version>
+        <version>4.0.6</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -38,6 +38,9 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>
         </dependencies>
         <releaseNotes>
+4.0.6
+[fix] add missing fluent methods to config objects
+
 4.0.5
 [BREAKING][droid] - appcompat now exists in a secondary package (Acr.UserDialogs.Android.AppCompat)
 [ios][fix] truncating text in toasts.  thanks to @highplans

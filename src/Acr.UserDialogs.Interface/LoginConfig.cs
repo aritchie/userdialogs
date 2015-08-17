@@ -28,5 +28,53 @@ namespace Acr.UserDialogs {
             this.LoginPlaceholder = DefaultLoginPlaceholder;
             this.PasswordPlaceholder = DefaultPasswordPlaceholder;
         }
+
+
+        public LoginConfig SetTitle(string title) {
+            this.Title = title;
+            return this;
+        }
+
+
+        public LoginConfig SetMessage(string msg) {
+            this.Message = msg;
+            return this;
+        }
+
+
+        public LoginConfig SetOkText(string ok) {
+            this.OkText = ok;
+            return this;
+        }
+
+
+        public LoginConfig SetCancelText(string cancel) {
+            this.CancelText = cancel;
+            return this;
+        }
+
+
+        public LoginConfig SetLoginValue(string txt) {
+            this.LoginValue = txt;
+            return this;
+        }
+
+
+        public LoginConfig SetLoginPlaceholder(string txt) {
+            this.LoginPlaceholder = txt;
+            return this;
+        }
+
+
+        public LoginConfig SetPasswordPlaceholder(string txt) {
+            this.PasswordPlaceholder = txt;
+            return this;
+        }
+
+
+        public LoginConfig SetAction(Action<LoginResult> onResult) {
+            this.OnResult = onResult;
+            return this;
+        }
     }
 }
