@@ -40,6 +40,7 @@ In your platform project, make sure to call UserDialogs.Init() before using!
         <releaseNotes>
 4.0.6
 [fix] add missing fluent methods to config objects
+[fix][uwp] dispatch dialogs on UI thread
 
 4.0.5
 [BREAKING][droid] - appcompat now exists in a secondary package (Acr.UserDialogs.Android.AppCompat)
