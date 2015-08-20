@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>Acr.MvvmCross.Plugins.UserDialogs.Android.AppCompat</id>
+        <id>Acr.MvvmCross.Plugins.UserDialogs.AppCompat</id>
         <version>4.1.0</version>
         <title>ACR MvvmCross User Dialogs Android AppCompat Support</title>
         <authors>Allan Ritchie</authors>
