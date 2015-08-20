@@ -18,4 +18,6 @@
 Moving all Xamarin Form users acr.userdialogs
         </releaseNotes>
     </metadata>
+    <files>
+    </files>
 </package>
