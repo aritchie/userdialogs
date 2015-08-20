@@ -1,7 +1,7 @@
 ﻿# ACR User Dialogs for Xamarin and Windows
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
-Supports Android, iOS, Windows Phone 8.1, and Unified Windows Platform (UWP, UAP)
+Supports Android, iOS, Windows Phone 8.0 (silverlight), and Unified Windows Platform (UWP, UAP)
 
 
 

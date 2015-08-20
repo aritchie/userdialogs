@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.0.6</version>
+        <version>4.1.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -42,13 +42,13 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>
         </dependencies>
         <releaseNotes>
-4.0.6
+4.1.0
+[fix][wp] restore wp8
 [fix] add missing fluent methods to config objects
 [fix][uwp] dispatch dialogs on UI thread
 [fix][droid] hack display to show title and description on classic android
 [feature][ios] On the platform project, you can now set UserDialogImpl.ShowToastOnBottom = true;(static)
 [feature] Show decimal keyboard on prompts (thanks @rubgithub)
-[feature] WP8 support is back
 
 4.0.5
 [BREAKING][droid] - appcompat now exists in a secondary package (Acr.UserDialogs.Android.AppCompat)
@@ -107,10 +107,6 @@ In your platform project, make sure to call UserDialogs.Init() before using!
         <!-- wp8 -->
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.dll" target="lib\wp8\Acr.UserDialogs.dll" />
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wp8\Acr.UserDialogs.Interface.dll" />
-
-        <!-- wp81 -->
-        <file src="..\src\Acr.UserDialogs.WP\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81\Acr.UserDialogs.dll" />
-        <file src="..\src\Acr.UserDialogs.WP\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wpa81\Acr.UserDialogs.Interface.dll" />
 
         <!-- uwp -->
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0\Acr.UserDialogs.dll" />
