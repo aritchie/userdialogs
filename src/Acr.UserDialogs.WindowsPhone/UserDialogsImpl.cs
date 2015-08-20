@@ -170,14 +170,18 @@ namespace Acr.UserDialogs {
         public override void Toast(ToastConfig cfg) {
             // TODO: backgroundcolor and image
             var resources = Application.Current.Resources;
+            var textColor = new SolidColorBrush(cfg.TextColor.ToNative());
+            var bgColor = cfg.BackgroundColor.ToNative();
 
             var wrapper = new StackPanel {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Background = (Brush)resources["PhoneAccentBrush"],
+                //Background = (Brush)resources["PhoneAccentBrush"],
+                Background = new SolidColorBrush(bgColor),
                 Width = Application.Current.Host.Content.ActualWidth
             };
             wrapper.Children.Add(new TextBlock {
-                Foreground = (Brush)resources["PhoneForegroundBrush"],
+                //Foreground = (Brush)resources["PhoneForegroundBrush"],
+                Foreground = textColor,
                 FontSize = (double)resources["PhoneFontSizeMedium"],
                 Margin = new Thickness(24, 32, 24, 12),
                 HorizontalAlignment = HorizontalAlignment.Center,
@@ -186,8 +190,10 @@ namespace Acr.UserDialogs {
 
             if (!String.IsNullOrWhiteSpace(cfg.Description)) {
                 wrapper.Children.Add(new TextBlock {
-                    Foreground = (Brush)resources["PhoneForegroundBrush"],
-                    FontSize = (double)resources["PhoneFontSizeMedium"],
+                    //Foreground = (Brush)resources["PhoneForegroundBrush"],
+                    //FontSize = (double)resources["PhoneFontSizeMedium"],
+                    Foreground = textColor,
+                    FontSize = (double)resources["PhoneFontSizeSmall"],
                     Margin = new Thickness(24, 32, 24, 12),
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Text = cfg.Title
@@ -205,7 +211,8 @@ namespace Acr.UserDialogs {
             };
 
             this.Dispatch(() => {
-                SystemTray.BackgroundColor = (Color)resources["PhoneAccentColor"];
+                //SystemTray.BackgroundColor = (Color)resources["PhoneAccentColor"];
+                SystemTray.BackgroundColor = bgColor;
                 popup.IsOpen = true;
             });
             Task.Delay(cfg.Duration)
