@@ -221,11 +221,15 @@ namespace Acr.UserDialogs {
         public override void Toast(ToastConfig cfg) {
             Utils.RequestMainThread(() => {
 				var top = this.GetTopActivity();
+                var txt = cfg.Title;
+                if (!String.IsNullOrWhiteSpace(cfg.Description))
+                    txt += Environment.NewLine + cfg.Description;
+
                 AndHUD.Shared.ShowToast(
                     top,
                     cfg.Description,
 					AndroidHUD.MaskType.Black,
-                    cfg.Duration,
+                    txt,
                     false,
 					() => {
 						AndHUD.Shared.Dismiss();
