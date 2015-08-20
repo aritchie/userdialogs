@@ -247,6 +247,10 @@ namespace Acr.UserDialogs {
 
         protected virtual void SetInputType(TextView txt, InputType inputType) {
             switch (inputType) {
+                case InputType.DecimalNumber:
+                    txt.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+                    txt.SetSingleLine(true);
+                    break;
 
                 case InputType.Email:
                     txt.InputType = InputTypes.ClassText | InputTypes.TextVariationEmailAddress;

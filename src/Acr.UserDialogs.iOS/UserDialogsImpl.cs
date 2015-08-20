@@ -281,6 +281,10 @@ namespace Acr.UserDialogs {
 
         protected virtual void SetInputType(UITextField txt, InputType inputType) {
             switch (inputType) {
+                case InputType.DecimalNumber:
+                    txt.KeyboardType = UIKeyboardType.DecimalPad;
+                    break;
+
                 case InputType.Email  :
                     txt.KeyboardType = UIKeyboardType.EmailAddress;
                     break;

@@ -172,6 +172,7 @@ namespace Samples {
 				.Add("E-Mail", () => this.PromptCommand(InputType.Email))
                 .Add("Name", () => this.PromptCommand(InputType.Name))
 				.Add("Number", () => this.PromptCommand(InputType.Number))
+                .Add("Number with Decimal", () => this.PromptCommand(InputType.DecimalNumber))
 				.Add("Password", () => this.PromptCommand(InputType.Password))
                 .Add("Numeric Password (PIN)", () => this.PromptCommand(InputType.NumericPassword))
                 .Add("Phone", () => this.PromptCommand(InputType.Phone))
