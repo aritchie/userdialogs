@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Windows.UI.Core;
-using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,7 +18,7 @@ namespace Acr.UserDialogs {
         public override void Alert(AlertConfig config) {
             var dialog = new MessageDialog(config.Message, config.Title);
             dialog.Commands.Add(new UICommand(config.OkText, x => config.OnOk?.Invoke()));
-            dialog.ShowAsync();
+            this.Dispatch(() => dialog.ShowAsync());
         }
 
 
@@ -49,7 +47,7 @@ namespace Acr.UserDialogs {
             };
 
             dlg.DataContext = vm;
-            dlg.ShowAsync();
+            this.Dispatch(() => dlg.ShowAsync());
         }
 
 
@@ -60,7 +58,7 @@ namespace Acr.UserDialogs {
 
             dialog.Commands.Add(new UICommand(config.CancelText, x => config.OnConfirm(false)));
             dialog.CancelCommandIndex = 1;
-            dialog.ShowAsync();
+            this.Dispatch(() => dialog.ShowAsync());
         }
 
 
@@ -82,7 +80,7 @@ namespace Acr.UserDialogs {
                 config.OnResult?.Invoke(new LoginResult(vm.UserName, vm.Password, false))
             );
             dlg.DataContext = vm;
-            dlg.ShowAsync();
+            this.Dispatch(() => dlg.ShowAsync());
         }
 
 
@@ -119,7 +117,7 @@ namespace Acr.UserDialogs {
                     dialog.Hide();
                 });
             }
-            dialog.ShowAsync();
+            this.Dispatch(() => dialog.ShowAsync());
         }
 
 
@@ -143,11 +141,11 @@ namespace Acr.UserDialogs {
                 Background = new SolidColorBrush(bgColor.ToNative()),
                 Content = new TextBlock { Text = message }
             };
-            cd.ShowAsync();
+            this.Dispatch(() => cd.ShowAsync());
             Task.Delay(TimeSpan.FromMilliseconds(timeoutMillis))
                 .ContinueWith(x => {
                     try {
-                        cd.Hide();
+                        this.Dispatch(() => cd.Hide());
                     }
                     catch { }
                 });
@@ -186,7 +184,15 @@ namespace Acr.UserDialogs {
                 Placement = FlyoutPlacementMode.Top,
                 Content = stack
             };
-            fly.ShowAt(frame);
+            this.Dispatch(() => fly.ShowAt(frame));
+        }
+
+
+        protected virtual void Dispatch(Action action) {
+            CoreWindow
+                .GetForCurrentThread()
+                .Dispatcher
+                .RunAsync(CoreDispatcherPriority.Normal, () => action());
         }
     }
 }

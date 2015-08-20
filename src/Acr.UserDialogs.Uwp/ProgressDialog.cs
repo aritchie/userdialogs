@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 
@@ -87,8 +88,8 @@ namespace Acr.UserDialogs {
             if (!this.IsShowing)
                 return;
 
-            this.dialog.Hide();
             this.IsShowing = false;
+            this.Dispatch(() => this.dialog.Hide());
         }
 
 
@@ -104,7 +105,7 @@ namespace Acr.UserDialogs {
                 return;
 
             this.IsShowing = true;
-            this.dialog.ShowAsync();
+            this.Dispatch(() => this.dialog.ShowAsync());
         }
 
 
@@ -137,5 +138,13 @@ namespace Acr.UserDialogs {
 
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+        protected virtual void Dispatch(Action action) {
+            CoreWindow
+                .GetForCurrentThread()
+                .Dispatcher
+                .RunAsync(CoreDispatcherPriority.Normal, () => action());
+        }
     }
 }

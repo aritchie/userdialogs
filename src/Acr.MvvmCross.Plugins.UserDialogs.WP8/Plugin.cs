@@ -3,7 +3,7 @@ using Cirrious.CrossCore;
 using Cirrious.CrossCore.Plugins;
 
 
-namespace Acr.MvvmCross.Plugins.UserDialogs.WP81 {
+namespace Acr.MvvmCross.Plugins.UserDialogs.WP8 {
 
     public class Plugin : IMvxPlugin {
 

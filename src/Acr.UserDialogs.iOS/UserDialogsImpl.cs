@@ -12,6 +12,8 @@ namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
 
+        public static bool ShowToastOnBottom { get; set; }
+
         public override void Alert(AlertConfig config) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
                 if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
@@ -139,7 +141,7 @@ namespace Acr.UserDialogs {
 
         public override void Toast(ToastConfig cfg) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                //MessageBarManager.SharedInstance.ShowAtTheBottom = true;
+                MessageBarManager.SharedInstance.ShowAtTheBottom = ShowToastOnBottom;
                 MessageBarManager.SharedInstance.HideAll();
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
                 MessageBarManager.SharedInstance.ShowMessage(cfg.Title, cfg.Description ?? String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
