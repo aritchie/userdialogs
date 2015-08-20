@@ -168,40 +168,49 @@ namespace Acr.UserDialogs {
 
 
         public override void Toast(ToastConfig cfg) {
+            // TODO: backgroundcolor and image
             var resources = Application.Current.Resources;
 
-            // TODO: title, bgcolor
-            var tb = new TextBlock {
-                Foreground = (Brush)resources["PhoneForegroundBrush"],
-                FontSize = (double)resources["PhoneFontSizeMedium"],
-                Margin = new Thickness(24, 32, 24, 12),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Text = cfg.Description
-            };
             var wrapper = new StackPanel {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Background = (Brush)resources["PhoneAccentBrush"],
                 Width = Application.Current.Host.Content.ActualWidth
             };
-            wrapper.Children.Add(tb);
+            wrapper.Children.Add(new TextBlock {
+                Foreground = (Brush)resources["PhoneForegroundBrush"],
+                FontSize = (double)resources["PhoneFontSizeMedium"],
+                Margin = new Thickness(24, 32, 24, 12),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Text = cfg.Title
+            });
+
+            if (!String.IsNullOrWhiteSpace(cfg.Description)) {
+                wrapper.Children.Add(new TextBlock {
+                    Foreground = (Brush)resources["PhoneForegroundBrush"],
+                    FontSize = (double)resources["PhoneFontSizeMedium"],
+                    Margin = new Thickness(24, 32, 24, 12),
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Text = cfg.Title
+                });
+            }
 
             var popup = new Popup {
                 Child = wrapper,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            tb.Tap += (sender, args) => {
-                //SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
+            wrapper.Tap += (sender, args) => {
+                SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                 popup.IsOpen = false;
                 cfg.Action?.Invoke();
             };
 
             this.Dispatch(() => {
-                //SystemTray.BackgroundColor = (Color)resources["PhoneAccentColor"];
+                SystemTray.BackgroundColor = (Color)resources["PhoneAccentColor"];
                 popup.IsOpen = true;
             });
             Task.Delay(cfg.Duration)
                 .ContinueWith(x => this.Dispatch(() => {
-                    //SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
+                    SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                     popup.IsOpen = false;
                 }));
         }
@@ -228,9 +237,8 @@ namespace Acr.UserDialogs {
                     name.NameValue = InputScopeNameValue.EmailNameOrAddress;
                     break;
 
-                    // TODO: decimal
-                case InputType.NumericPassword:
-                    name.NameValue = InputScopeNameValue.NumericPassword;
+                case InputType.DecimalNumber:
+                    name.NameValue = InputScopeNameValue.Digits;
                     break;
 
                 case InputType.Name:
@@ -239,6 +247,10 @@ namespace Acr.UserDialogs {
 
                 case InputType.Number:
                     name.NameValue = InputScopeNameValue.Number;
+                    break;
+
+                case InputType.NumericPassword:
+                    name.NameValue = InputScopeNameValue.NumericPassword;
                     break;
 
                 case InputType.Phone:

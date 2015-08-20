@@ -12,7 +12,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>windows xamarin xam.pcl</tags>
         <dependencies>
-            <dependency id="Acr.UserDialogs" version="[4.0.5,)" />
+            <dependency id="Acr.UserDialogs" version="[4.1.0,)" />
         </dependencies>
         <releaseNotes>
 Moving all Xamarin Form users acr.userdialogs
