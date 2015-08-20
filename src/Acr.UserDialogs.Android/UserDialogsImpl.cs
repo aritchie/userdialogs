@@ -227,9 +227,9 @@ namespace Acr.UserDialogs {
 
                 AndHUD.Shared.ShowToast(
                     top,
-                    cfg.Description,
-					AndroidHUD.MaskType.Black,
                     txt,
+					AndroidHUD.MaskType.Black,
+                    cfg.Duration,
                     false,
 					() => {
 						AndHUD.Shared.Dismiss();

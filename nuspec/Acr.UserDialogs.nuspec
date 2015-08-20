@@ -28,6 +28,10 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             <group>
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
+            <group targetFramework="wp8">
+                <dependency id="Splat" version="[1.6.2, 2.0)" />
+                <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
+            </group>
             <group targetFramework="xamarinios">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[1.0, 2.0)" />
@@ -43,6 +47,8 @@ In your platform project, make sure to call UserDialogs.Init() before using!
 [fix][uwp] dispatch dialogs on UI thread
 [fix][droid] hack display to show title and description on classic android
 [feature][ios] On the platform project, you can now set UserDialogImpl.ShowToastOnBottom = true;(static)
+[feature] Show decimal keyboard on prompts (thanks @rubgithub)
+[feature] WP8 support is back
 
 4.0.5
 [BREAKING][droid] - appcompat now exists in a secondary package (Acr.UserDialogs.Android.AppCompat)
@@ -98,7 +104,11 @@ In your platform project, make sure to call UserDialogs.Init() before using!
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.Interface.dll" target="lib\Xamarin.iOS10\Acr.UserDialogs.Interface.dll" />
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
 
-        <!-- winphone -->
+        <!-- wp8 -->
+        <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.dll" target="lib\wp8\Acr.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wp8\Acr.UserDialogs.Interface.dll" />
+
+        <!-- wp81 -->
         <file src="..\src\Acr.UserDialogs.WP\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81\Acr.UserDialogs.dll" />
         <file src="..\src\Acr.UserDialogs.WP\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wpa81\Acr.UserDialogs.Interface.dll" />
 
