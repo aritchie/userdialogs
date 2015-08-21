@@ -150,7 +150,12 @@ namespace Acr.UserDialogs {
 
 
 		protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style) {
-			controller.AddAction(UIAlertAction.Create(opt.Text, style, x => opt.Action?.Invoke()));
+            var alertAction = UIAlertAction.Create(opt.Text, style, x => opt.Action?.Invoke());
+
+            if(opt.ItemIcon != null)
+                alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new Foundation.NSString("image"));
+
+            controller.AddAction(alertAction);
 		}
 
 
