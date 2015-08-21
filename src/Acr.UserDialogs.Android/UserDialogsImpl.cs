@@ -86,7 +86,7 @@ namespace Acr.UserDialogs {
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-            dlg.SetAdapter(adapter, (s, a) => config.Destructive.Action?.Invoke());
+            dlg.SetAdapter(adapter, (s, a) => config.Options[a.Which].Action?.Invoke());
 
 			if (config.Destructive != null)
 				dlg.SetNegativeButton(config.Destructive.Text, (s, a) => config.Destructive.Action?.Invoke());
