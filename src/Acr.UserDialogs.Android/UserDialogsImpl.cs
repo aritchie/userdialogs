@@ -8,6 +8,8 @@ using Android.Views;
 using Android.Widget;
 using AndroidHUD;
 using Splat;
+using Android.Content;
+using System.Collections.Generic;
 #if APPCOMPAT
 using Android.Support.Design.Widget;
 using AlertDialog = Android.Support.V7.App.AlertDialog;
@@ -47,19 +49,44 @@ namespace Acr.UserDialogs {
             );
         }
 
+        public class ListAdapter : ArrayAdapter<ActionSheetOption>
+        {
+            private IList<ActionSheetOption> Items { get; set; }
+
+            public ListAdapter(Context context, int resource, int textViewResourceId, ActionSheetConfig config) : base(context, resource, textViewResourceId, config.Options)
+            {
+               Items = config.Options;
+            }
+
+            public override View GetView(int position, View convertView, ViewGroup parent)
+            {
+                //Use base class to create the View
+                View view = base.GetView(position, convertView, parent);
+                TextView textView = view.FindViewById<TextView>(Android.Resource.Id.Text1);
+
+                //Set text on the TextView
+                textView.Text = Items.ElementAt(position).Text;
+
+                //Put the image on the TextView
+                textView.SetCompoundDrawablesWithIntrinsicBounds(Items.ElementAt(position).ItemIcon.ToNative(), null, null, null);
+
+                //Add margin between image and text (support various screen densities)
+                textView.CompoundDrawablePadding = 10;
+
+                return view;
+            }
+        }
 
         public override void ActionSheet(ActionSheetConfig config) {
-            var array = config
-                .Options
-                .Select(x => x.Text)
-                .ToArray();
 
-			var dlg = new AlertDialog
+            var adapter = new ListAdapter(this.GetTopActivity(), Android.Resource.Layout.SelectDialogItem, Android.Resource.Id.Text1, config);
+
+            var dlg = new AlertDialog
                 .Builder(this.GetTopActivity())
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-            dlg.SetItems(array, (s, args) => config.Options[args.Which].Action?.Invoke());
+            dlg.SetAdapter(adapter, (s, a) => config.Destructive.Action?.Invoke());
 
 			if (config.Destructive != null)
 				dlg.SetNegativeButton(config.Destructive.Text, (s, a) => config.Destructive.Action?.Invoke());
