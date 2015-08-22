@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
+using Coding4Fun.Toolkit.Controls;
 using Splat;
 
 
@@ -158,33 +157,20 @@ namespace Acr.UserDialogs {
 
 
         public override void Toast(ToastConfig config) {
-            var style = new Style(typeof(Flyout));
-            style.Setters.Add(new Setter(Border.BorderThicknessProperty, 0));
-            style.Setters.Add(new Setter(Border.PaddingProperty, 0));
-
-            var frame = (Frame)Window.Current.Content;
-            var textColor = new SolidColorBrush(config.TextColor.ToNative());
-
-            var stack = new StackPanel {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
+            var toast = new ToastPrompt {
                 Background = new SolidColorBrush(config.BackgroundColor.ToNative()),
-                Children = {
-                    new TextBlock {
-                        Text = config.Title ?? String.Empty,
-                        Foreground = textColor
-                    },
-                    new TextBlock {
-                        Text = config.Description ?? String.Empty,
-                        Foreground = textColor
-                    }
-                }
+                Foreground = new SolidColorBrush(config.TextColor.ToNative()),
+                Title = config.Title,
+                Message = config.Description,
+                ImageSource = config.Icon?.ToNative(),
+                Stretch = Stretch.Fill,
+                MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
             };
-            stack.Tapped += (sender, args) => config.Action?.Invoke();
-            var fly = new Flyout {
-                Placement = FlyoutPlacementMode.Top,
-                Content = stack
-            };
-            this.Dispatch(() => fly.ShowAt(frame));
+            //toast.Completed += (sender, args) => {
+            //    if (args.PopUpResult == PopUpResult.Ok)
+            //        config.Action?.Invoke();
+            //};
+            this.Dispatch(toast.Show);
         }
 
 

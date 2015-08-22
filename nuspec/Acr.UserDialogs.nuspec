@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.1.0</version>
+        <version>4.1.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -28,10 +28,6 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             <group>
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
-            <group targetFramework="wp8">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
-            </group>
             <group targetFramework="xamarinios">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[1.0, 2.0)" />
@@ -40,8 +36,20 @@ In your platform project, make sure to call UserDialogs.Init() before using!
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[1.0, 2.0)" />
             </group>
+            <group targetFramework="wp8">
+                <dependency id="Splat" version="[1.6.2, 2.0)" />
+                <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
+            </group>
+            <group targetFramework="uap10.0">
+                <dependency id="Splat" version="[1.6.2, 2.0)" />
+                <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.2, 3.0)" />
+            </group>
         </dependencies>
         <releaseNotes>
+4.1.1
+[fix][droid] prompts were not forcing keyboard to appear (thanks @rubgithub)
+[feature][windows] toast functionality now available thanks to coding4fun.toolkit
+
 4.1.0
 [fix][wp] restore wp8
 [fix] add missing fluent methods to config objects
