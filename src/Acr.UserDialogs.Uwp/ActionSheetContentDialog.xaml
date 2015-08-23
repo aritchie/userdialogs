@@ -14,7 +14,10 @@
             <ListBox x:Name="List" ItemsSource="{Binding Options}" SelectionMode="Single">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Text}" />
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ItemIcon}" />
+                            <TextBlock Text="{Binding Text}" />
+                        </StackPanel>                        
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
