@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Xamarin.Forms;
-
+using Splat;
 
 namespace Samples {
 
@@ -129,12 +129,14 @@ namespace Samples {
 			var cfg = new ActionSheetConfig()
 				.SetTitle("Test Title");
 
+            var testImage = BitmapLoader.Current.LoadFromResource("icon.png", null, null).Result;
+
             for (var i = 0; i < 5; i++) {
                 var display = (i + 1);
                 cfg.Add(
 					"Option " + display,
-					() => this.Result($"Option {display} Selected")
-				);
+					() => this.Result($"Option {display} Selected"), testImage
+                );
             }
 			cfg.SetDestructive(action: () => this.Result("Destructive BOOM Selected"));
 			cfg.SetCancel(action: () => this.Result("Cancel Selected"));
