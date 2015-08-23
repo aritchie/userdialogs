@@ -149,10 +149,13 @@ namespace Acr.UserDialogs {
         }
 
 
-		protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style) {
+		protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null) {
             var alertAction = UIAlertAction.Create(opt.Text, style, x => opt.Action?.Invoke());
 
-            if(opt.ItemIcon != null)
+            if (opt.ItemIcon == null && image != null)
+                opt.ItemIcon = image;
+
+            if (opt.ItemIcon != null)
                 alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new Foundation.NSString("image"));
 
             controller.AddAction(alertAction);
@@ -201,7 +204,7 @@ namespace Acr.UserDialogs {
 			config
 				.Options
 				.ToList()
-				.ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default));
+				.ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
 
 			if (config.Destructive != null)
 				this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);

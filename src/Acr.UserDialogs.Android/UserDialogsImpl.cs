@@ -78,15 +78,25 @@ namespace Acr.UserDialogs {
         }
 
         public override void ActionSheet(ActionSheetConfig config) {
-
-            var adapter = new ListAdapter(this.GetTopActivity(), Android.Resource.Layout.SelectDialogItem, Android.Resource.Id.Text1, config);
-
             var dlg = new AlertDialog
                 .Builder(this.GetTopActivity())
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-            dlg.SetAdapter(adapter, (s, a) => config.Options[a.Which].Action?.Invoke());
+            if(config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null))
+            {
+                var adapter = new ListAdapter(this.GetTopActivity(), Android.Resource.Layout.SelectDialogItem, Android.Resource.Id.Text1, config);
+                dlg.SetAdapter(adapter, (s, a) => config.Options[a.Which].Action?.Invoke());
+            }
+            else
+            {
+                var array = config
+                .Options
+                .Select(x => x.Text)
+                .ToArray();
+
+                dlg.SetItems(array, (s, args) => config.Options[args.Which].Action?.Invoke());
+            }
 
 			if (config.Destructive != null)
 				dlg.SetNegativeButton(config.Destructive.Text, (s, a) => config.Destructive.Action?.Invoke());
