@@ -186,7 +186,7 @@ namespace Acr.UserDialogs {
 					);
 				}
 
-				builder.Show();
+				builder.ShowExt();
             });
         }
 
