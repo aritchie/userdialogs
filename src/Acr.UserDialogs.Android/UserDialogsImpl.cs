@@ -71,7 +71,8 @@ namespace Acr.UserDialogs {
                 textView.SetCompoundDrawablesWithIntrinsicBounds(Items.ElementAt(position).ItemIcon.ToNative(), null, null, null);
 
                 //Add margin between image and text (support various screen densities)
-                textView.CompoundDrawablePadding = 10;
+                int dp = (int)(10 * parent.Context.Resources.DisplayMetrics.Density + 0.5f);
+                textView.CompoundDrawablePadding = dp;
 
                 return view;
             }
