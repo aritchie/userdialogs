@@ -27,7 +27,9 @@ Icons for actionsheets thanks to @martijn00
     <files>
         <!-- android -->
         <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.dll" target="lib\MonoAndroid10\Acr.UserDialogs.dll" />
+		<file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.pdb" target="lib\MonoAndroid10\Acr.UserDialogs.pdb" />
         <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\MonoAndroid10\Acr.UserDialogs.Interface.dll" />
+		<file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\MonoAndroid10\Acr.UserDialogs.Interface.pdb" />
         <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\AndHUD.dll" target="lib\MonoAndroid10\AndHUD.dll" />
     </files>
 </package>
