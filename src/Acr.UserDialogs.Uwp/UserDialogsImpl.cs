@@ -41,7 +41,7 @@ namespace Acr.UserDialogs {
                     .Select(x => new ActionSheetOptionViewModel(true, x.Text, () => {
                         dlg.Hide();
                         x.Action?.Invoke();
-                    }))
+                    }, x.ItemIcon != null ? x.ItemIcon : config.ItemIcon))
                     .ToList()
             };
 
