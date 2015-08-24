@@ -65,6 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Acr.UserDialogs.Android\ActionSheetListAdapter.cs">
+      <Link>ActionSheetListAdapter.cs</Link>
+    </Compile>
     <Compile Include="..\Acr.UserDialogs.Android\Extensions.cs">
       <Link>Extensions.cs</Link>
     </Compile>

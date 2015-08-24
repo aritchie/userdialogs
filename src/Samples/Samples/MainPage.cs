@@ -135,7 +135,8 @@ namespace Samples {
                 var display = (i + 1);
                 cfg.Add(
 					"Option " + display,
-					() => this.Result($"Option {display} Selected"), testImage
+					() => this.Result($"Option {display} Selected"),
+                    testImage
                 );
             }
 			cfg.SetDestructive(action: () => this.Result("Destructive BOOM Selected"));

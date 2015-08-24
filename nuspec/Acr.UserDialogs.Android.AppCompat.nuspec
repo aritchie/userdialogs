@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs.Android.AppCompat</id>
-        <version>4.1.2</version>
+        <version>4.1.3</version>
         <title>ACR User Dialogs Plugin Android AppCompat Support</title>
         <summary>ACR User Dialogs Android Support Library - AppCompat</summary>
         <description>
@@ -20,6 +20,9 @@ Material Design for ACR User Dialogs on Android
             <dependency id="Acr.Support" version="[1.0, 2.0)" />
         </dependencies>
         <releaseNotes>
+4.1.3
+Add debug symbols to package
+
 4.1.2
 Icons for actionsheets thanks to @martijn00
         </releaseNotes>

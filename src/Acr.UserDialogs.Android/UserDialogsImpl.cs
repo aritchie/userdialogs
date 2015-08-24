@@ -49,34 +49,6 @@ namespace Acr.UserDialogs {
             );
         }
 
-        public class ListAdapter : ArrayAdapter<ActionSheetOption>
-        {
-            private IList<ActionSheetOption> Items { get; set; }
-
-            public ListAdapter(Context context, int resource, int textViewResourceId, ActionSheetConfig config) : base(context, resource, textViewResourceId, config.Options)
-            {
-               Items = config.Options;
-            }
-
-            public override View GetView(int position, View convertView, ViewGroup parent)
-            {
-                //Use base class to create the View
-                View view = base.GetView(position, convertView, parent);
-                TextView textView = view.FindViewById<TextView>(Android.Resource.Id.Text1);
-
-                //Set text on the TextView
-                textView.Text = Items.ElementAt(position).Text;
-
-                //Put the image on the TextView
-                textView.SetCompoundDrawablesWithIntrinsicBounds(Items.ElementAt(position).ItemIcon.ToNative(), null, null, null);
-
-                //Add margin between image and text (support various screen densities)
-                int dp = (int)(10 * parent.Context.Resources.DisplayMetrics.Density + 0.5f);
-                textView.CompoundDrawablePadding = dp;
-
-                return view;
-            }
-        }
 
         public override void ActionSheet(ActionSheetConfig config) {
             var dlg = new AlertDialog
@@ -84,17 +56,15 @@ namespace Acr.UserDialogs {
 				.SetCancelable(false)
 				.SetTitle(config.Title);
 
-            if(config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null))
-            {
-                var adapter = new ListAdapter(this.GetTopActivity(), Android.Resource.Layout.SelectDialogItem, Android.Resource.Id.Text1, config);
+            if (config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null)) {
+                var adapter = new ActionSheetListAdapter(this.GetTopActivity(), Android.Resource.Layout.SelectDialogItem, Android.Resource.Id.Text1, config);
                 dlg.SetAdapter(adapter, (s, a) => config.Options[a.Which].Action?.Invoke());
             }
-            else
-            {
+            else {
                 var array = config
-                .Options
-                .Select(x => x.Text)
-                .ToArray();
+                    .Options
+                    .Select(x => x.Text)
+                    .ToArray();
 
                 dlg.SetItems(array, (s, args) => config.Options[args.Which].Action?.Invoke());
             }
