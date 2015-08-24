@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.1.1</version>
+        <version>4.1.2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -46,6 +46,9 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>
         </dependencies>
         <releaseNotes>
+4.1.2
+[feature] Icons for actionsheets thanks to @martijn00
+
 4.1.1
 [fix][droid] prompts were not forcing keyboard to appear (thanks @rubgithub)
 [feature][windows] toast functionality now available thanks to coding4fun.toolkit
@@ -55,7 +58,7 @@ In your platform project, make sure to call UserDialogs.Init() before using!
 [fix] add missing fluent methods to config objects
 [fix][uwp] dispatch dialogs on UI thread
 [fix][droid] hack display to show title and description on classic android
-[feature][ios] On the platform project, you can now set UserDialogImpl.ShowToastOnBottom = true;(static)
+[feature][ios] On the platform project, you can now set UserDialogImpl.ShowToastsOnBottom = true;(static)
 [feature] Show decimal keyboard on prompts (thanks @rubgithub)
 
 4.0.5
