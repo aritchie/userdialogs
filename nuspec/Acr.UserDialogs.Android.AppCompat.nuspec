@@ -6,8 +6,7 @@
         <title>ACR User Dialogs Plugin Android AppCompat Support</title>
         <summary>ACR User Dialogs Android Support Library - AppCompat</summary>
         <description>
-4.1.2
-Icons for actionsheets thanks to @martijn00
+Material Design for ACR User Dialogs on Android
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -21,7 +20,8 @@ Icons for actionsheets thanks to @martijn00
             <dependency id="Acr.Support" version="[1.0, 2.0)" />
         </dependencies>
         <releaseNotes>
-Initial Release
+4.1.2
+Icons for actionsheets thanks to @martijn00
         </releaseNotes>
     </metadata>
     <files>
