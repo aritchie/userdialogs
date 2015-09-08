@@ -8,9 +8,13 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 //using Coding4Fun.Toolkit.Controls;
 using Splat;
+using Acr.UserDialogs;
 
+[assembly: Xamarin.Forms.Dependency(typeof(UserDialogsImpl))]
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
+
 
     public class UserDialogsImpl : AbstractUserDialogs {
 
