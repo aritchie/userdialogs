@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 #if __ANDROID__
 using Android.App;
 using Acr.Support.Android;
@@ -10,7 +11,8 @@ namespace Acr.UserDialogs {
 
         static readonly Lazy<IUserDialogs> instance = new Lazy<IUserDialogs>(() => {
 #if PCL
-            throw new ArgumentException("This PCL library, not the platform library.  Did you include the nuget package in your project?");
+            return DependencyService.Get<IUserDialogs>();
+            //throw new ArgumentException("This PCL library, not the platform library.  Did you include the nuget package in your project?");
 #elif __ANDROID__
             throw new ArgumentException("In android, you must call UserDialogs.Init(Activity) from your first activity");
 #else
