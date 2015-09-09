@@ -41,7 +41,7 @@ namespace MessageBar
 		const int IOS7Identifier = 7;
 		readonly nfloat IconSize = 36.0f;
 		const float TextOffset = 2.0f;
-		static readonly UIColor DescriptionColor = null;
+		static UIColor DescriptionColor = null;
 		float height;
 		nfloat width;
 
@@ -170,15 +170,15 @@ namespace MessageBar
 			context.RestoreState ();
 			context.SaveState ();
 
+            var color = styleSheet.StrokeColorForMessageType (MessageType);
 			context.BeginPath ();
 			context.MoveTo (0, rect.Size.Height);
-			context.SetStrokeColor (styleSheet.StrokeColorForMessageType (MessageType).CGColor);
+			context.SetStrokeColor (color.CGColor);
 			context.SetLineWidth (1);
 			context.AddLineToPoint (rect.Size.Width, rect.Size.Height);
 			context.StrokePath ();
 			context.RestoreState ();
 			context.SaveState ();
-
 
 			nfloat xOffset = Padding;
 			nfloat yOffset = Padding;
@@ -195,15 +195,17 @@ namespace MessageBar
 			if (string.IsNullOrEmpty (Title) && !string.IsNullOrEmpty (Description)) {
 				yOffset = (float)(Math.Ceiling ((double)rect.Size.Height * 0.5) - Math.Ceiling ((double)titleLabelSize.Height * 0.5) - TextOffset);
 			}
-
+            TitleColor = color;
 			TitleColor.SetColor ();
 
 			var titleRectangle = new CGRect (xOffset, yOffset, titleLabelSize.Width, titleLabelSize.Height);
             Title.DrawString(titleRectangle, new UIStringAttributes { Font = TitleFont, ForegroundColor = TitleColor });
-			yOffset += titleLabelSize.Height;
+            yOffset += titleLabelSize.Height;
 
 			CGSize descriptionLabelSize = DescriptionSize ();
-			DescriptionColor.SetColor ();
+
+            DescriptionColor = color;
+            DescriptionColor.SetColor ();
 			var descriptionRectangle = new CGRect (xOffset, yOffset, descriptionLabelSize.Width, descriptionLabelSize.Height);
             Description.DrawString(descriptionRectangle, new UIStringAttributes { Font = DescriptionFont, ForegroundColor = DescriptionColor });
 		}

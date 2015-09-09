@@ -3,7 +3,7 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "Coding4Fun.Toolkit.Controls/2.1.2": {
+      "Coding4Fun.Toolkit.Controls/2.1.5": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -1556,7 +1556,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Coding4Fun.Toolkit.Controls/2.1.2": {
+      "Coding4Fun.Toolkit.Controls/2.1.5": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -3199,7 +3199,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Coding4Fun.Toolkit.Controls/2.1.2": {
+      "Coding4Fun.Toolkit.Controls/2.1.5": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -4814,7 +4814,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Coding4Fun.Toolkit.Controls/2.1.2": {
+      "Coding4Fun.Toolkit.Controls/2.1.5": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -6462,7 +6462,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Coding4Fun.Toolkit.Controls/2.1.2": {
+      "Coding4Fun.Toolkit.Controls/2.1.5": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -8077,7 +8077,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Coding4Fun.Toolkit.Controls/2.1.2": {
+      "Coding4Fun.Toolkit.Controls/2.1.5": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -9725,7 +9725,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Coding4Fun.Toolkit.Controls/2.1.2": {
+      "Coding4Fun.Toolkit.Controls/2.1.5": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -11341,8 +11341,8 @@
     }
   },
   "libraries": {
-    "Coding4Fun.Toolkit.Controls/2.1.2": {
-      "sha512": "a8V9wbKgzAOBFu72F1i1LYIMIRtMGFwvR54oELfKUSgLpv8kF0GtCE3RfKZK/7PdyOa+Djd2IvFo7xOyYPNcPA==",
+    "Coding4Fun.Toolkit.Controls/2.1.5": {
+      "sha512": "Vo08xcsBmzrJkLvet5tdNF1Jpg8GV4AhncjqMBevEE1dEHqQWD09MFIeRhtX5EJ5UJ08/lfvNRp2+4OP2cLVpA==",
       "type": "Package",
       "files": [
         "_rels/.rels",
@@ -11377,7 +11377,7 @@
         "lib/wpa81/Coding4Fun.Toolkit.Controls.pri",
         "lib/wpa81/Coding4Fun.Toolkit.dll",
         "lib/wpa81/Coding4Fun.Toolkit.pri",
-        "package/services/metadata/core-properties/ebabeefcfe31422884fad17dd8de1412.psmdcp",
+        "package/services/metadata/core-properties/dd059efd52ac475bb706e1a4a75f0963.psmdcp",
         "[Content_Types].xml"
       ]
     },

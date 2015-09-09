@@ -57,6 +57,14 @@ namespace BTProgressHUDDemo
 				KillAfter();
 			});
 
+			MakeButton("Cancel problem 3", () =>
+				BTProgressHUD.Show("Cancel", () => KillAfter(), "Cancel and text")
+			);
+
+			MakeButton("Cancel problem 2", () =>
+				BTProgressHUD.Show("Cancel", () => KillAfter())
+			);
+
 			MakeButton("Cancel problem", () =>
 				BTProgressHUD.Show("Cancel", () => KillAfter(), "This is a multilinetext\nSome more text\n more text\n and again more text")
 			);

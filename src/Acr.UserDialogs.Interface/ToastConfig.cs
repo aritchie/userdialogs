@@ -57,7 +57,7 @@ namespace Acr.UserDialogs {
                 case ToastEvent.Info:
                     this.BackgroundColor = InfoBackgroundColor;
                     this.TextColor = InfoTextColor;
-                    this.Icon = WarnIcon;
+                    this.Icon = InfoIcon;
                     break;
 
                 case ToastEvent.Success:

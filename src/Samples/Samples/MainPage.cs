@@ -63,7 +63,9 @@ namespace Samples {
 
                     // TOAST
                     ToastConfig.DefaultDuration = TimeSpan.FromSeconds(5);
+
                     ToastConfig.InfoBackgroundColor = System.Drawing.Color.Aqua;
+                    ToastConfig.SuccessTextColor = System.Drawing.Color.Blue;
                     ToastConfig.SuccessBackgroundColor = System.Drawing.Color.BurlyWood;
                     ToastConfig.WarnBackgroundColor = System.Drawing.Color.BlueViolet;
                     ToastConfig.ErrorBackgroundColor = System.Drawing.Color.DeepPink;
@@ -85,6 +87,7 @@ namespace Samples {
                     LoginConfig.DefaultLoginPlaceholder = "User Name";
                     LoginConfig.DefaultPasswordPlaceholder = "Password";
                     ProgressDialogConfig.DefaultTitle = "Loading";
+
                     ToastConfig.DefaultDuration = TimeSpan.FromSeconds(3);
 
                     UserDialogs.Instance.Alert("Default Settings Restored");
@@ -105,6 +108,7 @@ namespace Samples {
                 Title = title
             }) { Title = title });
         }
+
 
         static Button Btn(string text, Action action) {
             return new Button {
