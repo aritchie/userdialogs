@@ -32,7 +32,8 @@ namespace Samples {
                 Btn("Loading (Clear)", () => this.Loading(MaskType.Clear)),
                 Btn("Loading (Gradient iOS)", () => this.Loading(MaskType.Gradient)),
                 Btn("Loading (None)", () => this.Loading(MaskType.Black)),
-	            Btn("Loading (No Cancel)", this.LoadingNoCancel)
+	            Btn("Loading (No Cancel)", this.LoadingNoCancel),
+                Btn("Loading to Success", this.LoadingToSuccess)
             );
 
             this.AddPage(
@@ -265,5 +266,13 @@ namespace Samples {
 			await Task.Delay(3000);
 			UserDialogs.Instance.HideLoading();
 		}
+
+
+        async void LoadingToSuccess() {
+            using (UserDialogs.Instance.Loading("Test Loading"))
+                await Task.Delay(3000);
+
+            UserDialogs.Instance.ShowSuccess("Success Loading!");
+        }
     }
 }

@@ -130,7 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BTProgressHUD">
-      <HintPath>..\..\Components\btprogresshud-1.16\lib\ios-unified\BTProgressHUD.dll</HintPath>
+      <HintPath>..\..\Components\btprogresshud-1.17\lib\ios-unified\BTProgressHUD.dll</HintPath>
     </Reference>
     <Reference Include="MessageBarLib, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MessageBarLib.1.2.1.1\lib\xamarinios10\MessageBarLib.dll</HintPath>
