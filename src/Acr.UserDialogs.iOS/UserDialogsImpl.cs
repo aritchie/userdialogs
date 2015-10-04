@@ -127,14 +127,14 @@ namespace Acr.UserDialogs {
 
         public override void ShowError(string message, int timeoutMillis) {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutMillis)
+                BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis)
             );
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis) {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutMillis)
+                BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis)
             );
         }
 
