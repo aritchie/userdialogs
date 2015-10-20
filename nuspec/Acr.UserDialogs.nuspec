@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.1.4</version>
+        <version>4.1.5</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -35,6 +35,7 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             <group targetFramework="monoandroid">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[1.0, 2.0)" />
+                <dependency id="Xamarin.Android.Support.v4" version="[23.0.1.1, 24)" />
             </group>
             <group targetFramework="wp8">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
@@ -46,6 +47,11 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>
         </dependencies>
         <releaseNotes>
+4.1.5
+[fix] update error message
+[fix] nuget package issues with android
+[update] droid libraries
+
 4.1.4
 [fix] UWP registration
 [fix] use proper default icon for info

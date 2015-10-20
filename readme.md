@@ -82,20 +82,26 @@ All config objects contain static vars that contain defaults which are basically
 
 ## FAQ
 
-Q) I'm using Xamarin Forms and getting a nullreferenceexception when using loading
-A) This happens when you run loading (or almost any dialog) from the constructor of your page or viewmodel.  The view hasn't been rendered yet, therefore there is nothing to render to.
+1. I'm using Xamarin Forms and getting a nullreferenceexception when using loading
+    * This happens when you run loading (or almost any dialog) from the constructor of your page or viewmodel.  The view hasn't been rendered yet, therefore there is nothing to render to.
 
-Q) Is Windows 8 Support?
-A) No.  I never got around to this, but I'm going to support 10 as soon as I figure it out.  It is in a very betaish mode now.  I'm hoping someone will help in this area!!
+2. Is Windows 8 Support?
+    * No.  I never got around to this, but I'm going to support 10 as soon as I figure it out.  It is in a very betaish mode now.  I'm hoping someone will help in this area!!
 
-Q) Is AppCompat/Material Dialogs supported on Android?
-A) Yes.  It a separate package.  Please make sure to install Acr.UserDialogs to your PCL, but when installing on your android project.
+3. Is AppCompat/Material Dialogs supported on Android?
+    * Yes.  It a separate package.  Please make sure to install Acr.UserDialogs to your PCL, but when installing on your android project.
 
-Q) A new release just came out and the MvvmCross plugin is broken
-A) I don't update the MvvmCross plugin right along side Acr.UserDialogs.  I'm happy to take a PR
+4. A new release just came out and the MvvmCross plugin is broken
+    * I don't update the MvvmCross plugin right along side Acr.UserDialogs.  I'm happy to take a PR
 
-Q) Do you take pull requests?
-A) Absolutely.  I may not always accept them, but I do appreciate the help.
+5. Do you take pull requests?
+   * Absolutely.  I may not always accept them, but I do appreciate the help.
+
+6. I'm getting "This is the PCL library, not the platform library.  Did you include the nuget package in your main "executable" project?"
+    * Do exactly what it says
+
+7. Navigating while inside of a loading/progress dialog causes exceptions or the progress no longer appears properly
+    * Hide the progress dialog before navigating
 
 ## Powered By:
 
