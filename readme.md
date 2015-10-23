@@ -103,6 +103,18 @@ All config objects contain static vars that contain defaults which are basically
 7. Navigating while inside of a loading/progress dialog causes exceptions or the progress no longer appears properly
     * Hide the progress dialog before navigating
 
+8. I don't like the way X method works on platform Y
+    * No problems.  Override the implementation like below
+
+
+    on the platform
+    public class MyCustomUserDialogs : Acr.UserDialogs.UserDialogImpl {
+            public override ..
+    }
+
+    in appdelegate or the starting activity
+    UserDialogs.Instance = new MyCustomUserDialogs();
+
 ## Powered By:
 
 * Android - Progress/Loading uses Redth's [AndHUD](https://github.com/Redth/AndHUD)
