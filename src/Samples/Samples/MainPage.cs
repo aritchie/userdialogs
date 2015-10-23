@@ -10,6 +10,9 @@ namespace Samples {
     public class MainPage : TabbedPage {
 
         public MainPage() {
+            Device.OnPlatform(() => {
+                this.Padding = new Thickness(0, 30, 0, 0);
+            });
             this.AddPage(
                 "Standard Dialogs",
                 Btn("Alert", this.Alert),

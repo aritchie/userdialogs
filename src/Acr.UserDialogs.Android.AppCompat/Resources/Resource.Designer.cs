@@ -2280,12 +2280,6 @@ namespace Acr.UserDialogs
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050015
-			public static int ApplicationName = 2131034133;
-			
-			// aapt resource value: 0x7f050014
-			public static int Hello = 2131034132;
-			
 			// aapt resource value: 0x7f050000
 			public static int abc_action_bar_home_description = 2131034112;
 			
