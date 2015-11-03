@@ -30,12 +30,12 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>
             <group targetFramework="Xamarin.iOS10">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Acr.Support" version="[1.0.1, 2.0)" />
+                <dependency id="Acr.Support" version="[1.0.2, 2.0)" />
             </group>
             <group targetFramework="MonoAndroid10">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Acr.Support" version="[1.0.1, 2.0)" />
-                <dependency id="Xamarin.Android.Support.v4" version="[23.0.1.1, 24)" />
+                <dependency id="Acr.Support" version="[1.0.2, 2.0)" />
+                <dependency id="Xamarin.Android.Support.v4" version="[23.0.1.3, 24)" />
             </group>
             <group targetFramework="wp8">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
@@ -47,6 +47,9 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>
         </dependencies>
         <releaseNotes>
+4.1.7
+nuget updates
+
 4.1.6
 [update] support library
 [fix][ios] nuspec updates to deal with potential xamstudio ref issues

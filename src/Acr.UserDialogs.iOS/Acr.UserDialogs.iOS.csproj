@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Acr.Support.1.0.1-beta2\lib\Xamarin.iOS10\Acr.Support.iOS.dll</HintPath>
+      <HintPath>..\packages\Acr.Support.1.0.2\lib\Xamarin.iOS10\Acr.Support.iOS.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BTProgressHUD">
