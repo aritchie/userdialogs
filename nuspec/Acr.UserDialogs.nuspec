@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.1.6</version>
+        <version>4.1.7</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
