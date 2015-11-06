@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
 using Acr.Support.iOS;
 using CoreGraphics;
 using UIKit;
@@ -11,6 +13,17 @@ using Splat;
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
+        readonly Timer toastTimer;
+
+
+        public UserDialogsImpl() {
+            this.toastTimer = new Timer();
+            this.toastTimer.Elapsed += (sender, args) => {
+                this.toastTimer.Stop();
+                UIApplication.SharedApplication.InvokeOnMainThread(MessageBarManager.SharedInstance.HideAll);
+            };
+        }
+
 
         public static bool ShowToastOnBottom { get; set; }
 
@@ -130,12 +143,17 @@ namespace Acr.UserDialogs {
         }
 
 
+
         public override void Toast(ToastConfig cfg) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
                 MessageBarManager.SharedInstance.ShowAtTheBottom = ShowToastOnBottom;
                 MessageBarManager.SharedInstance.HideAll();
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
                 MessageBarManager.SharedInstance.ShowMessage(cfg.Title, cfg.Description ?? String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
+
+                this.toastTimer.Stop();
+                this.toastTimer.Interval = cfg.Duration.TotalMilliseconds;
+                this.toastTimer.Start();
             });
         }
 

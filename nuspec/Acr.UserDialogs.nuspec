@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.1.7</version>
+        <version>4.1.8</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -16,7 +16,7 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Prompt
 - Toast
 
-In your platform project, make sure to call UserDialogs.Init() before using!
+On android, be sure to call UserDialogs.Init() before using!
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -47,6 +47,9 @@ In your platform project, make sure to call UserDialogs.Init() before using!
             </group>
         </dependencies>
         <releaseNotes>
+4.1.8
+[fix][ios] toast dismissal timer did nothing
+
 4.1.7
 nuget updates
 
