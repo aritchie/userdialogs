@@ -168,8 +168,8 @@ namespace MessageBar
 				);
 
 				//Need a better way of dissmissing the method
-				var dismiss = new Timer (DismissMessage, messageView, TimeSpan.FromSeconds (DisplayDelay),
-					TimeSpan.FromMilliseconds (-1));
+				//var dismiss = new Timer (DismissMessage, messageView, TimeSpan.FromSeconds (DisplayDelay),
+				//	TimeSpan.FromMilliseconds (-1));
 			}
 		}
 

@@ -10,7 +10,7 @@ namespace Acr.UserDialogs {
 
         static readonly Lazy<IUserDialogs> instance = new Lazy<IUserDialogs>(() => {
 #if PCL
-            throw new ArgumentException("This PCL library, not the platform library.  Did you include the nuget package in your project?");
+            throw new ArgumentException("This is the PCL library, not the platform library.  You must install the nuget package in your main executable/application project");
 #elif __ANDROID__
             throw new ArgumentException("In android, you must call UserDialogs.Init(Activity) from your first activity");
 #else

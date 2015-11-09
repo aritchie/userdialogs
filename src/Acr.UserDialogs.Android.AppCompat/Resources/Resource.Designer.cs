@@ -2280,6 +2280,7 @@ namespace Acr.UserDialogs
 		public partial class String
 		{
 			
+<<<<<<< HEAD
 			// aapt resource value: 0x7f0a0015
 			public static int ApplicationName = 2131361813;
 			
@@ -2288,6 +2289,10 @@ namespace Acr.UserDialogs
 			
 			// aapt resource value: 0x7f0a0001
 			public static int abc_action_bar_home_description = 2131361793;
+=======
+			// aapt resource value: 0x7f050000
+			public static int abc_action_bar_home_description = 2131034112;
+>>>>>>> aritchie/master
 			
 			// aapt resource value: 0x7f0a0002
 			public static int abc_action_bar_home_description_format = 2131361794;

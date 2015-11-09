@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
 using Acr.Support.iOS;
 using CoreGraphics;
 using UIKit;
@@ -11,22 +13,31 @@ using Splat;
 namespace Acr.UserDialogs {
 
     public class UserDialogsImpl : AbstractUserDialogs {
+        readonly Timer toastTimer;
+
+
+        public UserDialogsImpl() {
+            this.toastTimer = new Timer();
+            this.toastTimer.Elapsed += (sender, args) => {
+                this.toastTimer.Stop();
+                UIApplication.SharedApplication.InvokeOnMainThread(MessageBarManager.SharedInstance.HideAll);
+            };
+        }
+
 
         public static bool ShowToastOnBottom { get; set; }
 
         public override void Alert(AlertConfig config) {
-            UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
-                    var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                    alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnOk?.Invoke()));
-                    this.Present(alert);
-                }
-                else {
-                    var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, null, config.OkText);
-                    dlg.Clicked += (s, e) => config.OnOk?.Invoke();
-                    dlg.Show();
-                }
-            });
+            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
+                var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnOk?.Invoke()));
+                this.Present(alert);
+            }
+            else {
+                var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, null, config.OkText);
+                dlg.Clicked += (s, e) => config.OnOk?.Invoke();
+                this.Present(dlg);
+            }
         }
 
 
@@ -39,22 +50,20 @@ namespace Acr.UserDialogs {
 
 
         public override void Confirm(ConfirmConfig config) {
-            UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
-                    var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                    dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnConfirm(true)));
-                    dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => config.OnConfirm(false)));
-                    this.Present(dlg);
-                }
-                else {
-                    var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, config.CancelText, config.OkText);
-                    dlg.Clicked += (s, e) => {
-                        var ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
-                        config.OnConfirm(ok);
-                    };
-                    dlg.Show();
-                }
-            });
+            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
+                var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnConfirm(true)));
+                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => config.OnConfirm(false)));
+                this.Present(dlg);
+            }
+            else {
+                var dlg = new UIAlertView(config.Title ?? String.Empty, config.Message, null, config.CancelText, config.OkText);
+                dlg.Clicked += (s, e) => {
+                    var ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
+                    config.OnConfirm(ok);
+                };
+                this.Present(dlg);
+            }
         }
 
 
@@ -62,59 +71,54 @@ namespace Acr.UserDialogs {
             UITextField txtUser = null;
             UITextField txtPass = null;
 
-            UIApplication.SharedApplication.InvokeOnMainThread(() => {
+            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
+                var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))));
+                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))));
 
-                if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
-                    var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                    dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))));
-                    dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))));
+                dlg.AddTextField(x => {
+                    txtUser = x;
+                    x.Placeholder = config.LoginPlaceholder;
+                    x.Text = config.LoginValue ?? String.Empty;
+                });
+                dlg.AddTextField(x => {
+                    txtPass = x;
+                    x.Placeholder = config.PasswordPlaceholder;
+                    x.SecureTextEntry = true;
+                });
+                this.Present(dlg);
+            }
+            else {
+                var dlg = new UIAlertView {
+                    AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput,
+                    Title = config.Title,
+					Message = config.Message
+                };
+                txtUser = dlg.GetTextField(0);
+                txtPass = dlg.GetTextField(1);
 
-                    dlg.AddTextField(x => {
-                        txtUser = x;
-                        x.Placeholder = config.LoginPlaceholder;
-                        x.Text = config.LoginValue ?? String.Empty;
-                    });
-                    dlg.AddTextField(x => {
-                        txtPass = x;
-                        x.Placeholder = config.PasswordPlaceholder;
-                        x.SecureTextEntry = true;
-                    });
-                    this.Present(dlg);
-                }
-                else {
-                    var dlg = new UIAlertView {
-                        AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput,
-                        Title = config.Title,
-						Message = config.Message
-                    };
-                    txtUser = dlg.GetTextField(0);
-                    txtPass = dlg.GetTextField(1);
+                txtUser.Placeholder = config.LoginPlaceholder;
+                txtUser.Text = config.LoginValue ?? String.Empty;
+                txtPass.Placeholder = config.PasswordPlaceholder;
 
-                    txtUser.Placeholder = config.LoginPlaceholder;
-                    txtUser.Text = config.LoginValue ?? String.Empty;
-                    txtPass.Placeholder = config.PasswordPlaceholder;
+                dlg.AddButton(config.OkText);
+                dlg.AddButton(config.CancelText);
+                dlg.CancelButtonIndex = 1;
 
-                    dlg.AddButton(config.OkText);
-                    dlg.AddButton(config.CancelText);
-                    dlg.CancelButtonIndex = 1;
-
-                    dlg.Clicked += (s, e) => {
-                        var ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
-                        config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, ok));
-                    };
-                    dlg.Show();
-                }
-            });
+                dlg.Clicked += (s, e) => {
+                    var ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
+                    config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, ok));
+                };
+                this.Present(dlg);
+            }
         }
 
 
         public override void Prompt(PromptConfig config) {
-            UIApplication.SharedApplication.InvokeOnMainThread(() => {
-				if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
-					this.ShowIOS8Prompt(config);
-                else
-					this.ShowIOS7Prompt(config);
-            });
+			if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+				this.ShowIOS8Prompt(config);
+            else
+				this.ShowIOS7Prompt(config);
         }
 
 
@@ -139,12 +143,17 @@ namespace Acr.UserDialogs {
         }
 
 
+
         public override void Toast(ToastConfig cfg) {
             UIApplication.SharedApplication.InvokeOnMainThread(() => {
                 MessageBarManager.SharedInstance.ShowAtTheBottom = ShowToastOnBottom;
                 MessageBarManager.SharedInstance.HideAll();
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
                 MessageBarManager.SharedInstance.ShowMessage(cfg.Title, cfg.Description ?? String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
+
+                this.toastTimer.Stop();
+                this.toastTimer.Interval = cfg.Duration.TotalMilliseconds;
+                this.toastTimer.Start();
             });
         }
 
@@ -195,7 +204,7 @@ namespace Acr.UserDialogs {
 				else if (btn.ButtonIndex > -1)
 					config.Options[(int)btn.ButtonIndex].Action?.Invoke();
 			};
-			action.ShowInView(view);
+			UIApplication.SharedApplication.InvokeOnMainThread(() => action.ShowInView(view));
 		}
 
 
@@ -237,7 +246,7 @@ namespace Acr.UserDialogs {
 				result.Text = txt.Text.Trim();
 				config.OnResult(result);
 			};
-			dlg.Show();
+            this.Present(dlg);
 		}
 
 
@@ -270,20 +279,13 @@ namespace Acr.UserDialogs {
 		}
 
 
-        protected virtual void Present(UIAlertController alert) {
-            UIApplication.SharedApplication.InvokeOnMainThread(() => {
-				var top = UIApplication.SharedApplication.GetTopViewController();
-				if (alert.PopoverPresentationController != null) {
-					var x = top.View.Bounds.Width / 2;
-					var y = top.View.Bounds.Bottom;
-					var rect = new CGRect(x, y, 0, 0);
+        protected virtual void Present(UIAlertView alert) {
+            UIApplication.SharedApplication.InvokeOnMainThread(alert.Show);
+        }
 
-					alert.PopoverPresentationController.SourceView = top.View;
-					alert.PopoverPresentationController.SourceRect = rect;
-					alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
-				}
-				top.PresentViewController(alert, true, null);
-            });
+
+        protected virtual void Present(UIAlertController alert) {
+            UIApplication.SharedApplication.Present(alert);
         }
 
 
