@@ -285,7 +285,7 @@ namespace Acr.UserDialogs {
 
 
         protected virtual void Present(UIAlertController alert) {
-            UIApplication.SharedApplication.Present(alert);
+            //UIApplication.SharedApplication.Present(alert);
         }
 
 
