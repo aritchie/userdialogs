@@ -255,18 +255,18 @@ namespace Acr.UserDialogs {
 			var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
 			UITextField txt = null;
 
-			dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => {
-				result.Ok = true;
-				result.Text = txt.Text.Trim();
-				config.OnResult(result);
-			}));
 			if (config.IsCancellable) {
-				dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => {
+				dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => {
 					result.Ok = false;
 					result.Text = txt.Text.Trim();
 					config.OnResult(result);
 				}));
 			}
+			dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => {
+				result.Ok = true;
+				result.Text = txt.Text.Trim();
+				config.OnResult(result);
+			}));
 			dlg.AddTextField(x => {
 				this.SetInputType(x, config.InputType);
 				x.Placeholder = config.Placeholder ?? String.Empty;
