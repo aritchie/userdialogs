@@ -1,16 +1,17 @@
 using System;
 using System.Linq;
 using Android.App;
-using Android.Graphics.Drawables;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
 using AndroidHUD;
 using Splat;
-using Android.Content;
-using System.Collections.Generic;
+
 #if APPCOMPAT
+using System.Collections.Generic;
+using Android.Content;
+using Android.Graphics.Drawables;
 using Android.Support.Design.Widget;
 using AlertDialog = Android.Support.V7.App.AlertDialog;
 #else
@@ -197,6 +198,7 @@ namespace Acr.UserDialogs {
         public override void Toast(ToastConfig cfg) {
             var top = this.GetTopActivity();
             var view = top.Window.DecorView.RootView;
+            //var view = top.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
 
             var text = $"<b>{cfg.Title}</b>";
             if (!String.IsNullOrWhiteSpace(cfg.Description))

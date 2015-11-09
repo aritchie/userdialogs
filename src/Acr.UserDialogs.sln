@@ -58,9 +58,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.MvvmCross.Plugins.UserD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.MvvmCross.Plugins.UserDialogs.Uwp", "Acr.MvvmCross.Plugins.UserDialogs.Uwp\Acr.MvvmCross.Plugins.UserDialogs.Uwp.csproj", "{81C5889A-4D6D-4628-85A3-582E77B10880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid.Classic", "Samples.Droid.Classic\Samples.Droid.Classic.csproj", "{A2E079AC-2613-4EFC-884C-CA96610DF9EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid.Classic", "Samples\Samples.Droid.Classic\Samples.Droid.Classic.csproj", "{A2E079AC-2613-4EFC-884C-CA96610DF9EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.WinPhone", "Samples.WinPhone\Samples.WinPhone.csproj", "{99CD1495-A1C1-41E7-A35D-318804B21C2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.WinPhone", "Samples\Samples.WinPhone\Samples.WinPhone.csproj", "{99CD1495-A1C1-41E7-A35D-318804B21C2E}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -931,6 +931,8 @@ Global
 		{A2E079AC-2613-4EFC-884C-CA96610DF9EE}.Debug|x86.Build.0 = Debug|Any CPU
 		{A2E079AC-2613-4EFC-884C-CA96610DF9EE}.Debug|x86.Deploy.0 = Debug|Any CPU
 		{A2E079AC-2613-4EFC-884C-CA96610DF9EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E079AC-2613-4EFC-884C-CA96610DF9EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E079AC-2613-4EFC-884C-CA96610DF9EE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{A2E079AC-2613-4EFC-884C-CA96610DF9EE}.Release|ARM.ActiveCfg = Release|Any CPU
 		{A2E079AC-2613-4EFC-884C-CA96610DF9EE}.Release|ARM.Build.0 = Release|Any CPU
 		{A2E079AC-2613-4EFC-884C-CA96610DF9EE}.Release|ARM.Deploy.0 = Release|Any CPU
@@ -1013,6 +1015,8 @@ Global
 		{99CD1495-A1C1-41E7-A35D-318804B21C2E}.Debug|x86.Build.0 = Debug|x86
 		{99CD1495-A1C1-41E7-A35D-318804B21C2E}.Debug|x86.Deploy.0 = Debug|x86
 		{99CD1495-A1C1-41E7-A35D-318804B21C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CD1495-A1C1-41E7-A35D-318804B21C2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CD1495-A1C1-41E7-A35D-318804B21C2E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{99CD1495-A1C1-41E7-A35D-318804B21C2E}.Release|ARM.ActiveCfg = Release|ARM
 		{99CD1495-A1C1-41E7-A35D-318804B21C2E}.Release|ARM.Build.0 = Release|ARM
 		{99CD1495-A1C1-41E7-A35D-318804B21C2E}.Release|ARM.Deploy.0 = Release|ARM

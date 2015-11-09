@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.1.8</version>
+        <version>4.1.9</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -47,6 +47,9 @@ On android, be sure to call UserDialogs.Init() before using!
             </group>
         </dependencies>
         <releaseNotes>
+4.1.9
+[fix][ios] cancel/ok button locations on confirm, prompt, and login
+
 4.1.8
 [fix][ios] toast dismissal timer did nothing
 
