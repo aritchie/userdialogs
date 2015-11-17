@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.MvvmCross.Plugins.UserDialogs.AppCompat</id>
-        <version>4.1.0</version>
+        <version>4.2.0</version>
         <title>ACR MvvmCross User Dialogs Android AppCompat Support</title>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -12,17 +12,12 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>xamarin mvvmcross</tags>
         <dependencies>
-            <dependency id="MvvmCross.HotTuna.CrossCore" version="[3.5.1, 5.0)" />
-            <dependency id="Acr.UserDialogs.Android.AppCompat" version="[4.1.0, 5.0)" />
+            <dependency id="MvvmCross.HotTuna.CrossCore" version="[4.2, 5.0)" />
+            <dependency id="Acr.MvvmCross.Plugins.UserDialogs" version="[4.2, 5.0)" />
+            <dependency id="Acr.UserDialogs.Android.AppCompat" version="[4.2.0, 5.0)" />
         </dependencies>
         <releaseNotes>
-Update to Acr.UserDialogs 4.0
+This library is now a pure-PCL plugin
         </releaseNotes>
     </metadata>
-    <files>
-        <!-- droid -->
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.dll" target="lib\MonoAndroid10\Acr.MvvmCross.Plugins.UserDialogs.dll" />
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs.Droid\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.Droid.dll" target="lib\MonoAndroid10\Acr.MvvmCross.Plugins.UserDialogs.Droid.dll" />
-        <file src="UserDialogsPluginBootstrap.cs.pp" target="content\MonoAndroid\Bootstrap\UserDialogsPluginBootstrap.cs.pp" />
-    </files>
 </package>

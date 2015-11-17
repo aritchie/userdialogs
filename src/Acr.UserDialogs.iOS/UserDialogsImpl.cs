@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Timers;
 using Acr.Support.iOS;
-using CoreGraphics;
 using UIKit;
 using BigTed;
 using MessageBar;

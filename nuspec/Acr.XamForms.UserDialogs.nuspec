@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.XamForms.UserDialogs</id>
-        <version>4.0.0</version>
+        <version>4.2.0</version>
         <title>ACR User Dialogs for Xamarin and Windows</title>
         <description>Cross platform plugins for Settings, UI Dialogs, Device Info, and Local Notifications</description>
         <authors>Allan Ritchie</authors>
@@ -12,7 +12,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>windows xamarin xam.pcl</tags>
         <dependencies>
-            <dependency id="Acr.UserDialogs" version="[4.1.0,)" />
+            <dependency id="Acr.UserDialogs" version="[4.2.0,)" />
         </dependencies>
         <releaseNotes>
 Moving all Xamarin Form users acr.userdialogs

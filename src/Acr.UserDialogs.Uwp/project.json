@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Coding4Fun.Toolkit.Controls": "2.1.6",
+    "Coding4Fun.Toolkit.Controls": "2.1.7",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Splat": "1.6.2"
   },

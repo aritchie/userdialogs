@@ -157,12 +157,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Coding4Fun.Toolkit">
-      <HintPath>..\..\packages\Coding4Fun.Toolkit.Controls.2.1.6\lib\windowsphone8\Coding4Fun.Toolkit.dll</HintPath>
+    <Reference Include="Coding4Fun.Toolkit, Version=2.0.8.0, Culture=neutral, PublicKeyToken=c5fd7b72b1a17ce4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Coding4Fun.Toolkit.Controls.2.1.7\lib\windowsphone8\Coding4Fun.Toolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Coding4Fun.Toolkit.Controls">
-      <HintPath>..\..\packages\Coding4Fun.Toolkit.Controls.2.1.6\lib\windowsphone8\Coding4Fun.Toolkit.Controls.dll</HintPath>
+    <Reference Include="Coding4Fun.Toolkit.Controls, Version=2.1.6.0, Culture=neutral, PublicKeyToken=c5fd7b72b1a17ce4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Coding4Fun.Toolkit.Controls.2.1.7\lib\windowsphone8\Coding4Fun.Toolkit.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit">

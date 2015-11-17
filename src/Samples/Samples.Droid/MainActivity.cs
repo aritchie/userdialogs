@@ -1,5 +1,4 @@
 ﻿using System;
-using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -23,7 +22,7 @@ namespace Samples.Droid {
             FormsAppCompatActivity.ToolbarResource = Resource.Layout.Toolbar;
             FormsAppCompatActivity.TabLayoutResource = Resource.Layout.TabLayout;
 
-            UserDialogs.Init(this);
+            //UserDialogs.Init(this);
             this.LoadApplication(new App());
         }
     }

@@ -12,6 +12,7 @@ using Foundation;
  * https://github.com/nicwise/BTProgressHUD
  */
 using System.Threading.Tasks;
+using MessageUI;
 
 namespace BTProgressHUDDemo
 {
@@ -30,6 +31,42 @@ namespace BTProgressHUDDemo
 		{
 			base.LoadView();
 			View.BackgroundColor = UIColor.LightGray;
+
+			var foo = ProgressHUD.Shared;
+
+			MakeButton ("Using Mail controller view", () => {
+				MFMailComposeViewController mailController;
+				if (MFMailComposeViewController.CanSendMail)
+				{
+					mailController = new MFMailComposeViewController();
+
+
+					mailController.SetSubject("New User.");
+
+					mailController.SetMessageBody("Please describe your issue: ", false);
+
+					mailController.Finished += (object s, MFComposeResultEventArgs args) =>
+					{
+						InvokeOnMainThread(() =>
+							{
+								mailController.DismissModalViewController(true);
+								switch (args.Result)
+								{
+								case MFMailComposeResult.Sent:
+									//clsGlobal.ShowSimpleAlert(clsGlobal.strAppTitle, "Mail Sent Successfully");
+									break;
+								case MFMailComposeResult.Cancelled:
+									//clsGlobal.ShowSimpleAlert(clsGlobal.strAppTitle, "Mail Sending Cancelled");
+									//Task.Delay(1000);
+									BTProgressHUD.ShowToast("Ok Done", true, 3000);
+									break;
+								}
+							});
+					};
+					this.PresentViewController(mailController, false, null);
+				}
+			
+			});
 
 			MakeButton("Run first - off main thread", () =>
 			{
