@@ -17,6 +17,12 @@ Supports Android, iOS, Windows Phone 8.0 (silverlight), and Unified Windows Plat
 * Toasts
 * [examples](https://github.com/aritchie/userdialogs/blob/master/src/Samples/Samples/MainPage.cs)
 
+## Support Platforms
+
+* Xamarin (iOS Unified/Android)
+* Universal Windows Platform (Win10/UWP)
+* Windows Phone 8 (Silverlight)
+* Portable Class Libraries (Profile 259)
 
 ## Setup
 
@@ -29,6 +35,11 @@ To use, simply reference the nuget package in each of your platform projects.
 #### Android Initialization (In your main activity)
 
     UserDialogs.Init(this);
+
+### MvvmCross
+
+    // from your PCL app.cs (remember to Init on android platform project)
+    Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
 #### Android Material Design/AppCompat
 
@@ -114,6 +125,7 @@ All config objects contain static vars that contain defaults which are basically
 
     in appdelegate or the starting activity
     UserDialogs.Instance = new MyCustomUserDialogs();
+
 
 ## Powered By:
 
