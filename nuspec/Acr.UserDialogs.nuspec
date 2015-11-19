@@ -28,20 +28,20 @@ On android, be sure to call UserDialogs.Init() before using!
             <group>
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
-            <group targetFramework="Xamarin.iOS">
+            <group targetFramework="Xamarin.iOS10">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Acr.Support" version="[1.0.2, 2.0)" />
+                <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
             </group>
-            <group targetFramework="MonoAndroid">
+            <group targetFramework="MonoAndroid10">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Acr.Support" version="[1.0.2, 2.0)" />
+                <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
                 <dependency id="Xamarin.Android.Support.v4" version="[23.0.1.3, 24)" />
             </group>
             <group targetFramework="wp8">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
             </group>
-            <group targetFramework="uap">
+            <group targetFramework="uap10.0">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.6, 3.0)" />
             </group>
@@ -135,18 +135,18 @@ Add debug symbols to package
 
 
         <!-- android -->
-        <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.*" target="lib\MonoAndroid" />
-        <file src="..\src\Acr.UserDialogs.Android\bin\Release\AndHUD.dll" target="lib\MonoAndroid\AndHUD.dll" />
+        <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.*" target="lib\MonoAndroid10" />
+        <file src="..\src\Acr.UserDialogs.Android\bin\Release\AndHUD.dll" target="lib\MonoAndroid10\AndHUD.dll" />
 
         <!-- ios -->
-        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS" />
-        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS\BTProgressHUD.dll" />
+        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS10" />
+        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
 
         <!-- wp8 -->
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />
 
         <!-- uwp -->
-        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.*" target="lib\uap" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.*" target="lib\uap10.0" />
         <file src="..\src\Acr.UserDialogs.Uwp\Properties\Acr.UserDialogs.rd.xml" target="lib\uap10.0\Acr.UserDialogs.Uwp.rd.xml" />
     </files>
 </package>
