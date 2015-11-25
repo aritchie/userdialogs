@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{290F8977-F101-4BD8-8A29-19C78B4EBC23}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Acr.MvvmCross.Plugins.UserDialogs.Touch</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>Acr.MvvmCross.Plugins.UserDialogs.Touch</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Plugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+    <Reference Include="Cirrious.CrossCore.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.4.0.0-beta5\lib\Xamarin.iOS10\Cirrious.CrossCore.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.CrossCore">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.4.0.0-beta5\lib\Xamarin.iOS10\Cirrious.CrossCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Localization">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.4.0.0-beta5\lib\Xamarin.iOS10\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Touch">
+      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.4.0.0-beta5\lib\Xamarin.iOS10\Cirrious.MvvmCross.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross">
+      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.4.0.0-beta5\lib\Xamarin.iOS10\Cirrious.MvvmCross.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Acr.MvvmCross.Plugins.UserDialogs\Acr.MvvmCross.Plugins.UserDialogs.csproj">
+      <Project>{FB69B463-0DD5-49D2-AFED-6E3A31EB37A1}</Project>
+      <Name>Acr.MvvmCross.Plugins.UserDialogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
+      <Project>{6A0AE941-711D-4C36-A311-960B65534B22}</Project>
+      <Name>Acr.UserDialogs.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acr.UserDialogs.iOS\Acr.UserDialogs.iOS.csproj">
+      <Project>{DFA982A2-F6F7-4FFD-9F86-A1AF11F7C4A1}</Project>
+      <Name>Acr.UserDialogs.iOS</Name>
+      <IsAppExtension>False</IsAppExtension>
+      <IsWatchApp>False</IsWatchApp>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
