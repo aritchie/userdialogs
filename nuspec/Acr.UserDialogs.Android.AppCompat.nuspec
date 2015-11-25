@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs.Android.AppCompat</id>
-        <version>4.1.7</version>
+        <version>4.2.0</version>
         <title>ACR User Dialogs Plugin Android AppCompat Support</title>
         <summary>ACR User Dialogs Android Support Library - AppCompat</summary>
         <description>
@@ -16,10 +16,13 @@ Material Design for ACR User Dialogs on Android
         <tags>windows xamarin xam.pcl dialogs</tags>
         <dependencies>
             <dependency id="Splat" version="[1.6.2, 2.0)" />
-            <dependency id="Xamarin.Android.Support.Design" version="[23.0.1.1, 24)" />
+            <dependency id="Xamarin.Android.Support.Design" version="[23.0.1.3, 24)" />
             <dependency id="Acr.Support" version="[1.0.2, 2.0)" />
         </dependencies>
         <releaseNotes>
+4.1.8
+[fix] snackbar location
+
 4.1.7
 update support library part 2
 
@@ -38,10 +41,7 @@ Icons for actionsheets thanks to @martijn00
     </metadata>
     <files>
         <!-- android -->
-        <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.dll" target="lib\MonoAndroid10\Acr.UserDialogs.dll" />
-		<file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.pdb" target="lib\MonoAndroid10\Acr.UserDialogs.pdb" />
-        <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\MonoAndroid10\Acr.UserDialogs.Interface.dll" />
-		<file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\MonoAndroid10\Acr.UserDialogs.Interface.pdb" />
+        <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.*" target="lib\MonoAndroid10" />
         <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\AndHUD.dll" target="lib\MonoAndroid10\AndHUD.dll" />
     </files>
 </package>

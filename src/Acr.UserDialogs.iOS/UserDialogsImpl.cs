@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Timers;
 using Acr.Support.iOS;
-using CoreGraphics;
 using UIKit;
 using BigTed;
 using MessageBar;
@@ -52,8 +50,8 @@ namespace Acr.UserDialogs {
         public override void Confirm(ConfirmConfig config) {
             if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnConfirm(false)));
                 dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnConfirm(true)));
-                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => config.OnConfirm(false)));
                 this.Present(dlg);
             }
             else {
@@ -73,8 +71,8 @@ namespace Acr.UserDialogs {
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))));
                 dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))));
-                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))));
 
                 dlg.AddTextField(x => {
                     txtUser = x;
@@ -255,18 +253,18 @@ namespace Acr.UserDialogs {
 			var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
 			UITextField txt = null;
 
-			dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => {
-				result.Ok = true;
-				result.Text = txt.Text.Trim();
-				config.OnResult(result);
-			}));
 			if (config.IsCancellable) {
-				dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Default, x => {
+				dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => {
 					result.Ok = false;
 					result.Text = txt.Text.Trim();
 					config.OnResult(result);
 				}));
 			}
+			dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => {
+				result.Ok = true;
+				result.Text = txt.Text.Trim();
+				config.OnResult(result);
+			}));
 			dlg.AddTextField(x => {
 				this.SetInputType(x, config.InputType);
 				x.Placeholder = config.Placeholder ?? String.Empty;

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.MvvmCross.Plugins.UserDialogs</id>
-        <version>4.1.0</version>
+        <version>4.2.0</version>
         <title>ACR MvvmCross User Dialogs</title>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -12,32 +12,27 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>xamarin mvvmcross</tags>
         <dependencies>
-            <dependency id="MvvmCross.HotTuna.CrossCore" version="[3.5.1, 5.0)" />
-            <dependency id="Acr.UserDialogs" version="[4.1.0, 5.0)" />
+            <dependency id="MvvmCross.HotTuna.CrossCore" version="[4.0, 5.0)" />
+            <dependency id="Acr.UserDialogs" version="[4.2.0, 5.0)" />
         </dependencies>
         <releaseNotes>
-Restore windows phone 8 support
+This library is now a pure PCL library
         </releaseNotes>
     </metadata>
     <files>
         <!-- PCL -->
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.dll" target="lib\portable-win+net45+wp8+win8+wpa81\Acr.MvvmCross.Plugins.UserDialogs.dll" />
+        <file src="..\src\Acr.UserDialogs.MvvmCross\bin\Release\Acr.UserDialogs.MvvmCross.dll" target="lib\portable-win+net45+wp8+win8+wpa81\Acr.UserDialogs.MvvmCross.dll" />
 
-        <!-- droid -->
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.dll" target="lib\MonoAndroid10\Acr.MvvmCross.Plugins.UserDialogs.dll" />
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs.Droid\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.Droid.dll" target="lib\MonoAndroid10\Acr.MvvmCross.Plugins.UserDialogs.Droid.dll" />
-        <file src="UserDialogsPluginBootstrap.cs.pp" target="content\MonoAndroid\Bootstrap\UserDialogsPluginBootstrap.cs.pp" />
+        <!--android-->
+        <file src="UserDialogsPluginBootstrap.cs.pp" target="content\MonoAndroid10\Bootstrap\UserDialogsPluginBootstrap.cs.pp" />
 
-        <!-- touch -->
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.dll" target="lib\Xamarin.iOS10\Acr.MvvmCross.Plugins.UserDialogs.dll" />
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs.Touch\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.Touch.dll" target="lib\Xamarin.iOS10\Acr.MvvmCross.Plugins.UserDialogs.Touch.dll" />
-        <file src="TouchUserDialogsPluginBootstrap.cs.pp" target="content\Xamarin.iOS10\Bootstrap\UserDialogsPluginBootstrap.cs.pp" />
+        <!--ios-->
+        <file src="UserDialogsPluginBootstrap.cs.pp" target="content\Xamarin.iOS10\Bootstrap\UserDialogsPluginBootstrap.cs.pp" />
 
-        <!-- wp8 -->
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs.WP8\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.dll" target="lib\wp8\Acr.MvvmCross.Plugins.UserDialogs.dll" />
-        <file src="..\src\Acr.MvvmCross.Plugins.UserDialogs.WP8\bin\Release\Acr.MvvmCross.Plugins.UserDialogs.WP8.dll" target="lib\wp8\Acr.MvvmCross.Plugins.UserDialogs.WP8.dll" />
+        <!--uap-->
+        <file src="UserDialogsPluginBootstrap.cs.pp" target="content\uap10.0\Bootstrap\UserDialogsPluginBootstrap.cs.pp" />
+
+        <!--wp8-->
         <file src="UserDialogsPluginBootstrap.cs.pp" target="content\wp8\Bootstrap\UserDialogsPluginBootstrap.cs.pp" />
-
-        <!--TODO: UWP with 4.0-->
     </files>
 </package>
