@@ -197,8 +197,8 @@ namespace Acr.UserDialogs {
 
         public override void Toast(ToastConfig cfg) {
             var top = this.GetTopActivity();
-            var view = top.Window.DecorView.RootView;
-            //var view = top.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
+            //var view = top.Window.DecorView.RootView;
+            var view = top.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
 
             var text = $"<b>{cfg.Title}</b>";
             if (!String.IsNullOrWhiteSpace(cfg.Description))
