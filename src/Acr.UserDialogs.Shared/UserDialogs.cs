@@ -35,7 +35,7 @@ namespace Acr.UserDialogs {
         /// </summary>
         public static void Init(Application app) {
             ActivityLifecycleCallbacks.Register(app);
-            Init((() => ActivityLifecycleCallbacks.CurrentTopActivity));
+            Init(() => ActivityLifecycleCallbacks.CurrentTopActivity);
         }
 
 
@@ -44,7 +44,7 @@ namespace Acr.UserDialogs {
         /// </summary>
         public static void Init(Activity activity) {
             ActivityLifecycleCallbacks.Register(activity);
-            Init((() => ActivityLifecycleCallbacks.CurrentTopActivity));
+            Init(() => ActivityLifecycleCallbacks.CurrentTopActivity);
         }
 #endif
 

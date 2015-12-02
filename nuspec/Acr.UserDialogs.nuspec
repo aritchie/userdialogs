@@ -55,7 +55,7 @@ Supported Platforms
         <releaseNotes>
 4.2.0
 [fix][ios] cancel/ok button locations on confirm, prompt, and login
-[update][ios] btprogresshud to 1.18
+[update][ios] btprogresshud to 1.19
 
 4.1.8
 [fix][ios] toast dismissal timer did nothing

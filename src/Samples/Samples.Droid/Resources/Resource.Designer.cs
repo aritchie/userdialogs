@@ -5486,10 +5486,10 @@ namespace Samples.Droid
 			public const int support_simple_spinner_dropdown_item = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int TabLayout = 2130903091;
+			public const int tabs = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int Toolbar = 2130903092;
+			public const int toolbar = 2130903092;
 			
 			static Layout()
 			{

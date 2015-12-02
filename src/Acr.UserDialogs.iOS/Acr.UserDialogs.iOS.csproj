@@ -93,7 +93,7 @@
   <ItemGroup>
     <XamarinComponentReference Include="btprogresshud">
       <Visible>False</Visible>
-      <Version>1.18</Version>
+      <Version>1.19</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <Import Project="..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems" Label="Shared" Condition="Exists('..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems')" />
