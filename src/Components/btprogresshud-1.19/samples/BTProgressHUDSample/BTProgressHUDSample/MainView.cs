@@ -12,7 +12,6 @@ using Foundation;
  * https://github.com/nicwise/BTProgressHUD
  */
 using System.Threading.Tasks;
-using MessageUI;
 
 namespace BTProgressHUDDemo
 {
@@ -23,7 +22,6 @@ namespace BTProgressHUDDemo
 
 		}
 
-		UITextView text;
 		float progress = -1;
 		NSTimer timer;
 
@@ -32,49 +30,13 @@ namespace BTProgressHUDDemo
 			base.LoadView();
 			View.BackgroundColor = UIColor.LightGray;
 
-			var foo = ProgressHUD.Shared;
-
-			MakeButton ("Using Mail controller view", () => {
-				MFMailComposeViewController mailController;
-				if (MFMailComposeViewController.CanSendMail)
-				{
-					mailController = new MFMailComposeViewController();
-
-
-					mailController.SetSubject("New User.");
-
-					mailController.SetMessageBody("Please describe your issue: ", false);
-
-					mailController.Finished += (object s, MFComposeResultEventArgs args) =>
-					{
-						InvokeOnMainThread(() =>
-							{
-								mailController.DismissModalViewController(true);
-								switch (args.Result)
-								{
-								case MFMailComposeResult.Sent:
-									//clsGlobal.ShowSimpleAlert(clsGlobal.strAppTitle, "Mail Sent Successfully");
-									break;
-								case MFMailComposeResult.Cancelled:
-									//clsGlobal.ShowSimpleAlert(clsGlobal.strAppTitle, "Mail Sending Cancelled");
-									//Task.Delay(1000);
-									BTProgressHUD.ShowToast("Ok Done", true, 3000);
-									break;
-								}
-							});
-					};
-					this.PresentViewController(mailController, false, null);
-				}
-			
-			});
-
 			MakeButton("Run first - off main thread", () =>
 			{
 				//this must be the first one to run.
 				// once BTProgressHUD.ANTYTHING has been called once on the UI thread, 
 				// it'll be setup. So this is an initial call OFF the main thread.
 				// Should except in debug.
-				var task = Task.Factory.StartNew(() =>
+				Task.Factory.StartNew(() =>
 				{
 					try
 					{

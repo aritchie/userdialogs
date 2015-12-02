@@ -20,7 +20,7 @@ namespace BTProgressHUDDemo
 		{
 
 		}
-		UITextView text;
+
 		float progress = -1;
 		NSTimer timer;
 		public override void LoadView ()
