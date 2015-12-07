@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.2.0</version>
+        <version>4.2.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -53,6 +53,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+4.2.1
+[fix][uwp] nuspec fixes for rd.xml
+
 4.2.0
 [fix][ios] cancel/ok button locations on confirm, prompt, and login
 [update][ios] btprogresshud to 1.19
@@ -153,6 +156,5 @@ Add debug symbols to package
 
         <!-- uwp -->
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.*" target="lib\uap10.0" />
-        <file src="..\src\Acr.UserDialogs.Uwp\Properties\Acr.UserDialogs.rd.xml" target="lib\uap10.0\Acr.UserDialogs.Uwp.rd.xml" />
     </files>
 </package>
