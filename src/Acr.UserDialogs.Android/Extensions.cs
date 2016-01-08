@@ -1,5 +1,6 @@
 using System;
 using Android.Views;
+using Android.Widget;
 
 
 namespace Acr.UserDialogs {
@@ -36,6 +37,10 @@ namespace Acr.UserDialogs {
 #else
         public static void ShowExt(this Android.App.AlertDialog.Builder builder) {
             var dialog = builder.Create();
+            TextView textView = new TextView(dialog.Context);
+            textView.Text = "Very long test Title, which is longer than two lines and will be shown anyway. That's so awesome!";
+            textView.TextSize = 18.0f;
+            dialog.SetCustomTitle(textView);
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.Show();
         }
