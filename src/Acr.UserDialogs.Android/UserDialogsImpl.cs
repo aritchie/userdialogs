@@ -52,10 +52,15 @@ namespace Acr.UserDialogs {
 
 
         public override void ActionSheet(ActionSheetConfig config) {
+            var activity = this.GetTopActivity();
             var dlg = new AlertDialog
-                .Builder(this.GetTopActivity())
+                .Builder(activity)
 				.SetCancelable(false)
-				.SetTitle(config.Title);
+                .SetTitle(config.Title);
+                //.SetCustomTitle(new TextView(activity) {
+                //    Text = config.Title,
+                //    TextSize = 18.0f
+                //});
 
             if (config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null)) {
                 var adapter = new ActionSheetListAdapter(this.GetTopActivity(), Android.Resource.Layout.SelectDialogItem, Android.Resource.Id.Text1, config);
