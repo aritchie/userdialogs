@@ -1,160 +1,173 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <metadata>
-        <id>Acr.UserDialogs</id>
-        <version>4.2.1</version>
-        <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
-        <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
-        <description>
-Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
-- Action Sheet (multiple choice menu)
-- Alert
-- Confirm
-- Loading
-- Login
-- Progress
-- Prompt
-- Toast
+  <metadata>
+    <id>Acr.UserDialogs.Zumicts</id>
+    <version>4.2.1.2</version>
+    <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
+    <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
+    <description>
+      Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
+      - Action Sheet (multiple choice menu)
+      - Alert
+      - Confirm
+      - Loading
+      - Login
+      - Progress
+      - Prompt
+      - Toast
 
-On android, be sure to call UserDialogs.Init() before using!
+      On android, be sure to call UserDialogs.Init() before using!
 
-Supported Platforms
-- Xamarin (iOS Unified/Android)
-- Universal Windows Platform (Win10/UWP)
-- Windows Phone 8 (Silverlight)
-- Portable Class Libraries (Profile 259)
-        </description>
-        <authors>Allan Ritchie</authors>
-        <owners>Allan Ritchie</owners>
-        <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
-        <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <tags>windows xamarin xam.pcl dialogs</tags>
-        <dependencies>
-            <group>
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-            </group>
-            <group targetFramework="Xamarin.iOS10">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
-            </group>
-            <group targetFramework="MonoAndroid10">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
-                <dependency id="Xamarin.Android.Support.v4" version="[23.0.1.3, 24)" />
-            </group>
-            <group targetFramework="wp8">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
-            </group>
-            <group targetFramework="uap10.0">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.6, 3.0)" />
-            </group>
-        </dependencies>
-        <releaseNotes>
-4.2.1
-[fix][uwp] nuspec fixes for rd.xml
+      Supported Platforms
+      - Xamarin (iOS Unified/Android)
+      - Universal Windows Platform (Win10/UWP)
+      - Windows Phone 8 (Silverlight)
+      - Windows Phone 8.1
+      - Portable Class Libraries (Profile 259)
+    </description>
+    <authors>Allan Ritchie</authors>
+    <owners>Allan Ritchie</owners>
+    <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
+    <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>windows xamarin xam.pcl dialogs</tags>
+    <dependencies>
+      <group>
+        <dependency id="Splat" version="[1.6.2, 2.0)" />
+      </group>
+      <group targetFramework="Xamarin.iOS10">
+        <dependency id="Splat" version="[1.6.2, 2.0)" />
+        <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
+      </group>
+      <group targetFramework="MonoAndroid10">
+        <dependency id="Splat" version="[1.6.2, 2.0)" />
+        <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
+        <dependency id="Xamarin.Android.Support.v4" version="[23.0.1.3, 24)" />
+      </group>
+      <group targetFramework="wp8">
+        <dependency id="Splat" version="[1.6.2, 2.0)" />
+        <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
+      </group>
+      <group targetFramework="wpa81">
+        <dependency id="Splat" version="[1.6.2, 2.0)" />
+        <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.6, 3.0)" />
+      </group>
+      <group targetFramework="uap10.0">
+        <dependency id="Splat" version="[1.6.2, 2.0)" />
+        <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.6, 3.0)" />
+      </group>
+    </dependencies>
+    <releaseNotes>
+      fork
+      Add Windows Phone 8.1 support
+      
+      4.2.1
+      [fix][uwp] nuspec fixes for rd.xml
 
-4.2.0
-[fix][ios] cancel/ok button locations on confirm, prompt, and login
-[update][ios] btprogresshud to 1.19
+      4.2.0
+      [fix][ios] cancel/ok button locations on confirm, prompt, and login
+      [update][ios] btprogresshud to 1.19
 
-4.1.8
-[fix][ios] toast dismissal timer did nothing
+      4.1.8
+      [fix][ios] toast dismissal timer did nothing
 
-4.1.7
-nuget updates
+      4.1.7
+      nuget updates
 
-4.1.6
-[update] support library
-[fix][ios] nuspec updates to deal with potential xamstudio ref issues
+      4.1.6
+      [update] support library
+      [fix][ios] nuspec updates to deal with potential xamstudio ref issues
 
-4.1.5
-[fix] update error message
-[fix] nuget package issues with android
-[update] droid libraries
+      4.1.5
+      [fix] update error message
+      [fix] nuget package issues with android
+      [update] droid libraries
 
-4.1.4
-[fix] UWP registration
-[fix] use proper default icon for info
-[fix][ios] text color of toasts
-[update][ios] Update BTProgressHUD to 1.17
+      4.1.4
+      [fix] UWP registration
+      [fix] use proper default icon for info
+      [fix][ios] text color of toasts
+      [update][ios] Update BTProgressHUD to 1.17
 
-4.1.3
-Add debug symbols to package
+      4.1.3
+      Add debug symbols to package
 
-4.1.2
-[feature] Icons for actionsheets thanks to @martijn00
+      4.1.2
+      [feature] Icons for actionsheets thanks to @martijn00
 
-4.1.1
-[fix][droid] prompts were not forcing keyboard to appear (thanks @rubgithub)
-[feature][windows] toast functionality now available thanks to coding4fun.toolkit
+      4.1.1
+      [fix][droid] prompts were not forcing keyboard to appear (thanks @rubgithub)
+      [feature][windows] toast functionality now available thanks to coding4fun.toolkit
 
-4.1.0
-[fix][wp] restore wp8
-[fix] add missing fluent methods to config objects
-[fix][uwp] dispatch dialogs on UI thread
-[fix][droid] hack display to show title and description on classic android
-[feature][ios] On the platform project, you can now set UserDialogImpl.ShowToastsOnBottom = true;(static)
-[feature] Show decimal keyboard on prompts (thanks @rubgithub)
+      4.1.0
+      [fix][wp] restore wp8
+      [fix] add missing fluent methods to config objects
+      [fix][uwp] dispatch dialogs on UI thread
+      [fix][droid] hack display to show title and description on classic android
+      [feature][ios] On the platform project, you can now set UserDialogImpl.ShowToastsOnBottom = true;(static)
+      [feature] Show decimal keyboard on prompts (thanks @rubgithub)
 
-4.0.5
-[BREAKING][droid] - appcompat now exists in a secondary package (Acr.UserDialogs.Android.AppCompat)
-[ios][fix] truncating text in toasts.  thanks to @highplans
+      4.0.5
+      [BREAKING][droid] - appcompat now exists in a secondary package (Acr.UserDialogs.Android.AppCompat)
+      [ios][fix] truncating text in toasts.  thanks to @highplans
 
-4.0.4
-[ios][fix] further fixes to toast top view
-[droid] toasts now use formatted text to make the titles look better
-[info] Default text color for success toasts is now black
-[info] using acr.support to provide common base library
+      4.0.4
+      [ios][fix] further fixes to toast top view
+      [droid] toasts now use formatted text to make the titles look better
+      [info] Default text color for success toasts is now black
+      [info] using acr.support to provide common base library
 
-4.0.3
-[feature] text and description for toasts
-[droid][fix] text color for toasts
-[droid][fix] add ability to pass activity factory function for android init
-[ios][fix] more default icon fixes
-[info] WP81 and UWP still beta!
+      4.0.3
+      [feature] text and description for toasts
+      [droid][fix] text color for toasts
+      [droid][fix] add ability to pass activity factory function for android init
+      [ios][fix] more default icon fixes
+      [info] WP81 and UWP still beta!
 
-4.0.2
-[ios][fix] default icons for messagebar
+      4.0.2
+      [ios][fix] default icons for messagebar
 
-4.0.1
-[ios][fix] top level view not selected properly in messagebar
-[ios][fix] messagebar should fire ontap, not ondismiss
-[ios] hide previous toast if new one coming in
+      4.0.1
+      [ios][fix] top level view not selected properly in messagebar
+      [ios][fix] messagebar should fire ontap, not ondismiss
+      [ios] hide previous toast if new one coming in
 
-4.0
-[feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
-[feature] images and colours now powered by Splat
-[feature] Universal windows platform support (beta - still not pretty)
-[android] material design support (flag in Init)
-[breaking] Init is gone from everything but android
-[breaking] android no longer supports anything less than API 15
+      4.0
+      [feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
+      [feature] images and colours now powered by Splat
+      [feature] Universal windows platform support (beta - still not pretty)
+      [android] material design support (flag in Init)
+      [breaking] Init is gone from everything but android
+      [breaking] android no longer supports anything less than API 15
 
-3.4.2
-[feature] ActionSheetAsync - the xamarin forms way of doing this.  I still recommend ActionSheet for maximum flexibility
-[ios][fix] More top viewcontroller fixes (around tab controllers) courtesy of @RTodorov
+      3.4.2
+      [feature] ActionSheetAsync - the xamarin forms way of doing this.  I still recommend ActionSheet for maximum flexibility
+      [ios][fix] More top viewcontroller fixes (around tab controllers) courtesy of @RTodorov
 
-        </releaseNotes>
-    </metadata>
-    <files>
-        <!-- PCL -->
-        <file src="..\src\Acr.UserDialogs\bin\Release\Acr.UserDialogs.*" target="lib\portable-win+net45+wp8+win8+wpa81" />
+    </releaseNotes>
+  </metadata>
+  <files>
+    <!-- PCL -->
+    <file src="..\src\Acr.UserDialogs\bin\Release\Acr.UserDialogs.*" target="lib\portable-win+net45+wp8+win8+wpa81" />
 
 
-        <!-- android -->
-        <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.*" target="lib\MonoAndroid10" />
-        <file src="..\src\Acr.UserDialogs.Android\bin\Release\AndHUD.dll" target="lib\MonoAndroid10\AndHUD.dll" />
+    <!-- android -->
+    <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.*" target="lib\MonoAndroid10" />
+    <file src="..\src\Acr.UserDialogs.Android\bin\Release\AndHUD.dll" target="lib\MonoAndroid10\AndHUD.dll" />
 
-        <!-- ios -->
-        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS10" />
-        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
+    <!-- ios -->
+    <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS10" />
+    <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll"
+          target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
 
-        <!-- wp8 -->
-        <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />
+    <!-- wp8 -->
+    <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />
 
-        <!-- uwp -->
-        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.*" target="lib\uap10.0" />
-    </files>
+    <!-- wpa81 -->
+    <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.*" target="lib\wpa81" />
+
+    <!-- uwp -->
+    <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.*" target="lib\uap10.0" />
+  </files>
 </package>
