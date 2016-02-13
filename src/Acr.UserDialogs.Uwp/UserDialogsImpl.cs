@@ -83,40 +83,80 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Prompt(PromptConfig config) {
-            var dialog = new ContentDialog { Title = config.Title };
-            var txt = new TextBox {
+        public override void Prompt(PromptConfig config)
+        {
+            var stack = new StackPanel
+            {
+                Children =
+                {
+                    new TextBlock { Text = config.Message }
+                }
+            };
+            var dialog = new ContentDialog
+            {
+                Title = config.Title,
+                Content = stack,
+                PrimaryButtonText = config.OkText
+            };
+
+
+            if (config.InputType == InputType.Password)
+                this.SetPasswordPrompt(dialog, stack, config);
+            else
+                this.SetDefaultPrompt(dialog, stack, config);
+
+            if (config.IsCancellable) {
+                dialog.SecondaryButtonText = config.CancelText;
+                dialog.SecondaryButtonCommand = new Command(() =>
+                {
+                    config.OnResult?.Invoke(new PromptResult { Ok = false });
+                    dialog.Hide();
+                });
+            }
+
+            this.Dispatch(() => dialog.ShowAsync());
+        }
+
+
+        void SetPasswordPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
+        {
+            var txt = new PasswordBox
+            {
+                PlaceholderText = config.Placeholder,
+                Password = config.Text ?? String.Empty
+            };
+            stack.Children.Add(txt);
+
+            dialog.PrimaryButtonCommand = new Command(() =>
+            {
+                config.OnResult?.Invoke(new PromptResult
+                {
+                    Ok = true,
+                    Text = txt.Password
+                });
+                dialog.Hide();
+            });
+        }
+
+
+        void SetDefaultPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
+        {
+            var txt = new TextBox
+            {
                 PlaceholderText = config.Placeholder,
                 Text = config.Text ?? String.Empty
             };
-            var stack = new StackPanel {
-                Children = {
-                    new TextBlock { Text = config.Message },
-                    txt
-                }
-            };
-            dialog.Content = stack;
+            stack.Children.Add(txt);
 
-            dialog.PrimaryButtonText = config.OkText;
-            dialog.PrimaryButtonCommand = new Command(() => {
-                config.OnResult?.Invoke(new PromptResult {
+            dialog.PrimaryButtonCommand = new Command(() =>
+            {
+                config.OnResult?.Invoke(new PromptResult
+                {
                     Ok = true,
                     Text = txt.Text.Trim()
                 });
                 dialog.Hide();
             });
-
-            if (config.IsCancellable) {
-                dialog.SecondaryButtonText = config.CancelText;
-                dialog.SecondaryButtonCommand = new Command(() => {
-                    config.OnResult?.Invoke(new PromptResult {
-                        Ok = false,
-                        Text = txt.Text.Trim()
-                    });
-                    dialog.Hide();
-                });
-            }
-            this.Dispatch(() => dialog.ShowAsync());
         }
 
 
