@@ -18,10 +18,10 @@
             <TextBlock Text="{Binding Message}" />
 
             <TextBlock Text="{Binding UserNameText}" />
-            <TextBox PlaceholderText="{Binding UserNamePlaceholder}" Text="{Binding UserName}" />
+            <TextBox PlaceholderText="{Binding UserNamePlaceholder}" Text="{Binding UserName, Mode=TwoWay, FallbackValue=''}" />
 
             <TextBlock Text="{Binding PasswordText}" />
-            <PasswordBox PlaceholderText="{Binding PasswordPlaceholder}" Password="{Binding Password}" />
+            <PasswordBox PlaceholderText="{Binding PasswordPlaceholder}" Password="{Binding Password, Mode=TwoWay, FallbackValue=''}" />
         </StackPanel>
     </ContentDialog.Content>
 </ContentDialog>

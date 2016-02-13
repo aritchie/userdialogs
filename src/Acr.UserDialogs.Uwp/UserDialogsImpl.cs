@@ -62,7 +62,7 @@ namespace Acr.UserDialogs {
 
 
         public override void Login(LoginConfig config) {
-            var dlg = new LoginContentDialog();
+
             var vm = new LoginViewModel {
                 LoginText = config.OkText,
                 Title = config.Title,
@@ -78,7 +78,10 @@ namespace Acr.UserDialogs {
             vm.Cancel = new Command(() =>
                 config.OnResult?.Invoke(new LoginResult(vm.UserName, vm.Password, false))
             );
-            dlg.DataContext = vm;
+            var dlg = new LoginContentDialog
+            {
+                DataContext = vm
+            };
             this.Dispatch(() => dlg.ShowAsync());
         }
 
