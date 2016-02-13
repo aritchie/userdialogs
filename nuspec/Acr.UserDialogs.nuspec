@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
@@ -62,9 +61,8 @@ Supported Platforms
 4.3.0
 [feature] windows phone 8.1 support
 [update][android] use latest support libraries
-
-4.2.1
-[fix][uwp] nuspec fixes for rd.xml
+[fix][uwp] loginresult not returning results
+[fix][uwp] prompt password now works
 
 4.2.0
 [fix][ios] cancel/ok button locations on confirm, prompt, and login
