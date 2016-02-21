@@ -1,0 +1,13 @@
+Please refrain from +1's, nuget library update requests (this is not an issue with the library), and requesting timelines for something.
+
+1) Please check all of the platforms you are having the issue on
+[] iOS
+[] Android
+[] WP81
+[] WP8
+[] UWP
+[] PCL
+
+2) Please state the issue to the best of your ability below
+
+3) Please copy and paste the exception details below.  If you are having a crash and this detail is missing, your issue will be closed without warning.
