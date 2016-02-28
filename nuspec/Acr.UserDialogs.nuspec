@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.3.0</version>
+        <version>4.3.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -58,6 +58,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+4.3.1
+[fix][uwp][wpa81] annoying XR.xml missing payload file defect
+
 4.3.0
 [feature] windows phone 8.1 support
 [update][android] use latest support libraries
@@ -164,9 +167,16 @@ Add debug symbols to package
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />
 
         <!-- wpa81 -->
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.*" target="lib\wpa81" />
+        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81" />
+        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.pdb" target="lib\wpa81" />
+        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wpa81" />
+        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\wpa81" />
 
         <!-- uwp -->
-        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.*" target="lib\uap10.0" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.pdb" target="lib\uap10.0" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\uap10.0" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\uap10.0" />
+
     </files>
 </package>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs.Android.AppCompat</id>
-        <version>4.3.1</version>
+        <version>4.3.2</version>
         <title>ACR User Dialogs Plugin Android AppCompat Support</title>
         <summary>ACR User Dialogs Android Support Library - AppCompat</summary>
         <description>
