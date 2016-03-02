@@ -127,16 +127,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
-      <Project>{6a0ae941-711d-4c36-a311-960b65534b22}</Project>
-      <Name>Acr.UserDialogs.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Acr.UserDialogs.Uwp\Acr.UserDialogs.Uwp.csproj">
-      <Project>{e7273c26-d3e3-4161-b464-69cd6fe606b1}</Project>
-      <Name>Acr.UserDialogs.Uwp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

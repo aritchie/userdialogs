@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.3.2</version>
+        <version>4.3.4</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -58,8 +58,8 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
-4.3.2
-[fix][uwp][wpa81] annoying XR.xml missing payload file defect
+4.3.4
+[fix][uwp][wp81] xaml exceptions due to missing library layout files
 
 4.3.0
 [feature] windows phone 8.1 support
@@ -160,8 +160,7 @@ Add debug symbols to package
 
         <!-- ios -->
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS10" />
-        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll"
-              target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
+        <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\BTProgressHUD.dll" target="lib\Xamarin.iOS10\BTProgressHUD.dll" />
 
         <!-- wp8 -->
         <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />
@@ -169,15 +168,16 @@ Add debug symbols to package
         <!-- wpa81 -->
         <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81" />
         <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.pdb" target="lib\wpa81" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\*.xr.xml" target="lib\wpa81\Acr.UserDialogs" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\*.xbf" target="lib\wpa81\Acr.UserDialogs" />
+        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs\*.*" target="lib\wpa81\Acr.UserDialogs" />
         <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wpa81" />
         <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\wpa81" />
 
         <!-- uwp -->
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.pdb" target="lib\uap10.0" />
-        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\*.xr.xml" target="lib\uap10.0\Acr.UserDialogs" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.pri" target="lib\uap10.0" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Properties\*.rd.xml" target="lib\uap10.0\Acr.UserDialogs\Properties" />
+        <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs\*.*" target="lib\uap10.0\Acr.UserDialogs" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\uap10.0" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\uap10.0" />
 

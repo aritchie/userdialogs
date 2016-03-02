@@ -90,6 +90,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Attribute.alertDialogCenterButtons = global::Samples.Droid.Resource.Attribute.alertDialogCenterButtons;
 			global::Acr.UserDialogs.Resource.Attribute.alertDialogStyle = global::Samples.Droid.Resource.Attribute.alertDialogStyle;
 			global::Acr.UserDialogs.Resource.Attribute.alertDialogTheme = global::Samples.Droid.Resource.Attribute.alertDialogTheme;
+			global::Acr.UserDialogs.Resource.Attribute.allowStacking = global::Samples.Droid.Resource.Attribute.allowStacking;
 			global::Acr.UserDialogs.Resource.Attribute.arrowHeadLength = global::Samples.Droid.Resource.Attribute.arrowHeadLength;
 			global::Acr.UserDialogs.Resource.Attribute.arrowShaftLength = global::Samples.Droid.Resource.Attribute.arrowShaftLength;
 			global::Acr.UserDialogs.Resource.Attribute.autoCompleteTextViewStyle = global::Samples.Droid.Resource.Attribute.autoCompleteTextViewStyle;
@@ -136,6 +137,10 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Attribute.contentInsetStart = global::Samples.Droid.Resource.Attribute.contentInsetStart;
 			global::Acr.UserDialogs.Resource.Attribute.contentScrim = global::Samples.Droid.Resource.Attribute.contentScrim;
 			global::Acr.UserDialogs.Resource.Attribute.controlBackground = global::Samples.Droid.Resource.Attribute.controlBackground;
+			global::Acr.UserDialogs.Resource.Attribute.counterEnabled = global::Samples.Droid.Resource.Attribute.counterEnabled;
+			global::Acr.UserDialogs.Resource.Attribute.counterMaxLength = global::Samples.Droid.Resource.Attribute.counterMaxLength;
+			global::Acr.UserDialogs.Resource.Attribute.counterOverflowTextAppearance = global::Samples.Droid.Resource.Attribute.counterOverflowTextAppearance;
+			global::Acr.UserDialogs.Resource.Attribute.counterTextAppearance = global::Samples.Droid.Resource.Attribute.counterTextAppearance;
 			global::Acr.UserDialogs.Resource.Attribute.customNavigationLayout = global::Samples.Droid.Resource.Attribute.customNavigationLayout;
 			global::Acr.UserDialogs.Resource.Attribute.defaultQueryHint = global::Samples.Droid.Resource.Attribute.defaultQueryHint;
 			global::Acr.UserDialogs.Resource.Attribute.dialogPreferredPadding = global::Samples.Droid.Resource.Attribute.dialogPreferredPadding;
@@ -165,6 +170,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Attribute.expandedTitleMarginTop = global::Samples.Droid.Resource.Attribute.expandedTitleMarginTop;
 			global::Acr.UserDialogs.Resource.Attribute.expandedTitleTextAppearance = global::Samples.Droid.Resource.Attribute.expandedTitleTextAppearance;
 			global::Acr.UserDialogs.Resource.Attribute.fabSize = global::Samples.Droid.Resource.Attribute.fabSize;
+			global::Acr.UserDialogs.Resource.Attribute.foregroundInsidePadding = global::Samples.Droid.Resource.Attribute.foregroundInsidePadding;
 			global::Acr.UserDialogs.Resource.Attribute.gapBetweenBars = global::Samples.Droid.Resource.Attribute.gapBetweenBars;
 			global::Acr.UserDialogs.Resource.Attribute.goIcon = global::Samples.Droid.Resource.Attribute.goIcon;
 			global::Acr.UserDialogs.Resource.Attribute.headerLayout = global::Samples.Droid.Resource.Attribute.headerLayout;
@@ -176,6 +182,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Attribute.homeLayout = global::Samples.Droid.Resource.Attribute.homeLayout;
 			global::Acr.UserDialogs.Resource.Attribute.icon = global::Samples.Droid.Resource.Attribute.icon;
 			global::Acr.UserDialogs.Resource.Attribute.iconifiedByDefault = global::Samples.Droid.Resource.Attribute.iconifiedByDefault;
+			global::Acr.UserDialogs.Resource.Attribute.imageButtonStyle = global::Samples.Droid.Resource.Attribute.imageButtonStyle;
 			global::Acr.UserDialogs.Resource.Attribute.indeterminateProgressStyle = global::Samples.Droid.Resource.Attribute.indeterminateProgressStyle;
 			global::Acr.UserDialogs.Resource.Attribute.initialActivityCount = global::Samples.Droid.Resource.Attribute.initialActivityCount;
 			global::Acr.UserDialogs.Resource.Attribute.insetForeground = global::Samples.Droid.Resource.Attribute.insetForeground;
@@ -187,6 +194,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Attribute.itemTextColor = global::Samples.Droid.Resource.Attribute.itemTextColor;
 			global::Acr.UserDialogs.Resource.Attribute.keylines = global::Samples.Droid.Resource.Attribute.keylines;
 			global::Acr.UserDialogs.Resource.Attribute.layout = global::Samples.Droid.Resource.Attribute.layout;
+			global::Acr.UserDialogs.Resource.Attribute.layoutManager = global::Samples.Droid.Resource.Attribute.layoutManager;
 			global::Acr.UserDialogs.Resource.Attribute.layout_anchor = global::Samples.Droid.Resource.Attribute.layout_anchor;
 			global::Acr.UserDialogs.Resource.Attribute.layout_anchorGravity = global::Samples.Droid.Resource.Attribute.layout_anchorGravity;
 			global::Acr.UserDialogs.Resource.Attribute.layout_behavior = global::Samples.Droid.Resource.Attribute.layout_behavior;
@@ -232,20 +240,24 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Attribute.queryHint = global::Samples.Droid.Resource.Attribute.queryHint;
 			global::Acr.UserDialogs.Resource.Attribute.radioButtonStyle = global::Samples.Droid.Resource.Attribute.radioButtonStyle;
 			global::Acr.UserDialogs.Resource.Attribute.ratingBarStyle = global::Samples.Droid.Resource.Attribute.ratingBarStyle;
+			global::Acr.UserDialogs.Resource.Attribute.reverseLayout = global::Samples.Droid.Resource.Attribute.reverseLayout;
 			global::Acr.UserDialogs.Resource.Attribute.rippleColor = global::Samples.Droid.Resource.Attribute.rippleColor;
 			global::Acr.UserDialogs.Resource.Attribute.searchHintIcon = global::Samples.Droid.Resource.Attribute.searchHintIcon;
 			global::Acr.UserDialogs.Resource.Attribute.searchIcon = global::Samples.Droid.Resource.Attribute.searchIcon;
 			global::Acr.UserDialogs.Resource.Attribute.searchViewStyle = global::Samples.Droid.Resource.Attribute.searchViewStyle;
+			global::Acr.UserDialogs.Resource.Attribute.seekBarStyle = global::Samples.Droid.Resource.Attribute.seekBarStyle;
 			global::Acr.UserDialogs.Resource.Attribute.selectableItemBackground = global::Samples.Droid.Resource.Attribute.selectableItemBackground;
 			global::Acr.UserDialogs.Resource.Attribute.selectableItemBackgroundBorderless = global::Samples.Droid.Resource.Attribute.selectableItemBackgroundBorderless;
 			global::Acr.UserDialogs.Resource.Attribute.showAsAction = global::Samples.Droid.Resource.Attribute.showAsAction;
 			global::Acr.UserDialogs.Resource.Attribute.showDividers = global::Samples.Droid.Resource.Attribute.showDividers;
 			global::Acr.UserDialogs.Resource.Attribute.showText = global::Samples.Droid.Resource.Attribute.showText;
 			global::Acr.UserDialogs.Resource.Attribute.singleChoiceItemLayout = global::Samples.Droid.Resource.Attribute.singleChoiceItemLayout;
+			global::Acr.UserDialogs.Resource.Attribute.spanCount = global::Samples.Droid.Resource.Attribute.spanCount;
 			global::Acr.UserDialogs.Resource.Attribute.spinBars = global::Samples.Droid.Resource.Attribute.spinBars;
 			global::Acr.UserDialogs.Resource.Attribute.spinnerDropDownItemStyle = global::Samples.Droid.Resource.Attribute.spinnerDropDownItemStyle;
 			global::Acr.UserDialogs.Resource.Attribute.spinnerStyle = global::Samples.Droid.Resource.Attribute.spinnerStyle;
 			global::Acr.UserDialogs.Resource.Attribute.splitTrack = global::Samples.Droid.Resource.Attribute.splitTrack;
+			global::Acr.UserDialogs.Resource.Attribute.stackFromEnd = global::Samples.Droid.Resource.Attribute.stackFromEnd;
 			global::Acr.UserDialogs.Resource.Attribute.state_above_anchor = global::Samples.Droid.Resource.Attribute.state_above_anchor;
 			global::Acr.UserDialogs.Resource.Attribute.statusBarBackground = global::Samples.Droid.Resource.Attribute.statusBarBackground;
 			global::Acr.UserDialogs.Resource.Attribute.statusBarScrim = global::Samples.Droid.Resource.Attribute.statusBarScrim;
@@ -315,6 +327,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Boolean.abc_action_bar_embed_tabs = global::Samples.Droid.Resource.Boolean.abc_action_bar_embed_tabs;
 			global::Acr.UserDialogs.Resource.Boolean.abc_action_bar_embed_tabs_pre_jb = global::Samples.Droid.Resource.Boolean.abc_action_bar_embed_tabs_pre_jb;
 			global::Acr.UserDialogs.Resource.Boolean.abc_action_bar_expanded_action_views_exclusive = global::Samples.Droid.Resource.Boolean.abc_action_bar_expanded_action_views_exclusive;
+			global::Acr.UserDialogs.Resource.Boolean.abc_allow_stacked_button_bar = global::Samples.Droid.Resource.Boolean.abc_allow_stacked_button_bar;
 			global::Acr.UserDialogs.Resource.Boolean.abc_config_actionMenuItemAllCaps = global::Samples.Droid.Resource.Boolean.abc_config_actionMenuItemAllCaps;
 			global::Acr.UserDialogs.Resource.Boolean.abc_config_allowActionMenuItemTextWithIcon = global::Samples.Droid.Resource.Boolean.abc_config_allowActionMenuItemTextWithIcon;
 			global::Acr.UserDialogs.Resource.Boolean.abc_config_closeDialogWhenTouchOutside = global::Samples.Droid.Resource.Boolean.abc_config_closeDialogWhenTouchOutside;
@@ -422,6 +435,10 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Dimension.abc_control_corner_material = global::Samples.Droid.Resource.Dimension.abc_control_corner_material;
 			global::Acr.UserDialogs.Resource.Dimension.abc_control_inset_material = global::Samples.Droid.Resource.Dimension.abc_control_inset_material;
 			global::Acr.UserDialogs.Resource.Dimension.abc_control_padding_material = global::Samples.Droid.Resource.Dimension.abc_control_padding_material;
+			global::Acr.UserDialogs.Resource.Dimension.abc_dialog_fixed_height_major = global::Samples.Droid.Resource.Dimension.abc_dialog_fixed_height_major;
+			global::Acr.UserDialogs.Resource.Dimension.abc_dialog_fixed_height_minor = global::Samples.Droid.Resource.Dimension.abc_dialog_fixed_height_minor;
+			global::Acr.UserDialogs.Resource.Dimension.abc_dialog_fixed_width_major = global::Samples.Droid.Resource.Dimension.abc_dialog_fixed_width_major;
+			global::Acr.UserDialogs.Resource.Dimension.abc_dialog_fixed_width_minor = global::Samples.Droid.Resource.Dimension.abc_dialog_fixed_width_minor;
 			global::Acr.UserDialogs.Resource.Dimension.abc_dialog_list_padding_vertical_material = global::Samples.Droid.Resource.Dimension.abc_dialog_list_padding_vertical_material;
 			global::Acr.UserDialogs.Resource.Dimension.abc_dialog_min_width_major = global::Samples.Droid.Resource.Dimension.abc_dialog_min_width_major;
 			global::Acr.UserDialogs.Resource.Dimension.abc_dialog_min_width_minor = global::Samples.Droid.Resource.Dimension.abc_dialog_min_width_minor;
@@ -440,6 +457,9 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Dimension.abc_panel_menu_list_width = global::Samples.Droid.Resource.Dimension.abc_panel_menu_list_width;
 			global::Acr.UserDialogs.Resource.Dimension.abc_search_view_preferred_width = global::Samples.Droid.Resource.Dimension.abc_search_view_preferred_width;
 			global::Acr.UserDialogs.Resource.Dimension.abc_search_view_text_min_width = global::Samples.Droid.Resource.Dimension.abc_search_view_text_min_width;
+			global::Acr.UserDialogs.Resource.Dimension.abc_seekbar_track_background_height_material = global::Samples.Droid.Resource.Dimension.abc_seekbar_track_background_height_material;
+			global::Acr.UserDialogs.Resource.Dimension.abc_seekbar_track_progress_height_material = global::Samples.Droid.Resource.Dimension.abc_seekbar_track_progress_height_material;
+			global::Acr.UserDialogs.Resource.Dimension.abc_select_dialog_padding_start_material = global::Samples.Droid.Resource.Dimension.abc_select_dialog_padding_start_material;
 			global::Acr.UserDialogs.Resource.Dimension.abc_switch_padding = global::Samples.Droid.Resource.Dimension.abc_switch_padding;
 			global::Acr.UserDialogs.Resource.Dimension.abc_text_size_body_1_material = global::Samples.Droid.Resource.Dimension.abc_text_size_body_1_material;
 			global::Acr.UserDialogs.Resource.Dimension.abc_text_size_body_2_material = global::Samples.Droid.Resource.Dimension.abc_text_size_body_2_material;
@@ -483,16 +503,15 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Dimension.design_snackbar_padding_vertical_2lines = global::Samples.Droid.Resource.Dimension.design_snackbar_padding_vertical_2lines;
 			global::Acr.UserDialogs.Resource.Dimension.design_snackbar_text_size = global::Samples.Droid.Resource.Dimension.design_snackbar_text_size;
 			global::Acr.UserDialogs.Resource.Dimension.design_tab_max_width = global::Samples.Droid.Resource.Dimension.design_tab_max_width;
-			global::Acr.UserDialogs.Resource.Dimension.design_tab_min_width = global::Samples.Droid.Resource.Dimension.design_tab_min_width;
-			global::Acr.UserDialogs.Resource.Dimension.dialog_fixed_height_major = global::Samples.Droid.Resource.Dimension.dialog_fixed_height_major;
-			global::Acr.UserDialogs.Resource.Dimension.dialog_fixed_height_minor = global::Samples.Droid.Resource.Dimension.dialog_fixed_height_minor;
-			global::Acr.UserDialogs.Resource.Dimension.dialog_fixed_width_major = global::Samples.Droid.Resource.Dimension.dialog_fixed_width_major;
-			global::Acr.UserDialogs.Resource.Dimension.dialog_fixed_width_minor = global::Samples.Droid.Resource.Dimension.dialog_fixed_width_minor;
+			global::Acr.UserDialogs.Resource.Dimension.design_tab_scrollable_min_width = global::Samples.Droid.Resource.Dimension.design_tab_scrollable_min_width;
+			global::Acr.UserDialogs.Resource.Dimension.design_tab_text_size = global::Samples.Droid.Resource.Dimension.design_tab_text_size;
+			global::Acr.UserDialogs.Resource.Dimension.design_tab_text_size_2line = global::Samples.Droid.Resource.Dimension.design_tab_text_size_2line;
 			global::Acr.UserDialogs.Resource.Dimension.disabled_alpha_material_dark = global::Samples.Droid.Resource.Dimension.disabled_alpha_material_dark;
 			global::Acr.UserDialogs.Resource.Dimension.disabled_alpha_material_light = global::Samples.Droid.Resource.Dimension.disabled_alpha_material_light;
 			global::Acr.UserDialogs.Resource.Dimension.highlight_alpha_material_colored = global::Samples.Droid.Resource.Dimension.highlight_alpha_material_colored;
 			global::Acr.UserDialogs.Resource.Dimension.highlight_alpha_material_dark = global::Samples.Droid.Resource.Dimension.highlight_alpha_material_dark;
 			global::Acr.UserDialogs.Resource.Dimension.highlight_alpha_material_light = global::Samples.Droid.Resource.Dimension.highlight_alpha_material_light;
+			global::Acr.UserDialogs.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame = global::Samples.Droid.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame;
 			global::Acr.UserDialogs.Resource.Dimension.notification_large_icon_height = global::Samples.Droid.Resource.Dimension.notification_large_icon_height;
 			global::Acr.UserDialogs.Resource.Dimension.notification_large_icon_width = global::Samples.Droid.Resource.Dimension.notification_large_icon_width;
 			global::Acr.UserDialogs.Resource.Dimension.notification_subtext_size = global::Samples.Droid.Resource.Dimension.notification_subtext_size;
@@ -546,6 +565,13 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult = global::Samples.Droid.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult;
 			global::Acr.UserDialogs.Resource.Drawable.abc_popup_background_mtrl_mult = global::Samples.Droid.Resource.Drawable.abc_popup_background_mtrl_mult;
 			global::Acr.UserDialogs.Resource.Drawable.abc_ratingbar_full_material = global::Samples.Droid.Resource.Drawable.abc_ratingbar_full_material;
+			global::Acr.UserDialogs.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha = global::Samples.Droid.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha;
+			global::Acr.UserDialogs.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000 = global::Samples.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000;
+			global::Acr.UserDialogs.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005 = global::Samples.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005;
+			global::Acr.UserDialogs.Resource.Drawable.abc_scrubber_primary_mtrl_alpha = global::Samples.Droid.Resource.Drawable.abc_scrubber_primary_mtrl_alpha;
+			global::Acr.UserDialogs.Resource.Drawable.abc_scrubber_track_mtrl_alpha = global::Samples.Droid.Resource.Drawable.abc_scrubber_track_mtrl_alpha;
+			global::Acr.UserDialogs.Resource.Drawable.abc_seekbar_thumb_material = global::Samples.Droid.Resource.Drawable.abc_seekbar_thumb_material;
+			global::Acr.UserDialogs.Resource.Drawable.abc_seekbar_track_material = global::Samples.Droid.Resource.Drawable.abc_seekbar_track_material;
 			global::Acr.UserDialogs.Resource.Drawable.abc_spinner_mtrl_am_alpha = global::Samples.Droid.Resource.Drawable.abc_spinner_mtrl_am_alpha;
 			global::Acr.UserDialogs.Resource.Drawable.abc_spinner_textfield_background_material = global::Samples.Droid.Resource.Drawable.abc_spinner_textfield_background_material;
 			global::Acr.UserDialogs.Resource.Drawable.abc_switch_thumb_material = global::Samples.Droid.Resource.Drawable.abc_switch_thumb_material;
@@ -600,6 +626,10 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Id.customPanel = global::Samples.Droid.Resource.Id.customPanel;
 			global::Acr.UserDialogs.Resource.Id.decor_content_parent = global::Samples.Droid.Resource.Id.decor_content_parent;
 			global::Acr.UserDialogs.Resource.Id.default_activity_button = global::Samples.Droid.Resource.Id.default_activity_button;
+			global::Acr.UserDialogs.Resource.Id.design_menu_item_action_area = global::Samples.Droid.Resource.Id.design_menu_item_action_area;
+			global::Acr.UserDialogs.Resource.Id.design_menu_item_action_area_stub = global::Samples.Droid.Resource.Id.design_menu_item_action_area_stub;
+			global::Acr.UserDialogs.Resource.Id.design_menu_item_text = global::Samples.Droid.Resource.Id.design_menu_item_text;
+			global::Acr.UserDialogs.Resource.Id.design_navigation_view = global::Samples.Droid.Resource.Id.design_navigation_view;
 			global::Acr.UserDialogs.Resource.Id.disableHome = global::Samples.Droid.Resource.Id.disableHome;
 			global::Acr.UserDialogs.Resource.Id.edit_query = global::Samples.Droid.Resource.Id.edit_query;
 			global::Acr.UserDialogs.Resource.Id.end = global::Samples.Droid.Resource.Id.end;
@@ -619,6 +649,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Id.ifRoom = global::Samples.Droid.Resource.Id.ifRoom;
 			global::Acr.UserDialogs.Resource.Id.image = global::Samples.Droid.Resource.Id.image;
 			global::Acr.UserDialogs.Resource.Id.info = global::Samples.Droid.Resource.Id.info;
+			global::Acr.UserDialogs.Resource.Id.item_touch_helper_previous_elevation = global::Samples.Droid.Resource.Id.item_touch_helper_previous_elevation;
 			global::Acr.UserDialogs.Resource.Id.left = global::Samples.Droid.Resource.Id.left;
 			global::Acr.UserDialogs.Resource.Id.line1 = global::Samples.Droid.Resource.Id.line1;
 			global::Acr.UserDialogs.Resource.Id.line3 = global::Samples.Droid.Resource.Id.line3;
@@ -631,6 +662,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Id.middle = global::Samples.Droid.Resource.Id.middle;
 			global::Acr.UserDialogs.Resource.Id.mini = global::Samples.Droid.Resource.Id.mini;
 			global::Acr.UserDialogs.Resource.Id.multiply = global::Samples.Droid.Resource.Id.multiply;
+			global::Acr.UserDialogs.Resource.Id.navigation_header_container = global::Samples.Droid.Resource.Id.navigation_header_container;
 			global::Acr.UserDialogs.Resource.Id.never = global::Samples.Droid.Resource.Id.never;
 			global::Acr.UserDialogs.Resource.Id.none = global::Samples.Droid.Resource.Id.none;
 			global::Acr.UserDialogs.Resource.Id.normal = global::Samples.Droid.Resource.Id.normal;
@@ -643,6 +675,8 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Id.right = global::Samples.Droid.Resource.Id.right;
 			global::Acr.UserDialogs.Resource.Id.screen = global::Samples.Droid.Resource.Id.screen;
 			global::Acr.UserDialogs.Resource.Id.scroll = global::Samples.Droid.Resource.Id.scroll;
+			global::Acr.UserDialogs.Resource.Id.scrollIndicatorDown = global::Samples.Droid.Resource.Id.scrollIndicatorDown;
+			global::Acr.UserDialogs.Resource.Id.scrollIndicatorUp = global::Samples.Droid.Resource.Id.scrollIndicatorUp;
 			global::Acr.UserDialogs.Resource.Id.scrollView = global::Samples.Droid.Resource.Id.scrollView;
 			global::Acr.UserDialogs.Resource.Id.scrollable = global::Samples.Droid.Resource.Id.scrollable;
 			global::Acr.UserDialogs.Resource.Id.search_badge = global::Samples.Droid.Resource.Id.search_badge;
@@ -662,6 +696,8 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Id.showTitle = global::Samples.Droid.Resource.Id.showTitle;
 			global::Acr.UserDialogs.Resource.Id.snackbar_action = global::Samples.Droid.Resource.Id.snackbar_action;
 			global::Acr.UserDialogs.Resource.Id.snackbar_text = global::Samples.Droid.Resource.Id.snackbar_text;
+			global::Acr.UserDialogs.Resource.Id.snap = global::Samples.Droid.Resource.Id.snap;
+			global::Acr.UserDialogs.Resource.Id.spacer = global::Samples.Droid.Resource.Id.spacer;
 			global::Acr.UserDialogs.Resource.Id.split_action_bar = global::Samples.Droid.Resource.Id.split_action_bar;
 			global::Acr.UserDialogs.Resource.Id.src_atop = global::Samples.Droid.Resource.Id.src_atop;
 			global::Acr.UserDialogs.Resource.Id.src_in = global::Samples.Droid.Resource.Id.src_in;
@@ -699,6 +735,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Layout.abc_action_mode_close_item_material = global::Samples.Droid.Resource.Layout.abc_action_mode_close_item_material;
 			global::Acr.UserDialogs.Resource.Layout.abc_activity_chooser_view = global::Samples.Droid.Resource.Layout.abc_activity_chooser_view;
 			global::Acr.UserDialogs.Resource.Layout.abc_activity_chooser_view_list_item = global::Samples.Droid.Resource.Layout.abc_activity_chooser_view_list_item;
+			global::Acr.UserDialogs.Resource.Layout.abc_alert_dialog_button_bar_material = global::Samples.Droid.Resource.Layout.abc_alert_dialog_button_bar_material;
 			global::Acr.UserDialogs.Resource.Layout.abc_alert_dialog_material = global::Samples.Droid.Resource.Layout.abc_alert_dialog_material;
 			global::Acr.UserDialogs.Resource.Layout.abc_dialog_title_material = global::Samples.Droid.Resource.Layout.abc_dialog_title_material;
 			global::Acr.UserDialogs.Resource.Layout.abc_expanded_menu_layout = global::Samples.Droid.Resource.Layout.abc_expanded_menu_layout;
@@ -718,11 +755,13 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Layout.design_layout_snackbar_include = global::Samples.Droid.Resource.Layout.design_layout_snackbar_include;
 			global::Acr.UserDialogs.Resource.Layout.design_layout_tab_icon = global::Samples.Droid.Resource.Layout.design_layout_tab_icon;
 			global::Acr.UserDialogs.Resource.Layout.design_layout_tab_text = global::Samples.Droid.Resource.Layout.design_layout_tab_text;
+			global::Acr.UserDialogs.Resource.Layout.design_menu_item_action_area = global::Samples.Droid.Resource.Layout.design_menu_item_action_area;
 			global::Acr.UserDialogs.Resource.Layout.design_navigation_item = global::Samples.Droid.Resource.Layout.design_navigation_item;
 			global::Acr.UserDialogs.Resource.Layout.design_navigation_item_header = global::Samples.Droid.Resource.Layout.design_navigation_item_header;
 			global::Acr.UserDialogs.Resource.Layout.design_navigation_item_separator = global::Samples.Droid.Resource.Layout.design_navigation_item_separator;
 			global::Acr.UserDialogs.Resource.Layout.design_navigation_item_subheader = global::Samples.Droid.Resource.Layout.design_navigation_item_subheader;
 			global::Acr.UserDialogs.Resource.Layout.design_navigation_menu = global::Samples.Droid.Resource.Layout.design_navigation_menu;
+			global::Acr.UserDialogs.Resource.Layout.design_navigation_menu_item = global::Samples.Droid.Resource.Layout.design_navigation_menu_item;
 			global::Acr.UserDialogs.Resource.Layout.loading = global::Samples.Droid.Resource.Layout.loading;
 			global::Acr.UserDialogs.Resource.Layout.loadingimage = global::Samples.Droid.Resource.Layout.loadingimage;
 			global::Acr.UserDialogs.Resource.Layout.loadingprogress = global::Samples.Droid.Resource.Layout.loadingprogress;
@@ -746,6 +785,8 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.String.abc_action_mode_done = global::Samples.Droid.Resource.String.abc_action_mode_done;
 			global::Acr.UserDialogs.Resource.String.abc_activity_chooser_view_see_all = global::Samples.Droid.Resource.String.abc_activity_chooser_view_see_all;
 			global::Acr.UserDialogs.Resource.String.abc_activitychooserview_choose_application = global::Samples.Droid.Resource.String.abc_activitychooserview_choose_application;
+			global::Acr.UserDialogs.Resource.String.abc_capital_off = global::Samples.Droid.Resource.String.abc_capital_off;
+			global::Acr.UserDialogs.Resource.String.abc_capital_on = global::Samples.Droid.Resource.String.abc_capital_on;
 			global::Acr.UserDialogs.Resource.String.abc_search_hint = global::Samples.Droid.Resource.String.abc_search_hint;
 			global::Acr.UserDialogs.Resource.String.abc_searchview_description_clear = global::Samples.Droid.Resource.String.abc_searchview_description_clear;
 			global::Acr.UserDialogs.Resource.String.abc_searchview_description_query = global::Samples.Droid.Resource.String.abc_searchview_description_query;
@@ -756,6 +797,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.String.abc_shareactionprovider_share_with_application = global::Samples.Droid.Resource.String.abc_shareactionprovider_share_with_application;
 			global::Acr.UserDialogs.Resource.String.abc_toolbar_collapse_description = global::Samples.Droid.Resource.String.abc_toolbar_collapse_description;
 			global::Acr.UserDialogs.Resource.String.appbar_scrolling_view_behavior = global::Samples.Droid.Resource.String.appbar_scrolling_view_behavior;
+			global::Acr.UserDialogs.Resource.String.character_counter_pattern = global::Samples.Droid.Resource.String.character_counter_pattern;
 			global::Acr.UserDialogs.Resource.String.library_name = global::Samples.Droid.Resource.String.library_name;
 			global::Acr.UserDialogs.Resource.String.status_bar_notification_info_overflow = global::Samples.Droid.Resource.String.status_bar_notification_info_overflow;
 			global::Acr.UserDialogs.Resource.Style.AlertDialog_AppCompat = global::Samples.Droid.Resource.Style.AlertDialog_AppCompat;
@@ -875,6 +917,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_EditText = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_EditText;
+			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_ImageButton = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_ImageButton;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_Light_ActionBar = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar;
@@ -895,6 +938,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_RatingBar = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_SearchView = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_SearchView;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar;
+			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_SeekBar = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_SeekBar;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_Spinner = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_Spinner;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined;
 			global::Acr.UserDialogs.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem = global::Samples.Droid.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem;
@@ -913,7 +957,6 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Style.Platform_Widget_AppCompat_Spinner = global::Samples.Droid.Resource.Style.Platform_Widget_AppCompat_Spinner;
 			global::Acr.UserDialogs.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat = global::Samples.Droid.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat;
 			global::Acr.UserDialogs.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = global::Samples.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem;
-			global::Acr.UserDialogs.Resource.Style.RtlOverlay_Widget_AppCompat_ActionButton_Overflow = global::Samples.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_ActionButton_Overflow;
 			global::Acr.UserDialogs.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon = global::Samples.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon;
 			global::Acr.UserDialogs.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem = global::Samples.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem;
 			global::Acr.UserDialogs.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = global::Samples.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup;
@@ -924,6 +967,8 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query = global::Samples.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query;
 			global::Acr.UserDialogs.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text = global::Samples.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text;
 			global::Acr.UserDialogs.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon = global::Samples.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon;
+			global::Acr.UserDialogs.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton = global::Samples.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton;
+			global::Acr.UserDialogs.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = global::Samples.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow;
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_AppCompat = global::Samples.Droid.Resource.Style.TextAppearance_AppCompat;
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_AppCompat_Body1 = global::Samples.Droid.Resource.Style.TextAppearance_AppCompat_Body1;
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_AppCompat_Body2 = global::Samples.Droid.Resource.Style.TextAppearance_AppCompat_Body2;
@@ -969,6 +1014,8 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_AppCompat_Widget_Switch = global::Samples.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Switch;
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::Samples.Droid.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded = global::Samples.Droid.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded;
+			global::Acr.UserDialogs.Resource.Style.TextAppearance_Design_Counter = global::Samples.Droid.Resource.Style.TextAppearance_Design_Counter;
+			global::Acr.UserDialogs.Resource.Style.TextAppearance_Design_Counter_Overflow = global::Samples.Droid.Resource.Style.TextAppearance_Design_Counter_Overflow;
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_Design_Error = global::Samples.Droid.Resource.Style.TextAppearance_Design_Error;
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_Design_Hint = global::Samples.Droid.Resource.Style.TextAppearance_Design_Hint;
 			global::Acr.UserDialogs.Resource.Style.TextAppearance_Design_Snackbar_Message = global::Samples.Droid.Resource.Style.TextAppearance_Design_Snackbar_Message;
@@ -1025,6 +1072,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_DrawerArrowToggle = global::Samples.Droid.Resource.Style.Widget_AppCompat_DrawerArrowToggle;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_DropDownItem_Spinner = global::Samples.Droid.Resource.Style.Widget_AppCompat_DropDownItem_Spinner;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_EditText = global::Samples.Droid.Resource.Style.Widget_AppCompat_EditText;
+			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_ImageButton = global::Samples.Droid.Resource.Style.Widget_AppCompat_ImageButton;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_Light_ActionBar = global::Samples.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid = global::Samples.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse = global::Samples.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse;
@@ -1059,6 +1107,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_RatingBar = global::Samples.Droid.Resource.Style.Widget_AppCompat_RatingBar;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_SearchView = global::Samples.Droid.Resource.Style.Widget_AppCompat_SearchView;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_SearchView_ActionBar = global::Samples.Droid.Resource.Style.Widget_AppCompat_SearchView_ActionBar;
+			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_SeekBar = global::Samples.Droid.Resource.Style.Widget_AppCompat_SeekBar;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_Spinner = global::Samples.Droid.Resource.Style.Widget_AppCompat_Spinner;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_Spinner_DropDown = global::Samples.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown;
 			global::Acr.UserDialogs.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar = global::Samples.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar;
@@ -1135,6 +1184,8 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Styleable.AppCompatTextView = global::Samples.Droid.Resource.Styleable.AppCompatTextView;
 			global::Acr.UserDialogs.Resource.Styleable.AppCompatTextView_android_textAppearance = global::Samples.Droid.Resource.Styleable.AppCompatTextView_android_textAppearance;
 			global::Acr.UserDialogs.Resource.Styleable.AppCompatTextView_textAllCaps = global::Samples.Droid.Resource.Styleable.AppCompatTextView_textAllCaps;
+			global::Acr.UserDialogs.Resource.Styleable.ButtonBarLayout = global::Samples.Droid.Resource.Styleable.ButtonBarLayout;
+			global::Acr.UserDialogs.Resource.Styleable.ButtonBarLayout_allowStacking = global::Samples.Droid.Resource.Styleable.ButtonBarLayout_allowStacking;
 			global::Acr.UserDialogs.Resource.Styleable.CollapsingAppBarLayout_LayoutParams = global::Samples.Droid.Resource.Styleable.CollapsingAppBarLayout_LayoutParams;
 			global::Acr.UserDialogs.Resource.Styleable.CollapsingAppBarLayout_LayoutParams_layout_collapseMode = global::Samples.Droid.Resource.Styleable.CollapsingAppBarLayout_LayoutParams_layout_collapseMode;
 			global::Acr.UserDialogs.Resource.Styleable.CollapsingAppBarLayout_LayoutParams_layout_collapseParallaxMultiplier = global::Samples.Droid.Resource.Styleable.CollapsingAppBarLayout_LayoutParams_layout_collapseParallaxMultiplier;
@@ -1176,7 +1227,6 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Styleable.DrawerArrowToggle_spinBars = global::Samples.Droid.Resource.Styleable.DrawerArrowToggle_spinBars;
 			global::Acr.UserDialogs.Resource.Styleable.DrawerArrowToggle_thickness = global::Samples.Droid.Resource.Styleable.DrawerArrowToggle_thickness;
 			global::Acr.UserDialogs.Resource.Styleable.FloatingActionButton = global::Samples.Droid.Resource.Styleable.FloatingActionButton;
-			global::Acr.UserDialogs.Resource.Styleable.FloatingActionButton_android_background = global::Samples.Droid.Resource.Styleable.FloatingActionButton_android_background;
 			global::Acr.UserDialogs.Resource.Styleable.FloatingActionButton_backgroundTint = global::Samples.Droid.Resource.Styleable.FloatingActionButton_backgroundTint;
 			global::Acr.UserDialogs.Resource.Styleable.FloatingActionButton_backgroundTintMode = global::Samples.Droid.Resource.Styleable.FloatingActionButton_backgroundTintMode;
 			global::Acr.UserDialogs.Resource.Styleable.FloatingActionButton_borderWidth = global::Samples.Droid.Resource.Styleable.FloatingActionButton_borderWidth;
@@ -1184,6 +1234,10 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Styleable.FloatingActionButton_fabSize = global::Samples.Droid.Resource.Styleable.FloatingActionButton_fabSize;
 			global::Acr.UserDialogs.Resource.Styleable.FloatingActionButton_pressedTranslationZ = global::Samples.Droid.Resource.Styleable.FloatingActionButton_pressedTranslationZ;
 			global::Acr.UserDialogs.Resource.Styleable.FloatingActionButton_rippleColor = global::Samples.Droid.Resource.Styleable.FloatingActionButton_rippleColor;
+			global::Acr.UserDialogs.Resource.Styleable.ForegroundLinearLayout = global::Samples.Droid.Resource.Styleable.ForegroundLinearLayout;
+			global::Acr.UserDialogs.Resource.Styleable.ForegroundLinearLayout_android_foreground = global::Samples.Droid.Resource.Styleable.ForegroundLinearLayout_android_foreground;
+			global::Acr.UserDialogs.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity = global::Samples.Droid.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity;
+			global::Acr.UserDialogs.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding = global::Samples.Droid.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding;
 			global::Acr.UserDialogs.Resource.Styleable.LinearLayoutCompat = global::Samples.Droid.Resource.Styleable.LinearLayoutCompat;
 			global::Acr.UserDialogs.Resource.Styleable.LinearLayoutCompat_android_baselineAligned = global::Samples.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAligned;
 			global::Acr.UserDialogs.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex = global::Samples.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex;
@@ -1265,6 +1319,12 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahText = global::Samples.Droid.Resource.Styleable.ProgressWheel_ahText;
 			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahTextColor = global::Samples.Droid.Resource.Styleable.ProgressWheel_ahTextColor;
 			global::Acr.UserDialogs.Resource.Styleable.ProgressWheel_ahTextSize = global::Samples.Droid.Resource.Styleable.ProgressWheel_ahTextSize;
+			global::Acr.UserDialogs.Resource.Styleable.RecyclerView = global::Samples.Droid.Resource.Styleable.RecyclerView;
+			global::Acr.UserDialogs.Resource.Styleable.RecyclerView_android_orientation = global::Samples.Droid.Resource.Styleable.RecyclerView_android_orientation;
+			global::Acr.UserDialogs.Resource.Styleable.RecyclerView_layoutManager = global::Samples.Droid.Resource.Styleable.RecyclerView_layoutManager;
+			global::Acr.UserDialogs.Resource.Styleable.RecyclerView_reverseLayout = global::Samples.Droid.Resource.Styleable.RecyclerView_reverseLayout;
+			global::Acr.UserDialogs.Resource.Styleable.RecyclerView_spanCount = global::Samples.Droid.Resource.Styleable.RecyclerView_spanCount;
+			global::Acr.UserDialogs.Resource.Styleable.RecyclerView_stackFromEnd = global::Samples.Droid.Resource.Styleable.RecyclerView_stackFromEnd;
 			global::Acr.UserDialogs.Resource.Styleable.ScrimInsetsFrameLayout = global::Samples.Droid.Resource.Styleable.ScrimInsetsFrameLayout;
 			global::Acr.UserDialogs.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground = global::Samples.Droid.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground;
 			global::Acr.UserDialogs.Resource.Styleable.ScrollingViewBehavior_Params = global::Samples.Droid.Resource.Styleable.ScrollingViewBehavior_Params;
@@ -1325,6 +1385,10 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Styleable.TabLayout_tabTextAppearance = global::Samples.Droid.Resource.Styleable.TabLayout_tabTextAppearance;
 			global::Acr.UserDialogs.Resource.Styleable.TabLayout_tabTextColor = global::Samples.Droid.Resource.Styleable.TabLayout_tabTextColor;
 			global::Acr.UserDialogs.Resource.Styleable.TextAppearance = global::Samples.Droid.Resource.Styleable.TextAppearance;
+			global::Acr.UserDialogs.Resource.Styleable.TextAppearance_android_shadowColor = global::Samples.Droid.Resource.Styleable.TextAppearance_android_shadowColor;
+			global::Acr.UserDialogs.Resource.Styleable.TextAppearance_android_shadowDx = global::Samples.Droid.Resource.Styleable.TextAppearance_android_shadowDx;
+			global::Acr.UserDialogs.Resource.Styleable.TextAppearance_android_shadowDy = global::Samples.Droid.Resource.Styleable.TextAppearance_android_shadowDy;
+			global::Acr.UserDialogs.Resource.Styleable.TextAppearance_android_shadowRadius = global::Samples.Droid.Resource.Styleable.TextAppearance_android_shadowRadius;
 			global::Acr.UserDialogs.Resource.Styleable.TextAppearance_android_textColor = global::Samples.Droid.Resource.Styleable.TextAppearance_android_textColor;
 			global::Acr.UserDialogs.Resource.Styleable.TextAppearance_android_textSize = global::Samples.Droid.Resource.Styleable.TextAppearance_android_textSize;
 			global::Acr.UserDialogs.Resource.Styleable.TextAppearance_android_textStyle = global::Samples.Droid.Resource.Styleable.TextAppearance_android_textStyle;
@@ -1333,6 +1397,10 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout = global::Samples.Droid.Resource.Styleable.TextInputLayout;
 			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_android_hint = global::Samples.Droid.Resource.Styleable.TextInputLayout_android_hint;
 			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_android_textColorHint = global::Samples.Droid.Resource.Styleable.TextInputLayout_android_textColorHint;
+			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_counterEnabled = global::Samples.Droid.Resource.Styleable.TextInputLayout_counterEnabled;
+			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_counterMaxLength = global::Samples.Droid.Resource.Styleable.TextInputLayout_counterMaxLength;
+			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance = global::Samples.Droid.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance;
+			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_counterTextAppearance = global::Samples.Droid.Resource.Styleable.TextInputLayout_counterTextAppearance;
 			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_errorEnabled = global::Samples.Droid.Resource.Styleable.TextInputLayout_errorEnabled;
 			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_errorTextAppearance = global::Samples.Droid.Resource.Styleable.TextInputLayout_errorTextAppearance;
 			global::Acr.UserDialogs.Resource.Styleable.TextInputLayout_hintAnimationEnabled = global::Samples.Droid.Resource.Styleable.TextInputLayout_hintAnimationEnabled;
@@ -1405,6 +1473,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Styleable.Theme_editTextColor = global::Samples.Droid.Resource.Styleable.Theme_editTextColor;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_editTextStyle = global::Samples.Droid.Resource.Styleable.Theme_editTextStyle;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_homeAsUpIndicator = global::Samples.Droid.Resource.Styleable.Theme_homeAsUpIndicator;
+			global::Acr.UserDialogs.Resource.Styleable.Theme_imageButtonStyle = global::Samples.Droid.Resource.Styleable.Theme_imageButtonStyle;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_listChoiceBackgroundIndicator = global::Samples.Droid.Resource.Styleable.Theme_listChoiceBackgroundIndicator;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_listDividerAlertDialog = global::Samples.Droid.Resource.Styleable.Theme_listDividerAlertDialog;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_listPopupWindowStyle = global::Samples.Droid.Resource.Styleable.Theme_listPopupWindowStyle;
@@ -1421,6 +1490,7 @@ namespace Samples.Droid
 			global::Acr.UserDialogs.Resource.Styleable.Theme_radioButtonStyle = global::Samples.Droid.Resource.Styleable.Theme_radioButtonStyle;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_ratingBarStyle = global::Samples.Droid.Resource.Styleable.Theme_ratingBarStyle;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_searchViewStyle = global::Samples.Droid.Resource.Styleable.Theme_searchViewStyle;
+			global::Acr.UserDialogs.Resource.Styleable.Theme_seekBarStyle = global::Samples.Droid.Resource.Styleable.Theme_seekBarStyle;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_selectableItemBackground = global::Samples.Droid.Resource.Styleable.Theme_selectableItemBackground;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_selectableItemBackgroundBorderless = global::Samples.Droid.Resource.Styleable.Theme_selectableItemBackgroundBorderless;
 			global::Acr.UserDialogs.Resource.Styleable.Theme_spinnerDropDownItemStyle = global::Samples.Droid.Resource.Styleable.Theme_spinnerDropDownItemStyle;
