@@ -1,7 +1,7 @@
 ﻿# ACR User Dialogs for Xamarin and Windows
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
-Supports Android, iOS, Windows Phone 8.0 (silverlight), and Unified Windows Platform (UWP, UAP)
+Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 
 ### Features
@@ -21,8 +21,10 @@ Supports Android, iOS, Windows Phone 8.0 (silverlight), and Unified Windows Plat
 
 * Xamarin (iOS Unified/Android)
 * Universal Windows Platform (Win10/UWP)
-* Windows Phone 8 (Silverlight)
 * Portable Class Libraries (Profile 259)
+
+* Windows Phone 8 (Silverlight) - WARNING - support for this is being dropped soon
+* Windows Phone 8.1 - WARNING - support for this is being dropped soon
 
 ## Setup
 
@@ -93,7 +95,7 @@ All config objects contain static vars that contain defaults which are basically
 
 ## FAQ
 
-1. I'm using Xamarin Forms and getting a nullreferenceexception when using loading
+1. I'm getting a nullreferenceexception when using loading.
     * This happens when you run loading (or almost any dialog) from the constructor of your page or viewmodel.  The view hasn't been rendered yet, therefore there is nothing to render to.
 
 2. Is Windows 8 Support?
@@ -126,6 +128,8 @@ All config objects contain static vars that contain defaults which are basically
     in appdelegate or the starting activity
     UserDialogs.Instance = new MyCustomUserDialogs();
 
+9. I'm using Xamarin.Forms and I can't install the latest version! (specifically on Android)
+    * Read the error you are getting from nuget!!  As of v4.3, this library now uses the latest android support libraries (23.1.1+).  Please do not file feature requests/defects against this.  This library moves with or without Xamarin Forms.  Use v4.2.1 and bug Xamarin to update their library.
 
 ## Powered By:
 

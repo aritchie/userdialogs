@@ -3,7 +3,7 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "Acr.UserDialogs/4.3.6": {
+      "Acr.UserDialogs/4.3.4": {
         "dependencies": {
           "Coding4Fun.Toolkit.Controls": "[2.1.6, 3.0.0)",
           "Splat": "[1.6.2, 2.0.0)"
@@ -1599,7 +1599,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.1.0.6521": {
+      "Xamarin.Forms/2.0.0.6490": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -1615,7 +1615,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Acr.UserDialogs/4.3.6": {
+      "Acr.UserDialogs/4.3.4": {
         "dependencies": {
           "Coding4Fun.Toolkit.Controls": "[2.1.6, 3.0.0)",
           "Splat": "[1.6.2, 2.0.0)"
@@ -3301,7 +3301,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.1.0.6521": {
+      "Xamarin.Forms/2.0.0.6490": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -3317,7 +3317,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Acr.UserDialogs/4.3.6": {
+      "Acr.UserDialogs/4.3.4": {
         "dependencies": {
           "Coding4Fun.Toolkit.Controls": "[2.1.6, 3.0.0)",
           "Splat": "[1.6.2, 2.0.0)"
@@ -4975,7 +4975,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.1.0.6521": {
+      "Xamarin.Forms/2.0.0.6490": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -4991,7 +4991,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Acr.UserDialogs/4.3.6": {
+      "Acr.UserDialogs/4.3.4": {
         "dependencies": {
           "Coding4Fun.Toolkit.Controls": "[2.1.6, 3.0.0)",
           "Splat": "[1.6.2, 2.0.0)"
@@ -6682,7 +6682,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.1.0.6521": {
+      "Xamarin.Forms/2.0.0.6490": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -6698,7 +6698,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Acr.UserDialogs/4.3.6": {
+      "Acr.UserDialogs/4.3.4": {
         "dependencies": {
           "Coding4Fun.Toolkit.Controls": "[2.1.6, 3.0.0)",
           "Splat": "[1.6.2, 2.0.0)"
@@ -8356,7 +8356,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.1.0.6521": {
+      "Xamarin.Forms/2.0.0.6490": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -8372,7 +8372,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Acr.UserDialogs/4.3.6": {
+      "Acr.UserDialogs/4.3.4": {
         "dependencies": {
           "Coding4Fun.Toolkit.Controls": "[2.1.6, 3.0.0)",
           "Splat": "[1.6.2, 2.0.0)"
@@ -10063,7 +10063,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.1.0.6521": {
+      "Xamarin.Forms/2.0.0.6490": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -10079,7 +10079,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Acr.UserDialogs/4.3.6": {
+      "Acr.UserDialogs/4.3.4": {
         "dependencies": {
           "Coding4Fun.Toolkit.Controls": "[2.1.6, 3.0.0)",
           "Splat": "[1.6.2, 2.0.0)"
@@ -11737,7 +11737,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.1.0.6521": {
+      "Xamarin.Forms/2.0.0.6490": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -11754,8 +11754,8 @@
     }
   },
   "libraries": {
-    "Acr.UserDialogs/4.3.6": {
-      "sha512": "1QVJRCf+UPkLOyVF97AMucO+m1PDk4oGosZsCDWIxW91A+BtMQIrSwRnnsvCYLFdfzzGmsy/GmaaxHpbsIWU6Q==",
+    "Acr.UserDialogs/4.3.4": {
+      "sha512": "MoBt1vRkdRGwwaom0W+wygBBpUe/zTTDG1v7CAtkJ2tXMfLxqlvu3oJvtyN9zJEYUNn7YteZrXdDr33HVZOx5g==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -11776,7 +11776,6 @@
         "lib/uap10.0/Acr.UserDialogs.Interface.dll",
         "lib/uap10.0/Acr.UserDialogs.Interface.pdb",
         "lib/uap10.0/Acr.UserDialogs.pdb",
-        "lib/uap10.0/Acr.UserDialogs.pri",
         "lib/uap10.0/Acr.UserDialogs/Acr.UserDialogs.xr.xml",
         "lib/uap10.0/Acr.UserDialogs/ActionSheetContentDialog.xbf",
         "lib/uap10.0/Acr.UserDialogs/LoginContentDialog.xbf",
@@ -11803,7 +11802,7 @@
         "lib/Xamarin.iOS10/Acr.UserDialogs.Interface.pdb",
         "lib/Xamarin.iOS10/Acr.UserDialogs.pdb",
         "lib/Xamarin.iOS10/BTProgressHUD.dll",
-        "package/services/metadata/core-properties/7e9c458ccbbf484b8342170cd3ee989a.psmdcp"
+        "package/services/metadata/core-properties/3e9bc56af02f48ec97c7707cf6fe72fb.psmdcp"
       ]
     },
     "Coding4Fun.Toolkit.Controls/2.1.7": {
@@ -15278,8 +15277,8 @@
         "System.Xml.XmlSerializer.nuspec"
       ]
     },
-    "Xamarin.Forms/2.1.0.6521": {
-      "sha512": "WD3ZuKR2bt7Qdu4etLKgtcrAvgAxMcWq4sxAPb5rSFKq6rZ+CnLTTm03W4VZRseg9pThIwVokLn7MMoHQ3wqIw==",
+    "Xamarin.Forms/2.0.0.6490": {
+      "sha512": "jTQp/dIlAT2J3dvFwr+UsP0COsTmkTuPQ2ySnYnrLyoHV0gbUueMt1oPmBnFEDedoUxhEQIhMFbzGRKuiS+Wvw==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -15320,7 +15319,7 @@
         "lib/uap10.0/Xamarin.Forms.Platform.dll",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP.pri",
-        "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsTextBoxStyle.xbf",
+        "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsTextBox.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/PageControl.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/Properties/Xamarin.Forms.Platform.UAP.rd.xml",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/Resources.xbf",
@@ -15334,10 +15333,10 @@
         "lib/win81/Xamarin.Forms.Platform.WinRT.pri",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet.dll",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet.pri",
-        "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet/FormsTextBoxStyle.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet/Resources.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet/TabletResources.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet/Xamarin.Forms.Platform.WinRT.Tablet.xr.xml",
+        "lib/win81/Xamarin.Forms.Platform.WinRT/FormsTextBox.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT/PageControl.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT/StepperControl.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT/Xamarin.Forms.Platform.WinRT.xr.xml",
@@ -15355,12 +15354,12 @@
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.dll",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone.dll",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone.pri",
-        "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/FormsTextBoxStyle.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/PhoneResources.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/Resources.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/SearchBox.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/Xamarin.Forms.Platform.WinRT.Phone.xr.xml",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.pri",
+        "lib/wpa81/Xamarin.Forms.Platform.WinRT/FormsTextBox.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT/PageControl.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT/StepperControl.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT/Xamarin.Forms.Platform.WinRT.xr.xml",
@@ -15372,7 +15371,7 @@
         "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll",
         "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll",
         "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.xml",
-        "package/services/metadata/core-properties/d56c19d7130c4b1597f80316feb43eac.psmdcp",
+        "package/services/metadata/core-properties/bc55d49ed9c94f79b5764d7531ffc462.psmdcp",
         "tools/init.ps1",
         "tools/Xamarin.Forms.Core.Design.dll",
         "tools/Xamarin.Forms.Xaml.Design.dll",
@@ -15382,14 +15381,14 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Acr.UserDialogs >= 4.3.6",
+      "Acr.UserDialogs >= 4.3.4",
       "Coding4Fun.Toolkit.Controls >= 2.1.7",
       "Microsoft.ApplicationInsights >= 1.2.3",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.2.3",
       "Microsoft.ApplicationInsights.WindowsApps >= 1.1.0",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Splat >= 1.6.2",
-      "Xamarin.Forms >= 2.1.0.6521"
+      "Xamarin.Forms >= 2.0.0.6490"
     ],
     "UAP,Version=v10.0": []
   }

@@ -21,8 +21,6 @@ On android, be sure to call UserDialogs.Init() before using!
 Supported Platforms
 - Xamarin (iOS Unified/Android)
 - Universal Windows Platform (Win10/UWP)
-- Windows Phone 8 (Silverlight)
-- Windows Phone 8.1
 - Portable Class Libraries (Profile 259)
         </description>
         <authors>Allan Ritchie</authors>
