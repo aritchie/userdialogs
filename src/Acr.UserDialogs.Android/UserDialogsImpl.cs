@@ -158,18 +158,12 @@ namespace Acr.UserDialogs {
                     .SetTitle(config.Title)
                     .SetView(txt)
                     .SetPositiveButton(config.OkText, (s, a) =>
-                        config.OnResult(new PromptResult {
-                            Ok = true,
-                            Text = txt.Text
-                        })
+                        config.OnResult(new PromptResult(true, txt.Text.Trim()))
 					);
 
 				if (config.IsCancellable) {
 					builder.SetNegativeButton(config.CancelText, (s, a) =>
-                        config.OnResult(new PromptResult {
-                            Ok = false,
-                            Text = txt.Text
-                        })
+                        config.OnResult(new PromptResult(false, txt.Text.Trim()))
 					);
 				}
 
