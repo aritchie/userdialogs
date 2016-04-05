@@ -24,6 +24,9 @@ namespace Samples
                 Btn("ActionSheet", this.ActionSheet),
                 Btn("ActionSheet (async)", this.ActionSheetAsync),
                 Btn("Confirm", this.Confirm),
+                Btn("Date & Time", () => this.Date(DateTimePromptMode.DateAndTime)),
+                Btn("Date", () => this.Date(DateTimePromptMode.Date)),
+                Btn("Time", () => this.Date(DateTimePromptMode.Time)),
                 Btn("Login", this.Login),
                 Btn("Prompt", this.Prompt),
                 Btn("Prompt /w Text/No Cancel", this.PromptWithTextAndNoCancel),
@@ -66,6 +69,10 @@ namespace Samples
                     ActionSheetConfig.DefaultDestructiveText = "BOOM!";
                     ConfirmConfig.DefaultYes = "SIGN LIFE AWAY";
                     ConfirmConfig.DefaultNo = "NO WAY";
+                    DateTimePromptConfig.DefaultMinuteInterval = 15;
+                    DateTimePromptConfig.DefaultCancelText = "BYE";
+                    DateTimePromptConfig.DefaultOkText = "Do Something";
+
                     LoginConfig.DefaultTitle = "HIGH SECURITY";
                     LoginConfig.DefaultLoginPlaceholder = "WHO ARE YOU?";
                     LoginConfig.DefaultPasswordPlaceholder = "SUPER SECRET PASSWORD";
@@ -94,6 +101,9 @@ namespace Samples
                     ActionSheetConfig.DefaultDestructiveText = "Remove";
                     ConfirmConfig.DefaultYes = "Yes";
                     ConfirmConfig.DefaultNo = "No";
+                    DateTimePromptConfig.DefaultMinuteInterval = 1;
+                    DateTimePromptConfig.DefaultCancelText = "Cancel";
+                    DateTimePromptConfig.DefaultOkText = "Ok";
                     LoginConfig.DefaultTitle = "Login";
                     LoginConfig.DefaultLoginPlaceholder = "User Name";
                     LoginConfig.DefaultPasswordPlaceholder = "Password";
@@ -187,6 +197,14 @@ namespace Samples
             var r = await UserDialogs.Instance.ConfirmAsync("Pick a choice", "Pick Title");
             var text = (r ? "Yes" : "No");
             this.Result($"Confirmation Choice: {text}");
+        }
+
+
+        async void Date(DateTimePromptMode mode)
+        {
+            var result = await UserDialogs.Instance.DateTimePromptAsync(mode.ToString(), mode);
+            var state = result.Ok ? "successful" : "cancelled";
+            this.Result($"{mode} was {state} with a selected date/time of {result.SelectedDateTime}");
         }
 
 

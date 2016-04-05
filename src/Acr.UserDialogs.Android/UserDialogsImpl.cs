@@ -20,18 +20,22 @@ using AlertDialog = Android.App.AlertDialog;
 using Utils = Acr.Support.Android.Extensions;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class UserDialogsImpl : AbstractUserDialogs {
+    public class UserDialogsImpl : AbstractUserDialogs
+    {
         protected Func<Activity> GetTopActivity { get; set; }
 
 
-        public UserDialogsImpl(Func<Activity> getTopActivity) {
+        public UserDialogsImpl(Func<Activity> getTopActivity)
+        {
             this.GetTopActivity = getTopActivity;
         }
 
 
-        public override void Alert(AlertConfig config) {
+        public override void Alert(AlertConfig config)
+        {
             //var context = this.GetTopActivity();
             //var layout = new LinearLayout(context) {
             //    Orientation = Orientation.Vertical,
@@ -45,28 +49,31 @@ namespace Acr.UserDialogs {
                     .SetCancelable(false)
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
-					.SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke())
+                    .SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke())
                     .ShowExt()
             );
         }
 
 
-        public override void ActionSheet(ActionSheetConfig config) {
+        public override void ActionSheet(ActionSheetConfig config)
+        {
             var activity = this.GetTopActivity();
             var dlg = new AlertDialog
                 .Builder(activity)
-				.SetCancelable(false)
+                .SetCancelable(false)
                 .SetTitle(config.Title);
-                //.SetCustomTitle(new TextView(activity) {
-                //    Text = config.Title,
-                //    TextSize = 18.0f
-                //});
+            //.SetCustomTitle(new TextView(activity) {
+            //    Text = config.Title,
+            //    TextSize = 18.0f
+            //});
 
-            if (config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null)) {
+            if (config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null))
+            {
                 var adapter = new ActionSheetListAdapter(this.GetTopActivity(), Android.Resource.Layout.SelectDialogItem, Android.Resource.Id.Text1, config);
                 dlg.SetAdapter(adapter, (s, a) => config.Options[a.Which].Action?.Invoke());
             }
-            else {
+            else
+            {
                 var array = config
                     .Options
                     .Select(x => x.Text)
@@ -75,17 +82,18 @@ namespace Acr.UserDialogs {
                 dlg.SetItems(array, (s, args) => config.Options[args.Which].Action?.Invoke());
             }
 
-			if (config.Destructive != null)
-				dlg.SetNegativeButton(config.Destructive.Text, (s, a) => config.Destructive.Action?.Invoke());
+            if (config.Destructive != null)
+                dlg.SetNegativeButton(config.Destructive.Text, (s, a) => config.Destructive.Action?.Invoke());
 
-			if (config.Cancel != null)
-				dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
+            if (config.Cancel != null)
+                dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
 
-			Utils.RequestMainThread(() => dlg.ShowExt());
+            Utils.RequestMainThread(() => dlg.ShowExt());
         }
 
 
-        public override void Confirm(ConfirmConfig config) {
+        public override void Confirm(ConfirmConfig config)
+        {
             Utils.RequestMainThread(() =>
                 new AlertDialog
                     .Builder(this.GetTopActivity())
@@ -99,19 +107,29 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Login(LoginConfig config) {
+        public override void DateTimePrompt(DateTimePromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public override void Login(LoginConfig config)
+        {
             var context = this.GetTopActivity();
-            var txtUser = new EditText(context) {
+            var txtUser = new EditText(context)
+            {
                 Hint = config.LoginPlaceholder,
                 InputType = InputTypes.TextVariationVisiblePassword,
                 Text = config.LoginValue ?? String.Empty
             };
-            var txtPass = new EditText(context) {
+            var txtPass = new EditText(context)
+            {
                 Hint = config.PasswordPlaceholder ?? "*"
             };
             this.SetInputType(txtPass, InputType.Password);
 
-            var layout = new LinearLayout(context) {
+            var layout = new LinearLayout(context)
+            {
                 Orientation = Orientation.Vertical
             };
 
@@ -139,15 +157,18 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Prompt(PromptConfig config) {
-            Utils.RequestMainThread(() => {
+        public override void Prompt(PromptConfig config)
+        {
+            Utils.RequestMainThread(() =>
+            {
                 var activity = this.GetTopActivity();
 
-                var txt = new EditText(activity) {
+                var txt = new EditText(activity)
+                {
                     Hint = config.Placeholder
                 };
-				if (config.Text != null)
-					txt.Text = config.Text;
+                if (config.Text != null)
+                    txt.Text = config.Text;
 
                 this.SetInputType(txt, config.InputType);
 
@@ -159,34 +180,38 @@ namespace Acr.UserDialogs {
                     .SetView(txt)
                     .SetPositiveButton(config.OkText, (s, a) =>
                         config.OnResult(new PromptResult(true, txt.Text.Trim()))
-					);
+                    );
 
-				if (config.IsCancellable) {
-					builder.SetNegativeButton(config.CancelText, (s, a) =>
+                if (config.IsCancellable)
+                {
+                    builder.SetNegativeButton(config.CancelText, (s, a) =>
                         config.OnResult(new PromptResult(false, txt.Text.Trim()))
-					);
-				}
+                    );
+                }
 
-				builder.ShowExt();
+                builder.ShowExt();
             });
         }
 
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
+        {
             Utils.RequestMainThread(() =>
                 AndHUD.Shared.ShowImage(this.GetTopActivity(), image.ToNative(), message, AndroidHUD.MaskType.Black, TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
 
-        public override void ShowSuccess(string message, int timeoutMillis) {
+        public override void ShowSuccess(string message, int timeoutMillis)
+        {
             Utils.RequestMainThread(() =>
                 AndHUD.Shared.ShowSuccess(this.GetTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
 
-        public override void ShowError(string message, int timeoutMillis) {
+        public override void ShowError(string message, int timeoutMillis)
+        {
             Utils.RequestMainThread(() =>
                 AndHUD.Shared.ShowError(this.GetTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
@@ -227,9 +252,11 @@ namespace Acr.UserDialogs {
             throw new Exception("No textview found on snackbar");
         }
 #else
-        public override void Toast(ToastConfig cfg) {
-            Utils.RequestMainThread(() => {
-				var top = this.GetTopActivity();
+        public override void Toast(ToastConfig cfg)
+        {
+            Utils.RequestMainThread(() =>
+            {
+                var top = this.GetTopActivity();
                 var txt = cfg.Title;
                 if (!String.IsNullOrWhiteSpace(cfg.Description))
                     txt += Environment.NewLine + cfg.Description;
@@ -237,25 +264,29 @@ namespace Acr.UserDialogs {
                 AndHUD.Shared.ShowToast(
                     top,
                     txt,
-					AndroidHUD.MaskType.Black,
+                    AndroidHUD.MaskType.Black,
                     cfg.Duration,
                     false,
-					() => {
-						AndHUD.Shared.Dismiss();
+                    () =>
+                    {
+                        AndHUD.Shared.Dismiss();
                         cfg.Action?.Invoke();
-					}
+                    }
                 );
             });
         }
 #endif
 
-        protected override IProgressDialog CreateDialogInstance() {
-			return new ProgressDialog(this.GetTopActivity());
+        protected override IProgressDialog CreateDialogInstance()
+        {
+            return new ProgressDialog(this.GetTopActivity());
         }
 
 
-        protected virtual void SetInputType(TextView txt, InputType inputType) {
-            switch (inputType) {
+        protected virtual void SetInputType(TextView txt, InputType inputType)
+        {
+            switch (inputType)
+            {
                 case InputType.DecimalNumber:
                     txt.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
                     txt.SetSingleLine(true);
@@ -266,10 +297,10 @@ namespace Acr.UserDialogs {
                     txt.SetSingleLine(true);
                     break;
 
-				case InputType.Name:
-					txt.InputType = InputTypes.TextVariationPersonName;
+                case InputType.Name:
+                    txt.InputType = InputTypes.TextVariationPersonName;
                     txt.SetSingleLine(true);
-					break;
+                    break;
 
                 case InputType.Number:
                     txt.InputType = InputTypes.ClassNumber;
@@ -286,15 +317,15 @@ namespace Acr.UserDialogs {
                     txt.InputType = InputTypes.ClassText | InputTypes.TextVariationPassword;
                     break;
 
-				case InputType.Phone:
-					txt.InputType = InputTypes.ClassPhone;
+                case InputType.Phone:
+                    txt.InputType = InputTypes.ClassPhone;
                     txt.SetSingleLine(true);
-					break;
+                    break;
 
-				case InputType.Url:
-					txt.InputType = InputTypes.TextVariationUri;
+                case InputType.Url:
+                    txt.InputType = InputTypes.TextVariationUri;
                     txt.SetSingleLine(true);
-					break;
+                    break;
             }
         }
     }

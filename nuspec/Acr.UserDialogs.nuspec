@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.3.4</version>
+        <version>4.4.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -10,6 +10,7 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Action Sheet (multiple choice menu)
 - Alert
 - Confirm
+- Date/Time Prompt
 - Loading
 - Login
 - Progress
@@ -56,6 +57,10 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+4.4
+[fix][droid] remove resource files to allow for support library updates (thanks IISocio!)
+[feature] date/time prompt!
+
 4.3.4
 [fix][uwp][wp81] xaml exceptions due to missing library layout files
 

@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using Acr.Support.iOS;
 using UIKit;
 using BigTed;
+using CoreGraphics;
+using Foundation;
 using MessageBar;
 using Splat;
 
@@ -75,6 +78,86 @@ namespace Acr.UserDialogs
                 this.Present(dlg);
             }
         }
+
+        /*
+[datePickerContainer.view addSubview:datePicker];
+
+            //Add autolayout constraints to position the datepicker
+            [datePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+            // Create a dictionary to represent the view being positioned
+            NSDictionary *labelViewDictionary = NSDictionaryOfVariableBindings(datePicker);
+
+            NSArray* hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[datePicker]-|" options:0 metrics:nil views:labelViewDictionary];
+            [datePickerContainer.view addConstraints:hConstraints];
+            NSArray* vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[datePicker]" options:0 metrics:nil views:labelViewDictionary];
+            [datePickerContainer.view addConstraints:vConstraints];
+
+            [datePickerContainer addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action){
+                [self dateSelected:nil];
+            }]];
+
+            [self presentViewController:datePickerContainer animated:YES completion:nil];
+
+             */
+        public override void DateTimePrompt(DateTimePromptConfig config)
+        {
+            var controller = UIAlertController.Create(
+                config.Title ?? String.Empty,
+                null,
+                UIAlertControllerStyle.ActionSheet
+            );
+            var width = controller.View.Frame.Size.Width;
+
+            var picker = new UIDatePicker(new CGRect(0, 44, 0, 0))
+            {
+                Mode = (UIDatePickerMode)Enum.Parse(typeof(UIDatePickerMode), config.Mode.ToString(), true),
+                MinuteInterval = config.MinuteInterval
+            };
+            if (config.MinimumDate != null)
+                picker.MinimumDate = (NSDate)config.MinimumDate;
+
+            if (config.MaximumDate != null)
+                picker.MaximumDate = (NSDate)config.MaximumDate;
+
+            if (config.SelectedDateTime != null)
+                picker.SetDate((NSDate)config.SelectedDateTime, false);
+
+            var btns = new List<UIBarButtonItem>();
+            //controller.AddAction(UIAlertAction.Create(
+            //    config.OkText,
+            //    UIAlertActionStyle.Default,
+            //    x => config.OnResult?.Invoke(new DateTimePromptResult(true, (DateTime)picker.Date)))
+            //);
+            if (config.IsCancellable)
+            {
+                btns.Add(new UIBarButtonItem(UIBarButtonSystemItem.Cancel, (sender, args) =>
+                {
+                    controller.DismissViewController(true, null);
+                    config.OnResult?.Invoke(new DateTimePromptResult(false, (DateTime) picker.Date));
+                }));
+                //controller.AddAction(UIAlertAction.Create(
+                //    config.CancelText,
+                //    UIAlertActionStyle.Cancel,
+                //    x => config.OnResult?.Invoke(new DateTimePromptResult(false, (DateTime)picker.Date))
+                //));
+            }
+            btns.Add(new UIBarButtonItem(UIBarButtonSystemItem.Done, (sender, args) =>
+            {
+                config.OnResult?.Invoke(new DateTimePromptResult(true, (DateTime) picker.Date));
+                controller.DismissViewController(true, null);
+            }));
+
+            var toolbar = new UIToolbar(new CGRect(0, 0, width, 144));
+            toolbar.SetItems(btns.ToArray(), true);
+
+            controller.View.AddSubview(toolbar);
+            controller.View.AddSubview(picker);
+            controller.View.Bounds = new CGRect(7, 200, controller.View.Frame.Size.Width, 200);
+
+            this.Present(controller);
+        }
+
 
 
         public override void Login(LoginConfig config)
@@ -162,7 +245,6 @@ namespace Acr.UserDialogs
                 BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis)
             );
         }
-
 
 
         public override void Toast(ToastConfig cfg)

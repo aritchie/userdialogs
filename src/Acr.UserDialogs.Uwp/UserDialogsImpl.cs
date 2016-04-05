@@ -11,35 +11,43 @@ using Coding4Fun.Toolkit.Controls;
 using Splat;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class UserDialogsImpl : AbstractUserDialogs {
+    public class UserDialogsImpl : AbstractUserDialogs
+    {
 
-        public override void Alert(AlertConfig config) {
+        public override void Alert(AlertConfig config)
+        {
             var dialog = new MessageDialog(config.Message, config.Title);
             dialog.Commands.Add(new UICommand(config.OkText, x => config.OnOk?.Invoke()));
             this.Dispatch(() => dialog.ShowAsync());
         }
 
 
-        public override void ActionSheet(ActionSheetConfig config) {
+        public override void ActionSheet(ActionSheetConfig config)
+        {
             var dlg = new ActionSheetContentDialog();
 
-            var vm = new ActionSheetViewModel {
+            var vm = new ActionSheetViewModel
+            {
                 Title = config.Title,
-                Cancel = new ActionSheetOptionViewModel(config.Cancel != null,config.Cancel?.Text, () => {
+                Cancel = new ActionSheetOptionViewModel(config.Cancel != null, config.Cancel?.Text, () =>
+                {
                     dlg.Hide();
                     config.Cancel?.Action?.Invoke();
                 }),
 
-                Destructive = new ActionSheetOptionViewModel(config.Destructive != null, config.Destructive?.Text, () => {
+                Destructive = new ActionSheetOptionViewModel(config.Destructive != null, config.Destructive?.Text, () =>
+                {
                     dlg.Hide();
                     config.Destructive?.Action?.Invoke();
                 }),
 
                 Options = config
                     .Options
-                    .Select(x => new ActionSheetOptionViewModel(true, x.Text, () => {
+                    .Select(x => new ActionSheetOptionViewModel(true, x.Text, () =>
+                    {
                         dlg.Hide();
                         x.Action?.Invoke();
                     }, x.ItemIcon != null ? x.ItemIcon : config.ItemIcon))
@@ -51,7 +59,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Confirm(ConfirmConfig config) {
+        public override void Confirm(ConfirmConfig config)
+        {
             var dialog = new MessageDialog(config.Message, config.Title);
             dialog.Commands.Add(new UICommand(config.OkText, x => config.OnConfirm(true)));
             dialog.DefaultCommandIndex = 0;
@@ -62,9 +71,17 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Login(LoginConfig config) {
+        public override void DateTimePrompt(DateTimePromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
 
-            var vm = new LoginViewModel {
+
+        public override void Login(LoginConfig config)
+        {
+
+            var vm = new LoginViewModel
+            {
                 LoginText = config.OkText,
                 Title = config.Title,
                 Message = config.Message,
@@ -109,7 +126,8 @@ namespace Acr.UserDialogs {
             else
                 this.SetDefaultPrompt(dialog, stack, config);
 
-            if (config.IsCancellable) {
+            if (config.IsCancellable)
+            {
                 dialog.SecondaryButtonText = config.CancelText;
                 dialog.SecondaryButtonCommand = new Command(() =>
                 {
@@ -156,30 +174,37 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
+        {
             this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
         }
 
 
-        public override void ShowError(string message, int timeoutMillis) {
+        public override void ShowError(string message, int timeoutMillis)
+        {
             this.Show(null, message, ToastConfig.ErrorBackgroundColor, timeoutMillis);
         }
 
 
-        public override void ShowSuccess(string message, int timeoutMillis) {
+        public override void ShowSuccess(string message, int timeoutMillis)
+        {
             this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
         }
 
 
-        void Show(IBitmap image, string message, Color bgColor, int timeoutMillis) {
-            var cd = new ContentDialog {
+        void Show(IBitmap image, string message, Color bgColor, int timeoutMillis)
+        {
+            var cd = new ContentDialog
+            {
                 Background = new SolidColorBrush(bgColor.ToNative()),
                 Content = new TextBlock { Text = message }
             };
             this.Dispatch(() => cd.ShowAsync());
             Task.Delay(TimeSpan.FromMilliseconds(timeoutMillis))
-                .ContinueWith(x => {
-                    try {
+                .ContinueWith(x =>
+                {
+                    try
+                    {
                         this.Dispatch(() => cd.Hide());
                     }
                     catch { }
@@ -187,13 +212,16 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected override IProgressDialog CreateDialogInstance() {
+        protected override IProgressDialog CreateDialogInstance()
+        {
             return new ProgressDialog();
         }
 
 
-        public override void Toast(ToastConfig config) {
-            var toast = new ToastPrompt {
+        public override void Toast(ToastConfig config)
+        {
+            var toast = new ToastPrompt
+            {
                 Background = new SolidColorBrush(config.BackgroundColor.ToNative()),
                 Foreground = new SolidColorBrush(config.TextColor.ToNative()),
                 Title = config.Title,
@@ -210,7 +238,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected virtual void Dispatch(Action action) {
+        protected virtual void Dispatch(Action action)
+        {
             CoreWindow
                 .GetForCurrentThread()
                 .Dispatcher

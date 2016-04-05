@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs.Android.AppCompat</id>
-        <version>4.3.2</version>
+        <version>4.4.0</version>
         <title>ACR User Dialogs Plugin Android AppCompat Support</title>
         <summary>ACR User Dialogs Android Support Library - AppCompat</summary>
         <description>
@@ -20,7 +20,9 @@ Material Design for ACR User Dialogs on Android
             <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
         </dependencies>
         <releaseNotes>
-Update to latest Support Library
+4.4
+[fix][droid] remove resource files to allow for support library updates (thanks IISocio!)
+[feature] date/time prompt!
         </releaseNotes>
     </metadata>
     <files>

@@ -11,6 +11,7 @@ namespace Acr.UserDialogs {
         void Alert(AlertConfig config);
         void ActionSheet(ActionSheetConfig config);
         void Confirm(ConfirmConfig config);
+        void DateTimePrompt(DateTimePromptConfig config);
         void Prompt(PromptConfig config);
         void Login(LoginConfig config);
         IProgressDialog Progress(ProgressDialogConfig config);
@@ -25,6 +26,8 @@ namespace Acr.UserDialogs {
         Task AlertAsync(AlertConfig config);
         Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null);
         Task<bool> ConfirmAsync(ConfirmConfig config);
+        Task<DateTimePromptResult> DateTimePromptAsync(DateTimePromptConfig config);
+        Task<DateTimePromptResult> DateTimePromptAsync(string title = null, DateTimePromptMode? mode = null);
         Task<LoginResult> LoginAsync(string title = null, string message = null);
         Task<LoginResult> LoginAsync(LoginConfig config);
         Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default);

@@ -3,13 +3,16 @@ using System.Threading.Tasks;
 using Splat;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public abstract class AbstractUserDialogs : IUserDialogs {
+    public abstract class AbstractUserDialogs : IUserDialogs
+    {
 
         public abstract void Alert(AlertConfig config);
         public abstract void ActionSheet(ActionSheetConfig config);
         public abstract void Confirm(ConfirmConfig config);
+        public abstract void DateTimePrompt(DateTimePromptConfig config);
         public abstract void Login(LoginConfig config);
         public abstract void Prompt(PromptConfig config);
         public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
@@ -19,7 +22,8 @@ namespace Acr.UserDialogs {
         protected abstract IProgressDialog CreateDialogInstance();
 
 
-        public virtual Task<string> ActionSheetAsync(string title, string cancel, string destructive, params string[] buttons) {
+        public virtual Task<string> ActionSheetAsync(string title, string cancel, string destructive, params string[] buttons)
+        {
             var tcs = new TaskCompletionSource<string>();
             var cfg = new ActionSheetConfig();
             if (title != null)
@@ -34,13 +38,15 @@ namespace Acr.UserDialogs {
             foreach (var btn in buttons)
                 cfg.Add(btn, () => tcs.TrySetResult(btn));
 
-			this.ActionSheet(cfg);
+            this.ActionSheet(cfg);
             return tcs.Task;
         }
 
 
-        public virtual void Alert(string message, string title, string okText) {
-            this.Alert(new AlertConfig {
+        public virtual void Alert(string message, string title, string okText)
+        {
+            this.Alert(new AlertConfig
+            {
                 Message = message,
                 Title = title,
                 OkText = okText ?? AlertConfig.DefaultOkText
@@ -49,47 +55,54 @@ namespace Acr.UserDialogs {
 
 
         private IProgressDialog loading;
-		public virtual void ShowLoading(string title, MaskType? maskType) {
+        public virtual void ShowLoading(string title, MaskType? maskType)
+        {
             if (this.loading == null)
-				this.loading = this.Loading(title, null, null, true, maskType);
+                this.loading = this.Loading(title, null, null, true, maskType);
         }
 
 
-        public virtual void HideLoading() {
+        public virtual void HideLoading()
+        {
             this.loading?.Dispose();
             this.loading = null;
         }
 
 
-		public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show, MaskType? maskType) {
-            return this.Progress(new ProgressDialogConfig {
+        public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show, MaskType? maskType)
+        {
+            return this.Progress(new ProgressDialogConfig
+            {
                 Title = title ?? ProgressDialogConfig.DefaultTitle,
                 AutoShow = show,
                 CancelText = cancelText ?? ProgressDialogConfig.DefaultCancelText,
-				MaskType = maskType ?? ProgressDialogConfig.DefaultMaskType,
+                MaskType = maskType ?? ProgressDialogConfig.DefaultMaskType,
                 IsDeterministic = false,
                 OnCancel = onCancel
             });
         }
 
 
-		public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show, MaskType? maskType) {
-			return this.Progress(new ProgressDialogConfig {
+        public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show, MaskType? maskType)
+        {
+            return this.Progress(new ProgressDialogConfig
+            {
                 Title = title ?? ProgressDialogConfig.DefaultTitle,
                 AutoShow = show,
                 CancelText = cancelText ?? ProgressDialogConfig.DefaultCancelText,
-				MaskType = maskType ?? ProgressDialogConfig.DefaultMaskType,
+                MaskType = maskType ?? ProgressDialogConfig.DefaultMaskType,
                 IsDeterministic = true,
                 OnCancel = onCancel
             });
         }
 
 
-		public virtual IProgressDialog Progress(ProgressDialogConfig config) {
+        public virtual IProgressDialog Progress(ProgressDialogConfig config)
+        {
             var dlg = this.CreateDialogInstance();
             dlg.Title = config.Title;
             dlg.IsDeterministic = config.IsDeterministic;
-			dlg.MaskType = config.MaskType;
+            dlg.MaskType = config.MaskType;
 
             if (config.OnCancel != null)
                 dlg.SetCancel(config.OnCancel, config.CancelText);
@@ -101,9 +114,11 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual Task AlertAsync(string message, string title, string okText) {
+        public virtual Task AlertAsync(string message, string title, string okText)
+        {
             var tcs = new TaskCompletionSource<object>();
-            this.Alert(new AlertConfig {
+            this.Alert(new AlertConfig
+            {
                 Message = message,
                 Title = title,
                 OkText = okText ?? AlertConfig.DefaultOkText,
@@ -113,7 +128,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual Task AlertAsync(AlertConfig config) {
+        public virtual Task AlertAsync(AlertConfig config)
+        {
             var tcs = new TaskCompletionSource<object>();
             config.OnOk = () => tcs.TrySetResult(null);
             this.Alert(config);
@@ -121,9 +137,11 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText) {
+        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText)
+        {
             var tcs = new TaskCompletionSource<bool>();
-            this.Confirm(new ConfirmConfig {
+            this.Confirm(new ConfirmConfig
+            {
                 Message = message,
                 Title = title,
                 CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
@@ -134,7 +152,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual Task<bool> ConfirmAsync(ConfirmConfig config) {
+        public virtual Task<bool> ConfirmAsync(ConfirmConfig config)
+        {
             var tcs = new TaskCompletionSource<bool>();
             config.OnConfirm = x => tcs.TrySetResult(x);
             this.Confirm(config);
@@ -142,15 +161,37 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual Task<LoginResult> LoginAsync(string title, string message) {
-            return this.LoginAsync(new LoginConfig {
+        public virtual Task<DateTimePromptResult> DateTimePromptAsync(DateTimePromptConfig config)
+        {
+            var tcs = new TaskCompletionSource<DateTimePromptResult>();
+            config.OnResult = x => tcs.TrySetResult(x);
+            this.DateTimePrompt(config);
+            return tcs.Task;
+        }
+
+
+        public virtual Task<DateTimePromptResult> DateTimePromptAsync(string title, DateTimePromptMode? mode)
+        {
+            var config = new DateTimePromptConfig { Title = title };
+            if (mode != null)
+                config.Mode = mode.Value;
+
+            return this.DateTimePromptAsync(config);
+        }
+
+
+        public virtual Task<LoginResult> LoginAsync(string title, string message)
+        {
+            return this.LoginAsync(new LoginConfig
+            {
                 Title = title ?? LoginConfig.DefaultTitle,
                 Message = message
             });
         }
 
 
-        public virtual Task<LoginResult> LoginAsync(LoginConfig config) {
+        public virtual Task<LoginResult> LoginAsync(LoginConfig config)
+        {
             var tcs = new TaskCompletionSource<LoginResult>();
             config.OnResult = x => tcs.TrySetResult(x);
             this.Login(config);
@@ -158,9 +199,11 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual Task<PromptResult> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType) {
+        public virtual Task<PromptResult> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType)
+        {
             var tcs = new TaskCompletionSource<PromptResult>();
-            this.Prompt(new PromptConfig {
+            this.Prompt(new PromptConfig
+            {
                 Message = message,
                 Title = title,
                 CancelText = cancelText ?? PromptConfig.DefaultCancelText,
@@ -173,7 +216,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual Task<PromptResult> PromptAsync(PromptConfig config) {
+        public virtual Task<PromptResult> PromptAsync(PromptConfig config)
+        {
             var tcs = new TaskCompletionSource<PromptResult>();
             config.OnResult = x => tcs.TrySetResult(x);
             this.Prompt(config);
@@ -181,28 +225,34 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual void InfoToast(string title, string description, int timeoutMillis) {
+        public virtual void InfoToast(string title, string description, int timeoutMillis)
+        {
             this.Toast(ToastEvent.Info, title, description, timeoutMillis);
         }
 
 
-        public virtual void SuccessToast(string title, string description, int timeoutMillis) {
+        public virtual void SuccessToast(string title, string description, int timeoutMillis)
+        {
             this.Toast(ToastEvent.Success, title, description, timeoutMillis);
         }
 
 
-        public virtual void WarnToast(string title, string description, int timeoutMillis) {
+        public virtual void WarnToast(string title, string description, int timeoutMillis)
+        {
             this.Toast(ToastEvent.Warn, title, description, timeoutMillis);
         }
 
 
-        public virtual void ErrorToast(string title, string description, int timeoutMillis) {
+        public virtual void ErrorToast(string title, string description, int timeoutMillis)
+        {
             this.Toast(ToastEvent.Error, title, description, timeoutMillis);
         }
 
 
-        public virtual void Toast(ToastEvent toastEvent, string title, string description, int timeoutMillis) {
-            this.Toast(new ToastConfig(toastEvent, title) {
+        public virtual void Toast(ToastEvent toastEvent, string title, string description, int timeoutMillis)
+        {
+            this.Toast(new ToastConfig(toastEvent, title)
+            {
                 Description = description,
                 Duration = TimeSpan.FromMilliseconds(timeoutMillis)
             });

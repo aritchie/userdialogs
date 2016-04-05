@@ -2,12 +2,15 @@
 using Xamarin.Forms;
 
 
-namespace Samples {
+namespace Samples
+{
 
-    public class App : Application {
+    public class App : Application
+    {
 
-        public App() {
-			this.MainPage = new Samples.MainPage();
+        public App()
+        {
+            this.MainPage = new Samples.MainPage();
         }
     }
 }

@@ -105,6 +105,12 @@ namespace Acr.UserDialogs
         }
 
 
+        public override void DateTimePrompt(DateTimePromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public override void Login(LoginConfig config)
         {
             var prompt = new CustomMessageBox
