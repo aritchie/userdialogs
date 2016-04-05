@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
@@ -112,7 +113,7 @@ namespace Acr.UserDialogs {
                 dialog.SecondaryButtonText = config.CancelText;
                 dialog.SecondaryButtonCommand = new Command(() =>
                 {
-                    config.OnResult?.Invoke(new PromptResult { Ok = false });
+                    config.OnResult?.Invoke(new PromptResult(false, String.Empty));
                     dialog.Hide();
                 });
             }
@@ -132,11 +133,7 @@ namespace Acr.UserDialogs {
 
             dialog.PrimaryButtonCommand = new Command(() =>
             {
-                config.OnResult?.Invoke(new PromptResult
-                {
-                    Ok = true,
-                    Text = txt.Password
-                });
+                config.OnResult?.Invoke(new PromptResult(true, txt.Password));
                 dialog.Hide();
             });
         }
@@ -153,11 +150,7 @@ namespace Acr.UserDialogs {
 
             dialog.PrimaryButtonCommand = new Command(() =>
             {
-                config.OnResult?.Invoke(new PromptResult
-                {
-                    Ok = true,
-                    Text = txt.Text.Trim()
-                });
+                config.OnResult?.Invoke(new PromptResult(true, txt.Text.Trim()));
                 dialog.Hide();
             });
         }

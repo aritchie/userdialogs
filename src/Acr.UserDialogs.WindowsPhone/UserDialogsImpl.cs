@@ -11,13 +11,18 @@ using Microsoft.Phone.Shell;
 using Splat;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class UserDialogsImpl : AbstractUserDialogs {
+    public class UserDialogsImpl : AbstractUserDialogs
+    {
 
-        public override void Alert(AlertConfig config) {
-            this.Dispatch(() => {
-                var alert = new CustomMessageBox {
+        public override void Alert(AlertConfig config)
+        {
+            this.Dispatch(() =>
+            {
+                var alert = new CustomMessageBox
+                {
                     Caption = config.Title,
                     Message = config.Message,
                     LeftButtonContent = config.OkText,
@@ -30,41 +35,51 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void ActionSheet(ActionSheetConfig config) {
-            var sheet = new CustomMessageBox {
+        public override void ActionSheet(ActionSheetConfig config)
+        {
+            var sheet = new CustomMessageBox
+            {
                 Caption = config.Title
             };
-            if (config.Cancel != null) {
+            if (config.Cancel != null)
+            {
                 sheet.IsRightButtonEnabled = true;
-                sheet.RightButtonContent = this.CreateButton(config.Cancel.Text, () => {
+                sheet.RightButtonContent = this.CreateButton(config.Cancel.Text, () =>
+                {
                     sheet.Dismiss();
                     config.Cancel.Action?.Invoke();
                 });
             }
-            if (config.Destructive != null) {
+            if (config.Destructive != null)
+            {
                 sheet.IsLeftButtonEnabled = true;
-                sheet.LeftButtonContent = this.CreateButton(config.Destructive.Text, () => {
+                sheet.LeftButtonContent = this.CreateButton(config.Destructive.Text, () =>
+                {
                     sheet.Dismiss();
                     config.Destructive.Action?.Invoke();
                 });
             }
 
-            var list = new ListBox {
+            var list = new ListBox
+            {
                 FontSize = 36,
                 Margin = new Thickness(12.0),
                 SelectionMode = SelectionMode.Single,
                 ItemsSource = config.Options
-                    .Select(x => new TextBlock {
+                    .Select(x => new TextBlock
+                    {
                         Text = x.Text,
                         Margin = new Thickness(0.0, 12.0, 0.0, 12.0),
                         DataContext = x
                     })
             };
             list.SelectionChanged += (sender, args) => sheet.Dismiss();
-            sheet.Content = new ScrollViewer {
+            sheet.Content = new ScrollViewer
+            {
                 Content = list
             };
-            sheet.Dismissed += (sender, args) => {
+            sheet.Dismissed += (sender, args) =>
+            {
                 var txt = list.SelectedValue as TextBlock;
                 if (txt == null)
                     return;
@@ -76,8 +91,10 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Confirm(ConfirmConfig config) {
-            var confirm = new CustomMessageBox {
+        public override void Confirm(ConfirmConfig config)
+        {
+            var confirm = new CustomMessageBox
+            {
                 Caption = config.Title,
                 Message = config.Message,
                 LeftButtonContent = config.OkText,
@@ -88,20 +105,23 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Login(LoginConfig config) {
-            var prompt = new CustomMessageBox {
+        public override void Login(LoginConfig config)
+        {
+            var prompt = new CustomMessageBox
+            {
                 Caption = config.Title,
                 Message = config.Message,
                 LeftButtonContent = config.OkText,
                 RightButtonContent = config.CancelText
             };
-            var txtUser = new PhoneTextBox {
+            var txtUser = new PhoneTextBox
+            {
                 //PlaceholderText = config.LoginPlaceholder,
                 Text = config.LoginValue ?? String.Empty
             };
             var txtPass = new PasswordBox();
             //var txtPass = new PhonePasswordBox {
-                //PlaceholderText = config.PasswordPlaceholder
+            //PlaceholderText = config.PasswordPlaceholder
             //};
             var stack = new StackPanel();
 
@@ -118,23 +138,26 @@ namespace Acr.UserDialogs {
         }
 
 
-        public override void Prompt(PromptConfig config) {
-            var prompt = new CustomMessageBox {
+        public override void Prompt(PromptConfig config)
+        {
+            var prompt = new CustomMessageBox
+            {
                 Caption = config.Title,
                 Message = config.Message,
                 LeftButtonContent = config.OkText
             };
-			if (config.IsCancellable)
-				prompt.RightButtonContent = config.CancelText;
+            if (config.IsCancellable)
+                prompt.RightButtonContent = config.CancelText;
 
             var password = new PasswordBox();
             var inputScope = this.GetInputScope(config.InputType);
-            var txt = new PhoneTextBox {
+            var txt = new PhoneTextBox
+            {
                 //PlaceholderText = config.Placeholder,
                 InputScope = inputScope
             };
-			if (config.Text != null)
-				txt.Text = config.Text;
+            if (config.Text != null)
+                txt.Text = config.Text;
 
             var isSecure = (config.InputType == InputType.NumericPassword || config.InputType == InputType.Password);
             if (isSecure)
@@ -142,44 +165,50 @@ namespace Acr.UserDialogs {
             else
                 prompt.Content = txt;
 
-            prompt.Dismissed += (sender, args) => config.OnResult(new PromptResult {
-                Ok = args.Result == CustomMessageBoxResult.LeftButton,
-                Text = isSecure
-                    ? password.Password
-                    : txt.Text.Trim()
-            });
+            prompt.Dismissed += (sender, args) =>
+            {
+                var ok = args.Result == CustomMessageBoxResult.LeftButton;
+                var text = isSecure ? password.Password : txt.Text.Trim();
+                config.OnResult(new PromptResult(ok, text));
+            };
             this.Dispatch(prompt.Show);
         }
 
 
-        public override void ShowError(string message, int timeoutSeconds) {
+        public override void ShowError(string message, int timeoutSeconds)
+        {
             this.Alert(message, null, null);
         }
 
 
-        public override void ShowSuccess(string message, int timeoutSeconds) {
+        public override void ShowSuccess(string message, int timeoutSeconds)
+        {
             this.Alert(message, null, null);
         }
 
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis) {
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
+        {
             this.Alert(message, null, null);
         }
 
 
-        public override void Toast(ToastConfig cfg) {
+        public override void Toast(ToastConfig cfg)
+        {
             // TODO: backgroundcolor and image
             var resources = Application.Current.Resources;
             var textColor = new SolidColorBrush(cfg.TextColor.ToNative());
             var bgColor = cfg.BackgroundColor.ToNative();
 
-            var wrapper = new StackPanel {
+            var wrapper = new StackPanel
+            {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 //Background = (Brush)resources["PhoneAccentBrush"],
                 Background = new SolidColorBrush(bgColor),
                 Width = Application.Current.Host.Content.ActualWidth
             };
-            wrapper.Children.Add(new TextBlock {
+            wrapper.Children.Add(new TextBlock
+            {
                 //Foreground = (Brush)resources["PhoneForegroundBrush"],
                 Foreground = textColor,
                 FontSize = (double)resources["PhoneFontSizeMedium"],
@@ -188,8 +217,10 @@ namespace Acr.UserDialogs {
                 Text = cfg.Title
             });
 
-            if (!String.IsNullOrWhiteSpace(cfg.Description)) {
-                wrapper.Children.Add(new TextBlock {
+            if (!String.IsNullOrWhiteSpace(cfg.Description))
+            {
+                wrapper.Children.Add(new TextBlock
+                {
                     //Foreground = (Brush)resources["PhoneForegroundBrush"],
                     //FontSize = (double)resources["PhoneFontSizeMedium"],
                     Foreground = textColor,
@@ -200,46 +231,54 @@ namespace Acr.UserDialogs {
                 });
             }
 
-            var popup = new Popup {
+            var popup = new Popup
+            {
                 Child = wrapper,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            wrapper.Tap += (sender, args) => {
+            wrapper.Tap += (sender, args) =>
+            {
                 SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                 popup.IsOpen = false;
                 cfg.Action?.Invoke();
             };
 
-            this.Dispatch(() => {
+            this.Dispatch(() =>
+            {
                 //SystemTray.BackgroundColor = (Color)resources["PhoneAccentColor"];
                 SystemTray.BackgroundColor = bgColor;
                 popup.IsOpen = true;
             });
             Task.Delay(cfg.Duration)
-                .ContinueWith(x => this.Dispatch(() => {
+                .ContinueWith(x => this.Dispatch(() =>
+                {
                     SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                     popup.IsOpen = false;
                 }));
         }
 
 
-        protected override IProgressDialog CreateDialogInstance() {
+        protected override IProgressDialog CreateDialogInstance()
+        {
             return new ProgressDialog();
         }
 
 
-        protected virtual Button CreateButton(string text, Action action) {
+        protected virtual Button CreateButton(string text, Action action)
+        {
             var btn = new Button { Content = text };
             btn.Click += (sender, args) => action();
             return btn;
         }
 
 
-        protected virtual InputScope GetInputScope(InputType inputType) {
+        protected virtual InputScope GetInputScope(InputType inputType)
+        {
             var name = new InputScopeName();
             var scope = new InputScope();
 
-            switch (inputType) {
+            switch (inputType)
+            {
                 case InputType.Email:
                     name.NameValue = InputScopeNameValue.EmailNameOrAddress;
                     break;
@@ -268,7 +307,7 @@ namespace Acr.UserDialogs {
                     name.NameValue = InputScopeNameValue.Url;
                     break;
 
-				default:
+                default:
                     name.NameValue = InputScopeNameValue.Default;
                     break;
             }
@@ -277,7 +316,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected virtual void Dispatch(Action action) {
+        protected virtual void Dispatch(Action action)
+        {
             Deployment.Current.Dispatcher.BeginInvoke(action);
         }
     }
