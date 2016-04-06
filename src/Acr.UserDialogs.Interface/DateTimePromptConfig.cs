@@ -27,13 +27,10 @@ namespace Acr.UserDialogs
         public Action<DateTimePromptResult> OnResult { get; set; }
         public bool IsCancellable { get; set; } = true;
 
-
-        public bool ShowTime { get; set; } = true;
         public int? MinimumMinutesTimeOfDay { get; set; }
         public int? MaximumMinutesTimeOfDay { get; set; }
         public int MinuteInterval { get; set; }
 
-        public bool ShowDate { get; set; } = true;
         public DateTime? MinimumDate { get; set; }
         public DateTime? MaximumDate { get; set; }
     }

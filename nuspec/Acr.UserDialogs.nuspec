@@ -58,7 +58,7 @@ Supported Platforms
         </dependencies>
         <releaseNotes>
 4.4
-[fix][droid] remove resource files to allow for support library updates (thanks IISocio!)
+[fix][droid] remove resource files to allow for support library updates (thanks Marco Bellino) #142
 [feature] date/time prompt!
 
 4.3.4

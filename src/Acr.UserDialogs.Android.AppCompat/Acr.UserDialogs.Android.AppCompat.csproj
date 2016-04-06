@@ -78,6 +78,7 @@
     <Compile Include="..\Acr.UserDialogs.Android\UserDialogsImpl.cs">
       <Link>UserDialogsImpl.cs</Link>
     </Compile>
+    <Compile Include="FragmentUserDialogs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
