@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcrMessageBarStyleSheet.cs" />
+    <Compile Include="DatePickerController.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="MessageBar\MessageBarManager.cs" />
     <Compile Include="MessageBar\MessageBarMessageType.cs" />

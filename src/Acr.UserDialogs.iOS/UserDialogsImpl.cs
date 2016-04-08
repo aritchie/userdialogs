@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using Acr.Support.iOS;
 using UIKit;
 using BigTed;
-using CoreGraphics;
-using Foundation;
 using MessageBar;
 using Splat;
 
@@ -31,10 +28,12 @@ namespace Acr.UserDialogs
 
 
         public static bool ShowToastOnBottom { get; set; }
+        protected static bool IsIOS8 => UIDevice.CurrentDevice.CheckSystemVersion(8, 0);
+
 
         public override void Alert(AlertConfig config)
         {
-            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            if (IsIOS8)
             {
                 var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnOk?.Invoke()));
@@ -51,7 +50,7 @@ namespace Acr.UserDialogs
 
         public override void ActionSheet(ActionSheetConfig config)
         {
-            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            if (IsIOS8)
                 this.ShowIOS8ActionSheet(config);
             else
                 this.ShowIOS7ActionSheet(config);
@@ -60,7 +59,7 @@ namespace Acr.UserDialogs
 
         public override void Confirm(ConfirmConfig config)
         {
-            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            if (IsIOS8)
             {
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
                 dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnConfirm(false)));
@@ -79,144 +78,35 @@ namespace Acr.UserDialogs
             }
         }
 
-        /*
-[datePickerContainer.view addSubview:datePicker];
 
-            //Add autolayout constraints to position the datepicker
-            [datePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
-
-            // Create a dictionary to represent the view being positioned
-            NSDictionary *labelViewDictionary = NSDictionaryOfVariableBindings(datePicker);
-
-            NSArray* hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[datePicker]-|" options:0 metrics:nil views:labelViewDictionary];
-            [datePickerContainer.view addConstraints:hConstraints];
-            NSArray* vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[datePicker]" options:0 metrics:nil views:labelViewDictionary];
-            [datePickerContainer.view addConstraints:vConstraints];
-
-            [datePickerContainer addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action){
-                [self dateSelected:nil];
-            }]];
-
-            [self presentViewController:datePickerContainer animated:YES completion:nil];
-
-             */
         public override void DateTimePrompt(DateTimePromptConfig config)
         {
-            var controller = UIAlertController.Create(
-                config.Title ?? String.Empty,
-                null,
-                UIAlertControllerStyle.ActionSheet
+            var viewController = new DatePickerController(config);
+            //var pop = new UIPopoverController(vc)
+            //{
+            //    PopoverContentSize = new CGSize(200, 100)
+            //};
+            var app = UIApplication.SharedApplication;
+            app.InvokeOnMainThread(() =>
+                //pop.PresentFromRect(new CGRect(0, 0, 200, 100), null, UIPopoverArrowDirection.Any, true))
+                app.KeyWindow.RootViewController.PresentViewController(viewController, true, null)
             );
-            var width = controller.View.Frame.Size.Width;
-
-            var picker = new UIDatePicker(new CGRect(0, 44, 0, 0))
-            {
-                Mode = (UIDatePickerMode)Enum.Parse(typeof(UIDatePickerMode), config.Mode.ToString(), true),
-                MinuteInterval = config.MinuteInterval
-            };
-            if (config.MinimumDate != null)
-                picker.MinimumDate = (NSDate)config.MinimumDate;
-
-            if (config.MaximumDate != null)
-                picker.MaximumDate = (NSDate)config.MaximumDate;
-
-            if (config.SelectedDateTime != null)
-                picker.SetDate((NSDate)config.SelectedDateTime, false);
-
-            var btns = new List<UIBarButtonItem>();
-            //controller.AddAction(UIAlertAction.Create(
-            //    config.OkText,
-            //    UIAlertActionStyle.Default,
-            //    x => config.OnResult?.Invoke(new DateTimePromptResult(true, (DateTime)picker.Date)))
-            //);
-            if (config.IsCancellable)
-            {
-                btns.Add(new UIBarButtonItem(UIBarButtonSystemItem.Cancel, (sender, args) =>
-                {
-                    controller.DismissViewController(true, null);
-                    config.OnResult?.Invoke(new DateTimePromptResult(false, (DateTime) picker.Date));
-                }));
-                //controller.AddAction(UIAlertAction.Create(
-                //    config.CancelText,
-                //    UIAlertActionStyle.Cancel,
-                //    x => config.OnResult?.Invoke(new DateTimePromptResult(false, (DateTime)picker.Date))
-                //));
-            }
-            btns.Add(new UIBarButtonItem(UIBarButtonSystemItem.Done, (sender, args) =>
-            {
-                config.OnResult?.Invoke(new DateTimePromptResult(true, (DateTime) picker.Date));
-                controller.DismissViewController(true, null);
-            }));
-
-            var toolbar = new UIToolbar(new CGRect(0, 0, width, 144));
-            toolbar.SetItems(btns.ToArray(), true);
-
-            controller.View.AddSubview(toolbar);
-            controller.View.AddSubview(picker);
-            controller.View.Bounds = new CGRect(7, 200, controller.View.Frame.Size.Width, 200);
-
-            this.Present(controller);
         }
 
 
 
         public override void Login(LoginConfig config)
         {
-            UITextField txtUser = null;
-            UITextField txtPass = null;
-
-            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
-            {
-                var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))));
-                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))));
-
-                dlg.AddTextField(x =>
-                {
-                    txtUser = x;
-                    x.Placeholder = config.LoginPlaceholder;
-                    x.Text = config.LoginValue ?? String.Empty;
-                });
-                dlg.AddTextField(x =>
-                {
-                    txtPass = x;
-                    x.Placeholder = config.PasswordPlaceholder;
-                    x.SecureTextEntry = true;
-                });
-                this.Present(dlg);
-            }
+            if (IsIOS8)
+                this.ShowIOS8Login(config);
             else
-            {
-                var dlg = new UIAlertView
-                {
-                    AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput,
-                    Title = config.Title,
-                    Message = config.Message
-                };
-                txtUser = dlg.GetTextField(0);
-                txtPass = dlg.GetTextField(1);
-
-                txtUser.Placeholder = config.LoginPlaceholder;
-                txtUser.Text = config.LoginValue ?? String.Empty;
-                txtPass.Placeholder = config.PasswordPlaceholder;
-
-                dlg.AddButton(config.OkText);
-                dlg.AddButton(config.CancelText);
-                dlg.CancelButtonIndex = 1;
-
-                dlg.Clicked += (s, e) =>
-                {
-                    var ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
-                    config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, ok));
-                };
-                this.Present(dlg);
-            }
+                this.ShowIOS7Login(config);
         }
 
 
         public override void Prompt(PromptConfig config)
         {
-            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            if (IsIOS8)
                 this.ShowIOS8Prompt(config);
             else
                 this.ShowIOS7Prompt(config);
@@ -262,6 +152,7 @@ namespace Acr.UserDialogs
             });
         }
 
+        #region Implementations
 
         protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
         {
@@ -334,6 +225,59 @@ namespace Acr.UserDialogs
                 this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
 
             this.Present(sheet);
+        }
+
+
+        protected virtual void ShowIOS7Login(LoginConfig config)
+        {
+            var dlg = new UIAlertView
+            {
+                AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput,
+                Title = config.Title,
+                Message = config.Message
+            };
+            var txtUser = dlg.GetTextField(0);
+            var txtPass = dlg.GetTextField(1);
+
+            txtUser.Placeholder = config.LoginPlaceholder;
+            txtUser.Text = config.LoginValue ?? String.Empty;
+            txtPass.Placeholder = config.PasswordPlaceholder;
+
+            dlg.AddButton(config.OkText);
+            dlg.AddButton(config.CancelText);
+            dlg.CancelButtonIndex = 1;
+
+            dlg.Clicked += (s, e) =>
+            {
+                var ok = ((int)dlg.CancelButtonIndex != (int)e.ButtonIndex);
+                config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, ok));
+            };
+            this.Present(dlg);
+        }
+
+
+        protected virtual void ShowIOS8Login(LoginConfig config)
+        {
+            UITextField txtUser = null;
+            UITextField txtPass = null;
+
+            var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))));
+            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))));
+
+            dlg.AddTextField(x =>
+            {
+                txtUser = x;
+                x.Placeholder = config.LoginPlaceholder;
+                x.Text = config.LoginValue ?? String.Empty;
+            });
+            dlg.AddTextField(x =>
+            {
+                txtPass = x;
+                x.Placeholder = config.PasswordPlaceholder;
+                x.SecureTextEntry = true;
+            });
+            this.Present(dlg);
         }
 
 
@@ -441,54 +385,7 @@ namespace Acr.UserDialogs
                     break;
             }
         }
+
+        #endregion
     }
 }
-
-//public override void DateTimePrompt(DateTimePromptConfig config) {
-//    var sheet = new ActionSheetDatePicker {
-//        Title = config.Title,
-//        DoneText = config.OkText
-//    };
-
-//    switch (config.SelectionType) {
-//        case DateTimeSelectionType.Date:
-//            sheet.DatePicker.Mode = UIDatePickerMode.Date;
-//            break;
-
-//        case DateTimeSelectionType.Time:
-//            sheet.DatePicker.Mode = UIDatePickerMode.Time;
-//            break;
-
-//        case DateTimeSelectionType.DateTime:
-//            sheet.DatePicker.Mode = UIDatePickerMode.DateAndTime;
-//            break;
-//    }
-//    if (config.MinValue != null)
-//        sheet.DatePicker.MinimumDate = config.MinValue.Value;
-
-//    if (config.MaxValue != null)
-//        sheet.DatePicker.MaximumDate = config.MaxValue.Value;
-
-//    sheet.DateTimeSelected += (sender, args) => {
-//        // TODO: stop adjusting date/time
-//        config.OnResult(new DateTimePromptResult(sheet.DatePicker.Date));
-//    };
-
-//    var top = Utils.GetTopView();
-//    sheet.Show(top);
-//    //sheet.DatePicker.MinuteInterval
-//}
-
-
-//public override void DurationPrompt(DurationPromptConfig config) {
-//    var sheet = new ActionSheetDatePicker {
-//        Title = config.Title,
-//        DoneText = config.OkText
-//    };
-//    sheet.DatePicker.Mode = UIDatePickerMode.CountDownTimer;
-
-//    sheet.DateTimeSelected += (sender, args) => config.OnResult(new DurationPromptResult(args.TimeOfDay));
-
-//    var top = Utils.GetTopView();
-//    sheet.Show(top);
-//}
