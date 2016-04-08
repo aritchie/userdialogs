@@ -36,11 +36,11 @@ Supported Platforms
             </group>
             <group targetFramework="Xamarin.iOS10">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
+                <dependency id="Acr.Support" version="[2.0.2, 3.0)" />
             </group>
             <group targetFramework="MonoAndroid10">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Acr.Support" version="[1.1.1, 2.0)" />
+                <dependency id="Acr.Support" version="[2.0.2, 3.0)" />
                 <dependency id="Xamarin.Android.Support.v4" version="[23.1.1, 24)" />
             </group>
             <group targetFramework="wp8">
@@ -59,6 +59,7 @@ Supported Platforms
         <releaseNotes>
 4.4
 [fix][droid] remove resource files to allow for support library updates (thanks Marco Bellino) #142
+[BREAKING][ios] no longer supporting iOS7 and under
 [feature] date/time prompt!
 
 4.3.4

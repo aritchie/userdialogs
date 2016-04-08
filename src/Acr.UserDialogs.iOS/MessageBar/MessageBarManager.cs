@@ -31,9 +31,7 @@ using UIKit;
 using CoreGraphics;
 using Foundation;
 using System.Collections.Generic;
-using System.Threading;
 using Acr.Support.iOS;
-using Acr.UserDialogs;
 
 
 namespace MessageBar
