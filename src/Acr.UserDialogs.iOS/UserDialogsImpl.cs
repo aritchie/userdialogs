@@ -66,7 +66,11 @@ namespace Acr.UserDialogs
 
         public override void DateTimePrompt(DateTimePromptConfig config)
         {
-            var viewController = new DatePickerController(config);
+            var viewController = new DatePickerController(config)
+            {
+                ModalPresentationStyle = UIModalPresentationStyle.FormSheet,
+                ModalTransitionStyle = UIModalTransitionStyle.PartialCurl
+            };
             //var pop = new UIPopoverController(vc)
             //{
             //    PopoverContentSize = new CGSize(200, 100)

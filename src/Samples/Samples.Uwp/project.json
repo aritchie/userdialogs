@@ -1,13 +1,12 @@
 ﻿{
   "dependencies": {
-    "Acr.UserDialogs": "4.3.4",
     "Coding4Fun.Toolkit.Controls": "2.1.7",
     "Microsoft.ApplicationInsights": "1.2.3",
     "Microsoft.ApplicationInsights.PersistenceChannel": "1.2.3",
     "Microsoft.ApplicationInsights.WindowsApps": "1.1.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Splat": "1.6.2",
-    "Xamarin.Forms": "2.2.0.4-pre1"
+    "Xamarin.Forms": "2.2.0.5-pre2"
   },
   "frameworks": {
     "uap10.0": {}
