@@ -41,6 +41,10 @@
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Splat.1.6.2\lib\monoandroid\Splat.dll</HintPath>
       <Private>True</Private>
@@ -69,6 +73,24 @@
     <Compile Include="..\Acr.UserDialogs.Android\ActionSheetListAdapter.cs">
       <Link>ActionSheetListAdapter.cs</Link>
     </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Builders\ActionSheetBuilder.cs">
+      <Link>Builders\ActionSheetBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Builders\AlertBuilder.cs">
+      <Link>Builders\AlertBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Builders\ConfirmBuilder.cs">
+      <Link>Builders\ConfirmBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Builders\DateTimeBuilder.cs">
+      <Link>Builders\DateTimeBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Builders\LoginBuilder.cs">
+      <Link>Builders\LoginBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Builders\PromptBuilder.cs">
+      <Link>Builders\PromptBuilder.cs</Link>
+    </Compile>
     <Compile Include="..\Acr.UserDialogs.Android\Extensions.cs">
       <Link>Extensions.cs</Link>
     </Compile>
@@ -78,7 +100,13 @@
     <Compile Include="..\Acr.UserDialogs.Android\UserDialogsImpl.cs">
       <Link>UserDialogsImpl.cs</Link>
     </Compile>
-    <Compile Include="FragmentUserDialogs.cs" />
+    <Compile Include="Fragments\AbstractDialogFragment.cs" />
+    <Compile Include="Fragments\ActionSheetDialogFragment.cs" />
+    <Compile Include="Fragments\AlertDialogFragment.cs" />
+    <Compile Include="Fragments\ConfirmDialogFragment.cs" />
+    <Compile Include="Fragments\DateTimeDialogFragment.cs" />
+    <Compile Include="Fragments\LoginDialogFragment.cs" />
+    <Compile Include="Fragments\PromptDialogFragment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,261 +1,99 @@
 using System;
-using System.Linq;
 using Android.App;
-using Android.Text;
-using Android.Text.Method;
 using Android.Views;
-using Android.Widget;
 using AndroidHUD;
 using Splat;
-
-#if APPCOMPAT
-using System.Collections.Generic;
-using Android.Content;
-using Android.Graphics.Drawables;
-using Android.Support.Design.Widget;
-using AlertDialog = Android.Support.V7.App.AlertDialog;
-#else
-using AlertDialog = Android.App.AlertDialog;
-#endif
 using Utils = Acr.Support.Android.Extensions;
 
+#if APPCOMPAT
+using Acr.UserDialogs.Fragments;
+using Android.Support.V7.App;
+using Android.Graphics.Drawables;
+using Android.Support.Design.Widget;
+using Android.Text;
+using Android.Widget;
+#else
+using Acr.UserDialogs.Builders;
+#endif
 
 namespace Acr.UserDialogs
 {
 
     public class UserDialogsImpl : AbstractUserDialogs
     {
-        protected Func<Activity> GetTopActivity { get; set; }
+        protected internal Func<Activity> TopActivityFunc { get; set; }
 
 
         public UserDialogsImpl(Func<Activity> getTopActivity)
         {
-            this.GetTopActivity = getTopActivity;
+            this.TopActivityFunc = getTopActivity;
         }
 
 
         public override void Alert(AlertConfig config)
         {
-            //var context = this.GetTopActivity();
-            //var layout = new LinearLayout(context) {
-            //    Orientation = Orientation.Vertical,
-            //    OverScrollMode = OverScrollMode.IfContentScrolls
-            //};
-            //var txt = new TextView(context);
+#if APPCOMPAT
+            this.ShowDialog<AlertDialogFragment, AlertConfig>(config);
+#else
+            this.Show(AlertBuilder.Build(this.TopActivityFunc(), config));
+#endif
 
-            Utils.RequestMainThread(() =>
-                new AlertDialog
-                    .Builder(this.GetTopActivity())
-                    .SetCancelable(false)
-                    .SetMessage(config.Message)
-                    .SetTitle(config.Title)
-                    .SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke())
-                    .ShowExt()
-                );
         }
 
 
         public override void ActionSheet(ActionSheetConfig config)
         {
-            var activity = this.GetTopActivity();
-            var dlg = new AlertDialog
-                .Builder(activity)
-                .SetCancelable(false)
-                .SetTitle(config.Title);
-            //.SetCustomTitle(new TextView(activity) {
-            //    Text = config.Title,
-            //    TextSize = 18.0f
-            //});
-
-            if (config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null))
-            {
-                var adapter = new ActionSheetListAdapter(this.GetTopActivity(), Android.Resource.Layout.SelectDialogItem,
-                    Android.Resource.Id.Text1, config);
-                dlg.SetAdapter(adapter, (s, a) => config.Options[a.Which].Action?.Invoke());
-            }
-            else
-            {
-                var array = config
-                    .Options
-                    .Select(x => x.Text)
-                    .ToArray();
-
-                dlg.SetItems(array, (s, args) => config.Options[args.Which].Action?.Invoke());
-            }
-
-            if (config.Destructive != null)
-                dlg.SetNegativeButton(config.Destructive.Text, (s, a) => config.Destructive.Action?.Invoke());
-
-            if (config.Cancel != null)
-                dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
-
-            Utils.RequestMainThread(() => dlg.ShowExt());
+#if APPCOMPAT
+            this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>(config);
+#else
+            this.Show(ActionSheetBuilder.Build(this.TopActivityFunc(), config));
+#endif
         }
 
 
         public override void Confirm(ConfirmConfig config)
         {
-            Utils.RequestMainThread(() =>
-                new AlertDialog
-                    .Builder(this.GetTopActivity())
-                    .SetCancelable(false)
-                    .SetMessage(config.Message)
-                    .SetTitle(config.Title)
-                    .SetPositiveButton(config.OkText, (s, a) => config.OnConfirm(true))
-                    .SetNegativeButton(config.CancelText, (s, a) => config.OnConfirm(false))
-                    .ShowExt()
-                );
+#if APPCOMPAT
+            this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>(config);
+#else
+            this.Show(ConfirmBuilder.Build(this.TopActivityFunc(), config));
+#endif
         }
 
 
         public override void DateTimePrompt(DateTimePromptConfig config)
         {
-            switch (config.Mode)
-            {
-                case DateTimePromptMode.Date:
-                    this.DatePrompt(config);
-                    break;
-
-                case DateTimePromptMode.Time:
-                    this.TimePrompt(config);
-                    break;
-
-                case DateTimePromptMode.DateAndTime:
-                    break;
-            }
-
-        }
-
-
-        protected virtual void DatePrompt(DateTimePromptConfig config)
-        {
-            var dateTime = config.SelectedDateTime ?? DateTime.Now;
-            var dialog = new DatePickerDialog(
-                this.GetTopActivity(),
-                (sender, args) => dateTime = args.Date,
-                dateTime.Year,
-                dateTime.Month + 1,
-                dateTime.Day
-            );
-            if (!String.IsNullOrWhiteSpace(config.Title))
-                dialog.SetTitle(config.Title);
-
-            //if (config.MinimumDate != null)
-            //    dialog.DatePicker.MinDate = 0; // from epoch time
-
-            //if (config.MaximumDate != null)
-            //    dialog.DatePicker.MaxDate = 0; // from epoch time
-
-            dialog.DismissEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(true, dateTime));
-            dialog.CancelEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(false, dateTime));
-            dialog.Show();
-        }
-
-
-        protected virtual void TimePrompt(DateTimePromptConfig config)
-        {
-            var dateTime = config.SelectedDateTime ?? DateTime.Now;
-            var dialog = new TimePickerDialog(
-                this.GetTopActivity(),
-                (sender, args) => dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, args.HourOfDay, args.Minute, 0),
-                dateTime.Hour,
-                dateTime.Minute,
-                false // TODO: 24h could be a configurable property
-            );
-            if (!String.IsNullOrWhiteSpace(config.Title))
-                dialog.SetTitle(config.Title);
-
-            dialog.DismissEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(true, dateTime));
-            dialog.CancelEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(false, dateTime));
-            dialog.Show();
+#if APPCOMPAT
+            this.ShowDialog<DateTimeDialogFragment, DateTimePromptConfig>(config);
+#else
+#endif
         }
 
 
         public override void Login(LoginConfig config)
         {
-            var context = this.GetTopActivity();
-            var txtUser = new EditText(context)
-            {
-                Hint = config.LoginPlaceholder,
-                InputType = InputTypes.TextVariationVisiblePassword,
-                Text = config.LoginValue ?? String.Empty
-            };
-            var txtPass = new EditText(context)
-            {
-                Hint = config.PasswordPlaceholder ?? "*"
-            };
-            this.SetInputType(txtPass, InputType.Password);
-
-            var layout = new LinearLayout(context)
-            {
-                Orientation = Orientation.Vertical
-            };
-
-            txtUser.SetMaxLines(1);
-            txtPass.SetMaxLines(1);
-
-            layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
-            layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
-
-            Utils.RequestMainThread(() =>
-                new AlertDialog
-                    .Builder(context)
-                    .SetCancelable(false)
-                    .SetTitle(config.Title)
-                    .SetMessage(config.Message)
-                    .SetView(layout)
-                    .SetPositiveButton(config.OkText, (s, a) =>
-                        config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))
-                    )
-                    .SetNegativeButton(config.CancelText, (s, a) =>
-                        config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))
-                    )
-                    .ShowExt()
-            );
+#if APPCOMPAT
+            this.ShowDialog<LoginDialogFragment, LoginConfig>(config);
+#else
+            this.Show(LoginBuilder.Build(this.TopActivityFunc(), config));
+#endif
         }
 
 
         public override void Prompt(PromptConfig config)
         {
-            Utils.RequestMainThread(() =>
-            {
-                var activity = this.GetTopActivity();
-
-                var txt = new EditText(activity)
-                {
-                    Hint = config.Placeholder
-                };
-                if (config.Text != null)
-                    txt.Text = config.Text;
-
-                this.SetInputType(txt, config.InputType);
-
-                var builder = new AlertDialog
-                    .Builder(activity)
-                    .SetCancelable(false)
-                    .SetMessage(config.Message)
-                    .SetTitle(config.Title)
-                    .SetView(txt)
-                    .SetPositiveButton(config.OkText, (s, a) =>
-                        config.OnResult(new PromptResult(true, txt.Text.Trim()))
-                    );
-
-                if (config.IsCancellable)
-                {
-                    builder.SetNegativeButton(config.CancelText, (s, a) =>
-                        config.OnResult(new PromptResult(false, txt.Text.Trim()))
-                    );
-                }
-
-                builder.ShowExt();
-            });
+#if APPCOMPAT
+            this.ShowDialog<PromptDialogFragment, PromptConfig>(config);
+#else
+            this.Show(PromptBuilder.Build(this.TopActivityFunc(), config));
+#endif
         }
 
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
             Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowImage(this.GetTopActivity(), image.ToNative(), message, AndroidHUD.MaskType.Black, TimeSpan.FromMilliseconds(timeoutMillis))
+                AndHUD.Shared.ShowImage(this.TopActivityFunc(), image.ToNative(), message, AndroidHUD.MaskType.Black, TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
@@ -263,7 +101,7 @@ namespace Acr.UserDialogs
         public override void ShowSuccess(string message, int timeoutMillis)
         {
             Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowSuccess(this.GetTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+                AndHUD.Shared.ShowSuccess(this.TopActivityFunc(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
@@ -271,9 +109,16 @@ namespace Acr.UserDialogs
         public override void ShowError(string message, int timeoutMillis)
         {
             Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowError(this.GetTopActivity(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+                AndHUD.Shared.ShowError(this.TopActivityFunc(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
+
+
+        protected override IProgressDialog CreateDialogInstance()
+        {
+            return new ProgressDialog(this.TopActivityFunc());
+        }
+
 
 #if APPCOMPAT
 
@@ -300,6 +145,30 @@ namespace Acr.UserDialogs
         }
 
 
+        public static string FragmentTag { get; set; } = "UserDialogs";
+
+        protected internal AppCompatActivity GetTopActivity()
+        {
+            var appcompat = this.TopActivityFunc() as AppCompatActivity;
+            if (appcompat == null)
+                throw new ArgumentException("Top activities must be appcompat to be used with this library");
+
+            return appcompat;
+        }
+
+
+        protected virtual void ShowDialog<TFragment, TConfig>(TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
+        {
+            Utils.RequestMainThread(() =>
+            {
+                var activity = this.GetTopActivity();
+                var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
+                frag.Config = config;
+                frag.Show(activity.SupportFragmentManager, FragmentTag);
+            });
+        }
+
+
         protected static TextView FindTextView(Snackbar bar) {
             var group = (ViewGroup)bar.View;
             for (var i = 0; i < group.ChildCount; i++) {
@@ -314,7 +183,7 @@ namespace Acr.UserDialogs
         {
             Utils.RequestMainThread(() =>
             {
-                var top = this.GetTopActivity();
+                var top = this.TopActivityFunc();
                 var txt = cfg.Title;
                 if (!String.IsNullOrWhiteSpace(cfg.Description))
                     txt += Environment.NewLine + cfg.Description;
@@ -333,58 +202,17 @@ namespace Acr.UserDialogs
                 );
             });
         }
-#endif
 
-        protected override IProgressDialog CreateDialogInstance()
+
+        protected virtual void Show(Android.App.AlertDialog.Builder builder)
         {
-            return new ProgressDialog(this.GetTopActivity());
-        }
-
-
-        protected virtual void SetInputType(TextView txt, InputType inputType)
-        {
-            switch (inputType)
+            Utils.RequestMainThread(() =>
             {
-                case InputType.DecimalNumber:
-                    txt.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
-                    txt.SetSingleLine(true);
-                    break;
-
-                case InputType.Email:
-                    txt.InputType = InputTypes.ClassText | InputTypes.TextVariationEmailAddress;
-                    txt.SetSingleLine(true);
-                    break;
-
-                case InputType.Name:
-                    txt.InputType = InputTypes.TextVariationPersonName;
-                    txt.SetSingleLine(true);
-                    break;
-
-                case InputType.Number:
-                    txt.InputType = InputTypes.ClassNumber;
-                    txt.SetSingleLine(true);
-                    break;
-
-                case InputType.NumericPassword:
-                    txt.InputType = InputTypes.ClassNumber;
-                    txt.TransformationMethod = PasswordTransformationMethod.Instance;
-                    break;
-
-                case InputType.Password:
-                    txt.TransformationMethod = PasswordTransformationMethod.Instance;
-                    txt.InputType = InputTypes.ClassText | InputTypes.TextVariationPassword;
-                    break;
-
-                case InputType.Phone:
-                    txt.InputType = InputTypes.ClassPhone;
-                    txt.SetSingleLine(true);
-                    break;
-
-                case InputType.Url:
-                    txt.InputType = InputTypes.TextVariationUri;
-                    txt.SetSingleLine(true);
-                    break;
-            }
+                var dialog = builder.Create();
+                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+                dialog.Show();
+            });
         }
+#endif
     }
 }
