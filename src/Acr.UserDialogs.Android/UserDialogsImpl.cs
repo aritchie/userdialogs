@@ -142,9 +142,9 @@ namespace Acr.UserDialogs
             var compat = activity as AppCompatActivity;
 
             if (compat == null)
-                this.ToastAppCompat(compat, cfg);
-            else
                 this.ToastFallback(activity, cfg);
+            else
+                this.ToastAppCompat(compat, cfg);
         }
 
 
@@ -175,7 +175,7 @@ namespace Acr.UserDialogs
                 AndHUD.Shared.ShowToast(
                     top,
                     txt,
-                    AndroidHUD.MaskType.Black,
+                    AndroidHUD.MaskType.None,
                     cfg.Duration,
                     false,
                     () =>
