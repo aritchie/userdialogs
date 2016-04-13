@@ -8,7 +8,9 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override Dialog CreateDialog(DateTimePromptConfig config)
         {
-            return null;
+            var dialog = new DateTimeDialog(this.Activity);
+            dialog.Init(config);
+            return dialog;
         }
     }
 
@@ -17,7 +19,9 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override Dialog CreateDialog(DateTimePromptConfig config)
         {
-            return null;
+            var dialog = new DateTimeDialog(this.Activity);
+            dialog.Init(config);
+            return dialog;
         }
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="Builders\DateTimeBuilder.cs" />
     <Compile Include="Builders\LoginBuilder.cs" />
     <Compile Include="Builders\PromptBuilder.cs" />
+    <Compile Include="DateTimeDialog.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Fragments\AbstractDialogFragment.cs" />
     <Compile Include="Fragments\ActionSheetDialogFragment.cs" />
