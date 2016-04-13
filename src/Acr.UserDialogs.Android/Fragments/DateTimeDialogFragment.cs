@@ -11,6 +11,15 @@ namespace Acr.UserDialogs.Fragments
             return null;
         }
     }
+
+
+    public class DateTimeAppCompatDialogFragment : AbstractAppCompatDialogFragment<DateTimePromptConfig>
+    {
+        protected override Dialog CreateDialog(DateTimePromptConfig config)
+        {
+            return null;
+        }
+    }
 }
 /*
   public override void DateTimePrompt(DateTimePromptConfig config)

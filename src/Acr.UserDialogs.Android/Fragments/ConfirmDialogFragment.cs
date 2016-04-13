@@ -12,4 +12,13 @@ namespace Acr.UserDialogs.Fragments
             return ConfirmBuilder.Build(this.Activity, config).Create();
         }
     }
+
+
+    public class ConfirmAppCompatDialogFragment : AbstractAppCompatDialogFragment<ConfirmConfig>
+    {
+        protected override Dialog CreateDialog(ConfirmConfig config)
+        {
+            return ConfirmBuilder.Build(this.Activity, config).Create();
+        }
+    }
 }

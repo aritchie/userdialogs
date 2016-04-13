@@ -137,10 +137,6 @@
     <AndroidResource Include="Resources\values-v21\style.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Acr.UserDialogs.Android.AppCompat\Acr.UserDialogs.Android.AppCompat.csproj">
-      <Project>{1E199593-BBB7-439E-B7F0-EC14F46B00AD}</Project>
-      <Name>Acr.UserDialogs.Android.AppCompat</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
       <Project>{6a0ae941-711d-4c36-a311-960b65534b22}</Project>
       <Name>Acr.UserDialogs.Interface</Name>

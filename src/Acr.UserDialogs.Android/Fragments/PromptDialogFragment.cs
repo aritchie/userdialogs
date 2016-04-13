@@ -12,4 +12,13 @@ namespace Acr.UserDialogs.Fragments
             return PromptBuilder.Build(this.Activity, config).Create();
         }
     }
+
+
+    public class PromptAppCompatDialogFragment : AbstractAppCompatDialogFragment<PromptConfig>
+    {
+        protected override Dialog CreateDialog(PromptConfig config)
+        {
+            return PromptBuilder.Build(this.Activity, config).Create();
+        }
+    }
 }

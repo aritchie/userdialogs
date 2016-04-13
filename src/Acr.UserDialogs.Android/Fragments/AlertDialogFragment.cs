@@ -12,4 +12,13 @@ namespace Acr.UserDialogs.Fragments
             return AlertBuilder.Build(this.Activity, config).Create();
         }
     }
+
+
+    public class AlertAppCompatDialogFragment : AbstractAppCompatDialogFragment<AlertConfig>
+    {
+        protected override Dialog CreateDialog(AlertConfig config)
+        {
+            return AlertBuilder.Build(this.Activity, config).Create();
+        }
+    }
 }

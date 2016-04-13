@@ -12,4 +12,13 @@ namespace Acr.UserDialogs.Fragments
             return LoginBuilder.Build(this.Activity, config).Create();
         }
     }
+
+
+    public class LoginAppCompatDialogFragment : AbstractAppCompatDialogFragment<LoginConfig>
+    {
+        protected override Dialog CreateDialog(LoginConfig config)
+        {
+            return LoginBuilder.Build(this.Activity, config).Create();
+        }
+    }
 }
