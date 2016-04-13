@@ -7,7 +7,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 
-namespace Samples.Droid {
+namespace Samples.Droid
+{
 
     [Activity(
         Label = "User Dialogs",
@@ -15,9 +16,11 @@ namespace Samples.Droid {
         MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation
     )]
-    public class MainActivity : FormsAppCompatActivity {
+    public class MainActivity : FormsAppCompatActivity
+    {
 
-        protected override void OnCreate(Bundle bundle) {
+        protected override void OnCreate(Bundle bundle)
+        {
             base.OnCreate(bundle);
             Forms.Init(this, bundle);
             FormsAppCompatActivity.ToolbarResource = Resource.Layout.toolbar;

@@ -1,9 +1,10 @@
 ﻿using System;
 
 
-namespace Samples.Uwp {
+namespace Samples.Uwp
+{
 
-    public sealed partial class MainPage
+    public partial class MainPage : Xamarin.Forms.Platform.UWP.WindowsPage
     {
         public MainPage()
         {
