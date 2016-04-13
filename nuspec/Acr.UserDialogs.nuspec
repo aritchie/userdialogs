@@ -58,10 +58,12 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
-4.4
+5.0
+[feature][droid] appcompat now built in.  dialogs will attempt to use best mechanism avaiable on the top activity to determine how to display dialogs (appcompat, fragment dialog, dialog direct).
+[feature] date/time prompt!
 [fix][droid] remove resource files to allow for support library updates (thanks Marco Bellino) #142
 [BREAKING][ios] no longer supporting iOS7 and under
-[feature] date/time prompt!
+
 
 4.3.4
 [fix][uwp][wp81] xaml exceptions due to missing library layout files

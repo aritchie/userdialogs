@@ -3,7 +3,7 @@
     <metadata>
         <id>Acr.XamForms.UserDialogs</id>
         <version>4.2.0</version>
-        <title>ACR User Dialogs for Xamarin and Windows</title>
+        <title>ACR User Dialogs for Xamarin and Windows (DEPRECATED)</title>
         <description>Cross platform plugins for Settings, UI Dialogs, Device Info, and Local Notifications</description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -12,10 +12,10 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>windows xamarin xam.pcl</tags>
         <dependencies>
-            <dependency id="Acr.UserDialogs" version="[4.2.0,)" />
+            <dependency id="Acr.UserDialogs" version="[5,)" />
         </dependencies>
         <releaseNotes>
-Moving all Xamarin Form users acr.userdialogs
+This library is deprecated.  Please use Acr.UserDialogs directly
         </releaseNotes>
     </metadata>
     <files>
