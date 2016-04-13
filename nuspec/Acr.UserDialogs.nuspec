@@ -62,6 +62,7 @@ Supported Platforms
 [feature][droid] appcompat now built in.  dialogs will attempt to use best mechanism avaiable on the top activity to determine how to display dialogs (appcompat, fragment dialog, dialog direct).
 [feature] date/time prompt!
 [fix][droid] remove resource files to allow for support library updates (thanks Marco Bellino) #142
+[fix][uwp] fix duplicate title in actionsheet
 [BREAKING][ios] no longer supporting iOS7 and under
 
 
