@@ -1,4 +1,5 @@
 using System;
+using Acr.UserDialogs.Fragments;
 using Android.App;
 using Android.Views;
 using AndroidHUD;
@@ -21,6 +22,7 @@ namespace Acr.UserDialogs
 
     public class UserDialogsImpl : AbstractUserDialogs
     {
+        public static string FragmentTag { get; set; } = "UserDialogs";
         protected internal Func<Activity> TopActivityFunc { get; set; }
 
 
@@ -32,61 +34,37 @@ namespace Acr.UserDialogs
 
         public override void Alert(AlertConfig config)
         {
-#if APPCOMPAT
             this.ShowDialog<AlertDialogFragment, AlertConfig>(config);
-#else
-            this.Show(AlertBuilder.Build(this.TopActivityFunc(), config));
-#endif
-
         }
 
 
         public override void ActionSheet(ActionSheetConfig config)
         {
-#if APPCOMPAT
             this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>(config);
-#else
-            this.Show(ActionSheetBuilder.Build(this.TopActivityFunc(), config));
-#endif
         }
 
 
         public override void Confirm(ConfirmConfig config)
         {
-#if APPCOMPAT
             this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>(config);
-#else
-            this.Show(ConfirmBuilder.Build(this.TopActivityFunc(), config));
-#endif
         }
 
 
         public override void DateTimePrompt(DateTimePromptConfig config)
         {
-#if APPCOMPAT
             this.ShowDialog<DateTimeDialogFragment, DateTimePromptConfig>(config);
-#else
-#endif
         }
 
 
         public override void Login(LoginConfig config)
         {
-#if APPCOMPAT
             this.ShowDialog<LoginDialogFragment, LoginConfig>(config);
-#else
-            this.Show(LoginBuilder.Build(this.TopActivityFunc(), config));
-#endif
         }
 
 
         public override void Prompt(PromptConfig config)
         {
-#if APPCOMPAT
             this.ShowDialog<PromptDialogFragment, PromptConfig>(config);
-#else
-            this.Show(PromptBuilder.Build(this.TopActivityFunc(), config));
-#endif
         }
 
 
@@ -120,6 +98,17 @@ namespace Acr.UserDialogs
         }
 
 
+        protected virtual void ShowDialog<TFragment, TConfig>(TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
+        {
+            Utils.RequestMainThread(() =>
+            {
+                var activity = this.TopActivityFunc();
+                var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
+                frag.Config = config;
+                frag.Show(activity.SupportFragmentManager, FragmentTag);
+            });
+        }
+
 #if APPCOMPAT
 
         public override void Toast(ToastConfig cfg) {
@@ -142,30 +131,6 @@ namespace Acr.UserDialogs
                 cfg.Action?.Invoke();
             };
             Utils.RequestMainThread(snackBar.Show);
-        }
-
-
-        public static string FragmentTag { get; set; } = "UserDialogs";
-
-        protected internal AppCompatActivity GetTopActivity()
-        {
-            var appcompat = this.TopActivityFunc() as AppCompatActivity;
-            if (appcompat == null)
-                throw new ArgumentException("Top activities must be appcompat to be used with this library");
-
-            return appcompat;
-        }
-
-
-        protected virtual void ShowDialog<TFragment, TConfig>(TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
-        {
-            Utils.RequestMainThread(() =>
-            {
-                var activity = this.GetTopActivity();
-                var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
-                frag.Config = config;
-                frag.Show(activity.SupportFragmentManager, FragmentTag);
-            });
         }
 
 
@@ -200,17 +165,6 @@ namespace Acr.UserDialogs
                         cfg.Action?.Invoke();
                     }
                 );
-            });
-        }
-
-
-        protected virtual void Show(Android.App.AlertDialog.Builder builder)
-        {
-            Utils.RequestMainThread(() =>
-            {
-                var dialog = builder.Create();
-                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-                dialog.Show();
             });
         }
 #endif

@@ -94,19 +94,33 @@
     <Compile Include="..\Acr.UserDialogs.Android\Extensions.cs">
       <Link>Extensions.cs</Link>
     </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Fragments\AbstractDialogFragment.cs">
+      <Link>Fragments\AbstractDialogFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Fragments\ActionSheetDialogFragment.cs">
+      <Link>Fragments\ActionSheetDialogFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Fragments\AlertDialogFragment.cs">
+      <Link>Fragments\AlertDialogFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Fragments\ConfirmDialogFragment.cs">
+      <Link>Fragments\ConfirmDialogFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Fragments\DateTimeDialogFragment.cs">
+      <Link>Fragments\DateTimeDialogFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Fragments\LoginDialogFragment.cs">
+      <Link>Fragments\LoginDialogFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\Acr.UserDialogs.Android\Fragments\PromptDialogFragment.cs">
+      <Link>Fragments\PromptDialogFragment.cs</Link>
+    </Compile>
     <Compile Include="..\Acr.UserDialogs.Android\ProgressDialog.cs">
       <Link>ProgressDialog.cs</Link>
     </Compile>
     <Compile Include="..\Acr.UserDialogs.Android\UserDialogsImpl.cs">
       <Link>UserDialogsImpl.cs</Link>
     </Compile>
-    <Compile Include="Fragments\AbstractDialogFragment.cs" />
-    <Compile Include="Fragments\ActionSheetDialogFragment.cs" />
-    <Compile Include="Fragments\AlertDialogFragment.cs" />
-    <Compile Include="Fragments\ConfirmDialogFragment.cs" />
-    <Compile Include="Fragments\DateTimeDialogFragment.cs" />
-    <Compile Include="Fragments\LoginDialogFragment.cs" />
-    <Compile Include="Fragments\PromptDialogFragment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

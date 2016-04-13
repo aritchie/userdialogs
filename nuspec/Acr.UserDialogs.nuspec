@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>4.4.0</version>
+        <version>5.0.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -42,6 +42,7 @@ Supported Platforms
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.0.2, 3.0)" />
                 <dependency id="Xamarin.Android.Support.v4" version="[23.0.1.3, 24)" />
+                <dependency id="Newtonsoft.Json" version="[8, 9)" />
             </group>
             <group targetFramework="wp8">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />

@@ -1,14 +1,16 @@
 using System;
 using Android.App;
 using Android.OS;
-using Android.Support.V4.App;
-using Android.Support.V7.App;
 using Newtonsoft.Json;
 
 
 namespace Acr.UserDialogs.Fragments
 {
-    public abstract class AbstractDialogFragment<T> : AppCompatDialogFragment where T  : class
+#if APPCOMPAT
+    public abstract class AbstractDialogFragment<T> : Android.Support.V7.App.AppCompatDialogFragment where T  : class
+#else
+        public abstract class AbstractDialogFragment<T> : DialogFragment where T  : class
+#endif
     {
         const string BundleKey = "UserDialogFragment";
         public T Config { get; set; }
