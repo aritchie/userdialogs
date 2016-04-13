@@ -10,14 +10,13 @@
     <ContentDialog.Content>
         <StackPanel>
             <!--Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
-            <TextBlock Text="{Binding Title}" />
             <ListBox x:Name="List" ItemsSource="{Binding Options}" SelectionMode="Single">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{Binding ItemIcon}" />
                             <TextBlock Text="{Binding Text}" />
-                        </StackPanel>                        
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
