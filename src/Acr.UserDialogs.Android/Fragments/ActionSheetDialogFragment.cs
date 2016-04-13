@@ -1,7 +1,7 @@
 using System;
 using Acr.UserDialogs.Builders;
 using Android.App;
-
+using Android.Support.V7.App;
 
 
 namespace Acr.UserDialogs.Fragments
@@ -19,7 +19,7 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override Dialog CreateDialog(ActionSheetConfig config)
         {
-            return ActionSheetBuilder.Build(this.Activity, config).Create();
+            return ActionSheetBuilder.Build(this.Activity as AppCompatActivity, config).Create();
         }
     }
 }

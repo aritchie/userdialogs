@@ -1,10 +1,9 @@
 using System;
 using Android.App;
-#if APPCOMPAT
-using AlertDialog = Android.Support.V7.App.AlertDialog;
-#else
+using Android.Support.V7.App;
 using AlertDialog = Android.App.AlertDialog;
-#endif
+using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
+
 
 namespace Acr.UserDialogs.Builders
 {
@@ -13,6 +12,18 @@ namespace Acr.UserDialogs.Builders
         public static AlertDialog.Builder Build(Activity activity, ConfirmConfig config)
         {
             return new AlertDialog
+                .Builder(activity)
+                .SetCancelable(false)
+                .SetMessage(config.Message)
+                .SetTitle(config.Title)
+                .SetPositiveButton(config.OkText, (s, a) => config.OnConfirm(true))
+                .SetNegativeButton(config.CancelText, (s, a) => config.OnConfirm(false));
+        }
+
+
+        public static AppCompatAlertDialog.Builder Build(AppCompatActivity activity, ConfirmConfig config)
+        {
+            return new AppCompatAlertDialog
                 .Builder(activity)
                 .SetCancelable(false)
                 .SetMessage(config.Message)

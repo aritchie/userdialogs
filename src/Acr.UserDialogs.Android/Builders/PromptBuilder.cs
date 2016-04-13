@@ -1,13 +1,11 @@
 using System;
 using Android.App;
+using Android.Support.V7.App;
 using Android.Text;
 using Android.Text.Method;
 using Android.Widget;
-#if APPCOMPAT
-using AlertDialog = Android.Support.V7.App.AlertDialog;
-#else
 using AlertDialog = Android.App.AlertDialog;
-#endif
+using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 
 namespace Acr.UserDialogs.Builders
@@ -26,6 +24,37 @@ namespace Acr.UserDialogs.Builders
             SetInputType(txt, config.InputType);
 
             var builder = new AlertDialog
+                .Builder(activity)
+                .SetCancelable(false)
+                .SetMessage(config.Message)
+                .SetTitle(config.Title)
+                .SetView(txt)
+                .SetPositiveButton(config.OkText, (s, a) =>
+                    config.OnResult(new PromptResult(true, txt.Text.Trim()))
+                );
+
+            if (config.IsCancellable)
+            {
+                builder.SetNegativeButton(config.CancelText, (s, a) =>
+                    config.OnResult(new PromptResult(false, txt.Text.Trim()))
+                );
+            }
+            return builder;
+        }
+
+
+        public static AppCompatAlertDialog.Builder Build(AppCompatActivity activity, PromptConfig config)
+        {
+            var txt = new EditText(activity)
+            {
+                Hint = config.Placeholder
+            };
+            if (config.Text != null)
+                txt.Text = config.Text;
+
+            SetInputType(txt, config.InputType);
+
+            var builder = new AppCompatAlertDialog
                 .Builder(activity)
                 .SetCancelable(false)
                 .SetMessage(config.Message)

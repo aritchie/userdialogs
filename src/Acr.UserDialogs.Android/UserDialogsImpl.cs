@@ -152,7 +152,7 @@ namespace Acr.UserDialogs
         {
             //var view = top.Window.DecorView.RootView;
             var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
-            var snackBar = Snackbar.Make(view, text, (int)cfg.Duration.TotalMilliseconds);
+            var snackBar = Snackbar.Make(view, "TODO", (int)cfg.Duration.TotalMilliseconds);
             snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
             snackBar.View.Click += (sender, args) => {
                 snackBar.Dismiss();
@@ -216,14 +216,6 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void Show(Android.Support.V7.App.AlertDialog.Builder builder)
-        {
-            var dialog = builder.Show();
-            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            Utils.RequestMainThread(() => dialog.Show());
-        }
-
-
         protected virtual void Show(Android.App.AlertDialog.Builder builder)
         {
             var dialog = builder.Show();
@@ -238,8 +230,7 @@ namespace Acr.UserDialogs
             {
                 var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
                 frag.Config = config;
-                // TODO
-                //frag.Show(activity.SupportFragmentManager, FragmentTag);
+                frag.Show(activity.FragmentManager, FragmentTag);
             });
         }
 

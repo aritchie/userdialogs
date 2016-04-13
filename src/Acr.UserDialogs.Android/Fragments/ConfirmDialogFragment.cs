@@ -1,6 +1,7 @@
 using System;
 using Acr.UserDialogs.Builders;
 using Android.App;
+using Android.Support.V7.App;
 
 
 namespace Acr.UserDialogs.Fragments
@@ -18,7 +19,7 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override Dialog CreateDialog(ConfirmConfig config)
         {
-            return ConfirmBuilder.Build(this.Activity, config).Create();
+            return ConfirmBuilder.Build(this.Activity as AppCompatActivity, config).Create();
         }
     }
 }
