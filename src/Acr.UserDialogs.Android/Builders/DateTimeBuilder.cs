@@ -28,6 +28,8 @@ namespace Acr.UserDialogs.Builders
 
             //if (config.IsCancellable)
                 //dialog.Set
+
+            // hook these, not called by fragments though
             dialog.DismissEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(true, dateTime));
             dialog.CancelEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(false, dateTime));
 
@@ -48,6 +50,7 @@ namespace Acr.UserDialogs.Builders
             if (!String.IsNullOrWhiteSpace(config.Title))
                 dialog.SetTitle(config.Title);
 
+            // hook these, not called by fragments though
             dialog.DismissEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(true, dateTime));
             dialog.CancelEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(false, dateTime));
 
