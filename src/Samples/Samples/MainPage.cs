@@ -24,7 +24,7 @@ namespace Samples
                 Btn("ActionSheet", this.ActionSheet),
                 Btn("ActionSheet (async)", this.ActionSheetAsync),
                 Btn("Confirm", this.Confirm),
-                Btn("Date & Time", () => this.Date(DateTimePromptMode.DateAndTime)),
+                //Btn("Date & Time", () => this.Date(DateTimePromptMode.DateAndTime)),
                 Btn("Date", () => this.Date(DateTimePromptMode.Date)),
                 Btn("Time", () => this.Date(DateTimePromptMode.Time)),
                 Btn("Login", this.Login),

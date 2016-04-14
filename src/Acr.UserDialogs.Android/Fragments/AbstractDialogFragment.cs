@@ -1,36 +1,34 @@
 using System;
 using Android.App;
 using Android.OS;
-using Newtonsoft.Json;
+using Android.Views;
 
 
 namespace Acr.UserDialogs.Fragments
 {
     public abstract class AbstractAppCompatDialogFragment<T> : Android.Support.V7.App.AppCompatDialogFragment where T : class
     {
-        const string BundleKey = "UserDialogFragment";
+        readonly InMemoryConfigStore store = new InMemoryConfigStore();
         public T Config { get; set; }
 
 
         public override void OnSaveInstanceState(Bundle bundle)
         {
             base.OnSaveInstanceState(bundle);
-            var configString = JsonConvert.SerializeObject(this.Config);
-            bundle.PutString(BundleKey, configString);
+            this.store.Store(bundle, this.Config);
         }
 
 
         public override Dialog OnCreateDialog(Bundle bundle)
         {
             if (this.Config == null)
-            {
-                var configString = bundle.GetString(BundleKey);
-                this.Config = JsonConvert.DeserializeObject<T>(configString);
-            }
+                this.Config = this.store.Pop<T>(bundle);
+
             var dialog = this.CreateDialog(this.Config);
-            //dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            //dialog.SetCancelable(false);
-            //dialog.SetCanceledOnTouchOutside(false);
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            dialog.SetCancelable(false);
+            dialog.SetCanceledOnTouchOutside(false);
+
             return dialog;
         }
 
@@ -41,29 +39,26 @@ namespace Acr.UserDialogs.Fragments
 
     public abstract class AbstractDialogFragment<T> : DialogFragment where T  : class
     {
-        const string BundleKey = "UserDialogFragment";
+        readonly InMemoryConfigStore store = new InMemoryConfigStore();
         public T Config { get; set; }
 
 
         public override void OnSaveInstanceState(Bundle bundle)
         {
             base.OnSaveInstanceState(bundle);
-            var configString = JsonConvert.SerializeObject(this.Config);
-            bundle.PutString(BundleKey, configString);
+            this.store.Store(bundle, this.Config);
         }
 
 
         public override Dialog OnCreateDialog(Bundle bundle)
         {
             if (this.Config == null)
-            {
-                var configString = bundle.GetString(BundleKey);
-                this.Config = JsonConvert.DeserializeObject<T>(configString);
-            }
+                this.Config = this.store.Pop<T>(bundle);
+
             var dialog = this.CreateDialog(this.Config);
-            //dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            //dialog.SetCancelable(false);
-            //dialog.SetCanceledOnTouchOutside(false);
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            dialog.SetCancelable(false);
+            dialog.SetCanceledOnTouchOutside(false);
             return dialog;
         }
 

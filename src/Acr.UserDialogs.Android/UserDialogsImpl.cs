@@ -75,7 +75,26 @@ namespace Acr.UserDialogs
 
         public override void DateTimePrompt(DateTimePromptConfig config)
         {
-            //this.ShowDialog<DateTimeDialogFragment, DateTimePromptConfig>(config);
+            var activity = this.TopActivityFunc();
+            if (activity is AppCompatActivity)
+                this.ShowDialog<DateTimeAppCompatDialogFragment, DateTimePromptConfig>((AppCompatActivity) activity, config);
+
+            else if (activity is FragmentActivity)
+                this.ShowDialog<DateTimeDialogFragment, DateTimePromptConfig>((FragmentActivity) activity, config);
+
+            else
+            {
+                switch (config.Mode)
+                {
+                    case DateTimePromptMode.Date:
+                        this.Show(DateTimeBuilder.BuildDatePicker(activity, config));
+                        break;
+
+                    case DateTimePromptMode.Time:
+                        this.Show(DateTimeBuilder.BuildTimePicker(activity, config));
+                        break;
+                }
+            }
         }
 
 
@@ -213,6 +232,12 @@ namespace Acr.UserDialogs
         protected override IProgressDialog CreateDialogInstance()
         {
             return new ProgressDialog(this.TopActivityFunc());
+        }
+
+
+        protected virtual void Show(Dialog dialog)
+        {
+            Utils.RequestMainThread(dialog.Show);
         }
 
 

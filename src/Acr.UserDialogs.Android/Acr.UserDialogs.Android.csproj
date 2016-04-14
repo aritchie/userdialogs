@@ -44,10 +44,6 @@
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Splat.1.6.2\lib\monoandroid\Splat.dll</HintPath>
       <Private>True</Private>
@@ -76,13 +72,13 @@
     <Compile Include="Builders\DateTimeBuilder.cs" />
     <Compile Include="Builders\LoginBuilder.cs" />
     <Compile Include="Builders\PromptBuilder.cs" />
-    <Compile Include="DateTimeDialog.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Fragments\AbstractDialogFragment.cs" />
     <Compile Include="Fragments\ActionSheetDialogFragment.cs" />
     <Compile Include="Fragments\AlertDialogFragment.cs" />
     <Compile Include="Fragments\ConfirmDialogFragment.cs" />
     <Compile Include="Fragments\DateTimeDialogFragment.cs" />
+    <Compile Include="Fragments\InMemoryConfigStore.cs" />
     <Compile Include="Fragments\LoginDialogFragment.cs" />
     <Compile Include="Fragments\PromptDialogFragment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

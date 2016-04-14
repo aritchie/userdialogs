@@ -7,6 +7,6 @@ namespace Acr.UserDialogs
     {
         Date,
         Time,
-        DateAndTime
+        //DateAndTime
     }
 }
