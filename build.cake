@@ -1,5 +1,5 @@
-#tool nuget:?package=XamarinComponent
-#addin nuget:?package=Cake.Xamarin
+//#tool nuget:?package=XamarinComponent
+//#addin nuget:?package=Cake.Xamarin
 #addin nuget:?package=Cake.FileHelpers
 
 var target = Argument("target", Argument("t", "nuget"));
@@ -15,7 +15,11 @@ Task("libs")
 	.Does (() =>
 {
 	NuGetRestore("./src/Acr.UserDialogs.sln");
-	DotNetBuild("./src/Acr.UserDialogs.sln", c => c.Configuration = "Release");
+	DotNetBuild("./src/Acr.UserDialogs.sln", c =>
+    {
+        c.Configuration = "Release";
+        //c.Targets = "Any CPU";
+    });
 });
 
 Task("nuget")
