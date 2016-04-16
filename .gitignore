@@ -235,3 +235,4 @@ src/Acr.UserDialogs.userprefs
 /src/Acr.UserDialogs.Uwp/project.lock.json
 /src/.vs/config/applicationhost.config
 /src/.vs/Acr.UserDialogs.Android/Acr.UserDialogs.Android.scgdat
+/tools/XamarinComponent/tools

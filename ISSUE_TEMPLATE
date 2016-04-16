@@ -3,8 +3,6 @@ Please refrain from +1's, nuget library update requests (this is not an issue wi
 1) Please check all of the platforms you are having the issue on
 [] iOS
 [] Android
-[] WP81
-[] WP8
 [] UWP
 [] PCL
 

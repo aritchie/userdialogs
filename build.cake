@@ -2,7 +2,7 @@
 #addin nuget:?package=Cake.Xamarin
 #addin nuget:?package=Cake.FileHelpers
 
-var TARGET = Argument("target", Argument("t", "nuget"));
+var target = Argument("target", Argument("t", "nuget"));
 
 Setup(() => {
     DeleteFiles("./output/*.*");
@@ -14,8 +14,8 @@ Setup(() => {
 Task("libs")
 	.Does (() =>
 {
-	NuGetRestore("./Acr.UserDialogs.sln");
-	DotNetBuild("./Acr.UserDialogs.sln", c => c.Configuration = "Release");
+	NuGetRestore("./src/Acr.UserDialogs.sln");
+	DotNetBuild("./src/Acr.UserDialogs.sln", c => c.Configuration = "Release");
 });
 
 Task("nuget")
@@ -25,7 +25,8 @@ Task("nuget")
 	// NuGet on mac trims out the first ./ so adding it twice works around
 	var basePath = IsRunningOnUnix () ? (System.IO.Directory.GetCurrentDirectory().ToString() + @"/.") : "./";
 
-	NuGetPack("./nuspec/Acr.UserDialogs.nuspec", new NuGetPackSettings {
+	NuGetPack("./nuspec/Acr.UserDialogs.nuspec", new NuGetPackSettings
+    {
 		BasePath = basePath,
 		Verbosity = NuGetVerbosity.Detailed
 	});
@@ -38,10 +39,13 @@ Task("publish")
 {
 
     // publish to nuget.org
-    NuGetPush("./output/*.nupkg");
+    NuGetPush("./output/*.nupkg", new NuGetPushSettings
+    {
+        Verbosity = NuGetVerbosity.Detailed
+    });
 
     // local nuget packages - overwrite
-    CopyFiles("./ouput/*.nupkg", "c:\\users\\allan.ritchie\\dropbox\\nuget");
+    // CopyFiles("./ouput/*.nupkg", "c:\\users\\allan.ritchie\\dropbox\\nuget");
 });
 
 RunTarget(target)
