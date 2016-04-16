@@ -122,13 +122,9 @@ namespace Acr.UserDialogs
             };
             var txtUser = new PhoneTextBox
             {
-                //PlaceholderText = config.LoginPlaceholder,
                 Text = config.LoginValue ?? String.Empty
             };
             var txtPass = new PasswordBox();
-            //var txtPass = new PhonePasswordBox {
-            //PlaceholderText = config.PasswordPlaceholder
-            //};
             var stack = new StackPanel();
 
             stack.Children.Add(txtUser);
@@ -159,7 +155,6 @@ namespace Acr.UserDialogs
             var inputScope = this.GetInputScope(config.InputType);
             var txt = new PhoneTextBox
             {
-                //PlaceholderText = config.Placeholder,
                 InputScope = inputScope
             };
             if (config.Text != null)

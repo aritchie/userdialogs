@@ -120,6 +120,12 @@
     <Compile Include="ActionSheetOptionViewModel.cs" />
     <Compile Include="ActionSheetViewModel.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="TimePickerControl.xaml.cs">
+      <DependentUpon>TimePickerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DatePickerControl.xaml.cs">
+      <DependentUpon>DatePickerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginContentDialog.xaml.cs">
       <DependentUpon>LoginContentDialog.xaml</DependentUpon>
     </Compile>
@@ -145,6 +151,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ActionSheetContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TimePickerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DatePickerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

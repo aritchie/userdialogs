@@ -22,9 +22,7 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 * Xamarin (iOS Unified/Android)
 * Universal Windows Platform (Win10/UWP)
 * Portable Class Libraries (Profile 259)
-
-* Windows Phone 8 (Silverlight) - WARNING - support for this is being dropped soon
-* Windows Phone 8.1 - WARNING - support for this is being dropped soon
+* Windows Phone 8/8.1 - It is here, but parts of unimplemented.  NO FEATURE REQUESTS OR SUPPORT - YOU WANT IT, SUBMIT A TESTED PULL REQUEST!
 
 ## Setup
 

@@ -23,6 +23,7 @@ Supported Platforms
 - Xamarin (iOS Unified/Android)
 - Universal Windows Platform (Win10/UWP)
 - Portable Class Libraries (Profile 259)
+- WP8 is here but UNSUPPORTED!
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
