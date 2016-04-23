@@ -35,7 +35,7 @@ namespace Acr.UserDialogs {
         }
 
 #else
-		public static Android.App.AlertDialog ShowExt(this Android.App.AlertDialog.Builder builder) {
+        public static Android.App.AlertDialog ShowExt(this Android.App.AlertDialog.Builder builder) {
             var dialog = builder.Create();
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.Show();

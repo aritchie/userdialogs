@@ -147,22 +147,21 @@ namespace Acr.UserDialogs {
                     Hint = config.Placeholder
                 };
 
-				EventHandler<View.KeyEventArgs> keyHandler = null;
-				var successFunc = new Action<bool>(success =>
-				{
-					if (keyHandler != null)
-					{
-						txt.KeyPress -= keyHandler;
-					}
+                EventHandler<View.KeyEventArgs> keyHandler = null;
+                var successFunc = new Action<bool>(success =>
+                {
+                    if (keyHandler != null)
+                    {
+                        txt.KeyPress -= keyHandler;
+                    }
 
-					config.OnResult(new PromptResult
-					{
-						Ok = success,
-						Text = txt.Text
-					});
-				});
-				if (config.Text != null)
-					txt.Text = config.Text;
+                    config.OnResult(new PromptResult {
+                        Ok = success,
+                        Text = txt.Text
+                    });
+                });
+                if (config.Text != null)
+                    txt.Text = config.Text;
 
                 this.SetInputType(txt, config.InputType);
 
@@ -174,9 +173,9 @@ namespace Acr.UserDialogs {
                     .SetView(txt)
                     .SetPositiveButton(config.OkText, (s, a) => successFunc(true));
 
-				if (config.IsCancellable) {
-					builder.SetNegativeButton(config.CancelText, (s, a) => successFunc(false));
-				}
+                if (config.IsCancellable) {
+                    builder.SetNegativeButton(config.CancelText, (s, a) => successFunc(false));
+                }
 
                 var dialog = builder.ShowExt();
                 keyHandler = new EventHandler<View.KeyEventArgs>((sender, e) =>
