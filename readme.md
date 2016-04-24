@@ -23,9 +23,6 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 * Universal Windows Platform (Win10/UWP)
 * Portable Class Libraries (Profile 259)
 
-* Windows Phone 8 (Silverlight) - WARNING - support for this is being dropped soon
-* Windows Phone 8.1 - WARNING - support for this is being dropped soon
-
 ## Setup
 
 To use, simply reference the nuget package in each of your platform projects.
