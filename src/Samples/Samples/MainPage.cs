@@ -121,13 +121,15 @@ namespace Samples
 
         void AddPage(string title, params View[] views)
         {
+            var scroll = new ScrollView();
             var content = new StackLayout();
             foreach (var view in views)
                 content.Children.Add(view);
 
+            scroll.Content = content;
             this.Children.Add(new NavigationPage(new ContentPage
             {
-                Content = content,
+                Content = scroll,
                 Title = title
             })
             { Title = title });
