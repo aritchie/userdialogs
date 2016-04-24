@@ -146,8 +146,22 @@ namespace Acr.UserDialogs {
                 var txt = new EditText(activity) {
                     Hint = config.Placeholder
                 };
-				if (config.Text != null)
-					txt.Text = config.Text;
+
+                EventHandler<View.KeyEventArgs> keyHandler = null;
+                var successFunc = new Action<bool>(success =>
+                {
+                    if (keyHandler != null)
+                    {
+                        txt.KeyPress -= keyHandler;
+                    }
+
+                    config.OnResult(new PromptResult {
+                        Ok = success,
+                        Text = txt.Text
+                    });
+                });
+                if (config.Text != null)
+                    txt.Text = config.Text;
 
                 this.SetInputType(txt, config.InputType);
 
@@ -157,23 +171,23 @@ namespace Acr.UserDialogs {
                     .SetMessage(config.Message)
                     .SetTitle(config.Title)
                     .SetView(txt)
-                    .SetPositiveButton(config.OkText, (s, a) =>
-                        config.OnResult(new PromptResult {
-                            Ok = true,
-                            Text = txt.Text
-                        })
-					);
+                    .SetPositiveButton(config.OkText, (s, a) => successFunc(true));
 
-				if (config.IsCancellable) {
-					builder.SetNegativeButton(config.CancelText, (s, a) =>
-                        config.OnResult(new PromptResult {
-                            Ok = false,
-                            Text = txt.Text
-                        })
-					);
-				}
+                if (config.IsCancellable) {
+                    builder.SetNegativeButton(config.CancelText, (s, a) => successFunc(false));
+                }
 
-				builder.ShowExt();
+                var dialog = builder.ShowExt();
+                keyHandler = new EventHandler<View.KeyEventArgs>((sender, e) =>
+                {
+                    if (e.KeyCode == Keycode.Enter ||
+                        e.KeyCode == Keycode.NumpadEnter)
+                    {
+                        successFunc(true);
+                        dialog.Dismiss();
+                    }
+                });
+                txt.KeyPress += keyHandler;
             });
         }
 
