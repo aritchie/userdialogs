@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.0.0-beta2</version>
+        <version>5.0.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -23,7 +23,7 @@ Supported Platforms
 - Xamarin (iOS Unified/Android)
 - Universal Windows Platform (Win10/UWP)
 - Portable Class Libraries (Profile 259)
-- WP8 is here but UNSUPPORTED!
+- WP8/81 is here but UNSUPPORTED!
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>

@@ -11,11 +11,11 @@ Setup(() => {
 		CreateDirectory("./output");
 });
 
-Task("libs")
+Task("build")
 	.Does (() =>
 {
-	NuGetRestore("./src/Acr.UserDialogs.sln");
-	DotNetBuild("./src/Acr.UserDialogs.sln", c =>
+	NuGetRestore("./src/lib.sln");
+	DotNetBuild("./src/lib.sln", c =>
     {
         c.Configuration = "Release";
         //c.Targets = "Any CPU";
@@ -23,7 +23,7 @@ Task("libs")
 });
 
 Task("nuget")
-	.IsDependentOn("libs")
+	.IsDependentOn("build")
 	.Does(() =>
 {
 	// NuGet on mac trims out the first ./ so adding it twice works around
