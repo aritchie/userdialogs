@@ -21,9 +21,4 @@ Material Design for ACR User Dialogs on Android
 This library is now deprecated - please use Acr.UserDialogs v5 directly
         </releaseNotes>
     </metadata>
-    <files>
-        <!-- android -->
-        <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\Acr.UserDialogs.*" target="lib\MonoAndroid10" />
-        <file src="..\src\Acr.UserDialogs.Android.AppCompat\bin\Release\AndHUD.dll" target="lib\MonoAndroid10\AndHUD.dll" />
-    </files>
 </package>

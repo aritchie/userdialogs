@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.XamForms.UserDialogs</id>
-        <version>4.2.0</version>
+        <version>5.0.0</version>
         <title>ACR User Dialogs for Xamarin and Windows (DEPRECATED)</title>
         <description>Cross platform plugins for Settings, UI Dialogs, Device Info, and Local Notifications</description>
         <authors>Allan Ritchie</authors>
