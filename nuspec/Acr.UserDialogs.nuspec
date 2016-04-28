@@ -10,7 +10,6 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Action Sheet (multiple choice menu)
 - Alert
 - Confirm
-- Date/Time Prompt
 - Loading
 - Login
 - Progress
@@ -60,7 +59,7 @@ Supported Platforms
         <releaseNotes>
 5.0
 [feature][droid] appcompat now built in.  dialogs will attempt to use best mechanism avaiable on the top activity to determine how to display dialogs (appcompat, fragment dialog, dialog direct).  Thanks to Felix Barz
-[feature] date/time prompt!
+[fix][droid] SUPPORT LIB VERSION DEPENDENCY GONE (mostly)!
 [fix][droid] remove resource files to allow for support library updates (thanks Marco Bellino) #142
 [fix][droid] allow background interaction on classic toast #144
 [fix][uwp] fix duplicate title in actionsheet
