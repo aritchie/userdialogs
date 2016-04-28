@@ -1,5 +1,7 @@
 using System;
 using Android.App;
+using Android.Content;
+using Android.Text;
 
 
 namespace Acr.UserDialogs.Builders
@@ -26,9 +28,20 @@ namespace Acr.UserDialogs.Builders
             if (config.MaximumDate != null)
                 dialog.DatePicker.MaxDate = config.MaximumDate.Value.ToUnixTimestamp();
 
-            //if (config.IsCancellable)
-                //dialog.Set
-
+            dialog.SetCancelable(config.IsCancellable);
+            if (config.IsCancellable)
+            {
+                dialog.SetButton(
+                    (int) DialogButtonType.Negative,
+                    new SpannableString(config.CancelText),
+                    (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(false, dateTime))
+                );
+            }
+            dialog.SetButton(
+                (int)DialogButtonType.Positive,
+                new SpannableString(config.OkText),
+                (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(true, dateTime))
+            );
             // hook these, not called by fragments though
             dialog.DismissEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(true, dateTime));
             dialog.CancelEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(false, dateTime));
@@ -50,6 +63,20 @@ namespace Acr.UserDialogs.Builders
             if (!String.IsNullOrWhiteSpace(config.Title))
                 dialog.SetTitle(config.Title);
 
+            dialog.SetCancelable(config.IsCancellable);
+            if (config.IsCancellable)
+            {
+                dialog.SetButton(
+                    (int) DialogButtonType.Negative,
+                    new SpannableString(config.CancelText),
+                    (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(false, dateTime))
+                );
+            }
+            dialog.SetButton(
+                (int)DialogButtonType.Positive,
+                new SpannableString(config.OkText),
+                (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(true, dateTime))
+            );
             // hook these, not called by fragments though
             dialog.DismissEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(true, dateTime));
             dialog.CancelEvent += (sender, args) => config.OnResult?.Invoke(new DateTimePromptResult(false, dateTime));
