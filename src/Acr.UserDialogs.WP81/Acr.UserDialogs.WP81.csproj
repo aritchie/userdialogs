@@ -85,21 +85,25 @@
       <Link>ActionSheetContentDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="..\Acr.UserDialogs.Uwp\LoginContentDialog.xaml">
       <Link>LoginContentDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="..\Acr.UserDialogs.Uwp\ProgressContentDialog.xaml">
       <Link>ProgressContentDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="..\Acr.UserDialogs.Uwp\PromptContentDialog.xaml">
       <Link>PromptContentDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
   <ItemGroup>
