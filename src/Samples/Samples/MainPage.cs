@@ -25,8 +25,8 @@ namespace Samples
                 Btn("ActionSheet (async)", this.ActionSheetAsync),
                 Btn("Confirm", this.Confirm),
                 //Btn("Date & Time", () => this.Date(DateTimePromptMode.DateAndTime)),
-                Btn("Date", () => this.Date(DateTimePromptMode.Date)),
-                Btn("Time", () => this.Date(DateTimePromptMode.Time)),
+                //Btn("Date", () => this.Date(DateTimePromptMode.Date)),
+                //Btn("Time", () => this.Date(DateTimePromptMode.Time)),
                 Btn("Login", this.Login),
                 Btn("Prompt", this.Prompt),
                 Btn("Prompt /w Text/No Cancel", this.PromptWithTextAndNoCancel),
@@ -202,12 +202,12 @@ namespace Samples
         }
 
 
-        async void Date(DateTimePromptMode mode)
-        {
-            var result = await UserDialogs.Instance.DateTimePromptAsync(mode.ToString(), mode);
-            var state = result.Ok ? "successful" : "cancelled";
-            this.Result($"{mode} was {state} with a selected date/time of {result.SelectedDateTime}");
-        }
+        //async void Date(DateTimePromptMode mode)
+        //{
+        //    var result = await UserDialogs.Instance.DateTimePromptAsync(mode.ToString(), mode);
+        //    var state = result.Ok ? "successful" : "cancelled";
+        //    this.Result($"{mode} was {state} with a selected date/time of {result.SelectedDateTime}");
+        //}
 
 
         async void Login()
