@@ -204,10 +204,9 @@ namespace Acr.UserDialogs
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(() =>
             {
+                var top = app.GetTopViewController();
                 if (alert.PreferredStyle == UIAlertControllerStyle.ActionSheet && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
                 {
-                    var top = app.GetTopViewController();
-
                     var x = top.View.Bounds.Width / 2;
                     var y = top.View.Bounds.Bottom;
                     var rect = new CGRect(x, y, 0, 0);
@@ -216,7 +215,7 @@ namespace Acr.UserDialogs
                     alert.PopoverPresentationController.SourceRect = rect;
                     alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
                 }
-                app.KeyWindow.RootViewController.PresentViewController(alert, true, null);
+                top.PresentViewController(alert, true, null);
             });
         }
 
