@@ -123,7 +123,7 @@ namespace Acr.UserDialogs
                 )));
             }
             dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
-                config.OnResult(new PromptResult(false, txt.Text.Trim())
+                config.OnResult(new PromptResult(true, txt.Text.Trim())
             )));
             dlg.AddTextField(x =>
             {
