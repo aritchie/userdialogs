@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.0.0</version>
+        <version>5.0.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -57,6 +57,10 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+5.0.1
+[fix][ios] incorrect prompt result
+[fix][ios] dialogs not appearing when using modal windows
+
 5.0
 [feature][droid] appcompat now built in.  dialogs will attempt to use best mechanism avaiable on the top activity to determine how to display dialogs (appcompat, fragment dialog, dialog direct).  Thanks to Felix Barz
 [fix][droid] SUPPORT LIB VERSION DEPENDENCY GONE (mostly)!
@@ -150,11 +154,6 @@ Add debug symbols to package
 [android] material design support (flag in Init)
 [breaking] Init is gone from everything but android
 [breaking] android no longer supports anything less than API 15
-
-3.4.2
-[feature] ActionSheetAsync - the xamarin forms way of doing this.  I still recommend ActionSheet for maximum flexibility
-[ios][fix] More top viewcontroller fixes (around tab controllers) courtesy of @RTodorov
-
         </releaseNotes>
     </metadata>
     <files>
