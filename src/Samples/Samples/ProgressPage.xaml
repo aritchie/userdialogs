@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.ProgressPage"
+             Title="Progress">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Button Text="Progress" Command="{Binding Progress}" />
+                <Button Text="Progress (No Cancel)" Command="{Binding ProgressNoCancel}" />
+                <Button Text="Loading (Black - Default)" Command="{Binding Loading}" />
+                <Button Text="Loading (Clear)" Command="{Binding LoadingClear}" />
+                <Button Text="Loading (Gradient - iOS Only)" Command="{Binding LoadingGradient}" />
+                <Button Text="Loading (None)" Command="{Binding LoadingNone}" />
+
+                <Button Text="Show Error" Command="{Binding ShowError}" />
+                <Button Text="Show Success" Command="{Binding ShowSuccess}" />
+                <Button Text="Loading to Success" Command="{Binding LoadingToSuccess}" />
+                <Button Text="Manual Loading" Command="{Binding ManualLoading}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -10,7 +10,7 @@ namespace Samples
 
         public App()
         {
-            this.MainPage = new Samples.MainPage();
+            this.MainPage = new MainPage();
         }
     }
 }

@@ -1,6 +1,5 @@
-//#tool nuget:?package=XamarinComponent
-//#addin nuget:?package=Cake.Xamarin
-#addin nuget:?package=Cake.FileHelpers
+#addin "Cake.Xamarin"
+#addin "Cake.FileHelpers"
 
 var target = Argument("target", Argument("t", "nuget"));
 
@@ -15,11 +14,12 @@ Task("build")
 	.Does (() =>
 {
 	NuGetRestore("./src/lib.sln");
-	DotNetBuild("./src/lib.sln", c =>
-    {
-        c.Configuration = "Release";
-        //c.Targets = "Any CPU";
-    });
+	DotNetBuild("./src/lib.sln", c => c
+        //.SetVerbosity(Verbosity.Minimal)
+        .SetConfiguration("Release")
+        .WithTarget("Any CPU")
+        //.WithProperty("TreatWarningsAsErrors","true")
+    );
 });
 
 Task("nuget")
@@ -35,21 +35,17 @@ Task("nuget")
 		Verbosity = NuGetVerbosity.Detailed
 	});
 	MoveFiles("./nuspec/*.nupkg", "./output");
+    CopyFiles("./ouput/*.nupkg", "c:\\users\\allan.ritchie\\dropbox\\nuget");
 });
 
 Task("publish")
     .IsDependentOn("nuget")
     .Does(() =>
 {
-
-    // publish to nuget.org
     NuGetPush("./output/*.nupkg", new NuGetPushSettings
     {
         Verbosity = NuGetVerbosity.Detailed
     });
-
-    // local nuget packages - overwrite
-    // CopyFiles("./ouput/*.nupkg", "c:\\users\\allan.ritchie\\dropbox\\nuget");
 });
 
 RunTarget(target)

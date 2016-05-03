@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.StandardPage"
+             Title="Standard Dialogs">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Button Text="Alert" Command="{Binding Alert}" />
+                <Button Text="Alert (Long Text)" Command="{Binding AlertLongText}" />
+                <Button Text="ActionSheet" Command="{Binding ActionSheet}" />
+                <Button Text="ActionSheet (async)" Command="{Binding ActionSheetAsync}" />
+                <Button Text="Confirm" Command="{Binding Confirm}" />
+                <Button Text="Date" Command="{Binding Date}" />
+                <Button Text="Time" Command="{Binding Time}" />
+                <Button Text="Login" Command="{Binding Login}" />
+                <Button Text="Prompt" Command="{Binding Prompt}" />
+                <Button Text="Prompt /w Text/No Cancel" Command="{Binding PromptNoTextOrCancel}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

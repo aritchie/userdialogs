@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Samples.SettingsPage"
+             Title="Settings/Themes">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Load Standard Theme" Command="{Binding StandardSettings}" />
+            <Button Text="Load Funny Theme" Command="{Binding LoadAbnormalSettings}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
