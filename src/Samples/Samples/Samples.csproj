@@ -55,7 +55,7 @@
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\ProgressViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\StandardDialogsViewModel.cs" />
+    <Compile Include="ViewModels\StandardViewModel.cs" />
     <Compile Include="ViewModels\ToastsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

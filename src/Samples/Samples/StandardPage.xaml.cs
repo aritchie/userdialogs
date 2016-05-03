@@ -13,7 +13,7 @@ namespace Samples
             InitializeComponent();
 
             // the idea here is that you would dependency inject userdialogs
-            this.BindingContext = new StandardDialogsViewModel(UserDialogs.Instance);
+            this.BindingContext = new StandardViewModel(UserDialogs.Instance);
         }
     }
 }
