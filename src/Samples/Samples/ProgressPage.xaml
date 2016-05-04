@@ -4,20 +4,27 @@
              x:Class="Samples.ProgressPage"
              Title="Progress">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout>
-                <Button Text="Progress" Command="{Binding Progress}" />
-                <Button Text="Progress (No Cancel)" Command="{Binding ProgressNoCancel}" />
-                <Button Text="Loading (Black - Default)" Command="{Binding Loading}" />
-                <Button Text="Loading (Clear)" Command="{Binding LoadingClear}" />
-                <Button Text="Loading (Gradient - iOS Only)" Command="{Binding LoadingGradient}" />
-                <Button Text="Loading (None)" Command="{Binding LoadingNone}" />
-
-                <Button Text="Show Error" Command="{Binding ShowError}" />
-                <Button Text="Show Success" Command="{Binding ShowSuccess}" />
-                <Button Text="Loading to Success" Command="{Binding LoadingToSuccess}" />
-                <Button Text="Manual Loading" Command="{Binding ManualLoading}" />
-            </StackLayout>
-        </ScrollView>
+        <TableView>
+            <TableRoot>
+                <TableSection Title="Deterministic">
+                    <TextCell Text="Progress" Command="{Binding Progress}" />
+                    <TextCell Text="Progress (No Cancel)" Command="{Binding ProgressNoCancel}" />
+                </TableSection>
+                <TableSection Title="Indeterministic">
+                    <TextCell Text="Loading (Black - Default)" Command="{Binding Loading}" />
+                    <TextCell Text="Loading (Clear)" Command="{Binding LoadingClear}" />
+                    <TextCell Text="Loading (Gradient - iOS Only)" Command="{Binding LoadingGradient}" />
+                    <TextCell Text="Loading (None)" Command="{Binding LoadingNone}" />
+                </TableSection>
+                <TableSection>
+                    <TextCell Text="Show Error" Command="{Binding ShowError}" />
+                    <TextCell Text="Show Success" Command="{Binding ShowSuccess}" />
+                </TableSection>
+                <TableSection>
+                    <TextCell Text="Loading to Success" Command="{Binding LoadingToSuccess}" />
+                    <TextCell Text="Manual Loading" Command="{Binding ManualLoading}" />
+                </TableSection>
+            </TableRoot>
+        </TableView>
     </ContentPage.Content>
 </ContentPage>

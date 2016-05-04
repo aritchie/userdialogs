@@ -177,6 +177,7 @@ namespace Acr.UserDialogs
             });
         }
 
+
         #region Internals
 
         protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
@@ -202,10 +203,12 @@ namespace Acr.UserDialogs
         protected virtual void Present(UIViewController controller)
         {
             var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() => app
-                .GetTopViewController()
-                .PresentViewController(controller, true, null)
-            );
+            app.InvokeOnMainThread(() =>
+            {
+                var top = app.GetTopViewController();
+                top.AddChildViewController(controller);
+                //.PresentViewController(controller, true, null)}
+            });
         }
 
 

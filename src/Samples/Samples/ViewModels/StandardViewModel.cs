@@ -73,6 +73,7 @@ namespace Samples.ViewModels
                 .Add("Numeric Password (PIN)", () => this.PromptCommand(InputType.NumericPassword))
                 .Add("Phone", () => this.PromptCommand(InputType.Phone))
                 .Add("Url", () => this.PromptCommand(InputType.Url))
+                .SetCancel()
             ));
             this.PromptNoTextOrCancel = new Command(async () =>
             {

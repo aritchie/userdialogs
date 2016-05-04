@@ -4,9 +4,11 @@
              x:Class="Samples.SettingsPage"
              Title="Settings/Themes">
     <ContentPage.Content>
-        <StackLayout>
-            <Button Text="Load Standard Theme" Command="{Binding StandardSettings}" />
-            <Button Text="Load Funny Theme" Command="{Binding LoadAbnormalSettings}" />
-        </StackLayout>
+        <TableView>
+            <TableSection>
+                <TextCell Text="Load Standard Theme" Command="{Binding StandardSettings}" />
+                <TextCell Text="Load Funny Theme" Command="{Binding LoadAbnormalSettings}" />
+            </TableSection>
+        </TableView>
     </ContentPage.Content>
 </ContentPage>

@@ -4,19 +4,21 @@
              x:Class="Samples.StandardPage"
              Title="Standard Dialogs">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout>
-                <Button Text="Alert" Command="{Binding Alert}" />
-                <Button Text="Alert (Long Text)" Command="{Binding AlertLongText}" />
-                <Button Text="ActionSheet" Command="{Binding ActionSheet}" />
-                <Button Text="ActionSheet (async)" Command="{Binding ActionSheetAsync}" />
-                <Button Text="Confirm" Command="{Binding Confirm}" />
-                <Button Text="Date" Command="{Binding Date}" />
-                <Button Text="Time" Command="{Binding Time}" />
-                <Button Text="Login" Command="{Binding Login}" />
-                <Button Text="Prompt" Command="{Binding Prompt}" />
-                <Button Text="Prompt /w Text/No Cancel" Command="{Binding PromptNoTextOrCancel}" />
-            </StackLayout>
-        </ScrollView>
+        <TableView>
+            <TableRoot>
+                <TableSection>
+                    <TextCell Text="Alert" Command="{Binding Alert}" />
+                    <TextCell Text="Alert (Long Text)" Command="{Binding AlertLongText}" />
+                    <TextCell Text="ActionSheet" Command="{Binding ActionSheet}" />
+                    <TextCell Text="ActionSheet (async)" Command="{Binding ActionSheetAsync}" />
+                    <TextCell Text="Confirm" Command="{Binding Confirm}" />
+                    <TextCell Text="Date" Command="{Binding Date}" />
+                    <TextCell Text="Time" Command="{Binding Time}" />
+                    <TextCell Text="Login" Command="{Binding Login}" />
+                    <TextCell Text="Prompt" Command="{Binding Prompt}" />
+                    <TextCell Text="Prompt /w Text/No Cancel" Command="{Binding PromptNoTextOrCancel}" />
+                </TableSection>
+            </TableRoot>
+        </TableView>
     </ContentPage.Content>
 </ContentPage>

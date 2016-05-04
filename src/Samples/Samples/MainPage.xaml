@@ -6,9 +6,25 @@
              Title="ACR UserDialogs"
              Padding="0, 30, 0, 0">
     <TabbedPage.Children>
-        <samples:StandardPage />
-        <samples:ProgressPage />
-        <samples:ToastsPage />
-        <samples:SettingsPage />
+        <NavigationPage Title="Standard">
+            <x:Arguments>
+                <samples:StandardPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Progress">
+            <x:Arguments>
+                <samples:ProgressPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Toasts">
+            <x:Arguments>
+                <samples:ToastsPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Settings/Themes">
+            <x:Arguments>
+                <samples:SettingsPage />
+            </x:Arguments>
+        </NavigationPage>
     </TabbedPage.Children>
 </TabbedPage>

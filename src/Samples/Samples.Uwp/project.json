@@ -6,7 +6,7 @@
     "Microsoft.ApplicationInsights.WindowsApps": "1.1.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Splat": "1.6.2",
-    "Xamarin.Forms": "2.2.0.18-pre3"
+    "Xamarin.Forms": "2.2.0.31"
   },
   "frameworks": {
     "uap10.0": {}
