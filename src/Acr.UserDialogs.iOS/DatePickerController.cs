@@ -24,10 +24,10 @@ namespace Acr.UserDialogs
         {
             base.ViewDidLoad();
             this.Title = this.Config.Title;
-            this.View.BackgroundColor = UIColor.White;
             this.DatePicker = this.CreateDatePicker();
             this.Toolbar = this.CreateToolbar();
 
+            this.View.BackgroundColor = UIColor.Clear;
             this.View.AddSubview(this.Toolbar);
             this.View.AddSubview(this.DatePicker);
         }
@@ -59,8 +59,8 @@ namespace Acr.UserDialogs
                 var result = new DatePromptResult(false, date);
                 this.DismissViewController(true, () => this.Config.OnResult?.Invoke(result));
             }));
-
-            return new UIToolbar(new CGRect(0, 0, this.View.Frame.Width, 44)) { Items = items.ToArray() };
+            return new UIToolbar { Items = items.ToArray() };
+            //return new UIToolbar(new CGRect(0, 0, this.View.Frame.Width, 44)) { Items = items.ToArray() };
         }
 
 
@@ -77,6 +77,7 @@ namespace Acr.UserDialogs
             var picker = new UIDatePicker(new CGRect(0, 44, this.View.Frame.Width, 200))
             {
                 Mode = UIDatePickerMode.Date,
+                BackgroundColor = UIColor.White // TODO: config?
             };
             if (this.Config.MinimumDate != null)
                 picker.MinimumDate = (NSDate)this.Config.MinimumDate;

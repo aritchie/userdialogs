@@ -5,6 +5,7 @@ using Acr.Support.iOS;
 using UIKit;
 using BigTed;
 using CoreGraphics;
+using Foundation;
 using MessageBar;
 using Splat;
 
@@ -68,21 +69,13 @@ namespace Acr.UserDialogs
 
         public override void DatePrompt(DatePromptConfig config)
         {
-            this.Present(new DatePickerController(config)
-            {
-                ModalPresentationStyle = UIModalPresentationStyle.FormSheet,
-                ModalTransitionStyle = UIModalTransitionStyle.PartialCurl
-            });
+            this.PresentModal(new DatePickerController(config));
         }
 
 
         public override void TimePrompt(TimePromptConfig config)
         {
-            this.Present(new TimePickerController(config)
-            {
-                ModalPresentationStyle = UIModalPresentationStyle.FormSheet,
-                ModalTransitionStyle = UIModalTransitionStyle.PartialCurl
-            });
+            this.PresentModal(new TimePickerController(config));
         }
 
 
@@ -188,7 +181,7 @@ namespace Acr.UserDialogs
                 opt.ItemIcon = image;
 
             if (opt.ItemIcon != null)
-                alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new Foundation.NSString("image"));
+                alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new NSString("image"));
 
             controller.AddAction(alertAction);
         }
@@ -200,15 +193,17 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void Present(UIViewController controller)
+        protected virtual void PresentModal(UIViewController controller)
         {
+            controller.ProvidesPresentationContextTransitionStyle = true;
+            controller.DefinesPresentationContext = true;
+            controller.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext; // or fullscreen
+
             var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
-            {
-                var top = app.GetTopViewController();
-                top.AddChildViewController(controller);
-                //.PresentViewController(controller, true, null)}
-            });
+            app.InvokeOnMainThread(() => app
+                .GetTopViewController()
+                .PresentViewController(controller, true, null)
+            );
         }
 
 

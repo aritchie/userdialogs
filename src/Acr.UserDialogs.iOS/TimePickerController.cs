@@ -24,10 +24,10 @@ namespace Acr.UserDialogs
         {
             base.ViewDidLoad();
             this.Title = this.Config.Title;
-            this.View.BackgroundColor = UIColor.White;
             this.DatePicker = this.CreateDatePicker();
             this.Toolbar = this.CreateToolbar();
 
+            this.View.BackgroundColor = UIColor.Clear;
             this.View.AddSubview(this.Toolbar);
             this.View.AddSubview(this.DatePicker);
         }
@@ -74,16 +74,19 @@ namespace Acr.UserDialogs
 
         protected virtual UIDatePicker CreateDatePicker()
         {
-            //new CGRect(0, 0, 200, 100)
             var picker = new UIDatePicker(new CGRect(0, 44, this.View.Frame.Width, 200))
             {
                 Mode = UIDatePickerMode.Time,
+                BackgroundColor = UIColor.White, // TODO: config?
                 MinuteInterval = this.Config.MinuteInterval
             };
 
             if (this.Config.SelectedTime != null)
             {
-                //picker.SetDate((NSDate)this.Config.SelectedDateTime, false);
+                var now = DateTime.Now;
+                var time = this.Config.SelectedTime.Value;
+                var dt = new DateTime(now.Year, now.Month, now.Day, time.Hours, time.Minutes, 0);
+                picker.SetDate((NSDate)dt, false);
             }
             return picker;
         }
