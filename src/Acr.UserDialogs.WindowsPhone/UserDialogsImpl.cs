@@ -105,7 +105,13 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void DateTimePrompt(DateTimePromptConfig config)
+        public override void DatePrompt(DatePromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public override void TimePrompt(TimePromptConfig config)
         {
             throw new NotImplementedException();
         }

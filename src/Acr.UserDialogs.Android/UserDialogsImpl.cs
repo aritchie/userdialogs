@@ -73,28 +73,17 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void DateTimePrompt(DateTimePromptConfig config)
+        public override void DatePrompt(DatePromptConfig config)
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<DateTimeAppCompatDialogFragment, DateTimePromptConfig>((AppCompatActivity) activity, config);
+                this.ShowDialog<DateAppCompatDialogFragment, DatePromptConfig>((AppCompatActivity) activity, config);
 
             else if (activity is FragmentActivity)
-                this.ShowDialog<DateTimeDialogFragment, DateTimePromptConfig>((FragmentActivity) activity, config);
+                this.ShowDialog<DateDialogFragment, DatePromptConfig>((FragmentActivity) activity, config);
 
             else
-            {
-                switch (config.Mode)
-                {
-                    case DateTimePromptMode.Date:
-                        this.Show(DateTimeBuilder.BuildDatePicker(activity, config));
-                        break;
-
-                    case DateTimePromptMode.Time:
-                        this.Show(DateTimeBuilder.BuildTimePicker(activity, config));
-                        break;
-                }
-            }
+                this.Show(DatePromptBuilder.Build(activity, config));
         }
 
 
@@ -123,6 +112,20 @@ namespace Acr.UserDialogs
 
             else
                 this.Show(PromptBuilder.Build(activity, config));
+        }
+
+
+        public override void TimePrompt(TimePromptConfig config)
+        {
+            var activity = this.TopActivityFunc();
+            if (activity is AppCompatActivity)
+                this.ShowDialog<TimeAppCompatDialogFragment, TimePromptConfig>((AppCompatActivity) activity, config);
+
+            else if (activity is FragmentActivity)
+                this.ShowDialog<TimeDialogFragment, TimePromptConfig>((FragmentActivity) activity, config);
+
+            else
+                this.Show(TimePromptBuilder.Build(activity, config));
         }
 
         #endregion

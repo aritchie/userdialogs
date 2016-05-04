@@ -12,7 +12,8 @@ namespace Acr.UserDialogs
         public abstract void Alert(AlertConfig config);
         public abstract void ActionSheet(ActionSheetConfig config);
         public abstract void Confirm(ConfirmConfig config);
-        public abstract void DateTimePrompt(DateTimePromptConfig config);
+        public abstract void DatePrompt(DatePromptConfig config);
+        public abstract void TimePrompt(TimePromptConfig config);
         public abstract void Login(LoginConfig config);
         public abstract void Prompt(PromptConfig config);
         public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
@@ -161,22 +162,35 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<DateTimePromptResult> DateTimePromptAsync(DateTimePromptConfig config)
+        public virtual Task<DatePromptResult> DatePromptAsync(DatePromptConfig config)
         {
-            var tcs = new TaskCompletionSource<DateTimePromptResult>();
+            var tcs = new TaskCompletionSource<DatePromptResult>();
             config.OnResult = x => tcs.TrySetResult(x);
-            this.DateTimePrompt(config);
+            this.DatePrompt(config);
             return tcs.Task;
         }
 
 
-        public virtual Task<DateTimePromptResult> DateTimePromptAsync(string title, DateTimePromptMode? mode)
+        public virtual Task<DatePromptResult> DatePromptAsync(string title)
         {
-            var config = new DateTimePromptConfig { Title = title };
-            if (mode != null)
-                config.Mode = mode.Value;
+            var config = new DatePromptConfig { Title = title };
+            return this.DatePromptAsync(config);
+        }
 
-            return this.DateTimePromptAsync(config);
+
+        public virtual Task<TimePromptResult> TimePromptAsync(TimePromptConfig config)
+        {
+            var tcs = new TaskCompletionSource<TimePromptResult>();
+            config.OnResult = x => tcs.TrySetResult(x);
+            this.TimePrompt(config);
+            return tcs.Task;
+        }
+
+
+        public virtual Task<TimePromptResult> TimePromptAsync(string title)
+        {
+            var config = new TimePromptConfig { Title = title };
+            return this.TimePromptAsync(config);
         }
 
 

@@ -69,7 +69,8 @@
     <Compile Include="Builders\AlertBuilder.cs" />
     <Compile Include="Builders\ConfirmBuilder.cs" />
     <Compile Include="Builders\ActionSheetBuilder.cs" />
-    <Compile Include="Builders\DateTimeBuilder.cs" />
+    <Compile Include="Builders\TimePromptBuilder.cs" />
+    <Compile Include="Builders\DatePromptBuilder.cs" />
     <Compile Include="Builders\LoginBuilder.cs" />
     <Compile Include="Builders\PromptBuilder.cs" />
     <Compile Include="Extensions.cs" />
@@ -77,7 +78,8 @@
     <Compile Include="Fragments\ActionSheetDialogFragment.cs" />
     <Compile Include="Fragments\AlertDialogFragment.cs" />
     <Compile Include="Fragments\ConfirmDialogFragment.cs" />
-    <Compile Include="Fragments\DateTimeDialogFragment.cs" />
+    <Compile Include="Fragments\TimeDialogFragment.cs" />
+    <Compile Include="Fragments\DateDialogFragment.cs" />
     <Compile Include="Fragments\InMemoryConfigStore.cs" />
     <Compile Include="Fragments\LoginDialogFragment.cs" />
     <Compile Include="Fragments\PromptDialogFragment.cs" />

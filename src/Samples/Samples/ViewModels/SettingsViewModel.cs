@@ -22,9 +22,11 @@ namespace Samples.ViewModels
                 ActionSheetConfig.DefaultDestructiveText = "Remove";
                 ConfirmConfig.DefaultYes = "Yes";
                 ConfirmConfig.DefaultNo = "No";
-                DateTimePromptConfig.DefaultMinuteInterval = 1;
-                DateTimePromptConfig.DefaultCancelText = "Cancel";
-                DateTimePromptConfig.DefaultOkText = "Ok";
+                DatePromptConfig.DefaultCancelText = "Cancel";
+                DatePromptConfig.DefaultOkText = "Ok";
+                TimePromptConfig.DefaultMinuteInterval = 1;
+                TimePromptConfig.DefaultCancelText = "Cancel";
+                TimePromptConfig.DefaultOkText = "Ok";
                 LoginConfig.DefaultTitle = "Login";
                 LoginConfig.DefaultLoginPlaceholder = "User Name";
                 LoginConfig.DefaultPasswordPlaceholder = "Password";
@@ -46,10 +48,13 @@ namespace Samples.ViewModels
                 ActionSheetConfig.DefaultDestructiveText = "BOOM!";
                 ConfirmConfig.DefaultYes = "SIGN LIFE AWAY";
                 ConfirmConfig.DefaultNo = "NO WAY";
-                DateTimePromptConfig.DefaultMinuteInterval = 15;
-                DateTimePromptConfig.DefaultCancelText = "BYE";
-                DateTimePromptConfig.DefaultOkText = "Do Something";
 
+                DatePromptConfig.DefaultCancelText = "BYE";
+                DatePromptConfig.DefaultOkText = "Do Something";
+
+                TimePromptConfig.DefaultMinuteInterval = 15;
+                TimePromptConfig.DefaultCancelText = "BYE";
+                TimePromptConfig.DefaultOkText = "Do Something";
                 LoginConfig.DefaultTitle = "HIGH SECURITY";
                 LoginConfig.DefaultLoginPlaceholder = "WHO ARE YOU?";
                 LoginConfig.DefaultPasswordPlaceholder = "SUPER SECRET PASSWORD";

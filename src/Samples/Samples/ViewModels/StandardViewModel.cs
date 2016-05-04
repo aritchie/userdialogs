@@ -87,11 +87,21 @@ namespace Samples.ViewModels
 
             this.Date = new Command(async () =>
             {
-
+                var result = await this.Dialogs.DatePromptAsync(new DatePromptConfig
+                {
+                    IsCancellable = true,
+                    MinimumDate = DateTime.Now.AddDays(-3),
+                    MaximumDate = DateTime.Now.AddDays(1)
+                });
+                this.Result($"Date Prompt: {result.Ok} - Value: {result.SelectedDate}");
             });
             this.Time = new Command(async () =>
             {
-
+                var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig
+                {
+                    IsCancellable = true
+                });
+                this.Result($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
             });
         }
 

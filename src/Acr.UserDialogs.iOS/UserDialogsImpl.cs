@@ -66,24 +66,24 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void DateTimePrompt(DateTimePromptConfig config)
+        public override void DatePrompt(DatePromptConfig config)
         {
-            var viewController = new DatePickerController(config)
+            this.Present(new DatePickerController(config)
             {
                 ModalPresentationStyle = UIModalPresentationStyle.FormSheet,
                 ModalTransitionStyle = UIModalTransitionStyle.PartialCurl
-            };
-            //var pop = new UIPopoverController(vc)
-            //{
-            //    PopoverContentSize = new CGSize(200, 100)
-            //};
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
-                //pop.PresentFromRect(new CGRect(0, 0, 200, 100), null, UIPopoverArrowDirection.Any, true))
-                app.KeyWindow.RootViewController.PresentViewController(viewController, true, null)
-            );
+            });
         }
 
+
+        public override void TimePrompt(TimePromptConfig config)
+        {
+            this.Present(new TimePickerController(config)
+            {
+                ModalPresentationStyle = UIModalPresentationStyle.FormSheet,
+                ModalTransitionStyle = UIModalTransitionStyle.PartialCurl
+            });
+        }
 
 
         public override void Login(LoginConfig config)
@@ -196,6 +196,16 @@ namespace Acr.UserDialogs
         protected override IProgressDialog CreateDialogInstance()
         {
             return new ProgressDialog();
+        }
+
+
+        protected virtual void Present(UIViewController controller)
+        {
+            var app = UIApplication.SharedApplication;
+            app.InvokeOnMainThread(() => app
+                .GetTopViewController()
+                .PresentViewController(controller, true, null)
+            );
         }
 
 

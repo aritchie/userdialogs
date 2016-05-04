@@ -3,9 +3,9 @@
 
 namespace Acr.UserDialogs
 {
-    public class DateTimePromptConfig
+    public class TimePromptConfig
     {
-        public DateTimePromptConfig()
+        public TimePromptConfig()
         {
             this.OkText = DefaultOkText;
             this.CancelText = DefaultCancelText;
@@ -17,14 +17,12 @@ namespace Acr.UserDialogs
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static int DefaultMinuteInterval { get; set; } = 1;
 
-        public DateTimePromptMode Mode { get; set; } = DateTimePromptMode.Date;
-
         public string Title { get; set; }
         public string OkText { get; set; }
         public string CancelText { get; set; }
-        public DateTime? SelectedDateTime { get; set; }
+        public TimeSpan? SelectedTime { get; set; }
 
-        public Action<DateTimePromptResult> OnResult { get; set; }
+        public Action<TimePromptResult> OnResult { get; set; }
         public bool IsCancellable { get; set; } = true;
 
         /// <summary>
@@ -41,8 +39,5 @@ namespace Acr.UserDialogs
         /// Only valid on iOS
         /// </summary>
         public int MinuteInterval { get; set; }
-
-        public DateTime? MinimumDate { get; set; }
-        public DateTime? MaximumDate { get; set; }
     }
 }

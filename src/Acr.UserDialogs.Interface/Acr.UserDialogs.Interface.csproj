@@ -42,9 +42,10 @@
     <Compile Include="ActionSheetOption.cs" />
     <Compile Include="AlertConfig.cs" />
     <Compile Include="ConfirmConfig.cs" />
-    <Compile Include="DateTimePromptConfig.cs" />
-    <Compile Include="DateTimePromptResult.cs" />
-    <Compile Include="DateTimePromptMode.cs" />
+    <Compile Include="TimePromptConfig.cs" />
+    <Compile Include="DatePromptConfig.cs" />
+    <Compile Include="DatePromptResult.cs" />
+    <Compile Include="TimePromptResult.cs" />
     <Compile Include="InputType.cs" />
     <Compile Include="IProgressDialog.cs" />
     <Compile Include="IUserDialogs.cs" />

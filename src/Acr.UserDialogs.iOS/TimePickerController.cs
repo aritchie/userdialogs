@@ -7,14 +7,14 @@ using UIKit;
 
 namespace Acr.UserDialogs
 {
-    public class DatePickerController : UIViewController
+    public class TimePickerController : UIViewController
     {
-        protected DatePromptConfig Config { get; }
+        protected TimePromptConfig Config { get; }
         protected UIDatePicker DatePicker { get; set; }
         protected UIToolbar Toolbar { get; set; }
 
 
-        public DatePickerController(DatePromptConfig config)
+        public TimePickerController(TimePromptConfig config)
         {
             this.Config = config;
         }
@@ -42,7 +42,7 @@ namespace Acr.UserDialogs
                 items.Add(this.CreateButton(this.Config.CancelText, () =>
                 {
                     var date = this.FromNsDate(this.DatePicker.Date);
-                    var result = new DatePromptResult(false, date);
+                    var result = new TimePromptResult(false, date.TimeOfDay);
                     this.DismissViewController(true, () => this.Config.OnResult?.Invoke(result));
                 }));
             }
@@ -56,7 +56,7 @@ namespace Acr.UserDialogs
             items.Add(this.CreateButton(this.Config.OkText, () =>
             {
                 var date = this.FromNsDate(this.DatePicker.Date);
-                var result = new DatePromptResult(false, date);
+                var result = new TimePromptResult(false, date.TimeOfDay);
                 this.DismissViewController(true, () => this.Config.OnResult?.Invoke(result));
             }));
 
@@ -74,19 +74,17 @@ namespace Acr.UserDialogs
 
         protected virtual UIDatePicker CreateDatePicker()
         {
+            //new CGRect(0, 0, 200, 100)
             var picker = new UIDatePicker(new CGRect(0, 44, this.View.Frame.Width, 200))
             {
-                Mode = UIDatePickerMode.Date,
+                Mode = UIDatePickerMode.Time,
+                MinuteInterval = this.Config.MinuteInterval
             };
-            if (this.Config.MinimumDate != null)
-                picker.MinimumDate = (NSDate)this.Config.MinimumDate;
 
-            if (this.Config.MaximumDate != null)
-                picker.MaximumDate = (NSDate)this.Config.MaximumDate;
-
-            if (this.Config.SelectedDate != null)
-                picker.SetDate((NSDate)this.Config.SelectedDate, false);
-
+            if (this.Config.SelectedTime != null)
+            {
+                //picker.SetDate((NSDate)this.Config.SelectedDateTime, false);
+            }
             return picker;
         }
 

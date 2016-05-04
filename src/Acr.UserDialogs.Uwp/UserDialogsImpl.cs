@@ -73,21 +73,84 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void DateTimePrompt(DateTimePromptConfig config)
+        public override void DatePrompt(DatePromptConfig config)
         {
 #if WINDOWS_PHONE_APP
             throw new NotImplementedException();
 #else
-            switch (config.Mode)
-            {
-                case DateTimePromptMode.Date:
-                    this.DatePrompt(config);
-                    break;
+            var picker = new DatePickerControl();
+            if (config.MinimumDate != null)
+                picker.DatePicker.MinDate = config.MinimumDate.Value;
 
-                case DateTimePromptMode.Time:
-                    this.TimePrompt(config);
-                    break;
+            if (config.MaximumDate != null)
+                picker.DatePicker.MaxDate = config.MaximumDate.Value;
+
+            var popup = this.CreatePopup(picker);
+            if (!config.IsCancellable)
+                picker.CancelButton.Visibility = Visibility.Collapsed;
+            else
+            {
+                picker.CancelButton.Content = config.CancelText;
+                picker.CancelButton.Click += (sender, args) =>
+                {
+                    var result = new DatePromptResult(false, this.GetDateForCalendar(picker.DatePicker));
+                    config.OnResult?.Invoke(result);
+                    popup.IsOpen = false;
+                };
             }
+
+            picker.OkButton.Content = config.OkText;
+            picker.OkButton.Click += (sender, args) =>
+            {
+                var result = new DatePromptResult(true, this.GetDateForCalendar(picker.DatePicker));
+                config.OnResult?.Invoke(result);
+                popup.IsOpen = false;
+            };
+            if (config.SelectedDate != null)
+            {
+                picker.DatePicker.SelectedDates.Add(config.SelectedDate.Value);
+                picker.DatePicker.SetDisplayDate(config.SelectedDate.Value);
+            }
+            popup.IsOpen = true;
+#endif
+        }
+
+
+        public override void TimePrompt(TimePromptConfig config)
+        {
+#if WINDOWS_PHONE_APP
+            throw new NotImplementedException();
+#else
+            var picker = new TimePickerControl();
+            picker.TimePicker.MinuteIncrement = config.MinuteInterval;
+
+            var popup = this.CreatePopup(picker);
+
+            if (!config.IsCancellable)
+                picker.CancelButton.Visibility = Visibility.Collapsed;
+            else
+            {
+                picker.CancelButton.Content = config.CancelText;
+                picker.CancelButton.Click += (sender, args) =>
+                {
+                    var result = new TimePromptResult(false, picker.TimePicker.Time);
+                    config.OnResult?.Invoke(result);
+                    popup.IsOpen = false;
+                };
+            }
+
+            picker.OkButton.Content = config.OkText;
+            picker.OkButton.Click += (sender, args) =>
+            {
+                var result = new TimePromptResult(true, picker.TimePicker.Time);
+                config.OnResult?.Invoke(result);
+                popup.IsOpen = false;
+            };
+            if (config.SelectedTime != null)
+            {
+                picker.TimePicker.Time = config.SelectedTime.Value;
+            }
+            popup.IsOpen = true;
 #endif
         }
 
@@ -192,85 +255,9 @@ namespace Acr.UserDialogs
         }
 
 
-        #region Internals
+#region Internals
 
 #if WINDOWS_UWP
-
-        protected virtual void DatePrompt(DateTimePromptConfig config)
-        {
-            var picker = new DatePickerControl();
-            if (config.MinimumDate != null)
-                picker.DatePicker.MinDate = config.MinimumDate.Value;
-
-            if (config.MaximumDate != null)
-                picker.DatePicker.MaxDate = config.MaximumDate.Value;
-
-            var popup = this.CreatePopup(picker);
-            if (!config.IsCancellable)
-                picker.CancelButton.Visibility = Visibility.Collapsed;
-            else
-            {
-                picker.CancelButton.Content = config.CancelText;
-                picker.CancelButton.Click += (sender, args) =>
-                {
-                    var result = new DateTimePromptResult(false, this.GetDateForCalendar(picker.DatePicker));
-                    config.OnResult?.Invoke(result);
-                    popup.IsOpen = false;
-                };
-            }
-
-            picker.OkButton.Content = config.OkText;
-            picker.OkButton.Click += (sender, args) =>
-            {
-                var result = new DateTimePromptResult(true, this.GetDateForCalendar(picker.DatePicker));
-                config.OnResult?.Invoke(result);
-                popup.IsOpen = false;
-            };
-            if (config.SelectedDateTime != null)
-            {
-                picker.DatePicker.SelectedDates.Add(config.SelectedDateTime.Value);
-                picker.DatePicker.SetDisplayDate(config.SelectedDateTime.Value);
-            }
-            popup.IsOpen = true;
-        }
-
-
-        protected virtual void TimePrompt(DateTimePromptConfig config)
-        {
-            var picker = new TimePickerControl();
-            picker.TimePicker.MinuteIncrement = config.MinuteInterval;
-
-            var popup = this.CreatePopup(picker);
-
-            if (!config.IsCancellable)
-                picker.CancelButton.Visibility = Visibility.Collapsed;
-            else
-            {
-                picker.CancelButton.Content = config.CancelText;
-                picker.CancelButton.Click += (sender, args) =>
-                {
-                    var dateTime = this.GetDateForTimePicker(picker.TimePicker.Time);
-                    var result = new DateTimePromptResult(false, dateTime);
-                    config.OnResult?.Invoke(result);
-                    popup.IsOpen = false;
-                };
-            }
-
-            picker.OkButton.Content = config.OkText;
-            picker.OkButton.Click += (sender, args) =>
-            {
-                var dateTime = this.GetDateForTimePicker(picker.TimePicker.Time);
-                var result = new DateTimePromptResult(true, dateTime);
-                config.OnResult?.Invoke(result);
-                popup.IsOpen = false;
-            };
-            if (config.SelectedDateTime != null)
-            {
-                picker.TimePicker.Time = config.SelectedDateTime.Value.TimeOfDay;
-            }
-            popup.IsOpen = true;
-        }
-
 
         protected virtual Popup CreatePopup(UIElement element)
         {
@@ -293,11 +280,6 @@ namespace Acr.UserDialogs
                 : DateTime.MinValue;
         }
 
-
-        protected virtual DateTime GetDateForTimePicker(TimeSpan timeSpan)
-        {
-            return DateTime.Now;
-        }
 
 #endif
 
