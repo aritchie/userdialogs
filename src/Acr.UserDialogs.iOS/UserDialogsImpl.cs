@@ -69,13 +69,29 @@ namespace Acr.UserDialogs
 
         public override void DatePrompt(DatePromptConfig config)
         {
-            this.PresentModal(new DatePickerController(config));
+            var app = UIApplication.SharedApplication;
+            var top = app.GetTopViewController();
+            var picker = new DatePickerController(config, top) 
+            {
+                ProvidesPresentationContextTransitionStyle = true,
+                DefinesPresentationContext = true,
+                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            };
+            app.InvokeOnMainThread(() => top.PresentViewController(picker, true, null));
         }
 
 
         public override void TimePrompt(TimePromptConfig config)
         {
-            this.PresentModal(new TimePickerController(config));
+            var app = UIApplication.SharedApplication;
+            var top = app.GetTopViewController();
+            var picker = new TimePickerController(config, top)
+            {
+                ProvidesPresentationContextTransitionStyle = true,
+                DefinesPresentationContext = true,
+                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            };
+            app.InvokeOnMainThread(() => top.PresentViewController(picker, true, null));
         }
 
 
@@ -190,20 +206,6 @@ namespace Acr.UserDialogs
         protected override IProgressDialog CreateDialogInstance()
         {
             return new ProgressDialog();
-        }
-
-
-        protected virtual void PresentModal(UIViewController controller)
-        {
-            controller.ProvidesPresentationContextTransitionStyle = true;
-            controller.DefinesPresentationContext = true;
-            controller.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext; // or fullscreen
-
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() => app
-                .GetTopViewController()
-                .PresentViewController(controller, true, null)
-            );
         }
 
 
