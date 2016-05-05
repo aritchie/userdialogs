@@ -71,7 +71,7 @@ namespace Acr.UserDialogs
         {
             var app = UIApplication.SharedApplication;
             var top = app.GetTopViewController();
-            var picker = new DatePickerController(config, top) 
+            var picker = new DatePickerController(config, top)
             {
                 ProvidesPresentationContextTransitionStyle = true,
                 DefinesPresentationContext = true,
@@ -158,7 +158,8 @@ namespace Acr.UserDialogs
         public override void ShowError(string message, int timeoutMillis)
         {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis)
+                BTProgressHUD.ShowContinuousProgress
+                //BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis)
             );
         }
 

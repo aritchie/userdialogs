@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
-        <!-- Any customizations for your app running on pre-3.0 devices here -->
-    </style>
-    <style name="DialogNoDim" parent="android:Theme">
-    	<item name="android:backgroundDimEnabled">false</item>
-	</style>
-</resources> 
