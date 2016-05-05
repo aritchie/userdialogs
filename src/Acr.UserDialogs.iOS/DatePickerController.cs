@@ -28,8 +28,22 @@ namespace Acr.UserDialogs
             this.Toolbar = this.CreateToolbar();
 
             this.View.BackgroundColor = UIColor.Clear;
-            this.View.AddSubview(this.Toolbar);
-            this.View.AddSubview(this.DatePicker);
+
+            var view = new UIView
+            {
+                BackgroundColor = UIColor.White
+            };
+            view.Layer.CornerRadius = 30.0f;
+            view.Layer.BorderWidth = 1.5f;
+            view.Layer.BorderColor = UIColor.LightGray.CGColor;
+            view.Layer.ShadowColor = UIColor.Black.CGColor;
+            view.Layer.ShadowOpacity = 0.8f;
+            view.Layer.ShadowRadius = 3.0f;
+            view.Layer.ShadowOffset = new CGSize(2.0, 2.0);
+
+            view.AddSubview(this.Toolbar);
+            view.AddSubview(this.DatePicker);
+            this.View = view;
         }
 
 
