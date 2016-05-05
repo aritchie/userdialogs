@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 using Acr.Support.iOS;
 using UIKit;
@@ -158,17 +159,19 @@ namespace Acr.UserDialogs
         public override void ShowError(string message, int timeoutMillis)
         {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                BTProgressHUD.ShowContinuousProgress
-                //BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis)
-            );
+            {
+                ProgressHUD.Shared.ShowContinuousProgress(message, ProgressHUD.MaskType.Black, timeoutMillis, ProgressHUD.Shared.ErrorImage);
+            });
+            Task.Delay(timeoutMillis).ContinueWith(x => ProgressHUD.Shared.Dismiss());
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis)
+                ProgressHUD.Shared.ShowContinuousProgress(message, ProgressHUD.MaskType.Black, timeoutMillis, ProgressHUD.Shared.SuccessImage)
             );
+            Task.Delay(timeoutMillis).ContinueWith(x => ProgressHUD.Shared.Dismiss());
         }
 
 
