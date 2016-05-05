@@ -1,4 +1,4 @@
-﻿// Slightly modified version of 
+﻿// Slightly modified version of
 using System;
 using UIKit;
 using CoreGraphics;
@@ -98,18 +98,18 @@ namespace Acr.UserDialogs
                 if (onRotate)
                 {
                     internalViewFrame = new CGRect(
-                        0, 
+                        0,
                         View.Frame.Height - internalViewSize.Height,
-                        internalViewSize.Width, 
+                        internalViewSize.Width,
                         internalViewSize.Height
                     );
                 }
                 else
                 {
                     internalViewFrame = new CGRect(
-                        0, 
+                        0,
                         View.Bounds.Height - internalViewSize.Height,
-                        internalViewSize.Width, 
+                        internalViewSize.Width,
                         internalViewSize.Height
                     );
                 }
@@ -118,39 +118,47 @@ namespace Acr.UserDialogs
             {
                 if (onRotate)
                 {
-                    internalViewFrame = new CGRect(0, View.Bounds.Height - internalViewSize.Height,
-                        internalViewSize.Width, internalViewSize.Height);
+                    internalViewFrame = new CGRect(
+                        0,
+                        View.Bounds.Height - internalViewSize.Height,
+                        internalViewSize.Width,
+                        internalViewSize.Height
+                    );
                 }
                 else
                 {
-                    internalViewFrame = new CGRect(0, View.Frame.Height - internalViewSize.Height,
-                        internalViewSize.Width, internalViewSize.Height);
+                    internalViewFrame = new CGRect(
+                        0,
+                        View.Frame.Height - internalViewSize.Height,
+                        internalViewSize.Width,
+                        internalViewSize.Height
+                    );
                 }
             }
             _internalView.Frame = internalViewFrame;
             this.DatePicker.Frame = new CGRect(
-                DatePicker.Frame.X, 
-                ToolbarHeight, 
+                DatePicker.Frame.X,
+                ToolbarHeight,
                 _internalView.Frame.Width,
                 DatePicker.Frame.Height
             );
-                    
+
             _headerLabel.Frame = new CGRect(20 + buttonSize.Width, 4, _parent.View.Frame.Width - (40+2*buttonSize.Width), 35);
             _doneButton.Frame = new CGRect(internalViewFrame.Width - buttonSize.Width - 10, 7, buttonSize.Width, buttonSize.Height);
             _cancelButton.Frame = new CGRect(10, 7, buttonSize.Width, buttonSize.Height);
         }
 
 
-        void DoneButtonTapped (object sender, EventArgs e)
+        async void DoneButtonTapped (object sender, EventArgs e)
         {
-            this.DismissViewController(true, null);
+            await this.DismissViewControllerAsync(true);
             this.Dismissed?.Invoke(this, true);
         }
 
 
-        void CancelButtonTapped (object sender, EventArgs e)
+        async void CancelButtonTapped (object sender, EventArgs e)
         {
-            this.DismissViewController(true, null);
+            await this.DismissViewControllerAsync(true);
             this.Dismissed?.Invoke(this, false);
         }
 
