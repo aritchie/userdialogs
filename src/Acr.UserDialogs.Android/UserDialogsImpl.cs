@@ -11,7 +11,6 @@ using Android.Text;
 using Android.Widget;
 using AndroidHUD;
 using Splat;
-using Utils = Acr.Support.Android.Extensions;
 
 
 namespace Acr.UserDialogs
@@ -35,13 +34,13 @@ namespace Acr.UserDialogs
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<AlertAppCompatDialogFragment, AlertConfig>((AppCompatActivity) activity, config);
+                this.ShowDialog<AlertAppCompatDialogFragment, AlertConfig>((AppCompatActivity)activity, config);
 
             else if (activity is FragmentActivity)
-                this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity) activity, config);
+                this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity)activity, config);
 
             else
-                this.Show(AlertBuilder.Build(activity, config));
+                this.Show(activity, AlertBuilder.Build(activity, config));
         }
 
 
@@ -49,13 +48,13 @@ namespace Acr.UserDialogs
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<ActionSheetAppCompatDialogFragment, ActionSheetConfig>((AppCompatActivity) activity, config);
+                this.ShowDialog<ActionSheetAppCompatDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
 
             else if (activity is FragmentActivity)
-                this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity) activity, config);
+                this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity)activity, config);
 
             else
-                this.Show(ActionSheetBuilder.Build(activity, config));
+                this.Show(activity, ActionSheetBuilder.Build(activity, config));
         }
 
 
@@ -63,13 +62,13 @@ namespace Acr.UserDialogs
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<ConfirmAppCompatDialogFragment, ConfirmConfig>((AppCompatActivity) activity, config);
+                this.ShowDialog<ConfirmAppCompatDialogFragment, ConfirmConfig>((AppCompatActivity)activity, config);
 
             else if (activity is FragmentActivity)
-                this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity) activity, config);
+                this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
 
             else
-                this.Show(ConfirmBuilder.Build(activity, config));
+                this.Show(activity, ConfirmBuilder.Build(activity, config));
         }
 
 
@@ -77,13 +76,13 @@ namespace Acr.UserDialogs
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<DateAppCompatDialogFragment, DatePromptConfig>((AppCompatActivity) activity, config);
+                this.ShowDialog<DateAppCompatDialogFragment, DatePromptConfig>((AppCompatActivity)activity, config);
 
             else if (activity is FragmentActivity)
-                this.ShowDialog<DateDialogFragment, DatePromptConfig>((FragmentActivity) activity, config);
+                this.ShowDialog<DateDialogFragment, DatePromptConfig>((FragmentActivity)activity, config);
 
             else
-                this.Show(DatePromptBuilder.Build(activity, config));
+                this.Show(activity, DatePromptBuilder.Build(activity, config));
         }
 
 
@@ -91,13 +90,13 @@ namespace Acr.UserDialogs
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<LoginAppCompatDialogFragment, LoginConfig>((AppCompatActivity) activity, config);
+                this.ShowDialog<LoginAppCompatDialogFragment, LoginConfig>((AppCompatActivity)activity, config);
 
             else if (activity is FragmentActivity)
-                this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity) activity, config);
+                this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity)activity, config);
 
             else
-                this.Show(LoginBuilder.Build(activity, config));
+                this.Show(activity, LoginBuilder.Build(activity, config));
         }
 
 
@@ -105,13 +104,13 @@ namespace Acr.UserDialogs
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<PromptAppCompatDialogFragment, PromptConfig>((AppCompatActivity) activity, config);
+                this.ShowDialog<PromptAppCompatDialogFragment, PromptConfig>((AppCompatActivity)activity, config);
 
             else if (activity is FragmentActivity)
-                this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity) activity, config);
+                this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity)activity, config);
 
             else
-                this.Show(PromptBuilder.Build(activity, config));
+                this.Show(activity, PromptBuilder.Build(activity, config));
         }
 
 
@@ -119,13 +118,13 @@ namespace Acr.UserDialogs
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<TimeAppCompatDialogFragment, TimePromptConfig>((AppCompatActivity) activity, config);
+                this.ShowDialog<TimeAppCompatDialogFragment, TimePromptConfig>((AppCompatActivity)activity, config);
 
             else if (activity is FragmentActivity)
-                this.ShowDialog<TimeDialogFragment, TimePromptConfig>((FragmentActivity) activity, config);
+                this.ShowDialog<TimeDialogFragment, TimePromptConfig>((FragmentActivity)activity, config);
 
             else
-                this.Show(TimePromptBuilder.Build(activity, config));
+                this.Show(activity, TimePromptBuilder.Build(activity, config));
         }
 
         #endregion
@@ -134,24 +133,27 @@ namespace Acr.UserDialogs
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
-            Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowImage(this.TopActivityFunc(), image.ToNative(), message, AndroidHUD.MaskType.Black, TimeSpan.FromMilliseconds(timeoutMillis))
+            var activity = this.TopActivityFunc();
+            activity.RunOnUiThread(() =>
+                AndHUD.Shared.ShowImage(activity, image.ToNative(), message, AndroidHUD.MaskType.Black, TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
-            Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowSuccess(this.TopActivityFunc(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+            var activity = this.TopActivityFunc();
+            activity.RunOnUiThread(() =>
+                AndHUD.Shared.ShowSuccess(activity, message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
 
         public override void ShowError(string message, int timeoutMillis)
         {
-            Utils.RequestMainThread(() =>
-                AndHUD.Shared.ShowError(this.TopActivityFunc(), message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+            var activity = this.TopActivityFunc();
+            activity.RunOnUiThread(() =>
+                AndHUD.Shared.ShowError(activity, message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
             );
         }
 
@@ -159,7 +161,8 @@ namespace Acr.UserDialogs
 
         #region Toasts
 
-        public override void Toast(ToastConfig cfg) {
+        public override void Toast(ToastConfig cfg)
+        {
             var activity = this.TopActivityFunc();
             var compat = activity as AppCompatActivity;
 
@@ -176,26 +179,26 @@ namespace Acr.UserDialogs
             var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
             var snackBar = Snackbar.Make(view, "TODO", (int)cfg.Duration.TotalMilliseconds);
             snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
-            snackBar.View.Click += (sender, args) => {
+            snackBar.View.Click += (sender, args) =>
+            {
                 snackBar.Dismiss();
                 cfg.Action?.Invoke();
             };
             this.SetSnackbarTextView(snackBar, cfg);
-            Utils.RequestMainThread(snackBar.Show);
+            activity.RunOnUiThread(snackBar.Show);
         }
 
 
         protected virtual void ToastFallback(Activity activity, ToastConfig cfg)
         {
-            Utils.RequestMainThread(() =>
+            activity.RunOnUiThread(() =>
             {
-                var top = this.TopActivityFunc();
                 var txt = cfg.Title;
                 if (!String.IsNullOrWhiteSpace(cfg.Description))
                     txt += Environment.NewLine + cfg.Description;
 
                 AndHUD.Shared.ShowToast(
-                    top,
+                    activity,
                     txt,
                     AndroidHUD.MaskType.None,
                     cfg.Duration,
@@ -210,9 +213,11 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void SetSnackbarTextView(Snackbar bar, ToastConfig cfg) {
+        protected virtual void SetSnackbarTextView(Snackbar bar, ToastConfig cfg)
+        {
             var group = (ViewGroup)bar.View;
-            for (var i = 0; i < group.ChildCount; i++) {
+            for (var i = 0; i < group.ChildCount; i++)
+            {
                 var txt = group.GetChildAt(i) as TextView;
                 if (txt != null)
                 {
@@ -238,23 +243,23 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void Show(Dialog dialog)
+        protected virtual void Show(Activity activity, Dialog dialog)
         {
-            Utils.RequestMainThread(dialog.Show);
+            activity.RunOnUiThread(dialog.Show);
         }
 
 
-        protected virtual void Show(Android.App.AlertDialog.Builder builder)
+        protected virtual void Show(Activity activity, Android.App.AlertDialog.Builder builder)
         {
             var dialog = builder.Show();
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            Utils.RequestMainThread(() => dialog.Show());
+            activity.RunOnUiThread(dialog.Show);
         }
 
 
         protected virtual void ShowDialog<TFragment, TConfig>(FragmentActivity activity, TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
         {
-            Utils.RequestMainThread(() =>
+            activity.RunOnUiThread(() =>
             {
                 var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
                 frag.Config = config;
@@ -265,7 +270,7 @@ namespace Acr.UserDialogs
 
         protected virtual void ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()
         {
-            Utils.RequestMainThread(() =>
+            activity.RunOnUiThread(() =>
             {
                 var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
                 frag.Config = config;
