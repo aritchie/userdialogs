@@ -2,46 +2,49 @@ using System;
 using Android.App;
 using Android.Content;
 using Android.Text;
+using Android.Widget;
 
 
 namespace Acr.UserDialogs.Builders
 {
     public static class TimePromptBuilder
     {
-        public static TimePickerDialog Build(Activity activity, TimePromptConfig config)
+        public static Dialog Build(Activity activity, TimePromptConfig config)
         {
-            var time = config.SelectedTime ?? DateTime.Now.TimeOfDay;
-            var dateTime = DateTime.Now;
+            var picker = new TimePicker(activity);
+            var builder = new AlertDialog
+                .Builder(activity)
+                .SetCancelable(false)
+                .SetTitle(config.Title)
+                .SetView(picker);
 
-            var dialog = new TimePickerDialog(
-                activity,
-                (sender, args) => dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, args.HourOfDay, args.Minute, 0),
-                time.Hours,
-                time.Minutes,
-                false
-            );
-            if (!String.IsNullOrWhiteSpace(config.Title))
-                dialog.SetTitle(config.Title);
+            if (config.SelectedTime != null)
+            {
+                picker.Hour = config.SelectedTime.Value.Hours;
+                picker.Minute = config.SelectedTime.Value.Minutes;
+            }
 
-            dialog.SetCancelable(config.IsCancellable);
             if (config.IsCancellable)
             {
-                dialog.SetButton(
-                    (int) DialogButtonType.Negative,
-                    new SpannableString(config.CancelText),
-                    (sender, args) => config.OnResult?.Invoke(new TimePromptResult(false, dateTime.TimeOfDay))
+                builder.SetNegativeButton(
+                    config.CancelText,
+                    (sender, args) =>
+                    {
+                        var ts = new TimeSpan(0, picker.Hour, picker.Minute, 0);
+                        config.OnResult?.Invoke(new TimePromptResult(false, ts));
+                    }
                 );
             }
-            dialog.SetButton(
-                (int)DialogButtonType.Positive,
-                new SpannableString(config.OkText),
-                (sender, args) => config.OnResult?.Invoke(new TimePromptResult(true, dateTime.TimeOfDay))
+            builder.SetPositiveButton(
+                config.OkText,
+                (sender, args) =>
+                {
+                    var ts = new TimeSpan(0, picker.Hour, picker.Minute, 0);
+                    config.OnResult?.Invoke(new TimePromptResult(true, ts));
+                }
             );
-            // hook these, not called by fragments though
-            dialog.DismissEvent += (sender, args) => config.OnResult?.Invoke(new TimePromptResult(true, dateTime.TimeOfDay));
-            dialog.CancelEvent += (sender, args) => config.OnResult?.Invoke(new TimePromptResult(false, dateTime.TimeOfDay));
 
-            return dialog;
+            return builder.Show();
         }
     }
 }
