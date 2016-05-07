@@ -104,22 +104,13 @@ All config objects contain static vars that contain defaults which are basically
 1. I'm getting a nullreferenceexception when using loading.
     * This happens when you run loading (or almost any dialog) from the constructor of your page or viewmodel.  The view hasn't been rendered yet, therefore there is nothing to render to.
 
-2. Is Windows 8 Support?
-    * No.  I never got around to this, but I'm going to support 10 as soon as I figure it out.  It is in a very betaish mode now.  I'm hoping someone will help in this area!!
-
-3. A new release just came out and the MvvmCross plugin is broken
-    * I don't update the MvvmCross plugin right along side Acr.UserDialogs.  I'm happy to take a PR
-
-4. Do you take pull requests?
-   * Absolutely.  I may not always accept them, but I do appreciate the help.
-
-5. I'm getting "This is the PCL library, not the platform library.  Did you include the nuget package in your main "executable" project?"
+2. I'm getting "This is the PCL library, not the platform library.  Did you include the nuget package in your main "executable" project?"
     * Do exactly what it says
 
-6. Navigating while inside of a loading/progress dialog causes exceptions or the progress no longer appears properly
+3. Navigating while inside of a loading/progress dialog causes exceptions or the progress no longer appears properly
     * Hide the progress dialog before navigating
 
-7. I don't like the way X method works on platform Y
+4. I don't like the way X method works on platform Y
     * No problems.  Override the implementation like below
 
 
@@ -130,9 +121,6 @@ All config objects contain static vars that contain defaults which are basically
 
     in appdelegate or the starting activity
     UserDialogs.Instance = new MyCustomUserDialogs();
-
-8. I'm using Xamarin.Forms and I can't install the latest version! (specifically on Android)
-    * Read the error you are getting from nuget!!  As of v4.3, this library now uses the latest android support libraries (23.1.1+).  Please do not file feature requests/defects against this.  This library moves with or without Xamarin Forms.  Use v4.2.1 and bug Xamarin to update their library.
 
 ## Powered By:
 
