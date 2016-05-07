@@ -2,18 +2,21 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 
-namespace Acr.UserDialogs {
-
-    public class ProgressDialog : IProgressDialog, INotifyPropertyChanged {
+namespace Acr.UserDialogs
+{
+    public class ProgressDialog : IProgressDialog, INotifyPropertyChanged
+    {
         readonly ProgressContentDialog dialog;
         Action cancelAction;
 
 
-        public ProgressDialog() {
+        public ProgressDialog()
+        {
             this.CancelVisibility = Visibility.Collapsed;
             this.IsIndeterministic = true;
             this.dialog = new ProgressContentDialog { DataContext = this };
@@ -24,9 +27,11 @@ namespace Acr.UserDialogs {
         public bool IsIndeterministic { get; private set; }
 
         bool deter;
-        public bool IsDeterministic {
+        public bool IsDeterministic
+        {
             get { return this.deter; }
-            set {
+            set
+            {
                 this.deter = value;
                 this.IsIndeterministic = !value;
                 this.TextPercentVisibility = value
@@ -45,9 +50,11 @@ namespace Acr.UserDialogs {
 
 
         int percent;
-        public int PercentComplete {
+        public int PercentComplete
+        {
             get { return this.percent; }
-            set {
+            set
+            {
                 if (value > 100)
                     this.percent = 100;
                 else if (value < 0)
@@ -60,9 +67,11 @@ namespace Acr.UserDialogs {
 
 
         Visibility textVis;
-        public Visibility TextPercentVisibility {
+        public Visibility TextPercentVisibility
+        {
             get { return this.textVis; }
-            private set {
+            private set
+            {
                 this.textVis = value;
                 this.Change();
             }
@@ -70,21 +79,25 @@ namespace Acr.UserDialogs {
 
 
         string title;
-        public string Title {
+        public string Title
+        {
             get { return this.title; }
-            set {
+            set
+            {
                 this.title = value;
                 this.Change();
             }
         }
 
 
-        public void Dispose() {
+        public void Dispose()
+        {
             this.Hide();
         }
 
 
-        public void Hide() {
+        public void Hide()
+        {
             if (!this.IsShowing)
                 return;
 
@@ -93,14 +106,16 @@ namespace Acr.UserDialogs {
         }
 
 
-        public void SetCancel(Action onCancel, string cancelText = "Cancel") {
+        public void SetCancel(Action onCancel, string cancelText = "Cancel")
+        {
             this.CancelVisibility = Visibility.Visible;
             this.cancelAction = onCancel;
             this.CancelText = cancelText;
         }
 
 
-        public void Show() {
+        public void Show()
+        {
             if (this.IsShowing)
                 return;
 
@@ -109,7 +124,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        void Change([CallerMemberName] string property = null) {
+        void Change([CallerMemberName] string property = null)
+        {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
@@ -118,9 +134,11 @@ namespace Acr.UserDialogs {
 
 
         string cancelText;
-        public string CancelText {
+        public string CancelText
+        {
             get { return this.cancelText; }
-            set {
+            set
+            {
                 this.cancelText = value;
                 this.Change();
             }
@@ -128,9 +146,11 @@ namespace Acr.UserDialogs {
 
 
         Visibility cancelVisible;
-        public Visibility CancelVisibility {
+        public Visibility CancelVisibility
+        {
             get { return this.cancelVisible; }
-            private set {
+            private set
+            {
                 this.cancelVisible = value;
                 this.Change();
             }
@@ -140,11 +160,9 @@ namespace Acr.UserDialogs {
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        protected virtual void Dispatch(Action action) {
-            CoreWindow
-                .GetForCurrentThread()
-                .Dispatcher
-                .RunAsync(CoreDispatcherPriority.Normal, () => action());
+        protected virtual void Dispatch(Action action)
+        {
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
         }
     }
 }

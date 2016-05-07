@@ -15,11 +15,13 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 * Action Sheet (multiple choice menu)
 * Alert
 * Confirm
+* Date
 * Loading
 * Login
 * Progress
 * Prompt
 * Toasts
+* Time
 * [examples](https://github.com/aritchie/userdialogs/blob/master/src/Samples/Samples/MainPage.cs)
 
 ## Support Platforms
@@ -62,6 +64,9 @@ All config objects contain static vars that contain defaults which are basically
     - DefaultNo
     - DefaultOkText
     - DefaultCancelText
+- DatePromptConfig
+    - DefaultOkText
+    - DefaultCancelText
 - LoginConfig
     - DefaultTitle
     - DefaultOkText
@@ -89,7 +94,10 @@ All config objects contain static vars that contain defaults which are basically
     - ErrorBackgroundColor
     - ErrorTextColor
     - DefaultDuration
-
+- TimePromptConfig
+    - DefaultOkText
+    - DefaultCancelText
+    - DefaultMinuteInterval
 
 ## FAQ
 

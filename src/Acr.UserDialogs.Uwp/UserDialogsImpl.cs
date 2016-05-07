@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Foundation.Collections;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Popups;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -18,7 +19,6 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
-
         public override void Alert(AlertConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
@@ -219,7 +219,7 @@ namespace Acr.UserDialogs
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
-            this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
+            this.Show(image, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
         }
 
 
@@ -319,21 +319,36 @@ namespace Acr.UserDialogs
 
         protected virtual void Show(IBitmap image, string message, Color bgColor, int timeoutMillis)
         {
+            var stack = new StackPanel
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Opacity = 0.7
+            };
+            if (image != null)
+            {
+                var source = image.ToNative();
+                stack.Children.Add(new Image { Source = source });
+            }
+            stack.Children.Add(new TextBlock
+            {
+                Text = message,
+                FontSize = 24f,
+                TextAlignment = TextAlignment.Center,
+                FontWeight = FontWeights.Bold
+            });
+
             var cd = new ContentDialog
             {
                 Background = new SolidColorBrush(bgColor.ToNative()),
-                Content = new TextBlock { Text = message }
+                BorderBrush = new SolidColorBrush(bgColor.ToNative()),
+                Content = stack
             };
+            stack.Tapped += (sender, args) => cd.Hide();
+
             this.Dispatch(() => cd.ShowAsync());
             Task.Delay(TimeSpan.FromMilliseconds(timeoutMillis))
-                .ContinueWith(x =>
-                {
-                    try
-                    {
-                        this.Dispatch(() => cd.Hide());
-                    }
-                    catch { }
-                });
+                .ContinueWith(x => this.Dispatch(cd.Hide));
         }
 
 
@@ -345,10 +360,8 @@ namespace Acr.UserDialogs
 
         protected virtual void Dispatch(Action action)
         {
-            CoreWindow
-                .GetForCurrentThread()
-                .Dispatcher
-                .RunAsync(CoreDispatcherPriority.Normal, () => action());
+            //this.UiDispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
         }
 
 #endregion

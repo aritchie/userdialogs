@@ -56,7 +56,6 @@
     <Compile Include="PromptConfig.cs" />
     <Compile Include="PromptResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeConfig.cs" />
     <Compile Include="TimeResult.cs" />
     <Compile Include="ToastConfig.cs" />
   </ItemGroup>
