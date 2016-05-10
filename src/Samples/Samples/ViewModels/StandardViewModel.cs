@@ -31,7 +31,7 @@ namespace Samples.ViewModels
                         "Option " + display,
                         () => this.Result($"Option {display} Selected"),
                         testImage
-                        );
+                    );
                 }
                 cfg.SetDestructive(action: () => this.Result("Destructive BOOM Selected"));
                 cfg.SetCancel(action: () => this.Result("Cancel Selected"));
@@ -41,7 +41,7 @@ namespace Samples.ViewModels
 
             this.ActionSheetAsync = new Command(async () =>
             {
-                var result = await this.Dialogs.ActionSheetAsync("Test Title", "Cancel", "Destroy", "Button1", "Button2", "Button3");
+                var result = await this.Dialogs.ActionSheetAsync("Test Title", "Cancel", "Destroy", null, "Button1", "Button2", "Button3");
                 this.Result(result);
             });
 
