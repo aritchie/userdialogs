@@ -6,37 +6,42 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
-        public override void Alert(AlertConfig config)
+        public override IDisposable Alert(AlertConfig config)
         {
             throw new NotImplementedException();
         }
 
-        public override void ActionSheet(ActionSheetConfig config)
+        public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             throw new NotImplementedException();
         }
 
-        public override void Confirm(ConfirmConfig config)
+        public override IDisposable Confirm(ConfirmConfig config)
         {
             throw new NotImplementedException();
         }
 
-        public override void DatePrompt(DatePromptConfig config)
+        public override IDisposable DatePrompt(DatePromptConfig config)
         {
             throw new NotImplementedException();
         }
 
-        public override void TimePrompt(TimePromptConfig config)
+        public override IDisposable TimePrompt(TimePromptConfig config)
         {
             throw new NotImplementedException();
         }
 
-        public override void Prompt(PromptConfig config)
+        public override IDisposable Login(LoginConfig config)
         {
             throw new NotImplementedException();
         }
 
-        public override void ShowError(string message, int timeoutMillis)
+        public override IDisposable Prompt(PromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
             throw new NotImplementedException();
         }
@@ -56,12 +61,7 @@ namespace Acr.UserDialogs
             throw new NotImplementedException();
         }
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Login(LoginConfig config)
+        public override void ShowError(string message, int timeoutMillis)
         {
             throw new NotImplementedException();
         }
