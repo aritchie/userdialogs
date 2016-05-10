@@ -3,11 +3,14 @@ using BigTed;
 using UIKit;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class ProgressDialog : IProgressDialog {
+    public class ProgressDialog : IProgressDialog
+    {
 
-        public ProgressDialog() {
+        public ProgressDialog()
+        {
             this.MaskType = MaskType.Black;
         }
 
@@ -15,9 +18,11 @@ namespace Acr.UserDialogs {
         #region IProgressDialog Members
 
         string title;
-        public virtual string Title {
+        public virtual string Title
+        {
             get { return this.title; }
-            set {
+            set
+            {
                 if (this.title == value)
                     return;
 
@@ -31,9 +36,11 @@ namespace Acr.UserDialogs {
 
 
         int percentComplete;
-        public virtual int PercentComplete {
+        public virtual int PercentComplete
+        {
             get { return this.percentComplete; }
-            set {
+            set
+            {
                 if (this.percentComplete == value)
                     return;
 
@@ -54,20 +61,23 @@ namespace Acr.UserDialogs {
 
         string cancelText;
         Action cancelAction;
-        public virtual void SetCancel(Action onCancel, string cancel) {
+        public virtual void SetCancel(Action onCancel, string cancel)
+        {
             this.cancelAction = onCancel;
             this.cancelText = cancel;
             this.Refresh();
         }
 
 
-        public virtual void Show() {
+        public virtual void Show()
+        {
             this.IsShowing = true;
             this.Refresh();
         }
 
 
-        public virtual void Hide() {
+        public virtual void Hide()
+        {
             this.IsShowing = false;
             UIApplication.SharedApplication.InvokeOnMainThread(BTProgressHUD.Dismiss);
         }
@@ -76,7 +86,8 @@ namespace Acr.UserDialogs {
 
         #region IDisposable Members
 
-        public virtual void Dispose() {
+        public virtual void Dispose()
+        {
             this.Hide();
         }
 
@@ -84,29 +95,35 @@ namespace Acr.UserDialogs {
 
         #region Internals
 
-        protected virtual void Refresh() {
+        protected virtual void Refresh()
+        {
             if (!this.IsShowing)
                 return;
 
             var txt = this.Title;
             float p = -1;
-            if (this.IsDeterministic) {
+            if (this.IsDeterministic)
+            {
                 p = (float)this.PercentComplete / 100;
-                if (!String.IsNullOrWhiteSpace(txt)) {
+                if (!String.IsNullOrWhiteSpace(txt))
+                {
                     txt += "... ";
                 }
                 txt += this.PercentComplete + "%";
             }
 
-            UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                if (this.cancelAction == null) {
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+            {
+                if (this.cancelAction == null)
+                {
                     BTProgressHUD.Show(
                         this.Title,
                         p,
                         this.MaskType.ToNative()
                     );
                 }
-                else {
+                else
+                {
                     BTProgressHUD.Show(
                         this.cancelText,
                         this.cancelAction,

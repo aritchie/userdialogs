@@ -13,7 +13,6 @@ using Splat;
 
 namespace Acr.UserDialogs
 {
-
     public class UserDialogsImpl : AbstractUserDialogs
     {
         readonly Timer toastTimer;
@@ -33,15 +32,15 @@ namespace Acr.UserDialogs
         public static bool ShowToastOnBottom { get; set; }
 
 
-        public override void Alert(AlertConfig config)
+        public override IDisposable Alert(AlertConfig config)
         {
             var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
             alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnOk?.Invoke()));
-            this.Present(alert);
+            return this.Present(alert);
         }
 
 
-        public override void ActionSheet(ActionSheetConfig config)
+        public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
             config
@@ -55,48 +54,46 @@ namespace Acr.UserDialogs
             if (config.Cancel != null)
                 this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
 
-            this.Present(sheet);
+            return this.Present(sheet);
         }
 
 
-        public override void Confirm(ConfirmConfig config)
+        public override IDisposable Confirm(ConfirmConfig config)
         {
             var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
             dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnConfirm(false)));
             dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnConfirm(true)));
-            this.Present(dlg);
+            return this.Present(dlg);
         }
 
 
-        public override void DatePrompt(DatePromptConfig config)
+        public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var app = UIApplication.SharedApplication;
-            var top = app.GetTopViewController();
+            var top = UIApplication.SharedApplication.GetTopViewController();
             var picker = new DatePickerController(config, top)
             {
                 ProvidesPresentationContextTransitionStyle = true,
                 DefinesPresentationContext = true,
                 ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
             };
-            app.InvokeOnMainThread(() => top.PresentViewController(picker, true, null));
+            return this.Present(top, picker);
         }
 
 
-        public override void TimePrompt(TimePromptConfig config)
+        public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            var app = UIApplication.SharedApplication;
-            var top = app.GetTopViewController();
+            var top = UIApplication.SharedApplication.GetTopViewController();
             var picker = new TimePickerController(config, top)
             {
                 ProvidesPresentationContextTransitionStyle = true,
                 DefinesPresentationContext = true,
                 ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
             };
-            app.InvokeOnMainThread(() => top.PresentViewController(picker, true, null));
+            return this.Present(top, picker);
         }
 
 
-        public override void Login(LoginConfig config)
+        public override IDisposable Login(LoginConfig config)
         {
             UITextField txtUser = null;
             UITextField txtPass = null;
@@ -117,11 +114,11 @@ namespace Acr.UserDialogs
                 x.Placeholder = config.PasswordPlaceholder;
                 x.SecureTextEntry = true;
             });
-            this.Present(dlg);
+            return this.Present(dlg);
         }
 
 
-        public override void Prompt(PromptConfig config)
+        public override IDisposable Prompt(PromptConfig config)
         {
             var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
             UITextField txt = null;
@@ -144,7 +141,7 @@ namespace Acr.UserDialogs
 
                 txt = x;
             });
-            this.Present(dlg);
+            return this.Present(dlg);
         }
 
 
@@ -213,7 +210,7 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void Present(UIAlertController alert)
+        protected virtual IDisposable Present(UIAlertController alert)
         {
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(() =>
@@ -230,6 +227,29 @@ namespace Acr.UserDialogs
                     alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
                 }
                 top.PresentViewController(alert, true, null);
+            });
+            return new DisposableAction(() =>
+            {
+                try
+                {
+                    app.InvokeOnMainThread(() => alert.DismissViewController(true, null));
+                }
+                catch { }
+            });
+        }
+
+
+        protected virtual IDisposable Present(UIViewController presenter, UIViewController controller)
+        {
+            var app = UIApplication.SharedApplication;
+            app.InvokeOnMainThread(() => presenter.PresentViewController(controller, true, null));
+            return new DisposableAction(() =>
+            {
+                try
+                {
+                    app.InvokeOnMainThread(() => controller.DismissViewController(true, null));
+                }
+                catch { }
             });
         }
 

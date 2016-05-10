@@ -143,7 +143,7 @@ namespace Acr.UserDialogs
                 DatePicker.Frame.Height
             );
 
-            _headerLabel.Frame = new CGRect(20 + buttonSize.Width, 4, _parent.View.Frame.Width - (40+2*buttonSize.Width), 35);
+            _headerLabel.Frame = new CGRect(20 + buttonSize.Width, 4, _parent.View.Frame.Width - (40 + 2 * buttonSize.Width), 35);
             _doneButton.Frame = new CGRect(internalViewFrame.Width - buttonSize.Width - 10, 7, buttonSize.Width, buttonSize.Height);
             _cancelButton.Frame = new CGRect(10, 7, buttonSize.Width, buttonSize.Height);
         }

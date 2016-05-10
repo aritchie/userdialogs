@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Splat;
 
@@ -9,13 +10,13 @@ namespace Acr.UserDialogs
     public abstract class AbstractUserDialogs : IUserDialogs
     {
 
-        public abstract void Alert(AlertConfig config);
-        public abstract void ActionSheet(ActionSheetConfig config);
-        public abstract void Confirm(ConfirmConfig config);
-        public abstract void DatePrompt(DatePromptConfig config);
-        public abstract void TimePrompt(TimePromptConfig config);
-        public abstract void Login(LoginConfig config);
-        public abstract void Prompt(PromptConfig config);
+        public abstract IDisposable Alert(AlertConfig config);
+        public abstract IDisposable ActionSheet(ActionSheetConfig config);
+        public abstract IDisposable Confirm(ConfirmConfig config);
+        public abstract IDisposable DatePrompt(DatePromptConfig config);
+        public abstract IDisposable TimePrompt(TimePromptConfig config);
+        public abstract IDisposable Login(LoginConfig config);
+        public abstract IDisposable Prompt(PromptConfig config);
         public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
         public abstract void ShowError(string message, int timeoutMillis);
         public abstract void ShowSuccess(string message, int timeoutMillis);
@@ -23,7 +24,7 @@ namespace Acr.UserDialogs
         protected abstract IProgressDialog CreateDialogInstance();
 
 
-        public virtual Task<string> ActionSheetAsync(string title, string cancel, string destructive, params string[] buttons)
+        public virtual Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
         {
             var tcs = new TaskCompletionSource<string>();
             var cfg = new ActionSheetConfig();
@@ -39,14 +40,16 @@ namespace Acr.UserDialogs
             foreach (var btn in buttons)
                 cfg.Add(btn, () => tcs.TrySetResult(btn));
 
-            this.ActionSheet(cfg);
+            var disp = this.ActionSheet(cfg);
+            cancelToken?.Register(disp.Dispose);
+
             return tcs.Task;
         }
 
 
-        public virtual void Alert(string message, string title, string okText)
+        public virtual IDisposable Alert(string message, string title, string okText)
         {
-            this.Alert(new AlertConfig
+            return this.Alert(new AlertConfig
             {
                 Message = message,
                 Title = title,
@@ -55,7 +58,7 @@ namespace Acr.UserDialogs
         }
 
 
-        private IProgressDialog loading;
+        IProgressDialog loading;
         public virtual void ShowLoading(string title, MaskType? maskType)
         {
             if (this.loading == null)
@@ -115,45 +118,30 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task AlertAsync(string message, string title, string okText)
-        {
-            var tcs = new TaskCompletionSource<object>();
-            this.Alert(new AlertConfig
-            {
-                Message = message,
-                Title = title,
-                OkText = okText ?? AlertConfig.DefaultOkText,
-                OnOk = () => tcs.TrySetResult(null)
-            });
-            return tcs.Task;
-        }
-
-
-        public virtual Task AlertAsync(AlertConfig config)
+        public virtual Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<object>();
             config.OnOk = () => tcs.TrySetResult(null);
-            this.Alert(config);
+
+            var disp = this.Alert(config);
+            cancelToken?.Register(disp.Dispose);
+
             return tcs.Task;
         }
 
 
-        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText)
+        public virtual Task AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
         {
-            var tcs = new TaskCompletionSource<bool>();
-            this.Confirm(new ConfirmConfig
+            return this.AlertAsync(new AlertConfig
             {
                 Message = message,
                 Title = title,
-                CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
-                OkText = okText ?? ConfirmConfig.DefaultOkText,
-                OnConfirm = x => tcs.TrySetResult(x)
-            });
-            return tcs.Task;
+                OkText = okText ?? AlertConfig.DefaultOkText
+            }, cancelToken);
         }
 
 
-        public virtual Task<bool> ConfirmAsync(ConfirmConfig config)
+        public virtual Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<bool>();
             config.OnConfirm = x => tcs.TrySetResult(x);
@@ -162,80 +150,109 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<DatePromptResult> DatePromptAsync(DatePromptConfig config)
+        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
+        {
+            return this.ConfirmAsync(new ConfirmConfig
+            {
+                Message = message,
+                Title = title,
+                CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
+                OkText = okText ?? ConfirmConfig.DefaultOkText
+            }, cancelToken);
+        }
+
+
+        public virtual Task<DatePromptResult> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<DatePromptResult>();
             config.OnResult = x => tcs.TrySetResult(x);
-            this.DatePrompt(config);
+
+            var disp = this.DatePrompt(config);
+            cancelToken?.Register(disp.Dispose);
+
             return tcs.Task;
         }
 
 
-        public virtual Task<DatePromptResult> DatePromptAsync(string title)
+        public virtual Task<DatePromptResult> DatePromptAsync(string title, CancellationToken? cancelToken = null)
         {
-            var config = new DatePromptConfig { Title = title };
-            return this.DatePromptAsync(config);
+            return this.DatePromptAsync(
+                new DatePromptConfig { Title = title },
+                cancelToken
+            );
         }
 
 
-        public virtual Task<TimePromptResult> TimePromptAsync(TimePromptConfig config)
+        public virtual Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<TimePromptResult>();
             config.OnResult = x => tcs.TrySetResult(x);
-            this.TimePrompt(config);
+
+            var disp = this.TimePrompt(config);
+            cancelToken?.Register(disp.Dispose);
+
             return tcs.Task;
         }
 
 
-        public virtual Task<TimePromptResult> TimePromptAsync(string title)
+        public virtual Task<TimePromptResult> TimePromptAsync(string title, CancellationToken? cancelToken = null)
         {
-            var config = new TimePromptConfig { Title = title };
-            return this.TimePromptAsync(config);
+            return this.TimePromptAsync(
+                new TimePromptConfig { Title = title },
+                cancelToken
+            );
         }
 
 
-        public virtual Task<LoginResult> LoginAsync(string title, string message)
+        public virtual Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
+        {
+            var tcs = new TaskCompletionSource<LoginResult>();
+            config.OnResult = x => tcs.TrySetResult(x);
+
+            var disp = this.Login(config);
+            cancelToken?.Register(disp.Dispose);
+
+            return tcs.Task;
+        }
+
+
+        public virtual Task<LoginResult> LoginAsync(string title, string message, CancellationToken? cancelToken = null)
         {
             return this.LoginAsync(new LoginConfig
             {
                 Title = title ?? LoginConfig.DefaultTitle,
                 Message = message
-            });
+            }, cancelToken);
         }
 
 
-        public virtual Task<LoginResult> LoginAsync(LoginConfig config)
+        public virtual Task<PromptResult> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
         {
-            var tcs = new TaskCompletionSource<LoginResult>();
+            var tcs = new TaskCompletionSource<PromptResult>();
             config.OnResult = x => tcs.TrySetResult(x);
-            this.Login(config);
+
+            var disp = this.Prompt(config);
+            cancelToken?.Register(() =>
+            {
+                disp.Dispose();
+                tcs.TrySetCanceled();
+            });
+
             return tcs.Task;
         }
 
 
-        public virtual Task<PromptResult> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType)
+        public virtual Task<PromptResult> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType, CancellationToken? cancelToken = null)
         {
-            var tcs = new TaskCompletionSource<PromptResult>();
-            this.Prompt(new PromptConfig
+            return this.PromptAsync(new PromptConfig
             {
                 Message = message,
                 Title = title,
                 CancelText = cancelText ?? PromptConfig.DefaultCancelText,
                 OkText = okText ?? PromptConfig.DefaultOkText,
                 Placeholder = placeholder,
-                InputType = inputType,
-                OnResult = x => tcs.TrySetResult(x)
-            });
-            return tcs.Task;
-        }
-
-
-        public virtual Task<PromptResult> PromptAsync(PromptConfig config)
-        {
-            var tcs = new TaskCompletionSource<PromptResult>();
-            config.OnResult = x => tcs.TrySetResult(x);
-            this.Prompt(config);
-            return tcs.Task;
+                InputType = inputType
+            }, cancelToken);
         }
 
 
