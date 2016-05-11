@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.2.0</version>
+        <version>5.2.0-beta1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -61,11 +61,12 @@ Supported Platforms
             </group>
             <group targetFramework="net45">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <depedency id="Ookii.Dialogs" version="[1.0, 2.0)" />
+                <dependency id="Ookii.Dialogs" version="[1.0, 2.0)" />
             </group>
         </dependencies>
         <releaseNotes>
 5.2
+[fix][ios] annoying ios compiler bug with cgrect
 [feature] cancellable standard dialogs.  use cancellationtokens or disposable pattern from sync versions
 [feature] WPF support
 [feature] Windows Forms support (separate library - Acr.UserDialogs.WindowsForms)
