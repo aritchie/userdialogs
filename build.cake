@@ -34,6 +34,11 @@ Task("nuget")
 		BasePath = basePath,
 		Verbosity = NuGetVerbosity.Detailed
 	});
+	NuGetPack("./nuspec/Acr.UserDialogs.WindowsForms.nuspec", new NuGetPackSettings
+    {
+		BasePath = basePath,
+		Verbosity = NuGetVerbosity.Detailed
+	});
 	MoveFiles("./nuspec/*.nupkg", "./output");
     CopyFiles("./ouput/*.nupkg", "c:\\users\\allan.ritchie\\dropbox\\nuget");
 });

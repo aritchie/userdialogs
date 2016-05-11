@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.1.1</version>
+        <version>5.2.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -59,8 +59,17 @@ Supported Platforms
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.6, 3.0)" />
             </group>
+            <group targetFramework="net45">
+                <dependency id="Splat" version="[1.6.2, 2.0)" />
+                <depedency id="Ookii.Dialogs" version="[1.0, 2.0)" />
+            </group>
         </dependencies>
         <releaseNotes>
+5.2
+[feature] cancellable standard dialogs.  use cancellationtokens or disposable pattern from sync versions
+[feature] WPF support
+[feature] Windows Forms support (separate library - Acr.UserDialogs.WindowsForms)
+
 5.1.1
 [fix][ios] potential compiler issue with xamarin ios not using nfloat properly
 [fix][droid] issue with unix timestamp missing method
@@ -200,5 +209,7 @@ Add debug symbols to package
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\uap10.0" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\uap10.0" />
 
+        <!--WPF-->
+        <file src="..\src\Acr.UserDialogs.Wpf\bin\Release\Acr.UserDialogs.*" target="lib\net45" />
     </files>
 </package>
