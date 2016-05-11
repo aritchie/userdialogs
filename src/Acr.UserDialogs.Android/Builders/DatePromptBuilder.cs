@@ -52,9 +52,13 @@ namespace Acr.UserDialogs.Builders
         }
 
 
+        static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
         public static long ToUnixTimestamp(this DateTime dateTime)
         {
-            return new DateTimeOffset(dateTime).ToUnixTimeMilliseconds();
+            //var utc = TimeZoneInfo.ConvertTimeToUtc(dateTime);
+            var utc = dateTime.ToUniversalTime();
+            var ms = utc.Subtract(Epoch).TotalMilliseconds;
+            return Convert.ToInt64(ms);
         }
     }
 }

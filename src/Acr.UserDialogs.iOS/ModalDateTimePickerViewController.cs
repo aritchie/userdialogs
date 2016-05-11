@@ -7,7 +7,8 @@ namespace Acr.UserDialogs
 {
     public class ModalDateTimePickerViewController : UIViewController
     {
-        const float ToolbarHeight = 44;
+        static readonly nfloat ToolbarHeight = 44F;
+
 
         UILabel _headerLabel;
         UIButton _doneButton;
