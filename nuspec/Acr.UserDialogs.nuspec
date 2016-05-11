@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.1.1</version>
+        <version>5.1.2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -61,6 +61,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+5.1.2
+[fix][ios] more fixes for stupid ios compiler issue with cgrect
+
 5.1.1
 [fix][ios] potential compiler issue with xamarin ios not using nfloat properly
 [fix][droid] issue with unix timestamp missing method
