@@ -3,18 +3,18 @@ using System;
 using UIKit;
 using CoreGraphics;
 
+
 namespace Acr.UserDialogs
 {
     public class ModalDateTimePickerViewController : UIViewController
     {
         static readonly nfloat ToolbarHeight = 44F;
 
-
-        UILabel _headerLabel;
-        UIButton _doneButton;
-        UIButton _cancelButton;
-        UIViewController _parent;
-        UIView _internalView;
+        readonly UIViewController parent;
+        UILabel headerLabel;
+        UIButton doneButton;
+        UIButton cancelButton;
+        UIView internalView;
 
 
         public ModalDateTimePickerViewController(string headerText, UIViewController parent)
@@ -26,7 +26,7 @@ namespace Acr.UserDialogs
             DoneButtonText = "Done";
             CancelButtonText = "Cancel";
 
-            _parent = parent;
+            this.parent = parent;
         }
 
 
@@ -42,65 +42,66 @@ namespace Acr.UserDialogs
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            _internalView = new UIView();
+            this.internalView = new UIView();
 
-            _headerLabel = new UILabel(new CGRect(0, 0, 320/2, 44));
-            _headerLabel.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-            _headerLabel.BackgroundColor = HeaderBackgroundColor;
-            _headerLabel.TextColor = HeaderTextColor;
-            _headerLabel.Text = HeaderText;
-            _headerLabel.TextAlignment = UITextAlignment.Center;
-            _internalView.AddSubview(_headerLabel);
+            this.headerLabel = new UILabel(new CGRect((nfloat)0, (nfloat)0, (nfloat)(320 / 2), (nfloat)44))
+            {
+                AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
+                BackgroundColor = this.HeaderBackgroundColor,
+                TextColor = this.HeaderTextColor,
+                Text = this.HeaderText,
+                TextAlignment = UITextAlignment.Center
+            };
+            this.internalView.AddSubview(this.headerLabel);
 
             if (!String.IsNullOrWhiteSpace(this.CancelButtonText))
             {
-                _cancelButton = UIButton.FromType(UIButtonType.System);
-                _cancelButton.SetTitleColor(HeaderTextColor, UIControlState.Normal);
-                _cancelButton.BackgroundColor = UIColor.Clear;
-                _cancelButton.SetTitle(CancelButtonText, UIControlState.Normal);
-                _cancelButton.TouchUpInside += CancelButtonTapped;
-                _internalView.AddSubview (_cancelButton);
+                this.cancelButton = UIButton.FromType(UIButtonType.System);
+                this.cancelButton.SetTitleColor(HeaderTextColor, UIControlState.Normal);
+                this.cancelButton.BackgroundColor = UIColor.Clear;
+                this.cancelButton.SetTitle(CancelButtonText, UIControlState.Normal);
+                this.cancelButton.TouchUpInside += CancelButtonTapped;
+                this.internalView.AddSubview(this.cancelButton);
             }
 
-            _doneButton = UIButton.FromType(UIButtonType.System);
-            _doneButton.SetTitleColor(HeaderTextColor, UIControlState.Normal);
-            _doneButton.BackgroundColor = UIColor.Clear;
-            _doneButton.SetTitle(DoneButtonText, UIControlState.Normal);
-            _doneButton.TouchUpInside += DoneButtonTapped;
+            this.doneButton = UIButton.FromType(UIButtonType.System);
+            this.doneButton.SetTitleColor(HeaderTextColor, UIControlState.Normal);
+            this.doneButton.BackgroundColor = UIColor.Clear;
+            this.doneButton.SetTitle(DoneButtonText, UIControlState.Normal);
+            this.doneButton.TouchUpInside += DoneButtonTapped;
 
 
-            _internalView.AddSubview(DatePicker);
-            _internalView.BackgroundColor = HeaderBackgroundColor;
-            _internalView.AddSubview(_doneButton);
+            this.internalView.AddSubview(DatePicker);
+            this.internalView.BackgroundColor = HeaderBackgroundColor;
+            this.internalView.AddSubview(this.doneButton);
 
-            View.BackgroundColor = UIColor.Clear;
-            DatePicker.BackgroundColor = UIColor.White;
+            this.View.BackgroundColor = UIColor.Clear;
+            this.DatePicker.BackgroundColor = UIColor.White;
 
-            this.Add(_internalView);
+            this.Add(this.internalView);
         }
 
 
         public override void ViewWillAppear(bool animated)
         {
             base.ViewDidAppear(animated);
-            Show();
+            this.Show();
         }
 
 
         void Show(bool onRotate = false)
         {
-            var buttonSize = new CGSize(71, 30);
-            var width = _parent.View.Frame.Width;
-            var internalViewSize = new CGSize(width, DatePicker.Frame.Height + ToolbarHeight);
+            var buttonSize = new CGSize((nfloat)71, (nfloat)30);
+            var internalViewSize = new CGSize(this.parent.View.Frame.Width, (nfloat)(DatePicker.Frame.Height + ToolbarHeight));
             var internalViewFrame = CGRect.Empty;
 
-            if (InterfaceOrientation == UIInterfaceOrientation.Portrait)
+            if (this.InterfaceOrientation == UIInterfaceOrientation.Portrait)
             {
                 if (onRotate)
                 {
                     internalViewFrame = new CGRect(
-                        0,
-                        View.Frame.Height - internalViewSize.Height,
+                        (nfloat)0,
+                        (nfloat)(this.View.Frame.Height - internalViewSize.Height),
                         internalViewSize.Width,
                         internalViewSize.Height
                     );
@@ -109,7 +110,7 @@ namespace Acr.UserDialogs
                 {
                     internalViewFrame = new CGRect(
                         0,
-                        View.Bounds.Height - internalViewSize.Height,
+                        this.View.Bounds.Height - internalViewSize.Height,
                         internalViewSize.Width,
                         internalViewSize.Height
                     );
@@ -120,8 +121,8 @@ namespace Acr.UserDialogs
                 if (onRotate)
                 {
                     internalViewFrame = new CGRect(
-                        0,
-                        View.Bounds.Height - internalViewSize.Height,
+                        (nfloat)0,
+                        (nfloat)(this.View.Bounds.Height - internalViewSize.Height),
                         internalViewSize.Width,
                         internalViewSize.Height
                     );
@@ -129,35 +130,50 @@ namespace Acr.UserDialogs
                 else
                 {
                     internalViewFrame = new CGRect(
-                        0,
-                        View.Frame.Height - internalViewSize.Height,
+                        (nfloat)0,
+                        (nfloat)(this.View.Frame.Height - internalViewSize.Height),
                         internalViewSize.Width,
                         internalViewSize.Height
                     );
                 }
             }
-            _internalView.Frame = internalViewFrame;
+            this.internalView.Frame = internalViewFrame;
             this.DatePicker.Frame = new CGRect(
-                DatePicker.Frame.X,
-                ToolbarHeight,
-                _internalView.Frame.Width,
-                DatePicker.Frame.Height
+                this.DatePicker.Frame.X,
+                (nfloat)ToolbarHeight,
+                this.internalView.Frame.Width,
+                this.DatePicker.Frame.Height
             );
 
-            _headerLabel.Frame = new CGRect(20 + buttonSize.Width, 4, _parent.View.Frame.Width - (40+2*buttonSize.Width), 35);
-            _doneButton.Frame = new CGRect(internalViewFrame.Width - buttonSize.Width - 10, 7, buttonSize.Width, buttonSize.Height);
-            _cancelButton.Frame = new CGRect(10, 7, buttonSize.Width, buttonSize.Height);
+            this.headerLabel.Frame = new CGRect(
+                (nfloat)(20 + buttonSize.Width),
+                (nfloat)4,
+                (nfloat)(this.parent.View.Frame.Width - (40 + 2 * buttonSize.Width)),
+                (nfloat)35
+            );
+            this.doneButton.Frame = new CGRect(
+                (nfloat)(internalViewFrame.Width - buttonSize.Width - 10),
+                (nfloat)7,
+                buttonSize.Width,
+                buttonSize.Height
+            );
+            this.cancelButton.Frame = new CGRect(
+                (nfloat)10,
+                (nfloat)7,
+                buttonSize.Width,
+                buttonSize.Height
+            );
         }
 
 
-        async void DoneButtonTapped (object sender, EventArgs e)
+        async void DoneButtonTapped(object sender, EventArgs e)
         {
             await this.DismissViewControllerAsync(true);
             this.Dismissed?.Invoke(this, true);
         }
 
 
-        async void CancelButtonTapped (object sender, EventArgs e)
+        async void CancelButtonTapped(object sender, EventArgs e)
         {
             await this.DismissViewControllerAsync(true);
             this.Dismissed?.Invoke(this, false);
@@ -168,12 +184,12 @@ namespace Acr.UserDialogs
         {
             base.DidRotate(fromInterfaceOrientation);
 
-            if (InterfaceOrientation == UIInterfaceOrientation.Portrait ||
-                InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft ||
-                InterfaceOrientation == UIInterfaceOrientation.LandscapeRight)
+            if (this.InterfaceOrientation == UIInterfaceOrientation.Portrait ||
+                this.InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft ||
+                this.InterfaceOrientation == UIInterfaceOrientation.LandscapeRight)
             {
-                Show(true);
-                View.SetNeedsDisplay();
+                this.Show(true);
+                this.View.SetNeedsDisplay();
             }
         }
     }
