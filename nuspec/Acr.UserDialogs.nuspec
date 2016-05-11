@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.1.0</version>
+        <version>5.1.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -61,6 +61,10 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+5.1.1
+[fix][ios] potential compiler issue with xamarin ios not using nfloat properly
+[fix][droid] issue with unix timestamp missing method
+
 5.1
 [feature] date and time dialogs
 [feature] using BTProgressHUD and AndHUD from nuget (at last)!
