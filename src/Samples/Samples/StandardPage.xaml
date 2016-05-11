@@ -7,6 +7,7 @@
         <TableView>
             <TableRoot>
                 <TableSection>
+                    <SwitchCell Text="Cancel After 3 Seconds" On="{Binding AutoCancel}" />
                     <TextCell Text="Alert" Command="{Binding Alert}" />
                     <TextCell Text="Alert (Long Text)" Command="{Binding AlertLongText}" />
                     <TextCell Text="ActionSheet" Command="{Binding ActionSheet}" />

@@ -124,7 +124,11 @@ namespace Acr.UserDialogs
             config.OnOk = () => tcs.TrySetResult(null);
 
             var disp = this.Alert(config);
-            cancelToken?.Register(disp.Dispose);
+            cancelToken?.Register(() =>
+            {
+                disp.Dispose();
+                tcs.TrySetCanceled();
+            });
 
             return tcs.Task;
         }
@@ -145,7 +149,13 @@ namespace Acr.UserDialogs
         {
             var tcs = new TaskCompletionSource<bool>();
             config.OnConfirm = x => tcs.TrySetResult(x);
-            this.Confirm(config);
+
+            var disp = this.Confirm(config);
+            cancelToken?.Register(() =>
+            {
+                disp.Dispose();
+                tcs.TrySetCanceled();
+            });
             return tcs.Task;
         }
 
@@ -168,7 +178,11 @@ namespace Acr.UserDialogs
             config.OnResult = x => tcs.TrySetResult(x);
 
             var disp = this.DatePrompt(config);
-            cancelToken?.Register(disp.Dispose);
+            cancelToken?.Register(() =>
+            {
+                disp.Dispose();
+                tcs.TrySetCanceled();
+            });
 
             return tcs.Task;
         }
@@ -189,7 +203,11 @@ namespace Acr.UserDialogs
             config.OnResult = x => tcs.TrySetResult(x);
 
             var disp = this.TimePrompt(config);
-            cancelToken?.Register(disp.Dispose);
+            cancelToken?.Register(() =>
+            {
+                disp.Dispose();
+                tcs.TrySetCanceled();
+            });;
 
             return tcs.Task;
         }
@@ -210,7 +228,11 @@ namespace Acr.UserDialogs
             config.OnResult = x => tcs.TrySetResult(x);
 
             var disp = this.Login(config);
-            cancelToken?.Register(disp.Dispose);
+            cancelToken?.Register(() =>
+            {
+                disp.Dispose();
+                tcs.TrySetCanceled();
+            });
 
             return tcs.Task;
         }
