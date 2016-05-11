@@ -42,6 +42,7 @@
     <Compile Include="ActionSheetOption.cs" />
     <Compile Include="AlertConfig.cs" />
     <Compile Include="ConfirmConfig.cs" />
+    <Compile Include="DisposableAction.cs" />
     <Compile Include="TimePromptConfig.cs" />
     <Compile Include="DatePromptConfig.cs" />
     <Compile Include="DatePromptResult.cs" />

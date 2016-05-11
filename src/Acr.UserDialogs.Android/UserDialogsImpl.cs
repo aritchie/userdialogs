@@ -30,101 +30,94 @@ namespace Acr.UserDialogs
 
         #region Alert Dialogs
 
-        public override void Alert(AlertConfig config)
+        public override IDisposable Alert(AlertConfig config)
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<AlertAppCompatDialogFragment, AlertConfig>((AppCompatActivity)activity, config);
+                return this.ShowDialog<AlertAppCompatDialogFragment, AlertConfig>((AppCompatActivity)activity, config);
 
-            else if (activity is FragmentActivity)
-                this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity)activity, config);
+            if (activity is FragmentActivity)
+                return this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity)activity, config);
 
-            else
-                this.Show(activity, AlertBuilder.Build(activity, config));
+            return this.Show(activity, AlertBuilder.Build(activity, config));
         }
 
 
-        public override void ActionSheet(ActionSheetConfig config)
+        public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<ActionSheetAppCompatDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
+                return this.ShowDialog<ActionSheetAppCompatDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
 
-            else if (activity is FragmentActivity)
-                this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity)activity, config);
+            if (activity is FragmentActivity)
+                return this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity)activity, config);
 
-            else
-                this.Show(activity, ActionSheetBuilder.Build(activity, config));
+            return this.Show(activity, ActionSheetBuilder.Build(activity, config));
         }
 
 
-        public override void Confirm(ConfirmConfig config)
+        public override IDisposable Confirm(ConfirmConfig config)
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<ConfirmAppCompatDialogFragment, ConfirmConfig>((AppCompatActivity)activity, config);
+                return this.ShowDialog<ConfirmAppCompatDialogFragment, ConfirmConfig>((AppCompatActivity)activity, config);
 
-            else if (activity is FragmentActivity)
-                this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
+            if (activity is FragmentActivity)
+                return this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
 
-            else
-                this.Show(activity, ConfirmBuilder.Build(activity, config));
+            return this.Show(activity, ConfirmBuilder.Build(activity, config));
         }
 
 
-        public override void DatePrompt(DatePromptConfig config)
+        public override IDisposable DatePrompt(DatePromptConfig config)
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<DateAppCompatDialogFragment, DatePromptConfig>((AppCompatActivity)activity, config);
+                return this.ShowDialog<DateAppCompatDialogFragment, DatePromptConfig>((AppCompatActivity)activity, config);
 
-            else if (activity is FragmentActivity)
-                this.ShowDialog<DateDialogFragment, DatePromptConfig>((FragmentActivity)activity, config);
+            if (activity is FragmentActivity)
+                return this.ShowDialog<DateDialogFragment, DatePromptConfig>((FragmentActivity)activity, config);
 
-            else
-                this.Show(activity, DatePromptBuilder.Build(activity, config));
+            return this.Show(activity, DatePromptBuilder.Build(activity, config));
         }
 
 
-        public override void Login(LoginConfig config)
+        public override IDisposable Login(LoginConfig config)
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<LoginAppCompatDialogFragment, LoginConfig>((AppCompatActivity)activity, config);
+                return this.ShowDialog<LoginAppCompatDialogFragment, LoginConfig>((AppCompatActivity)activity, config);
 
-            else if (activity is FragmentActivity)
-                this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity)activity, config);
+            if (activity is FragmentActivity)
+                return this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity)activity, config);
 
-            else
-                this.Show(activity, LoginBuilder.Build(activity, config));
+            return this.Show(activity, LoginBuilder.Build(activity, config));
         }
 
 
-        public override void Prompt(PromptConfig config)
+        public override IDisposable Prompt(PromptConfig config)
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<PromptAppCompatDialogFragment, PromptConfig>((AppCompatActivity)activity, config);
+                return this.ShowDialog<PromptAppCompatDialogFragment, PromptConfig>((AppCompatActivity)activity, config);
 
-            else if (activity is FragmentActivity)
-                this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity)activity, config);
+            if (activity is FragmentActivity)
+                return this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity)activity, config);
 
-            else
-                this.Show(activity, PromptBuilder.Build(activity, config));
+            return this.Show(activity, PromptBuilder.Build(activity, config));
         }
 
 
-        public override void TimePrompt(TimePromptConfig config)
+        public override IDisposable TimePrompt(TimePromptConfig config)
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity)
-                this.ShowDialog<TimeAppCompatDialogFragment, TimePromptConfig>((AppCompatActivity)activity, config);
+                return this.ShowDialog<TimeAppCompatDialogFragment, TimePromptConfig>((AppCompatActivity)activity, config);
 
-            else if (activity is FragmentActivity)
-                this.ShowDialog<TimeDialogFragment, TimePromptConfig>((FragmentActivity)activity, config);
+            if (activity is FragmentActivity)
+                return this.ShowDialog<TimeDialogFragment, TimePromptConfig>((FragmentActivity)activity, config);
 
-            else
-                this.Show(activity, TimePromptBuilder.Build(activity, config));
+            return this.Show(activity, TimePromptBuilder.Build(activity, config));
         }
 
         #endregion
@@ -243,39 +236,52 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void Show(Activity activity, Dialog dialog)
+        protected virtual IDisposable Show(Activity activity, Dialog dialog)
         {
             activity.RunOnUiThread(dialog.Show);
+            return new DisposableAction(() =>
+                activity.RunOnUiThread(dialog.Dismiss)
+            );
         }
 
 
-        protected virtual void Show(Activity activity, Android.App.AlertDialog.Builder builder)
+        protected virtual IDisposable Show(Activity activity, Android.App.AlertDialog.Builder builder)
         {
             var dialog = builder.Show();
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             activity.RunOnUiThread(dialog.Show);
+            return new DisposableAction(() =>
+                activity.RunOnUiThread(dialog.Dismiss)
+            );
         }
 
 
-        protected virtual void ShowDialog<TFragment, TConfig>(FragmentActivity activity, TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
+        protected virtual IDisposable ShowDialog<TFragment, TConfig>(FragmentActivity activity, TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
         {
+            var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
+
             activity.RunOnUiThread(() =>
             {
-                var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
                 frag.Config = config;
                 frag.Show(activity.FragmentManager, FragmentTag);
             });
+            return new DisposableAction(() =>
+                activity.RunOnUiThread(frag.Dismiss)
+            );
         }
 
 
-        protected virtual void ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()
+        protected virtual IDisposable ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()
         {
+            var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
             activity.RunOnUiThread(() =>
             {
-                var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
                 frag.Config = config;
                 frag.Show(activity.SupportFragmentManager, FragmentTag);
             });
+            return new DisposableAction(() =>
+                activity.RunOnUiThread(frag.Dismiss)
+            );
         }
 
         #endregion

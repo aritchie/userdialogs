@@ -17,25 +17,21 @@ namespace Acr.UserDialogs
     public class UserDialogsImpl : AbstractUserDialogs
     {
 
-        public override void Alert(AlertConfig config)
+        public override IDisposable Alert(AlertConfig config)
         {
-            this.Dispatch(() =>
+            var alert = new CustomMessageBox
             {
-                var alert = new CustomMessageBox
-                {
-                    Caption = config.Title,
-                    Message = config.Message,
-                    LeftButtonContent = config.OkText,
-                    IsRightButtonEnabled = false
-                };
-                alert.Dismissed += (sender, args) => config.OnOk?.Invoke();
-
-                alert.Show();
-            });
+                Caption = config.Title,
+                Message = config.Message,
+                LeftButtonContent = config.OkText,
+                IsRightButtonEnabled = false
+            };
+            alert.Dismissed += (sender, args) => config.OnOk?.Invoke();
+            return this.DispatchWithDispose(alert.Show, alert.Dismiss);
         }
 
 
-        public override void ActionSheet(ActionSheetConfig config)
+        public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var sheet = new CustomMessageBox
             {
@@ -87,11 +83,11 @@ namespace Acr.UserDialogs
                 var action = txt.DataContext as ActionSheetOption;
                 action?.Action?.Invoke();
             };
-            this.Dispatch(sheet.Show);
+            return this.DispatchWithDispose(sheet.Show, sheet.Dismiss);
         }
 
 
-        public override void Confirm(ConfirmConfig config)
+        public override IDisposable Confirm(ConfirmConfig config)
         {
             var confirm = new CustomMessageBox
             {
@@ -101,23 +97,23 @@ namespace Acr.UserDialogs
                 RightButtonContent = config.CancelText
             };
             confirm.Dismissed += (sender, args) => config.OnConfirm(args.Result == CustomMessageBoxResult.LeftButton);
-            this.Dispatch(confirm.Show);
+            return this.DispatchWithDispose(confirm.Show, confirm.Dismiss);
         }
 
 
-        public override void DatePrompt(DatePromptConfig config)
+        public override IDisposable DatePrompt(DatePromptConfig config)
         {
             throw new NotImplementedException();
         }
 
 
-        public override void TimePrompt(TimePromptConfig config)
+        public override IDisposable TimePrompt(TimePromptConfig config)
         {
             throw new NotImplementedException();
         }
 
 
-        public override void Login(LoginConfig config)
+        public override IDisposable Login(LoginConfig config)
         {
             var prompt = new CustomMessageBox
             {
@@ -142,11 +138,11 @@ namespace Acr.UserDialogs
                 txtPass.Password,
                 args.Result == CustomMessageBoxResult.LeftButton
             ));
-            this.Dispatch(prompt.Show);
+            return this.DispatchWithDispose(prompt.Show, prompt.Dismiss);
         }
 
 
-        public override void Prompt(PromptConfig config)
+        public override IDisposable Prompt(PromptConfig config)
         {
             var prompt = new CustomMessageBox
             {
@@ -178,7 +174,7 @@ namespace Acr.UserDialogs
                 var text = isSecure ? password.Password : txt.Text.Trim();
                 config.OnResult(new PromptResult(ok, text));
             };
-            this.Dispatch(prompt.Show);
+            return this.DispatchWithDispose(prompt.Show, prompt.Dismiss);
         }
 
 
@@ -326,6 +322,22 @@ namespace Acr.UserDialogs
         protected virtual void Dispatch(Action action)
         {
             Deployment.Current.Dispatcher.BeginInvoke(action);
+        }
+
+
+        protected virtual IDisposable DispatchWithDispose(Action dispatch, Action dispose)
+        {
+            this.Dispatch(dispatch);
+            return new DisposableAction(() =>
+            {
+                try
+                {
+                    this.Dispatch(dispose);
+                }
+                catch
+                {
+                }
+            });
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Text;
@@ -19,15 +20,20 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
-        public override void Alert(AlertConfig config)
+        public override IDisposable Alert(AlertConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
             dialog.Commands.Add(new UICommand(config.OkText, x => config.OnOk?.Invoke()));
-            this.Dispatch(() => dialog.ShowAsync());
+            IAsyncOperation<IUICommand> dialogTask = null;
+
+            return this.DispatchAndDispose(
+                () => dialogTask = dialog.ShowAsync(),
+                () => dialogTask?.Cancel()
+            );
         }
 
 
-        public override void ActionSheet(ActionSheetConfig config)
+        public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var dlg = new ActionSheetContentDialog();
 
@@ -57,11 +63,16 @@ namespace Acr.UserDialogs
             };
 
             dlg.DataContext = vm;
-            this.Dispatch(() => dlg.ShowAsync());
+            IAsyncOperation<ContentDialogResult> dialogTask = null;
+
+            return this.DispatchAndDispose(
+                () => dialogTask = dlg.ShowAsync(),
+                () => dialogTask?.Cancel()
+            );
         }
 
 
-        public override void Confirm(ConfirmConfig config)
+        public override IDisposable Confirm(ConfirmConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title);
             dialog.Commands.Add(new UICommand(config.OkText, x => config.OnConfirm(true)));
@@ -69,11 +80,16 @@ namespace Acr.UserDialogs
 
             dialog.Commands.Add(new UICommand(config.CancelText, x => config.OnConfirm(false)));
             dialog.CancelCommandIndex = 1;
-            this.Dispatch(() => dialog.ShowAsync());
+
+            IAsyncOperation<IUICommand> dialogTask = null;
+            return this.DispatchAndDispose(
+                () => dialogTask = dialog.ShowAsync(),
+                () => dialogTask?.Cancel()
+            );
         }
 
 
-        public override void DatePrompt(DatePromptConfig config)
+        public override IDisposable DatePrompt(DatePromptConfig config)
         {
 #if WINDOWS_PHONE_APP
             throw new NotImplementedException();
@@ -111,12 +127,15 @@ namespace Acr.UserDialogs
                 picker.DatePicker.SelectedDates.Add(config.SelectedDate.Value);
                 picker.DatePicker.SetDisplayDate(config.SelectedDate.Value);
             }
-            popup.IsOpen = true;
+            return this.DispatchAndDispose(
+                () => popup.IsOpen = true,
+                () => popup.IsOpen = false
+            );
 #endif
         }
 
 
-        public override void TimePrompt(TimePromptConfig config)
+        public override IDisposable TimePrompt(TimePromptConfig config)
         {
 #if WINDOWS_PHONE_APP
             throw new NotImplementedException();
@@ -150,12 +169,15 @@ namespace Acr.UserDialogs
             {
                 picker.TimePicker.Time = config.SelectedTime.Value;
             }
-            popup.IsOpen = true;
+            return this.DispatchAndDispose(
+                () => popup.IsOpen = true,
+                () => popup.IsOpen = false
+            );
 #endif
         }
 
 
-        public override void Login(LoginConfig config)
+        public override IDisposable Login(LoginConfig config)
         {
             var vm = new LoginViewModel
             {
@@ -177,11 +199,14 @@ namespace Acr.UserDialogs
             {
                 DataContext = vm
             };
-            this.Dispatch(() => dlg.ShowAsync());
+            return this.DispatchAndDispose(
+                () => dlg.ShowAsync(),
+                dlg.Hide
+            );
         }
 
 
-        public override void Prompt(PromptConfig config)
+        public override IDisposable Prompt(PromptConfig config)
         {
             var stack = new StackPanel
             {
@@ -213,7 +238,10 @@ namespace Acr.UserDialogs
                 });
             }
 
-            this.Dispatch(() => dialog.ShowAsync());
+            return this.DispatchAndDispose(
+                () => dialog.ShowAsync(),
+                dialog.Hide
+            );
         }
 
 
@@ -364,6 +392,19 @@ namespace Acr.UserDialogs
             CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
         }
 
+
+        protected virtual IDisposable DispatchAndDispose(Action dispatch, Action dispose)
+        {
+            this.Dispatch(dispatch);
+            return new DisposableAction(() =>
+            {
+                try
+                {
+                    this.Dispatch(dispose);
+                }
+                catch { }
+            });
+        }
 #endregion
     }
 }
