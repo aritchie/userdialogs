@@ -147,28 +147,21 @@ namespace Acr.UserDialogs
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
-            UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis)
-            );
+            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis));
         }
 
 
         public override void ShowError(string message, int timeoutMillis)
         {
-            UIApplication.SharedApplication.InvokeOnMainThread(() =>
-            {
-                ProgressHUD.Shared.ShowContinuousProgress(message, ProgressHUD.MaskType.Black, timeoutMillis, ProgressHUD.Shared.ErrorImage);
-            });
-            Task.Delay(timeoutMillis).ContinueWith(x => ProgressHUD.Shared.Dismiss());
+            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis));
+            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutMillis));
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
-            UIApplication.SharedApplication.InvokeOnMainThread(() =>
-                ProgressHUD.Shared.ShowContinuousProgress(message, ProgressHUD.MaskType.Black, timeoutMillis, ProgressHUD.Shared.SuccessImage)
-            );
-            Task.Delay(timeoutMillis).ContinueWith(x => ProgressHUD.Shared.Dismiss());
+            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis));
+            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutMillis));
         }
 
 
@@ -189,6 +182,45 @@ namespace Acr.UserDialogs
 
 
         #region Internals
+
+        UIView currentOverlay;
+
+
+        protected virtual void ShowWithOverlay(int timemillis, Action action)
+        {
+            var app = UIApplication.SharedApplication;
+            app.InvokeOnMainThread(() =>
+            {
+                this.ShowOverlay();
+                action();
+            });
+            Task.Delay(timemillis)
+                .ContinueWith(x => app.InvokeOnMainThread(this.DismissOverlay));
+        }
+
+
+        protected virtual void ShowOverlay()
+        {
+            this.currentOverlay = new UIView(UIScreen.MainScreen.Bounds)
+            {
+                AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+                Alpha = 0.8F,
+                BackgroundColor = UIColor.Black,
+                UserInteractionEnabled = false
+            };
+            UIApplication
+                .SharedApplication
+                .GetTopWindow()
+                .AddSubview(this.currentOverlay);
+        }
+
+
+        protected virtual void DismissOverlay()
+        {
+            this.currentOverlay?.RemoveFromSuperview();
+            this.currentOverlay = null;
+        }
+
 
         protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
         {

@@ -89,7 +89,7 @@ namespace Acr.UserDialogs
         void Show(bool onRotate = false)
         {
             var buttonSize = new CGSize((nfloat)71, (nfloat)30);
-            var internalViewSize = new CGSize(this.parent.View.Frame.Width, (nfloat)(this.sDatePicker.Frame.Height + ToolbarHeight));
+            var internalViewSize = new CGSize(this.parent.View.Frame.Width, (nfloat)(this.DatePicker.Frame.Height + ToolbarHeight));
             var internalViewFrame = CGRect.Empty;
 
             if (this.InterfaceOrientation == UIInterfaceOrientation.Portrait)
