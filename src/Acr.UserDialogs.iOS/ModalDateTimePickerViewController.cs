@@ -18,12 +18,11 @@ namespace Acr.UserDialogs
 
         public ModalDateTimePickerViewController(string headerText, UIViewController parent)
         {
-            HeaderBackgroundColor = UIColor.White;
-            HeaderTextColor = UIColor.Black;
-            HeaderText = headerText;
-
-            DoneButtonText = "Done";
-            CancelButtonText = "Cancel";
+            this.HeaderBackgroundColor = UIColor.White;
+            this.HeaderTextColor = UIColor.Black;
+            this.HeaderText = headerText;
+            this.DoneButtonText = "Done";
+            this.CancelButtonText = "Cancel";
 
             this.parent = parent;
         }
@@ -56,22 +55,21 @@ namespace Acr.UserDialogs
             if (!String.IsNullOrWhiteSpace(this.CancelButtonText))
             {
                 this.cancelButton = UIButton.FromType(UIButtonType.System);
-                this.cancelButton.SetTitleColor(HeaderTextColor, UIControlState.Normal);
+                this.cancelButton.SetTitleColor(this.HeaderTextColor, UIControlState.Normal);
                 this.cancelButton.BackgroundColor = UIColor.Clear;
-                this.cancelButton.SetTitle(CancelButtonText, UIControlState.Normal);
-                this.cancelButton.TouchUpInside += CancelButtonTapped;
+                this.cancelButton.SetTitle(this.CancelButtonText, UIControlState.Normal);
+                this.cancelButton.TouchUpInside += this.CancelButtonTapped;
                 this.internalView.AddSubview(this.cancelButton);
             }
 
             this.doneButton = UIButton.FromType(UIButtonType.System);
-            this.doneButton.SetTitleColor(HeaderTextColor, UIControlState.Normal);
+            this.doneButton.SetTitleColor(this.HeaderTextColor, UIControlState.Normal);
             this.doneButton.BackgroundColor = UIColor.Clear;
-            this.doneButton.SetTitle(DoneButtonText, UIControlState.Normal);
-            this.doneButton.TouchUpInside += DoneButtonTapped;
+            this.doneButton.SetTitle(this.DoneButtonText, UIControlState.Normal);
+            this.doneButton.TouchUpInside += this.DoneButtonTapped;
 
-
-            this.internalView.AddSubview(DatePicker);
-            this.internalView.BackgroundColor = HeaderBackgroundColor;
+            this.internalView.AddSubview(this.DatePicker);
+            this.internalView.BackgroundColor = this.HeaderBackgroundColor;
             this.internalView.AddSubview(this.doneButton);
 
             this.View.BackgroundColor = UIColor.Clear;
@@ -91,7 +89,7 @@ namespace Acr.UserDialogs
         void Show(bool onRotate = false)
         {
             var buttonSize = new CGSize((nfloat)71, (nfloat)30);
-            var internalViewSize = new CGSize(this.parent.View.Frame.Width, (nfloat)(DatePicker.Frame.Height + ToolbarHeight));
+            var internalViewSize = new CGSize(this.parent.View.Frame.Width, (nfloat)(this.sDatePicker.Frame.Height + ToolbarHeight));
             var internalViewFrame = CGRect.Empty;
 
             if (this.InterfaceOrientation == UIInterfaceOrientation.Portrait)
