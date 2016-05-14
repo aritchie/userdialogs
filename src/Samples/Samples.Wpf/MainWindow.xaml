@@ -3,10 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Samples.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <StackPanel>
+        <CheckBox Content="Cancel After 3 Seconds" IsChecked="{Binding AutoCancel}" />
+        <Button Content="Alert" Command="{Binding Alert}" />
+        <Button Content="Alert (Long Text)" Command="{Binding AlertLongText}" />
+        <Button Content="ActionSheet" Command="{Binding ActionSheet}" />
+        <Button Content="ActionSheet (async)" Command="{Binding ActionSheetAsync}" />
+        <Button Content="Confirm" Command="{Binding Confirm}" />
+        <!--<Button Content="Date" Command="{Binding Date}" />
+        <Button Content="Time" Command="{Binding Time}" />-->
+        <Button Content="Login" Command="{Binding Login}" />
+        <!--<Button Content="Prompt" Command="{Binding Prompt}" />-->
+        <!--<Button Content="Prompt /w Text/No Cancel" Command="{Binding PromptNoTextOrCancel}" />-->
+    </StackPanel>
 </Window>
