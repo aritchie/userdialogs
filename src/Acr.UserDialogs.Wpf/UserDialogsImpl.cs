@@ -47,6 +47,7 @@ namespace Acr.UserDialogs
                 var action = config.Options.First(x => x.Text.Equals(args.Item.Text));
                 action.Action();
             };
+            dlg.ShowDialog();
             return new DisposableAction(dlg.Dispose);
         }
 
@@ -92,9 +93,21 @@ namespace Acr.UserDialogs
 
         public override IDisposable Login(LoginConfig config)
         {
-            var dlg = new CredentialDialog();
-            dlg.Credentials.UserName = config.LoginValue;
+            var dlg = new CredentialDialog
+            {
+                //UserName = config.LoginValue ?? String.Empty,
+                WindowTitle = config.Title,
+                Content = config.Message,
+                ShowSaveCheckBox = false
+            };
+            //dlg.MainInstruction
             dlg.ShowDialog();
+
+            config.OnResult(new LoginResult(
+                dlg.UserName,
+                dlg.Password,
+                true
+            ));
             return new DisposableAction(dlg.Dispose);
         }
 

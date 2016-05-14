@@ -58,7 +58,7 @@ namespace Acr.UserDialogs
                     {
                         dlg.Hide();
                         x.Action?.Invoke();
-                    }, x.ItemIcon != null ? x.ItemIcon : config.ItemIcon))
+                    }, x.ItemIcon ?? config.ItemIcon))
                     .ToList()
             };
 
@@ -221,7 +221,6 @@ namespace Acr.UserDialogs
                 Content = stack,
                 PrimaryButtonText = config.OkText
             };
-
 
             if (config.InputType == InputType.Password)
                 this.SetPasswordPrompt(dialog, stack, config);
