@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Ookii.Dialogs.Wpf;
 using Splat;
+#if WPF
+using Ookii.Dialogs.Wpf;
+#else
+using Ookii.Dialogs;
+#endif
 
 
 namespace Acr.UserDialogs

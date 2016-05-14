@@ -1,6 +1,6 @@
 ﻿namespace Samples.WindowsForms
 {
-    partial class Form1
+    partial class StandardDialogs
     {
         /// <summary>
         /// Required designer variable.

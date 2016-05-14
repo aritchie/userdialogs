@@ -1,5 +1,9 @@
 ﻿using System;
+#if WPF
 using Ookii.Dialogs.Wpf;
+#else
+using Ookii.Dialogs;
+#endif
 
 
 namespace Acr.UserDialogs

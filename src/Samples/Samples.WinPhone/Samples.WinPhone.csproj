@@ -143,7 +143,6 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples.dll" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
@@ -169,7 +168,6 @@
       <HintPath>..\..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Samples, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.2.0.31\lib\WP80\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>
@@ -195,6 +193,14 @@
     <ProjectReference Include="..\..\Acr.UserDialogs.WindowsPhone\Acr.UserDialogs.WindowsPhone.csproj">
       <Project>{a9215e66-03e0-45fe-aab7-f1488c82bb1a}</Project>
       <Name>Acr.UserDialogs.WindowsPhone</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples.UI.XamarinForms\Samples.UI.XamarinForms.csproj">
+      <Project>{2c87761b-7cce-468f-9a2a-020af0c857af}</Project>
+      <Name>Samples.UI.XamarinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples\Samples.csproj">
+      <Project>{74cee6c1-4ce8-4279-82af-d5a5ddd76d18}</Project>
+      <Name>Samples</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

@@ -105,6 +105,10 @@
       <Name>Acr.UserDialogs.iOS</Name>
       <IsAppExtension>False</IsAppExtension>
     </ProjectReference>
+    <ProjectReference Include="..\Samples.UI.XamarinForms\Samples.UI.XamarinForms.csproj">
+      <Project>{2c87761b-7cce-468f-9a2a-020af0c857af}</Project>
+      <Name>Samples.UI.XamarinForms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
       <Name>Samples</Name>
       <Project>{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}</Project>

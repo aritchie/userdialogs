@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Samples.WindowsForms
 {
-    public partial class Form1 : Form
+    public partial class StandardDialogs : Form
     {
-        public Form1()
+        public StandardDialogs()
         {
             InitializeComponent();
         }
