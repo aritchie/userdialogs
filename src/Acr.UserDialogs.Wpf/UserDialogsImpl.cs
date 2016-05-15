@@ -113,9 +113,12 @@ namespace Acr.UserDialogs
 
         public override IDisposable Prompt(PromptConfig config)
         {
-            //var dlg = new InputDialog();
-            //Ookii.Dialogs.Wpf.
+#if WPF
             return null;
+#else
+            var dlg = new InputDialog();
+            return new DisposableAction(dlg.Dispose);
+#endif
         }
 
 
@@ -133,7 +136,6 @@ namespace Acr.UserDialogs
 
         public override void Toast(ToastConfig config)
         {
-            throw new NotImplementedException();
         }
 
 

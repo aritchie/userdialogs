@@ -59,17 +59,15 @@ Supported Platforms
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.6, 3.0)" />
             </group>
-            <group targetFramework="net45">
+            <!--<group targetFramework="net45">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Ookii.Dialogs" version="[1.0, 2.0)" />
-            </group>
+            </group>-->
         </dependencies>
         <releaseNotes>
 5.2
-[fix][ios] annoying ios compiler bug with cgrect
 [feature] cancellable standard dialogs.  use cancellationtokens or disposable pattern from sync versions
-[feature] WPF support
-[feature] Windows Forms support (separate library - Acr.UserDialogs.WindowsForms)
+[feature] date/time dialogs.  this feature has temporarily been pulled from iOS due to a compiler defect
 
 5.1.1
 [fix][ios] potential compiler issue with xamarin ios not using nfloat properly
@@ -93,92 +91,6 @@ Supported Platforms
 [fix][droid] allow background interaction on classic toast #144
 [fix][uwp] fix duplicate title in actionsheet
 [BREAKING][ios] no longer supporting iOS6 and under
-
-
-4.3.4
-[fix][uwp][wp81] xaml exceptions due to missing library layout files
-
-4.3.0
-[feature] windows phone 8.1 support
-[update][android] use latest support libraries
-[fix][uwp] loginresult not returning results
-[fix][uwp] prompt password now works
-
-4.2.0
-[fix][ios] cancel/ok button locations on confirm, prompt, and login
-[update][ios] btprogresshud to 1.19
-
-4.1.8
-[fix][ios] toast dismissal timer did nothing
-
-4.1.7
-nuget updates
-
-4.1.6
-[update] support library
-[fix][ios] nuspec updates to deal with potential xamstudio ref issues
-
-4.1.5
-[fix] update error message
-[fix] nuget package issues with android
-[update] droid libraries
-
-4.1.4
-[fix] UWP registration
-[fix] use proper default icon for info
-[fix][ios] text color of toasts
-[update][ios] Update BTProgressHUD to 1.17
-
-4.1.3
-Add debug symbols to package
-
-4.1.2
-[feature] Icons for actionsheets thanks to @martijn00
-
-4.1.1
-[fix][droid] prompts were not forcing keyboard to appear (thanks @rubgithub)
-[feature][windows] toast functionality now available thanks to coding4fun.toolkit
-
-4.1.0
-[fix][wp] restore wp8
-[fix] add missing fluent methods to config objects
-[fix][uwp] dispatch dialogs on UI thread
-[fix][droid] hack display to show title and description on classic android
-[feature][ios] On the platform project, you can now set UserDialogImpl.ShowToastsOnBottom = true;(static)
-[feature] Show decimal keyboard on prompts (thanks @rubgithub)
-
-4.0.5
-[BREAKING][droid] - appcompat now exists in a secondary package (Acr.UserDialogs.Android.AppCompat)
-[ios][fix] truncating text in toasts.  thanks to @highplans
-
-4.0.4
-[ios][fix] further fixes to toast top view
-[droid] toasts now use formatted text to make the titles look better
-[info] Default text color for success toasts is now black
-[info] using acr.support to provide common base library
-
-4.0.3
-[feature] text and description for toasts
-[droid][fix] text color for toasts
-[droid][fix] add ability to pass activity factory function for android init
-[ios][fix] more default icon fixes
-[info] WP81 and UWP still beta!
-
-4.0.2
-[ios][fix] default icons for messagebar
-
-4.0.1
-[ios][fix] top level view not selected properly in messagebar
-[ios][fix] messagebar should fire ontap, not ondismiss
-[ios] hide previous toast if new one coming in
-
-4.0
-[feature] pretty toast windows powered by iOS-Messagebar and android support design snackbar
-[feature] images and colours now powered by Splat
-[feature] Universal windows platform support (beta - still not pretty)
-[android] material design support (flag in Init)
-[breaking] Init is gone from everything but android
-[breaking] android no longer supports anything less than API 15
         </releaseNotes>
     </metadata>
     <files>
@@ -211,6 +123,6 @@ Add debug symbols to package
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\uap10.0" />
 
         <!--WPF-->
-        <file src="..\src\Acr.UserDialogs.Wpf\bin\Release\Acr.UserDialogs.*" target="lib\net45" />
+        <!--<file src="..\src\Acr.UserDialogs.Wpf\bin\Release\Acr.UserDialogs.*" target="lib\net45" />-->
     </files>
 </package>

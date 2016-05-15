@@ -69,27 +69,29 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var top = UIApplication.SharedApplication.GetTopViewController();
-            var picker = new DatePickerController(config, top)
-            {
-                ProvidesPresentationContextTransitionStyle = true,
-                DefinesPresentationContext = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-            };
-            return this.Present(top, picker);
+            throw new NotImplementedException("This has been pulled from iOS temporarily due to Xamarin defect");
+            //var top = UIApplication.SharedApplication.GetTopViewController();
+            //var picker = new DatePickerController(config, top)
+            //{
+            //    ProvidesPresentationContextTransitionStyle = true,
+            //    DefinesPresentationContext = true,
+            //    ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            //};
+            //return this.Present(top, picker);
         }
 
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            var top = UIApplication.SharedApplication.GetTopViewController();
-            var picker = new TimePickerController(config, top)
-            {
-                ProvidesPresentationContextTransitionStyle = true,
-                DefinesPresentationContext = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-            };
-            return this.Present(top, picker);
+            throw new NotImplementedException("This has been pulled from iOS temporarily due to Xamarin defect");
+            //var top = UIApplication.SharedApplication.GetTopViewController();
+            //var picker = new TimePickerController(config, top)
+            //{
+            //    ProvidesPresentationContextTransitionStyle = true,
+            //    DefinesPresentationContext = true,
+            //    ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            //};
+            //return this.Present(top, picker);
         }
 
 
