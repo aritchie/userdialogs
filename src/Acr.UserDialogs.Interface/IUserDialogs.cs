@@ -14,7 +14,7 @@ namespace Acr.UserDialogs {
         void DatePrompt(DatePromptConfig config);
         void TimePrompt(TimePromptConfig config);
         void Prompt(PromptConfig config);
-        void Login(LoginConfig config);
+		void Login(LoginConfig config);
         IProgressDialog Progress(ProgressDialogConfig config);
 		IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
 		IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
@@ -33,10 +33,11 @@ namespace Acr.UserDialogs {
         Task<TimePromptResult> TimePromptAsync(string title = null);
         Task<LoginResult> LoginAsync(string title = null, string message = null);
         Task<LoginResult> LoginAsync(LoginConfig config);
-        Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default);
+		// PromptTwoInputs added by Lee Bettridge
+		Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default, bool showSecondInput = false, string secondPlaceholder = "", InputType secondInputType = InputType.Default);
         Task<PromptResult> PromptAsync(PromptConfig config);
 
-        void ShowImage(IBitmap image, string message, int timeoutMillis = 2000);
+		void ShowImage(IBitmap image, string message, int timeoutMillis = 2000);
         void ShowSuccess(string message, int timeoutMillis = 2000);
         void ShowError(string message, int timeoutMillis = 2000);
 

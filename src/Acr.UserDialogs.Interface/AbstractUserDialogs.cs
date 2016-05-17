@@ -16,7 +16,7 @@ namespace Acr.UserDialogs
         public abstract void TimePrompt(TimePromptConfig config);
         public abstract void Login(LoginConfig config);
         public abstract void Prompt(PromptConfig config);
-        public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
+		public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
         public abstract void ShowError(string message, int timeoutMillis);
         public abstract void ShowSuccess(string message, int timeoutMillis);
         public abstract void Toast(ToastConfig config);
@@ -213,7 +213,8 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<PromptResult> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType)
+		// PromptTwoInputs added by Lee Bettridge
+		public virtual Task<PromptResult> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType, bool showSecondInput, string secondPlaceholder, InputType secondInputType)
         {
             var tcs = new TaskCompletionSource<PromptResult>();
             this.Prompt(new PromptConfig
@@ -224,6 +225,9 @@ namespace Acr.UserDialogs
                 OkText = okText ?? PromptConfig.DefaultOkText,
                 Placeholder = placeholder,
                 InputType = inputType,
+				ShowSecondInput = showSecondInput,
+				SecondPlaceholder = secondPlaceholder,
+				SecondInputType = secondInputType,
                 OnResult = x => tcs.TrySetResult(x)
             });
             return tcs.Task;
@@ -239,7 +243,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual void InfoToast(string title, string description, int timeoutMillis)
+		public virtual void InfoToast(string title, string description, int timeoutMillis)
         {
             this.Toast(ToastEvent.Info, title, description, timeoutMillis);
         }

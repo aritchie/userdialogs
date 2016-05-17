@@ -120,35 +120,84 @@ namespace Acr.UserDialogs
             this.Present(dlg);
         }
 
+		// PromptTwoInputs added by Lee Bettridge
+		public override void Prompt(PromptConfig config)
+		{
+			var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+			UITextField txt = null, txt2 = null;
 
-        public override void Prompt(PromptConfig config)
-        {
-            var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            UITextField txt = null;
+			if (config.IsCancellable)
+			{
+				if (config.ShowSecondInput)
+				{
+					dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
+						config.OnResult(new PromptResult(false, txt.Text.Trim(), txt2.Text.Trim())
+					)));
+				}
+				else
+				{
+					dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
+						config.OnResult(new PromptResult(false, txt.Text.Trim())
+					)));
+				}
+			}
 
-            if (config.IsCancellable)
-            {
-                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
-                    config.OnResult(new PromptResult(false, txt.Text.Trim())
-                )));
-            }
-            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
-                config.OnResult(new PromptResult(true, txt.Text.Trim())
-            )));
-            dlg.AddTextField(x =>
-            {
-                this.SetInputType(x, config.InputType);
-                x.Placeholder = config.Placeholder ?? String.Empty;
-                if (config.Text != null)
-                    x.Text = config.Text;
+			if (config.ShowSecondInput)
+			{
+				dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
+					config.OnResult(new PromptResult(true, txt.Text.Trim(), txt2.Text.Trim())
+				)));
+			}
+			else
+			{
+				dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
+					config.OnResult(new PromptResult(true, txt.Text.Trim())
+				)));
+			}
 
-                txt = x;
-            });
-            this.Present(dlg);
-        }
+			dlg.AddTextField(x =>
+			{
+				this.SetInputType(x, config.InputType);
+				x.Placeholder = config.Placeholder ?? String.Empty;
+				if (config.Text != null)
+					x.Text = config.Text;
 
+				txt = x;
+			});
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
+			if (config.ShowSecondInput)
+			{
+				dlg.AddTextField(x =>
+				{
+					this.SetInputType(x, config.SecondInputType);
+					x.Placeholder = config.SecondPlaceholder ?? String.Empty;
+
+					txt2 = x;
+				});
+			}
+
+			this.Present(dlg);
+
+			if (config.ShowSecondInput)
+			{
+				//dlg.ParentViewController.View.AddConstraint(
+				//	NSLayoutConstraint.Create(txt2, NSLayoutAttribute.Left, NSLayoutRelation.Equal, txt, NSLayoutAttribute.Left, 1.0f, 0.0f)
+				//);
+				//dlg.ParentViewController.View.AddConstraint(
+				//	NSLayoutConstraint.Create(txt2, NSLayoutAttribute.Width, NSLayoutRelation.Equal, txt, NSLayoutAttribute.Width, 1.0f, 0.0f)
+				//);
+				//dlg.ParentViewController.View.AddConstraint(
+				//	NSLayoutConstraint.Create(txt2, NSLayoutAttribute.Height, NSLayoutRelation.Equal, txt, NSLayoutAttribute.Height, 1.0f, 0.0f)
+				//);
+				//dlg.ParentViewController.View.AddConstraint(
+				//	NSLayoutConstraint.Create(txt2, NSLayoutAttribute.Top, NSLayoutRelation.Equal, txt, NSLayoutAttribute.Bottom, 1.0f, 20.0f)
+				//);
+				//dlg.ParentViewController.View.AutosizesSubviews = false;
+				//txt2.TopAnchor.ConstraintEqualTo(txt.BottomAnchor, 20.0f).Active = true;
+			}
+		}
+
+		public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
                 BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis)

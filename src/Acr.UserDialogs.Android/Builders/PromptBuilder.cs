@@ -42,34 +42,73 @@ namespace Acr.UserDialogs.Builders
             return builder;
         }
 
-
-        public static AppCompatAlertDialog.Builder Build(AppCompatActivity activity, PromptConfig config)
+		// PromptTwoInputs added by Lee Bettridge
+		public static AppCompatAlertDialog.Builder Build(AppCompatActivity activity, PromptConfig config)
         {
-            var txt = new EditText(activity)
-            {
-                Hint = config.Placeholder
-            };
-            if (config.Text != null)
-                txt.Text = config.Text;
+			EditText txtOne = null, txtTwo = null;
+			AppCompatAlertDialog.Builder builder = null;
 
-            SetInputType(txt, config.InputType);
+			txtOne = new EditText(activity)
+			{
+				Hint = config.Placeholder
+			};
 
-            var builder = new AppCompatAlertDialog
-                .Builder(activity)
-                .SetCancelable(false)
-                .SetMessage(config.Message)
-                .SetTitle(config.Title)
-                .SetView(txt)
-                .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnResult(new PromptResult(true, txt.Text.Trim()))
-                );
+			if (config.Text != null)
+				txtOne.Text = config.Text;
 
-            if (config.IsCancellable)
-            {
-                builder.SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnResult(new PromptResult(false, txt.Text.Trim()))
-                );
-            }
+			SetInputType(txtOne, config.InputType);
+
+			if (config.ShowSecondInput == false)
+			{
+				builder = new AppCompatAlertDialog
+					.Builder(activity)
+					.SetCancelable(false)
+					.SetMessage(config.Message)
+					.SetTitle(config.Title)
+					.SetView(txtOne)
+					.SetPositiveButton(config.OkText, (s, a) =>
+						config.OnResult(new PromptResult(true, txtOne.Text.Trim()))
+				);
+
+				if (config.IsCancellable)
+				{
+					builder.SetNegativeButton(config.CancelText, (s, a) =>
+						config.OnResult(new PromptResult(false, txtOne.Text.Trim()))
+					);
+				}
+			}
+			else
+			{
+				txtTwo = new EditText(activity)
+				{
+					Hint = config.SecondPlaceholder
+				};
+
+				SetInputType(txtTwo, config.SecondInputType);
+
+				LinearLayout layout = new LinearLayout(activity.ApplicationContext);
+				layout.Orientation = Orientation.Vertical;
+				layout.AddView(txtOne);
+				layout.AddView(txtTwo);
+
+				builder = new AppCompatAlertDialog
+					.Builder(activity)
+					.SetCancelable(false)
+					.SetMessage(config.Message)
+					.SetTitle(config.Title)
+					.SetView(layout)
+					.SetPositiveButton(config.OkText, (s, a) =>
+						config.OnResult(new PromptResult(true, txtOne.Text.Trim(), txtTwo.Text.Trim()))
+				);
+
+				if (config.IsCancellable)
+				{
+					builder.SetNegativeButton(config.CancelText, (s, a) =>
+						config.OnResult(new PromptResult(false, txtOne.Text.Trim(), txtTwo.Text.Trim()))
+					);
+				}
+			}
+
             return builder;
         }
 

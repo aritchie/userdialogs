@@ -20,8 +20,12 @@ namespace Acr.UserDialogs {
         public string Placeholder { get; set; }
         public InputType InputType { get; set; }
 
+		// PromptTwoInputs added by Lee Bettridge
+		public bool ShowSecondInput { get; set; } = false;
+		public string SecondPlaceholder { get; set; }
+		public InputType SecondInputType { get; set; }
 
-        public PromptConfig() {
+		public PromptConfig() {
             this.OkText = DefaultOkText;
             this.CancelText = DefaultCancelText;
 			this.IsCancellable = true;
@@ -75,5 +79,18 @@ namespace Acr.UserDialogs {
             this.InputType = inputType;
             return this;
         }
-    }
+
+		// PromptTwoInputs added by Lee Bettridge
+		public PromptConfig SetSecondPlaceholder(string secondPlaceholder)
+		{
+			this.SecondPlaceholder = secondPlaceholder;
+			return this;
+		}
+
+		public PromptConfig SetSecondInputType(InputType inputType)
+		{
+			this.SecondInputType = inputType;
+			return this;
+		}
+	}
 }
