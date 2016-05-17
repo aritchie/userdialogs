@@ -29,9 +29,6 @@ namespace Acr.UserDialogs
         }
 
 
-        public static bool ShowToastOnBottom { get; set; }
-
-
         public override IDisposable Alert(AlertConfig config)
         {
             var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
@@ -69,29 +66,27 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            throw new NotImplementedException("This has been pulled from iOS temporarily due to Xamarin defect");
-            //var top = UIApplication.SharedApplication.GetTopViewController();
-            //var picker = new DatePickerController(config, top)
-            //{
-            //    ProvidesPresentationContextTransitionStyle = true,
-            //    DefinesPresentationContext = true,
-            //    ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-            //};
-            //return this.Present(top, picker);
+            var top = UIApplication.SharedApplication.GetTopViewController();
+            var picker = new DatePickerController(config, top)
+            {
+                ProvidesPresentationContextTransitionStyle = true,
+                DefinesPresentationContext = true,
+                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            };
+            return this.Present(top, picker);
         }
 
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            throw new NotImplementedException("This has been pulled from iOS temporarily due to Xamarin defect");
-            //var top = UIApplication.SharedApplication.GetTopViewController();
-            //var picker = new TimePickerController(config, top)
-            //{
-            //    ProvidesPresentationContextTransitionStyle = true,
-            //    DefinesPresentationContext = true,
-            //    ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-            //};
-            //return this.Present(top, picker);
+            var top = UIApplication.SharedApplication.GetTopViewController();
+            var picker = new TimePickerController(config, top)
+            {
+                ProvidesPresentationContextTransitionStyle = true,
+                DefinesPresentationContext = true,
+                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            };
+            return this.Present(top, picker);
         }
 
 
@@ -171,7 +166,7 @@ namespace Acr.UserDialogs
         {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
             {
-                MessageBarManager.SharedInstance.ShowAtTheBottom = ShowToastOnBottom;
+                MessageBarManager.SharedInstance.ShowAtTheBottom = cfg.Position == ToastPosition.Bottom;
                 MessageBarManager.SharedInstance.HideAll();
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
                 MessageBarManager.SharedInstance.ShowMessage(cfg.Title, cfg.Description ?? String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
@@ -206,7 +201,7 @@ namespace Acr.UserDialogs
             this.currentOverlay = new UIView(UIScreen.MainScreen.Bounds)
             {
                 AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
-                Alpha = 0.8F,
+                Alpha = 0.7F,
                 BackgroundColor = UIColor.Black,
                 UserInteractionEnabled = false
             };
