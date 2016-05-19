@@ -301,7 +301,8 @@ namespace Acr.UserDialogs
 				pwd1 = new PasswordBox
 				{
 					PlaceholderText = config.Placeholder,
-					Password = config.Text ?? String.Empty
+					Password = config.Text ?? String.Empty,
+					Margin = new Thickness(0.0d, 5.0d, 0.0d, 10.0d)
 				};
 				stack.Children.Add(pwd1);
 			}
@@ -310,7 +311,8 @@ namespace Acr.UserDialogs
 				txt1 = new TextBox
 				{
 					PlaceholderText = config.Placeholder,
-					Text = config.Text ?? String.Empty
+					Text = config.Text ?? String.Empty,
+					Margin = new Thickness(0.0d, 5.0d, 0.0d, 10.0d)
 				};
 				stack.Children.Add(txt1);
 			}
@@ -319,7 +321,7 @@ namespace Acr.UserDialogs
 			{
 				pwd2 = new PasswordBox
 				{
-					PlaceholderText = config.Placeholder,
+					PlaceholderText = config.SecondPlaceholder,
 					Password = config.Text ?? String.Empty
 				};
 				stack.Children.Add(pwd2);
@@ -328,7 +330,7 @@ namespace Acr.UserDialogs
 			{
 				txt2 = new TextBox
 				{
-					PlaceholderText = config.Placeholder,
+					PlaceholderText = config.SecondPlaceholder,
 					Text = config.Text ?? String.Empty
 				};
 				stack.Children.Add(txt2);
