@@ -256,7 +256,7 @@ namespace Acr.UserDialogs
             activity.RunOnUiThread(dialog.Show);
         }
 
-
+		// TODO
         protected virtual void ShowDialog<TFragment, TConfig>(FragmentActivity activity, TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
         {
             activity.RunOnUiThread(() =>

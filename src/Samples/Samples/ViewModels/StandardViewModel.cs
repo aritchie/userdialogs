@@ -73,6 +73,8 @@ namespace Samples.ViewModels
                 .Add("Numeric Password (PIN)", () => this.PromptCommand(InputType.NumericPassword))
                 .Add("Phone", () => this.PromptCommand(InputType.Phone))
                 .Add("Url", () => this.PromptCommand(InputType.Url))
+				// PromptTwoInputs added by Lee Bettridge
+				.Add("Set Password", () => this.PromptTwoInputsCommand(InputType.Password, InputType.Password))
                 .SetCancel()
             ));
             this.PromptNoTextOrCancel = new Command(async () =>
@@ -127,5 +129,15 @@ namespace Samples.ViewModels
                 ? "OK " + r.Text
                 : "Prompt Cancelled");
         }
-    }
+
+		// PromptTwoInputs added by Lee Bettridge
+		async Task PromptTwoInputsCommand(InputType inputType, InputType secondInputType)
+		{
+			var msg = $"Enter and confirm your new password";
+			var r = await UserDialogs.Instance.PromptAsync(msg, placeholder: "Enter your password", secondPlaceholder: "Re-enter your password", inputType: inputType, showSecondInput: true, secondInputType : secondInputType);
+			this.Result(r.Ok
+				? "OK " + r.Text + ((string.IsNullOrEmpty(r.TextTwo)) ? "" : " : " + r.TextTwo)
+				: "Prompt Cancelled");
+		}
+	}
 }

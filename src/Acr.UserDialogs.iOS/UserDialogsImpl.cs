@@ -120,35 +120,70 @@ namespace Acr.UserDialogs
             this.Present(dlg);
         }
 
+		// PromptTwoInputs added by Lee Bettridge
+		public override void Prompt(PromptConfig config)
+		{
+			var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
 
-        public override void Prompt(PromptConfig config)
-        {
-            var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            UITextField txt = null;
+			UITextField txt = null, txt2 = null;
 
-            if (config.IsCancellable)
-            {
-                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
-                    config.OnResult(new PromptResult(false, txt.Text.Trim())
-                )));
-            }
-            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
-                config.OnResult(new PromptResult(true, txt.Text.Trim())
-            )));
-            dlg.AddTextField(x =>
-            {
-                this.SetInputType(x, config.InputType);
-                x.Placeholder = config.Placeholder ?? String.Empty;
-                if (config.Text != null)
-                    x.Text = config.Text;
+			if (config.IsCancellable)
+			{
+				if (config.ShowSecondInput)
+				{
+					dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
+						config.OnResult(new PromptResult(false, txt.Text.Trim(), txt2.Text.Trim())
+					)));
+				}
+				else
+				{
+					dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
+						config.OnResult(new PromptResult(false, txt.Text.Trim())
+					)));
+				}
+			}
 
-                txt = x;
-            });
-            this.Present(dlg);
-        }
+			if (config.ShowSecondInput)
+			{
+				dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
+					config.OnResult(new PromptResult(true, txt.Text.Trim(), txt2.Text.Trim())
+				)));
+			}
+			else
+			{
+				dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
+					config.OnResult(new PromptResult(true, txt.Text.Trim())
+				)));
+			}
 
+			dlg.AddTextField(x =>
+			{
+				this.SetInputType(x, config.InputType);
+				x.Placeholder = config.Placeholder ?? String.Empty;
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
+				if (config.Text != null)
+					x.Text = config.Text;
+
+				txt = x;
+			});
+
+			if (config.ShowSecondInput)
+			{
+				dlg.AddTextField(x =>
+				{
+					this.SetInputType(x, config.SecondInputType);
+					x.Placeholder = config.SecondPlaceholder ?? String.Empty;
+
+					txt2 = x;
+				});
+
+				this.Present(dlg, true);
+			}
+			else
+				this.Present(dlg);
+		}
+
+		public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
                 BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis)
@@ -213,7 +248,7 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void Present(UIAlertController alert)
+        protected virtual void Present(UIAlertController alert, bool secondInput = false)
         {
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(() =>
@@ -229,7 +264,7 @@ namespace Acr.UserDialogs
                     alert.PopoverPresentationController.SourceRect = rect;
                     alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
                 }
-                top.PresentViewController(alert, true, null);
+				top.PresentViewController(alert, true, null);
             });
         }
 
