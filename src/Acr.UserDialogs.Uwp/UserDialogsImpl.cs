@@ -302,7 +302,7 @@ namespace Acr.UserDialogs
 				{
 					PlaceholderText = config.Placeholder,
 					Password = config.Text ?? String.Empty,
-					Margin = new Thickness(0.0d, 5.0d, 0.0d, 10.0d)
+					Margin = new Thickness(0.0d, 20.0d, 0.0d, 20.0d)
 				};
 				stack.Children.Add(pwd1);
 			}
@@ -312,7 +312,7 @@ namespace Acr.UserDialogs
 				{
 					PlaceholderText = config.Placeholder,
 					Text = config.Text ?? String.Empty,
-					Margin = new Thickness(0.0d, 5.0d, 0.0d, 10.0d)
+					Margin = new Thickness(0.0d, 20.0d, 0.0d, 20.0d)
 				};
 				stack.Children.Add(txt1);
 			}
