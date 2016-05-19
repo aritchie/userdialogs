@@ -160,7 +160,7 @@ namespace Acr.UserDialogs
 			{
 				this.SetInputType(x, config.InputType);
 				x.Placeholder = config.Placeholder ?? String.Empty;
-				x.Tag = 0;
+
 				if (config.Text != null)
 					x.Text = config.Text;
 
@@ -173,7 +173,6 @@ namespace Acr.UserDialogs
 				{
 					this.SetInputType(x, config.SecondInputType);
 					x.Placeholder = config.SecondPlaceholder ?? String.Empty;
-					x.Tag = 1;
 
 					txt2 = x;
 				});
@@ -265,34 +264,7 @@ namespace Acr.UserDialogs
                     alert.PopoverPresentationController.SourceRect = rect;
                     alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
                 }
-
-				if (secondInput == false)
-				{
-					top.PresentViewController(alert, true, null);
-				}
-				else
-				{
-					top.PresentViewController(alert, true, new Action(() =>
-					{
-						System.Diagnostics.Debug.WriteLine("alert.View.ViewWithTag(0).Bounds.Top = " + alert.View.ViewWithTag(0).Bounds.Top);
-						System.Diagnostics.Debug.WriteLine("alert.View.ViewWithTag(1).Bounds.Top = " + alert.View.ViewWithTag(1).Bounds.Top);
-						System.Diagnostics.Debug.WriteLine("alert.View.ViewWithTag(1).Bounds.Y = " + alert.View.ViewWithTag(1).Bounds.Y);
-						//alert.View.AddConstraint(
-						//	NSLayoutConstraint.Create(alert.View.ViewWithTag(1), NSLayoutAttribute.Left, NSLayoutRelation.Equal, alert.View.ViewWithTag(0), NSLayoutAttribute.Left, 1.0f, 0.0f)
-						//);
-						//alert.View.AddConstraint(
-						//	NSLayoutConstraint.Create(alert.View.ViewWithTag(1), NSLayoutAttribute.Width, NSLayoutRelation.Equal, alert.View.ViewWithTag(0), NSLayoutAttribute.Width, 1.0f, 0.0f)
-						//);
-						//alert.View.AddConstraint(
-						//	NSLayoutConstraint.Create(alert.View.ViewWithTag(1), NSLayoutAttribute.Height, NSLayoutRelation.Equal, alert.View.ViewWithTag(0), NSLayoutAttribute.Height, 1.0f, 0.0f)
-						//);
-						//alert.View.AddConstraint(
-						//	NSLayoutConstraint.Create(alert.View.ViewWithTag(1), NSLayoutAttribute.Top, NSLayoutRelation.Equal, alert.View.ViewWithTag(0), NSLayoutAttribute.Bottom, 1.0f, 5.0f)
-						//);
-
-						//alert.View.ViewWithTag(1).TopAnchor.ConstraintEqualTo(alert.View.ViewWithTag(0).BottomAnchor, 0.0f).Active = true;
-					}));
-				}
+				top.PresentViewController(alert, true, null);
             });
         }
 
