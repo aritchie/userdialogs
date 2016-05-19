@@ -124,6 +124,7 @@ namespace Acr.UserDialogs
 		public override void Prompt(PromptConfig config)
 		{
 			var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+
 			UITextField txt = null, txt2 = null;
 
 			if (config.IsCancellable)
@@ -159,6 +160,7 @@ namespace Acr.UserDialogs
 			{
 				this.SetInputType(x, config.InputType);
 				x.Placeholder = config.Placeholder ?? String.Empty;
+				x.Tag = 0;
 				if (config.Text != null)
 					x.Text = config.Text;
 
@@ -171,30 +173,15 @@ namespace Acr.UserDialogs
 				{
 					this.SetInputType(x, config.SecondInputType);
 					x.Placeholder = config.SecondPlaceholder ?? String.Empty;
+					x.Tag = 1;
 
 					txt2 = x;
 				});
-			}
 
-			this.Present(dlg);
-
-			if (config.ShowSecondInput)
-			{
-				//dlg.ParentViewController.View.AddConstraint(
-				//	NSLayoutConstraint.Create(txt2, NSLayoutAttribute.Left, NSLayoutRelation.Equal, txt, NSLayoutAttribute.Left, 1.0f, 0.0f)
-				//);
-				//dlg.ParentViewController.View.AddConstraint(
-				//	NSLayoutConstraint.Create(txt2, NSLayoutAttribute.Width, NSLayoutRelation.Equal, txt, NSLayoutAttribute.Width, 1.0f, 0.0f)
-				//);
-				//dlg.ParentViewController.View.AddConstraint(
-				//	NSLayoutConstraint.Create(txt2, NSLayoutAttribute.Height, NSLayoutRelation.Equal, txt, NSLayoutAttribute.Height, 1.0f, 0.0f)
-				//);
-				//dlg.ParentViewController.View.AddConstraint(
-				//	NSLayoutConstraint.Create(txt2, NSLayoutAttribute.Top, NSLayoutRelation.Equal, txt, NSLayoutAttribute.Bottom, 1.0f, 20.0f)
-				//);
-				//dlg.ParentViewController.View.AutosizesSubviews = false;
-				//txt2.TopAnchor.ConstraintEqualTo(txt.BottomAnchor, 20.0f).Active = true;
+				this.Present(dlg, true);
 			}
+			else
+				this.Present(dlg);
 		}
 
 		public override void ShowImage(IBitmap image, string message, int timeoutMillis)
@@ -262,7 +249,7 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void Present(UIAlertController alert)
+        protected virtual void Present(UIAlertController alert, bool secondInput = false)
         {
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(() =>
@@ -278,7 +265,34 @@ namespace Acr.UserDialogs
                     alert.PopoverPresentationController.SourceRect = rect;
                     alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
                 }
-                top.PresentViewController(alert, true, null);
+
+				if (secondInput == false)
+				{
+					top.PresentViewController(alert, true, null);
+				}
+				else
+				{
+					top.PresentViewController(alert, true, new Action(() =>
+					{
+						System.Diagnostics.Debug.WriteLine("alert.View.ViewWithTag(0).Bounds.Top = " + alert.View.ViewWithTag(0).Bounds.Top);
+						System.Diagnostics.Debug.WriteLine("alert.View.ViewWithTag(1).Bounds.Top = " + alert.View.ViewWithTag(1).Bounds.Top);
+						System.Diagnostics.Debug.WriteLine("alert.View.ViewWithTag(1).Bounds.Y = " + alert.View.ViewWithTag(1).Bounds.Y);
+						//alert.View.AddConstraint(
+						//	NSLayoutConstraint.Create(alert.View.ViewWithTag(1), NSLayoutAttribute.Left, NSLayoutRelation.Equal, alert.View.ViewWithTag(0), NSLayoutAttribute.Left, 1.0f, 0.0f)
+						//);
+						//alert.View.AddConstraint(
+						//	NSLayoutConstraint.Create(alert.View.ViewWithTag(1), NSLayoutAttribute.Width, NSLayoutRelation.Equal, alert.View.ViewWithTag(0), NSLayoutAttribute.Width, 1.0f, 0.0f)
+						//);
+						//alert.View.AddConstraint(
+						//	NSLayoutConstraint.Create(alert.View.ViewWithTag(1), NSLayoutAttribute.Height, NSLayoutRelation.Equal, alert.View.ViewWithTag(0), NSLayoutAttribute.Height, 1.0f, 0.0f)
+						//);
+						//alert.View.AddConstraint(
+						//	NSLayoutConstraint.Create(alert.View.ViewWithTag(1), NSLayoutAttribute.Top, NSLayoutRelation.Equal, alert.View.ViewWithTag(0), NSLayoutAttribute.Bottom, 1.0f, 5.0f)
+						//);
+
+						//alert.View.ViewWithTag(1).TopAnchor.ConstraintEqualTo(alert.View.ViewWithTag(0).BottomAnchor, 0.0f).Active = true;
+					}));
+				}
             });
         }
 

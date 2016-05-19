@@ -197,11 +197,18 @@ namespace Acr.UserDialogs
                 PrimaryButtonText = config.OkText
             };
 
-
-            if (config.InputType == InputType.Password)
-                this.SetPasswordPrompt(dialog, stack, config);
-            else
-                this.SetDefaultPrompt(dialog, stack, config);
+			// PromptTwoInputs added by Lee Bettridge
+			if (config.ShowSecondInput == false)
+			{
+				if (config.InputType == InputType.Password)
+					this.SetPasswordPrompt(dialog, stack, config);
+				else
+					this.SetDefaultPrompt(dialog, stack, config);
+			}
+			else
+			{
+				this.SetDualPrompts(dialog, stack, config);
+			}
 
             if (config.IsCancellable)
             {
@@ -283,7 +290,58 @@ namespace Acr.UserDialogs
 
 #endif
 
-        protected virtual void SetPasswordPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
+		// PromptTwoInputs added by Lee Bettridge
+		protected virtual void SetDualPrompts(ContentDialog dialog, StackPanel stack, PromptConfig config)
+		{
+			PasswordBox pwd1 = null, pwd2 = null;
+			TextBox txt1 = null, txt2 = null;
+
+			if (config.InputType == InputType.Password)
+			{
+				pwd1 = new PasswordBox
+				{
+					PlaceholderText = config.Placeholder,
+					Password = config.Text ?? String.Empty
+				};
+				stack.Children.Add(pwd1);
+			}
+			else
+			{
+				txt1 = new TextBox
+				{
+					PlaceholderText = config.Placeholder,
+					Text = config.Text ?? String.Empty
+				};
+				stack.Children.Add(txt1);
+			}
+
+			if (config.SecondInputType == InputType.Password)
+			{
+				pwd2 = new PasswordBox
+				{
+					PlaceholderText = config.Placeholder,
+					Password = config.Text ?? String.Empty
+				};
+				stack.Children.Add(pwd2);
+			}
+			else
+			{
+				txt2 = new TextBox
+				{
+					PlaceholderText = config.Placeholder,
+					Text = config.Text ?? String.Empty
+				};
+				stack.Children.Add(txt2);
+			}
+
+			dialog.PrimaryButtonCommand = new Command(() =>
+			{
+				config.OnResult?.Invoke(new PromptResult(true, (config.InputType == InputType.Password) ? pwd1.Password : txt1.Text.Trim(), (config.SecondInputType == InputType.Password) ? pwd2.Password : txt2.Text.Trim()));
+				dialog.Hide();
+			});
+		}
+
+		protected virtual void SetPasswordPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
         {
             var txt = new PasswordBox
             {
@@ -292,11 +350,11 @@ namespace Acr.UserDialogs
             };
             stack.Children.Add(txt);
 
-            dialog.PrimaryButtonCommand = new Command(() =>
-            {
-                config.OnResult?.Invoke(new PromptResult(true, txt.Password));
-                dialog.Hide();
-            });
+			dialog.PrimaryButtonCommand = new Command(() =>
+			{
+				config.OnResult?.Invoke(new PromptResult(true, txt.Password));
+				dialog.Hide();
+			});
         }
 
 
@@ -309,11 +367,11 @@ namespace Acr.UserDialogs
             };
             stack.Children.Add(txt);
 
-            dialog.PrimaryButtonCommand = new Command(() =>
-            {
-                config.OnResult?.Invoke(new PromptResult(true, txt.Text.Trim()));
-                dialog.Hide();
-            });
+			dialog.PrimaryButtonCommand = new Command(() =>
+			{
+				config.OnResult?.Invoke(new PromptResult(true, txt.Text.Trim()));
+				dialog.Hide();
+			});
         }
 
 
