@@ -163,6 +163,11 @@ namespace Acr.UserDialogs
                 this.ToastAppCompat(compat, cfg);
         }
 
+        public override void ToastHideAll()
+        {
+            
+        }
+
 
         protected virtual void ToastAppCompat(AppCompatActivity activity, ToastConfig cfg)
         {

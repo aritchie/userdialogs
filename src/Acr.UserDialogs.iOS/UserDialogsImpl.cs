@@ -23,8 +23,7 @@ namespace Acr.UserDialogs
             this.toastTimer = new Timer();
             this.toastTimer.Elapsed += (sender, args) =>
             {
-                this.toastTimer.Stop();
-                UIApplication.SharedApplication.InvokeOnMainThread(MessageBarManager.SharedInstance.HideAll);
+                ToastHideAll();
             };
         }
 
@@ -175,6 +174,12 @@ namespace Acr.UserDialogs
                 this.toastTimer.Interval = cfg.Duration.TotalMilliseconds;
                 this.toastTimer.Start();
             });
+        }
+
+        public override void ToastHideAll()
+        {
+            this.toastTimer.Stop();
+            UIApplication.SharedApplication.InvokeOnMainThread(MessageBarManager.SharedInstance.HideAll);
         }
 
 
