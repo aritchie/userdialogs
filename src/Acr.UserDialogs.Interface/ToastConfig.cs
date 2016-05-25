@@ -56,7 +56,7 @@ namespace Acr.UserDialogs
         /// <summary>
         /// Only applies to iOS at the moment
         /// </summary>
-        public ToastPosition Position { get; }
+        public ToastPosition Position { get; set; }
         public Color BackgroundColor { get; set; }
         public IBitmap Icon { get; set; }
         public string Title { get; set; }
@@ -122,6 +122,12 @@ namespace Acr.UserDialogs
             return this;
         }
 
+
+        public ToastConfig SetPosition(ToastPosition position)
+        {
+            this.Position = position;
+            return this;
+        }
 
         public ToastConfig SetIcon(IBitmap bitmap)
         {

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.2.0</version>
+        <version>5.2.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -65,6 +65,8 @@ Supported Platforms
             </group>-->
         </dependencies>
         <releaseNotes>
+5.2.1
+[fix] toastposition get/set
 5.2
 [feature] cancellable standard dialogs.  use cancellationtokens or disposable pattern from sync versions
 [feature] date/time dialogs
