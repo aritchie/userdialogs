@@ -1,8 +1,7 @@
 using System;
 using Android.App;
-using Android.Content;
-using Android.Text;
 using Android.Widget;
+using Java.Lang;
 
 
 namespace Acr.UserDialogs.Builders
@@ -20,8 +19,8 @@ namespace Acr.UserDialogs.Builders
 
             if (config.SelectedTime != null)
             {
-                picker.Hour = config.SelectedTime.Value.Hours;
-                picker.Minute = config.SelectedTime.Value.Minutes;
+                picker.CurrentHour = new Integer(config.SelectedTime.Value.Hours);
+                picker.CurrentMinute = new Integer(config.SelectedTime.Value.Minutes);
             }
 
             if (config.IsCancellable)
@@ -30,7 +29,8 @@ namespace Acr.UserDialogs.Builders
                     config.CancelText,
                     (sender, args) =>
                     {
-                        var ts = new TimeSpan(0, picker.Hour, picker.Minute, 0);
+
+                        var ts = new TimeSpan(0, picker.CurrentHour.IntValue(), picker.CurrentMinute.IntValue(), 0);
                         config.OnResult?.Invoke(new TimePromptResult(false, ts));
                     }
                 );
@@ -39,7 +39,7 @@ namespace Acr.UserDialogs.Builders
                 config.OkText,
                 (sender, args) =>
                 {
-                    var ts = new TimeSpan(0, picker.Hour, picker.Minute, 0);
+                    var ts = new TimeSpan(0, picker.CurrentHour.IntValue(), picker.CurrentMinute.IntValue(), 0);
                     config.OnResult?.Invoke(new TimePromptResult(true, ts));
                 }
             );

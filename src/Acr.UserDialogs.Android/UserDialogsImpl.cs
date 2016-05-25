@@ -4,7 +4,6 @@ using Acr.UserDialogs.Fragments;
 using Android.App;
 using Android.Views;
 using Android.Support.V7.App;
-using Android.Graphics.Drawables;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Text;
@@ -15,7 +14,6 @@ using Splat;
 
 namespace Acr.UserDialogs
 {
-
     public class UserDialogsImpl : AbstractUserDialogs
     {
         public static string FragmentTag { get; set; } = "UserDialogs";
@@ -168,10 +166,9 @@ namespace Acr.UserDialogs
 
         protected virtual void ToastAppCompat(AppCompatActivity activity, ToastConfig cfg)
         {
-            //var view = top.Window.DecorView.RootView;
             var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
-            var snackBar = Snackbar.Make(view, "TODO", (int)cfg.Duration.TotalMilliseconds);
-            snackBar.View.Background = new ColorDrawable(cfg.BackgroundColor.ToNative());
+            var snackBar = Snackbar.Make(view, cfg.Description, (int)cfg.Duration.TotalMilliseconds);
+            snackBar.View.SetBackgroundColor(cfg.BackgroundColor.ToNative());
             snackBar.View.Click += (sender, args) =>
             {
                 snackBar.Dismiss();
