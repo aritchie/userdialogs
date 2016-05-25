@@ -21,6 +21,7 @@ namespace Acr.UserDialogs
         public abstract void ShowError(string message, int timeoutMillis);
         public abstract void ShowSuccess(string message, int timeoutMillis);
         public abstract void Toast(ToastConfig config);
+        public abstract void ToastHideAll();
         protected abstract IProgressDialog CreateDialogInstance();
 
 
