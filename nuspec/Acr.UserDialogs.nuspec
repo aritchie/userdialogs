@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.2.1</version>
+        <version>5.3.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -15,7 +15,7 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 - Login
 - Progress
 - Prompt
-- Toast
+- Toast (Snackbars)
 - Time
 
 On android, be sure to call UserDialogs.Init() before using!
@@ -37,7 +37,7 @@ Supported Platforms
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
             <group targetFramework="Xamarin.iOS10">
-                <dependency id="BTProgressHUD" version="[1.2.0.2, 2)" />
+                <dependency id="BTProgressHUD" version="[1.2.0.3, 2)" />
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.0.2, 3.0)" />
             </group>
@@ -65,8 +65,16 @@ Supported Platforms
             </group>-->
         </dependencies>
         <releaseNotes>
+5.3
+[BREAKING][feature][ios] New snackbar for old toast setup that everyone complained about
+[feature] Toasts are also dismissable from code now (via disposable)
+[feature][droid] Actionsheets now look like actionsheets via the bottomsheet from the design library
+[fix][ios] destruction button should be at the top on iOS actionsheets
+[fix][droid] fixes for fragment dialogs
+
 5.2.1
 [fix] toastposition get/set
+
 5.2
 [feature] cancellable standard dialogs.  use cancellationtokens or disposable pattern from sync versions
 [feature] date/time dialogs

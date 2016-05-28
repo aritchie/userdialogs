@@ -127,7 +127,7 @@ All config objects contain static vars that contain defaults which are basically
 * Android - Progress/Loading uses Redth's [AndHUD](https://github.com/Redth/AndHUD)
 * iOS - Progress/Loading uses Nic Wise's [BTProgressHUD](https://github.com/nicwise/BTProgressHUD)
 * iOS - Modal Date/Time Dialogs provided by [SharpMobileCode](https://github.com/SharpMobileCode/ModalPickerViewController/blob/master/ModalPickerSample/ModalPickerSampleViewController.cs)
-* iOS - Toasts powered by Xamarin-iOS-MessageBar by @prashantvc (https://github.com/prashantvc/Xamarin.iOS-MessageBar)
+* iOS - Toasts powered by TTGSnackBar ported by @MarcBruins (https://github.com/MarcBruins/TTGSnackbar-Xamarin-iOS)
 * WinPhone - All dialogs by [WPToolkit](http://coding4fun.codeplex.com/)
 * UWP - Coding4Fun Toolkit (http://coding4fun.codeplex.com)
 * Splat - Provides a nice layer of xplat stuff by @paulcbetts (https://github.com/paulcbetts) 
