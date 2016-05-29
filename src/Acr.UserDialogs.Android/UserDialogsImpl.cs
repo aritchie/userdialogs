@@ -152,19 +152,19 @@ namespace Acr.UserDialogs
 
         #region Toasts
 
-        public override void Toast(ToastConfig cfg)
+        public override IDisposable Toast(ToastConfig cfg)
         {
             var activity = this.TopActivityFunc();
             var compat = activity as AppCompatActivity;
 
             if (compat == null)
-                this.ToastFallback(activity, cfg);
-            else
-                this.ToastAppCompat(compat, cfg);
+                return this.ToastFallback(activity, cfg);
+
+            return this.ToastAppCompat(compat, cfg);
         }
 
 
-        protected virtual void ToastAppCompat(AppCompatActivity activity, ToastConfig cfg)
+        protected virtual IDisposable ToastAppCompat(AppCompatActivity activity, ToastConfig cfg)
         {
             var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
             var snackBar = Snackbar.Make(view, cfg.Description, (int)cfg.Duration.TotalMilliseconds);
@@ -176,10 +176,25 @@ namespace Acr.UserDialogs
             };
             this.SetSnackbarTextView(snackBar, cfg);
             activity.RunOnUiThread(snackBar.Show);
+            return new DisposableAction(() =>
+            {
+                if (snackBar.IsShown)
+                    activity.RunOnUiThread(() =>
+                    {
+                        try
+                        {
+                            snackBar.Dismiss();
+                        }
+                        catch
+                        {
+                            // catch and swallow
+                        }
+                    });
+            });
         }
 
 
-        protected virtual void ToastFallback(Activity activity, ToastConfig cfg)
+        protected virtual IDisposable ToastFallback(Activity activity, ToastConfig cfg)
         {
             activity.RunOnUiThread(() =>
             {
@@ -200,6 +215,11 @@ namespace Acr.UserDialogs
                     }
                 );
             });
+            return new DisposableAction(() =>
+                activity.RunOnUiThread(() =>
+                    AndHUD.Shared.Dismiss(activity)
+                )
+            );
         }
 
 

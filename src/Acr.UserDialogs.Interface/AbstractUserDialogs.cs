@@ -20,7 +20,7 @@ namespace Acr.UserDialogs
         public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
         public abstract void ShowError(string message, int timeoutMillis);
         public abstract void ShowSuccess(string message, int timeoutMillis);
-        public abstract void Toast(ToastConfig config);
+        public abstract IDisposable Toast(ToastConfig config);
         protected abstract IProgressDialog CreateDialogInstance();
 
 
@@ -278,36 +278,61 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual void InfoToast(string title, string description, int timeoutMillis)
+        //public virtual void InfoToast(string title, string description, int timeoutMillis)
+        //{
+        //    this.Toast(ToastEvent.Info, title, description, timeoutMillis);
+        //}
+
+
+        //public virtual void SuccessToast(string title, string description, int timeoutMillis)
+        //{
+        //    this.Toast(ToastEvent.Success, title, description, timeoutMillis);
+        //}
+
+
+        //public virtual void WarnToast(string title, string description, int timeoutMillis)
+        //{
+        //    this.Toast(ToastEvent.Warn, title, description, timeoutMillis);
+        //}
+
+
+        //public virtual void ErrorToast(string title, string description, int timeoutMillis)
+        //{
+        //    this.Toast(ToastEvent.Error, title, description, timeoutMillis);
+        //}
+
+                        //switch (@event)
+            //{
+            //    case ToastEvent.Info:
+            //        this.BackgroundColor = InfoBackgroundColor;
+            //        this.TextColor = InfoTextColor;
+            //        this.Icon = InfoIcon;
+            //        break;
+
+            //    case ToastEvent.Success:
+            //        this.BackgroundColor = SuccessBackgroundColor;
+            //        this.TextColor = SuccessTextColor;
+            //        this.Icon = SuccessIcon;
+            //        break;
+
+            //    case ToastEvent.Warn:
+            //        this.BackgroundColor = WarnBackgroundColor;
+            //        this.TextColor = WarnTextColor;
+            //        this.Icon = WarnIcon;
+            //        break;
+
+            //    case ToastEvent.Error:
+            //        this.BackgroundColor = ErrorBackgroundColor;
+            //        this.TextColor = ErrorTextColor;
+            //        this.Icon = ErrorIcon;
+            //        break;
+            //}
+        public virtual IDisposable Toast(string title, string description, TimeSpan? dismissTimer)
         {
-            this.Toast(ToastEvent.Info, title, description, timeoutMillis);
-        }
-
-
-        public virtual void SuccessToast(string title, string description, int timeoutMillis)
-        {
-            this.Toast(ToastEvent.Success, title, description, timeoutMillis);
-        }
-
-
-        public virtual void WarnToast(string title, string description, int timeoutMillis)
-        {
-            this.Toast(ToastEvent.Warn, title, description, timeoutMillis);
-        }
-
-
-        public virtual void ErrorToast(string title, string description, int timeoutMillis)
-        {
-            this.Toast(ToastEvent.Error, title, description, timeoutMillis);
-        }
-
-
-        public virtual void Toast(ToastEvent toastEvent, string title, string description, int timeoutMillis)
-        {
-            this.Toast(new ToastConfig(toastEvent, title)
+            return this.Toast(new ToastConfig(title)
             {
                 Description = description,
-                Duration = TimeSpan.FromMilliseconds(timeoutMillis)
+                Duration = dismissTimer ?? ToastConfig.DefaultDuration
             });
         }
     }

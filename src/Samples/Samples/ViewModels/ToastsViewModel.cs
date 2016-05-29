@@ -26,9 +26,9 @@ namespace Samples.ViewModels
         ICommand ToastCommand(ToastEvent @event)
         {
             return new Command(() =>
-                this.Dialogs.Toast(new ToastConfig(@event, @event.ToString(), "Testing toast functionality....fun!")
+                this.Dialogs.Toast(new ToastConfig(@event.ToString(), "Testing toast functionality....fun!")
                 {
-                    Duration = TimeSpan.FromSeconds(3),
+                    Duration = TimeSpan.FromSeconds(10),
                     Action = () => this.Result("Toast Pressed")
                 })
             );

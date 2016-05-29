@@ -63,11 +63,11 @@ namespace Samples.ViewModels
                 // TOAST
                 ToastConfig.DefaultDuration = TimeSpan.FromSeconds(5);
 
-                ToastConfig.InfoBackgroundColor = System.Drawing.Color.Aqua;
-                ToastConfig.SuccessTextColor = System.Drawing.Color.Blue;
-                ToastConfig.SuccessBackgroundColor = System.Drawing.Color.BurlyWood;
-                ToastConfig.WarnBackgroundColor = System.Drawing.Color.BlueViolet;
-                ToastConfig.ErrorBackgroundColor = System.Drawing.Color.DeepPink;
+                //ToastConfig.InfoBackgroundColor = System.Drawing.Color.Aqua;
+                //ToastConfig.SuccessTextColor = System.Drawing.Color.Blue;
+                //ToastConfig.SuccessBackgroundColor = System.Drawing.Color.BurlyWood;
+                //ToastConfig.WarnBackgroundColor = System.Drawing.Color.BlueViolet;
+                //ToastConfig.ErrorBackgroundColor = System.Drawing.Color.DeepPink;
 
                 this.Result("Abnormal Settings Loaded - Now run samples");
             });

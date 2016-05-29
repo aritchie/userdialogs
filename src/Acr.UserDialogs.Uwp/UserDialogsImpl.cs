@@ -246,23 +246,23 @@ namespace Acr.UserDialogs
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
-            this.Show(image, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
+            //this.Show(image, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
         }
 
 
         public override void ShowError(string message, int timeoutMillis)
         {
-            this.Show(null, message, ToastConfig.ErrorBackgroundColor, timeoutMillis);
+            //this.Show(null, message, ToastConfig.ErrorBackgroundColor, timeoutMillis);
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
-            this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
+            //this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
         }
 
 
-        public override void Toast(ToastConfig config)
+        public override IDisposable Toast(ToastConfig config)
         {
             var toast = new ToastPrompt
             {
@@ -270,7 +270,7 @@ namespace Acr.UserDialogs
                 Foreground = new SolidColorBrush(config.TextColor.ToNative()),
                 Title = config.Title,
                 Message = config.Description,
-                ImageSource = config.Icon?.ToNative(),
+                //ImageSource = config.Icon?.ToNative(),
                 Stretch = Stretch.Fill,
                 MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
             };
@@ -278,7 +278,7 @@ namespace Acr.UserDialogs
             //    if (args.PopUpResult == PopUpResult.Ok)
             //        config.Action?.Invoke();
             //};
-            this.Dispatch(toast.Show);
+            return this.DispatchAndDispose(toast.Show, toast.Hide);
         }
 
 

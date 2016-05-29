@@ -196,7 +196,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void Toast(ToastConfig cfg)
+        public override IDisposable Toast(ToastConfig cfg)
         {
             // TODO: backgroundcolor and image
             var resources = Application.Current.Resources;
@@ -239,25 +239,26 @@ namespace Acr.UserDialogs
                 Child = wrapper,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            wrapper.Tap += (sender, args) =>
+            Action close = () =>
             {
                 SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                 popup.IsOpen = false;
+            };
+
+            wrapper.Tap += (sender, args) =>
+            {
+                close();
                 cfg.Action?.Invoke();
             };
 
-            this.Dispatch(() =>
+            Task.Delay(cfg.Duration)
+                .ContinueWith(x => this.Dispatch(close));
+
+            return this.DispatchWithDispose(() =>
             {
-                //SystemTray.BackgroundColor = (Color)resources["PhoneAccentColor"];
                 SystemTray.BackgroundColor = bgColor;
                 popup.IsOpen = true;
-            });
-            Task.Delay(cfg.Duration)
-                .ContinueWith(x => this.Dispatch(() =>
-                {
-                    SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
-                    popup.IsOpen = false;
-                }));
+            }, close);
         }
 
 

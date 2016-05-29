@@ -147,19 +147,19 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void Toast(ToastConfig cfg)
+        public override IDisposable Toast(ToastConfig cfg)
         {
-            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+            var snackbar = new TTGSnackbar
             {
-                //MessageBarManager.SharedInstance.ShowAtTheBottom = cfg.Position == ToastPosition.Bottom;
-                //MessageBarManager.SharedInstance.HideAll();
-                //MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
-                //MessageBarManager.SharedInstance.ShowMessage(cfg.Title, cfg.Description ?? String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
+                ActionText = "",
+                ActionBlock = null
+            };
+            var app = UIApplication.SharedApplication;
+            app.InvokeOnMainThread(snackbar.Show);
 
-                //this.toastTimer.Stop();
-                //this.toastTimer.Interval = cfg.Duration.TotalMilliseconds;
-                //this.toastTimer.Start();
-            });
+            return new DisposableAction(
+                () => app.InvokeOnMainThread(() => snackbar.Dismiss())
+            );
         }
 
 

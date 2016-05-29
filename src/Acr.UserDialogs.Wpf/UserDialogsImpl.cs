@@ -134,8 +134,9 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void Toast(ToastConfig config)
+        public override IDisposable Toast(ToastConfig config)
         {
+            throw new NotImplementedException();
         }
 
 
