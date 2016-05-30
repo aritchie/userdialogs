@@ -8,21 +8,20 @@ namespace Acr.UserDialogs.Fragments
 {
     public abstract class AbstractAppCompatDialogFragment<T> : Android.Support.V7.App.AppCompatDialogFragment where T : class
     {
-        readonly InMemoryConfigStore store = new InMemoryConfigStore();
         public T Config { get; set; }
 
 
         public override void OnSaveInstanceState(Bundle bundle)
         {
             base.OnSaveInstanceState(bundle);
-            this.store.Store(bundle, this.Config);
+            ConfigStore.Instance.Store(bundle, this.Config);
         }
 
 
         public override Dialog OnCreateDialog(Bundle bundle)
         {
             if (this.Config == null)
-                this.Config = this.store.Pop<T>(bundle);
+                this.Config = ConfigStore.Instance.Pop<T>(bundle);
 
             var dialog = this.CreateDialog(this.Config);
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
@@ -39,21 +38,20 @@ namespace Acr.UserDialogs.Fragments
 
     public abstract class AbstractDialogFragment<T> : DialogFragment where T  : class
     {
-        readonly InMemoryConfigStore store = new InMemoryConfigStore();
         public T Config { get; set; }
 
 
         public override void OnSaveInstanceState(Bundle bundle)
         {
             base.OnSaveInstanceState(bundle);
-            this.store.Store(bundle, this.Config);
+            ConfigStore.Instance.Store(bundle, this.Config);
         }
 
 
         public override Dialog OnCreateDialog(Bundle bundle)
         {
             if (this.Config == null)
-                this.Config = this.store.Pop<T>(bundle);
+                this.Config = ConfigStore.Instance.Pop<T>(bundle);
 
             var dialog = this.CreateDialog(this.Config);
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
