@@ -5,11 +5,14 @@ using Android.OS;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public class InMemoryConfigStore
+    public class ConfigStore
     {
         public string BundleKey { get; set; } = "UserDialogFragmentConfig";
         long counter = 0;
         readonly IDictionary<long, object> configStore = new Dictionary<long, object>();
+
+
+        public static ConfigStore Instance { get; } = new ConfigStore();
 
 
         public void Store(Bundle bundle, object config)

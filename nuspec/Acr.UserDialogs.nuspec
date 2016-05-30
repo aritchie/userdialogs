@@ -65,8 +65,12 @@ Supported Platforms
             </group>-->
         </dependencies>
         <releaseNotes>
+5.2.2
+[fix][droid] NRE during rotation that can occur with fragments
+
 5.2.1
 [fix] toastposition get/set
+
 5.2
 [feature] cancellable standard dialogs.  use cancellationtokens or disposable pattern from sync versions
 [feature] date/time dialogs
