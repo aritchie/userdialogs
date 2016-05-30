@@ -72,6 +72,10 @@ Supported Platforms
 [fix][ios] destruction button should be at the top on iOS actionsheets
 [fix][droid] fixes for fragment dialogs
 
+5.2.2
+[fix][ios] actionsheet should have destruction button at the top as advised by Apple
+[fix][droid] NRE during rotation that can occur with fragments		  [fix][droid] NRE during rotation that can occur with fragments
+
 5.2.1
 [fix] toastposition get/set
 
