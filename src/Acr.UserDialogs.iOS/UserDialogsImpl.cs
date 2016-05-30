@@ -40,13 +40,14 @@ namespace Acr.UserDialogs
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
+
+            if (config.Destructive != null)
+                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
+
             config
                 .Options
                 .ToList()
                 .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
-
-            if (config.Destructive != null)
-                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
 
             if (config.Cancel != null)
                 this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
