@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>5.2.1</version>
+        <version>5.2.2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -66,6 +66,7 @@ Supported Platforms
         </dependencies>
         <releaseNotes>
 5.2.2
+[fix][ios] actionsheet should have destruction button at the top as advised by Apple
 [fix][droid] NRE during rotation that can occur with fragments
 
 5.2.1
