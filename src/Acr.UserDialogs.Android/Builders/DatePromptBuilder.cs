@@ -15,7 +15,7 @@ namespace Acr.UserDialogs.Builders
                 activity,
                 (sender, args) => { },
                 dateTime.Year,
-                dateTime.Month + 1,
+                dateTime.Month - 1,
                 dateTime.Day
             );
             dialog.SetCancelable(false);
@@ -34,19 +34,23 @@ namespace Acr.UserDialogs.Builders
                 dialog.SetButton(
                     (int) DialogButtonType.Negative,
                     new SpannableString(config.CancelText),
-                    (sender, args) =>
-                    {
-                        config.OnResult?.Invoke(new DatePromptResult(false, dialog.DatePicker.DateTime.Date));
-                    }
+                    (sender, args) => config
+                        .OnResult?
+                        .Invoke(new DatePromptResult(
+                            false, 
+                            dialog.DatePicker.DateTime.Date
+                        ))
                 );
             }
             dialog.SetButton(
                 (int)DialogButtonType.Positive,
                 new SpannableString(config.OkText),
-                (sender, args) =>
-                {
-                    config.OnResult?.Invoke(new DatePromptResult(true, dialog.DatePicker.DateTime.Date));
-                }
+                (sender, args) => config
+                    .OnResult?
+                    .Invoke(new DatePromptResult(
+                        true, 
+                        dialog.DatePicker.DateTime.Date
+                    ))
             );
             return dialog;
         }
