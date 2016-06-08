@@ -1,11 +1,10 @@
 #addin "Cake.Xamarin"
 #addin "Cake.FileHelpers"
+var target = Argument("target", Argument("t", "publish"));
 
-var target = Argument("target", Argument("t", "nuget"));
-
-Setup(() => {
+Setup(() =>
+{
     DeleteFiles("./output/*.*");
-
 	if (!DirectoryExists("./output"))
 		CreateDirectory("./output");
 });
@@ -14,43 +13,31 @@ Task("build")
 	.Does (() =>
 {
 	NuGetRestore("./src/lib.sln");
-	DotNetBuild("./src/lib.sln", c => c
-        //.SetVerbosity(Verbosity.Minimal)
+	MSBuild("./src/lib.sln", x => x
         .SetConfiguration("Release")
-        .WithTarget("Any CPU")
-        //.WithProperty("TreatWarningsAsErrors","true")
     );
 });
 
-Task("nuget")
+Task("package")
 	.IsDependentOn("build")
 	.Does(() =>
 {
-	// NuGet on mac trims out the first ./ so adding it twice works around
-	var basePath = IsRunningOnUnix () ? (System.IO.Directory.GetCurrentDirectory().ToString() + @"/.") : "./";
-
-	NuGetPack("./nuspec/Acr.UserDialogs.nuspec", new NuGetPackSettings
-    {
-		BasePath = basePath,
-		Verbosity = NuGetVerbosity.Detailed
-	});
-	NuGetPack("./nuspec/Acr.UserDialogs.WindowsForms.nuspec", new NuGetPackSettings
-    {
-		BasePath = basePath,
-		Verbosity = NuGetVerbosity.Detailed
-	});
-	MoveFiles("./nuspec/*.nupkg", "./output");
-    CopyFiles("./ouput/*.nupkg", "c:\\users\\allan.ritchie\\dropbox\\nuget");
+	NuGetPack(new FilePath("./nuspec/Acr.UserDialogs.nuspec"), new NuGetPackSettings());
+	MoveFiles("./*.nupkg", "./output");
 });
 
+
 Task("publish")
-    .IsDependentOn("nuget")
+    .IsDependentOn("package")
     .Does(() =>
 {
+/*
     NuGetPush("./output/*.nupkg", new NuGetPushSettings
     {
         Verbosity = NuGetVerbosity.Detailed
     });
+*/
+    CopyFiles("./ouput/*.nupkg", "c:\\users\\allan.ritchie\\dropbox\\nuget");
 });
 
 RunTarget(target)
