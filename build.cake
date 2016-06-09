@@ -1,8 +1,9 @@
 #addin "Cake.Xamarin"
 #addin "Cake.FileHelpers"
-var target = Argument("target", Argument("t", "publish"));
 
-Setup(() =>
+var target = Argument("target", Argument("t", "package"));
+
+Setup(() => 
 {
     DeleteFiles("./output/*.*");
 	if (!DirectoryExists("./output"))
@@ -14,7 +15,10 @@ Task("build")
 {
 	NuGetRestore("./src/lib.sln");
 	MSBuild("./src/lib.sln", x => x
-        .SetConfiguration("Release")
+		.SetConfiguration("Release")
+        .SetVerbosity(Verbosity.Minimal)
+        .UseToolVersion(MSBuildToolVersion.VS2015)
+        .SetPlatformTarget(PlatformTarget.MSIL)
     );
 });
 
@@ -26,18 +30,15 @@ Task("package")
 	MoveFiles("./*.nupkg", "./output");
 });
 
-
 Task("publish")
     .IsDependentOn("package")
     .Does(() =>
 {
-/*
     NuGetPush("./output/*.nupkg", new NuGetPushSettings
     {
         Verbosity = NuGetVerbosity.Detailed
     });
-*/
     CopyFiles("./ouput/*.nupkg", "c:\\users\\allan.ritchie\\dropbox\\nuget");
 });
 
-RunTarget(target)
+RunTarget(target);
