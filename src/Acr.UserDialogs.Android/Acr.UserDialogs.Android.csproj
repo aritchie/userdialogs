@@ -81,7 +81,7 @@
     <Compile Include="Fragments\ConfirmDialogFragment.cs" />
     <Compile Include="Fragments\TimeDialogFragment.cs" />
     <Compile Include="Fragments\DateDialogFragment.cs" />
-    <Compile Include="Fragments\InMemoryConfigStore.cs" />
+    <Compile Include="Fragments\ConfigStore.cs" />
     <Compile Include="Fragments\LoginDialogFragment.cs" />
     <Compile Include="Fragments\PromptDialogFragment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

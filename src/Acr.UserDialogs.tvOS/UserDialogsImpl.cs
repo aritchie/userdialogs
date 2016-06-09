@@ -1,11 +1,7 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using UIKit;
-using CoreGraphics;
 using Foundation;
-using Acr.Support.iOS;
-using BigTed;
 using Splat;
 
 
@@ -52,27 +48,13 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var top = UIApplication.SharedApplication.GetTopViewController();
-            var picker = new DatePickerController(config, top)
-            {
-                ProvidesPresentationContextTransitionStyle = true,
-                DefinesPresentationContext = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-            };
-            return this.Present(top, picker);
+            throw new NotImplementedException ();
         }
 
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            var top = UIApplication.SharedApplication.GetTopViewController();
-            var picker = new TimePickerController(config, top)
-            {
-                ProvidesPresentationContextTransitionStyle = true,
-                DefinesPresentationContext = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-            };
-            return this.Present(top, picker);
+            throw new NotImplementedException ();
         }
 
 
@@ -130,79 +112,29 @@ namespace Acr.UserDialogs
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
-            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis));
+            throw new NotImplementedException ();
         }
 
 
         public override void ShowError(string message, int timeoutMillis)
         {
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis));
-            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutMillis));
+            throw new NotImplementedException ();
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis));
-            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutMillis));
+            throw new NotImplementedException ();
         }
 
 
-        public override IDisposable Toast(ToastConfig cfg)
+        public override void Toast(ToastConfig cfg)
         {
-            var snackbar = new TTGSnackbar
-            {
-                ActionText = "",
-                ActionBlock = null
-            };
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(snackbar.Show);
-
-            return new DisposableAction(
-                () => app.InvokeOnMainThread(() => snackbar.Dismiss())
-            );
+            throw new NotImplementedException ();
         }
 
 
         #region Internals
-
-        UIView currentOverlay;
-
-
-        protected virtual void ShowWithOverlay(int timemillis, Action action)
-        {
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
-            {
-                this.ShowOverlay();
-                action();
-            });
-            Task.Delay(timemillis)
-                .ContinueWith(x => app.InvokeOnMainThread(this.DismissOverlay));
-        }
-
-
-        protected virtual void ShowOverlay()
-        {
-            this.currentOverlay = new UIView(UIScreen.MainScreen.Bounds)
-            {
-                AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
-                Alpha = 0.7F,
-                BackgroundColor = UIColor.Black,
-                UserInteractionEnabled = false
-            };
-            UIApplication
-                .SharedApplication
-                .GetTopWindow()
-                .AddSubview(this.currentOverlay);
-        }
-
-
-        protected virtual void DismissOverlay()
-        {
-            this.currentOverlay?.RemoveFromSuperview();
-            this.currentOverlay = null;
-        }
 
 
         protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
@@ -221,52 +153,29 @@ namespace Acr.UserDialogs
 
         protected override IProgressDialog CreateDialogInstance()
         {
-            return new ProgressDialog();
+            return null;
         }
 
 
         protected virtual IDisposable Present(UIAlertController alert)
         {
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
-            {
-                var top = app.GetTopViewController();
-                if (alert.PreferredStyle == UIAlertControllerStyle.ActionSheet && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
-                {
-                    var x = top.View.Bounds.Width / 2;
-                    var y = top.View.Bounds.Bottom;
-                    var rect = new CGRect(x, y, 0, 0);
-
-                    alert.PopoverPresentationController.SourceView = top.View;
-                    alert.PopoverPresentationController.SourceRect = rect;
-                    alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
-                }
-                top.PresentViewController(alert, true, null);
-            });
-            return new DisposableAction(() =>
-            {
-                try
-                {
-                    app.InvokeOnMainThread(() => alert.DismissViewController(true, null));
-                }
-                catch { }
-            });
+            return null;
         }
 
 
-        protected virtual IDisposable Present(UIViewController presenter, UIViewController controller)
-        {
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() => presenter.PresentViewController(controller, true, null));
-            return new DisposableAction(() =>
-            {
-                try
-                {
-                    app.InvokeOnMainThread(() => controller.DismissViewController(true, null));
-                }
-                catch { }
-            });
-        }
+        //protected virtual IDisposable Present(UIViewController presenter, UIViewController controller)
+        //{
+        //    var app = UIApplication.SharedApplication;
+        //    app.InvokeOnMainThread(() => presenter.PresentViewController(controller, true, null));
+        //    return new DisposableAction(() =>
+        //    {
+        //        try
+        //        {
+        //            app.InvokeOnMainThread(() => controller.DismissViewController(true, null));
+        //        }
+        //        catch { }
+        //    });
+        //}
 
 
         protected virtual void SetInputType(UITextField txt, InputType inputType)

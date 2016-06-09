@@ -65,6 +65,13 @@ Supported Platforms
             </group>-->
         </dependencies>
         <releaseNotes>
+5.2.3
+[fix][droid] fix invalid month when setting selected date in dateprompt
+
+5.2.2
+[fix][ios] actionsheet should have destruction button at the top as advised by Apple
+[fix][droid] NRE during rotation that can occur with fragments
+
 5.3
 [BREAKING][feature][ios] New snackbar for old toast setup that everyone complained about
 [feature] Toasts are also dismissable from code now (via disposable)
