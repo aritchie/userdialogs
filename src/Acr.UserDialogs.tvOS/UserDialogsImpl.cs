@@ -128,7 +128,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void Toast(ToastConfig cfg)
+        public override IDisposable Toast(ToastConfig cfg)
         {
             throw new NotImplementedException ();
         }
@@ -144,8 +144,8 @@ namespace Acr.UserDialogs
             if (opt.ItemIcon == null && image != null)
                 opt.ItemIcon = image;
 
-            if (opt.ItemIcon != null)
-                alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new NSString("image"));
+            //if (opt.ItemIcon != null)
+            //    alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new NSString("image"));
 
             controller.AddAction(alertAction);
         }

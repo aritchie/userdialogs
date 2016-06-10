@@ -24,7 +24,7 @@ namespace Acr.UserDialogs.Fragments
                 this.Config = ConfigStore.Instance.Pop<T>(bundle);
 
             var dialog = this.CreateDialog(this.Config);
-            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            //dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.SetCancelable(false);
             dialog.SetCanceledOnTouchOutside(false);
 

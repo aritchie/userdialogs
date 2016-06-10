@@ -6,18 +6,22 @@ using Android.Widget;
 using Splat;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class ActionSheetListAdapter : ArrayAdapter<ActionSheetOption> {
+    public class ActionSheetListAdapter : ArrayAdapter<ActionSheetOption>
+    {
         readonly ActionSheetConfig config;
 
 
-        public ActionSheetListAdapter(Context context, int resource, int textViewResourceId, ActionSheetConfig config) : base(context, resource, textViewResourceId, config.Options) {
+        public ActionSheetListAdapter(Context context, int resource, int textViewResourceId, ActionSheetConfig config) : base(context, resource, textViewResourceId, config.Options)
+        {
             this.config = config;
         }
 
 
-        public override View GetView(int position, View convertView, ViewGroup parent) {
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
             //Use base class to create the View
             var view = base.GetView(position, convertView, parent);
             var textView = view.FindViewById<TextView>(Android.Resource.Id.Text1);
