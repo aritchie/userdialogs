@@ -29,7 +29,6 @@ namespace Acr.UserDialogs.Builders
                     config.CancelText,
                     (sender, args) =>
                     {
-
                         var ts = new TimeSpan(0, picker.CurrentHour.IntValue(), picker.CurrentMinute.IntValue(), 0);
                         config.OnResult?.Invoke(new TimePromptResult(false, ts));
                     }

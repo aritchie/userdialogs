@@ -4,11 +4,11 @@
 namespace Acr.UserDialogs
 {
 
-    public class PromptConfig
+    public class PromptConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
-
+        public static int? DefaultAndroidStyleId { get; set; }
 
         public string Title { get; set; }
         public string Message { get; set; }
@@ -20,6 +20,7 @@ namespace Acr.UserDialogs
         public string OkText { get; set; } = DefaultOkText;
         public string CancelText { get; set; } = DefaultCancelText;
         public string Placeholder { get; set; }
+        public int? AndroidStyleId { get; set; }
         public InputType InputType { get; set; } = InputType.Default;
 
 

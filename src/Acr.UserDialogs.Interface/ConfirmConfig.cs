@@ -4,7 +4,7 @@
 namespace Acr.UserDialogs
 {
 
-    public class ConfirmConfig
+    public class ConfirmConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
         public static string DefaultYes { get; set; } = "Yes";
         public static string DefaultNo { get; set; } = "No";

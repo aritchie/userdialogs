@@ -6,20 +6,12 @@ using Android.Support.V7.App;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public class PromptDialogFragment : AbstractDialogFragment<PromptConfig>
+    public class PromptDialogFragment : AbstractBuilderDialogFragment<PromptConfig, PromptBuilder>
     {
-        protected override Dialog CreateDialog(PromptConfig config)
-        {
-            return PromptBuilder.Build(this.Activity, config).Create();
-        }
     }
 
 
-    public class PromptAppCompatDialogFragment : AbstractAppCompatDialogFragment<PromptConfig>
+    public class PromptAppCompatDialogFragment : AbstractBuilderAppCompatDialogFragment<PromptConfig, PromptBuilder>
     {
-        protected override Dialog CreateDialog(PromptConfig config)
-        {
-            return PromptBuilder.Build(this.Activity as AppCompatActivity, config).Create();
-        }
     }
 }

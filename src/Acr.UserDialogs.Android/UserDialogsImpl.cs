@@ -37,7 +37,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, AlertBuilder.Build(activity, config));
+            return this.Show(activity, new AlertBuilder().Build(activity, config).Create());
         }
 
 
@@ -51,7 +51,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, ActionSheetBuilder.Build(activity, config));
+            return this.Show(activity, new ActionSheetBuilder().Build(activity, config).Create());
         }
 
 
@@ -64,7 +64,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, ConfirmBuilder.Build(activity, config));
+            return this.Show(activity, new ConfirmBuilder().Build(activity, config).Create());
         }
 
 
@@ -90,7 +90,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, LoginBuilder.Build(activity, config));
+            return this.Show(activity, new LoginBuilder().Build(activity, config).Create());
         }
 
 
@@ -103,7 +103,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, PromptBuilder.Build(activity, config));
+            return this.Show(activity, new PromptBuilder().Build(activity, config).Create());
         }
 
 

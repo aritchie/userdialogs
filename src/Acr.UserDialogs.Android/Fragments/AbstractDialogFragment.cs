@@ -1,6 +1,7 @@
 using System;
 using Android.App;
 using Android.OS;
+using Android.Support.V7.App;
 using Android.Views;
 
 
@@ -24,19 +25,25 @@ namespace Acr.UserDialogs.Fragments
                 this.Config = ConfigStore.Instance.Pop<T>(bundle);
 
             var dialog = this.CreateDialog(this.Config);
-            //dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            dialog.SetCancelable(false);
-            dialog.SetCanceledOnTouchOutside(false);
-
+            this.SetDialogDefaults(dialog);
             return dialog;
         }
 
 
+        protected virtual void SetDialogDefaults(Dialog dialog)
+        {
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            dialog.SetCancelable(false);
+            dialog.SetCanceledOnTouchOutside(false);
+        }
+
+
         protected abstract Dialog CreateDialog(T config);
+        protected AppCompatActivity AppCompatActivity => this.Activity as AppCompatActivity;
     }
 
 
-    public abstract class AbstractDialogFragment<T> : DialogFragment where T  : class
+    public abstract class AbstractDialogFragment<T> : DialogFragment where T : class
     {
         public T Config { get; set; }
 
@@ -54,14 +61,19 @@ namespace Acr.UserDialogs.Fragments
                 this.Config = ConfigStore.Instance.Pop<T>(bundle);
 
             var dialog = this.CreateDialog(this.Config);
-            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            dialog.SetCancelable(false);
-            dialog.SetCanceledOnTouchOutside(false);
+            this.SetDialogDefaults(dialog);
             return dialog;
         }
 
 
-        protected abstract Dialog CreateDialog(T config);
+        protected virtual void SetDialogDefaults(Dialog dialog)
+        {
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            dialog.SetCancelable(false);
+            dialog.SetCanceledOnTouchOutside(false);
+        }
 
+
+        protected abstract Dialog CreateDialog(T config);
     }
 }

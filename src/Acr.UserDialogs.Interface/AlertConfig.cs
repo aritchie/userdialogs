@@ -4,7 +4,7 @@
 namespace Acr.UserDialogs
 {
 
-    public class AlertConfig
+    public class AlertConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static int? DefaultAndroidStyleId { get; set; }

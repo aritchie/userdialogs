@@ -10,9 +10,9 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public static class LoginBuilder
+    public class LoginBuilder : AbstractAlertDialogBuilder<LoginConfig>
     {
-        public static AlertDialog.Builder Build(Activity activity, LoginConfig config)
+        public override AlertDialog.Builder Build(Activity activity, LoginConfig config)
         {
             var txtUser = new EditText(activity)
             {
@@ -37,22 +37,22 @@ namespace Acr.UserDialogs.Builders
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            return new AlertDialog
-                .Builder(activity)
+            return this
+                .CreateBaseBuilder(activity, config.AndroidStyleId)
                 .SetCancelable(false)
                 .SetTitle(config.Title)
                 .SetMessage(config.Message)
                 .SetView(layout)
                 .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))
+                    config.OnResult(new LoginResult(true, txtUser.Text, txtPass.Text))
                 )
                 .SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))
+                    config.OnResult(new LoginResult(false, txtUser.Text, txtPass.Text))
                 );
         }
 
 
-        public static AppCompatAlertDialog.Builder Build(AppCompatActivity activity, LoginConfig config)
+        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, LoginConfig config)
         {
             var txtUser = new EditText(activity)
             {
@@ -77,17 +77,17 @@ namespace Acr.UserDialogs.Builders
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            return new AppCompatAlertDialog
-                .Builder(activity)
+            return this
+                .CreateBaseBuilder(activity, config.AndroidStyleId)
                 .SetCancelable(false)
                 .SetTitle(config.Title)
                 .SetMessage(config.Message)
                 .SetView(layout)
                 .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))
+                    config.OnResult(new LoginResult(true, txtUser.Text, txtPass.Text))
                 )
                 .SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))
+                    config.OnResult(new LoginResult(false, txtUser.Text, txtPass.Text))
                 );
         }
     }

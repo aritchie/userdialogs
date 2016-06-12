@@ -4,7 +4,7 @@
 namespace Acr.UserDialogs
 {
 
-    public class LoginConfig
+    public class LoginConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
         public static string DefaultTitle { get; set; } = "Login";
         public static string DefaultOkText { get; set; } = "Ok";

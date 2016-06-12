@@ -6,7 +6,7 @@ using Splat;
 namespace Acr.UserDialogs
 {
 
-    public class ActionSheetConfig
+    public class ActionSheetConfig : IAndroidStyleDialogConfig
     {
         public static int? DefaultAndroidStyleId { get; set; }
 

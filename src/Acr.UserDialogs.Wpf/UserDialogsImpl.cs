@@ -104,9 +104,9 @@ namespace Acr.UserDialogs
             dlg.ShowDialog();
 
             config.OnResult(new LoginResult(
+                true,
                 dlg.UserName,
-                dlg.Password,
-                true
+                dlg.Password
             ));
             return new DisposableAction(dlg.Dispose);
         }

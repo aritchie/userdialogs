@@ -134,9 +134,9 @@ namespace Acr.UserDialogs
             prompt.Content = stack;
 
             prompt.Dismissed += (sender, args) => config.OnResult(new LoginResult(
+                args.Result == CustomMessageBoxResult.LeftButton,
                 txtUser.Text,
-                txtPass.Password,
-                args.Result == CustomMessageBoxResult.LeftButton
+                txtPass.Password
             ));
             return this.DispatchWithDispose(prompt.Show, prompt.Dismiss);
         }

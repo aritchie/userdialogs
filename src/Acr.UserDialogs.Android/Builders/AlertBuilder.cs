@@ -7,9 +7,9 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public static class AlertBuilder
+    public class AlertBuilder : AbstractAlertDialogBuilder<AlertConfig>
     {
-        public static AlertDialog.Builder Build(Activity activity, AlertConfig config)
+        public override AlertDialog.Builder Build(Activity activity, AlertConfig config)
         {
             //var layout = new LinearLayout(context) {
             //    Orientation = Orientation.Vertical,
@@ -26,10 +26,10 @@ namespace Acr.UserDialogs.Builders
         }
 
 
-        public static AppCompatAlertDialog.Builder Build(AppCompatActivity activity, AlertConfig config)
+        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, AlertConfig config)
         {
-            return new AppCompatAlertDialog
-                .Builder(activity)
+            return this
+                .CreateBaseBuilder(activity, config.AndroidStyleId)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)

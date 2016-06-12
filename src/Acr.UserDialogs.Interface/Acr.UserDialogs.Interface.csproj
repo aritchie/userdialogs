@@ -37,12 +37,17 @@
     <Compile Include="..\Acr.UserDialogs.Shared\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AbstractStandardDialogResult.cs" />
     <Compile Include="AbstractUserDialogs.cs" />
     <Compile Include="ActionSheetConfig.cs" />
     <Compile Include="ActionSheetOption.cs" />
     <Compile Include="AlertConfig.cs" />
     <Compile Include="ConfirmConfig.cs" />
+    <Compile Include="Credentials.cs" />
     <Compile Include="DisposableAction.cs" />
+    <Compile Include="IAndroidThemeDialog.cs" />
+    <Compile Include="IStandardDialogConfig.cs" />
+    <Compile Include="IStandardDialogResult.cs" />
     <Compile Include="TimePromptConfig.cs" />
     <Compile Include="DatePromptConfig.cs" />
     <Compile Include="DatePromptResult.cs" />
@@ -57,7 +62,6 @@
     <Compile Include="PromptConfig.cs" />
     <Compile Include="PromptResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeResult.cs" />
     <Compile Include="ToastConfig.cs" />
   </ItemGroup>
   <ItemGroup>

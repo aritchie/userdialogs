@@ -190,10 +190,10 @@ namespace Acr.UserDialogs
                 CancelText = config.CancelText
             };
             vm.Login = new Command(() =>
-                config.OnResult?.Invoke(new LoginResult(vm.UserName, vm.Password, true))
+                config.OnResult?.Invoke(new LoginResult(true, vm.UserName, vm.Password))
             );
             vm.Cancel = new Command(() =>
-                config.OnResult?.Invoke(new LoginResult(vm.UserName, vm.Password, false))
+                config.OnResult?.Invoke(new LoginResult(false, vm.UserName, vm.Password))
             );
             var dlg = new LoginContentDialog
             {

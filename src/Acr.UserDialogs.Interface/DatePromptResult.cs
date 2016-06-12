@@ -3,16 +3,13 @@
 
 namespace Acr.UserDialogs
 {
-    public class DatePromptResult
+    public class DatePromptResult : AbstractStandardDialogResult<DateTime>
     {
-        public DatePromptResult(bool ok, DateTime selectedDate)
+        public DatePromptResult(bool ok, DateTime selectedDate) : base(ok, selectedDate)
         {
-            this.Ok = ok;
-            this.SelectedDate = selectedDate;
         }
 
 
-        public bool Ok { get; }
-        public DateTime SelectedDate { get; set; }
+        public DateTime SelectedDate => this.Value;
     }
 }

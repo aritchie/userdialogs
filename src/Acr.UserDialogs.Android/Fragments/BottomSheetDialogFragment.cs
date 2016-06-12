@@ -13,8 +13,14 @@ namespace Acr.UserDialogs.Fragments
 {
     public class BottomSheetDialogFragment : AbstractAppCompatDialogFragment<ActionSheetConfig>
     {
+        protected override void SetDialogDefaults(Dialog dialog)
+        {
+            dialog.SetCancelable(false);
+            dialog.SetCanceledOnTouchOutside(false);
+        }
 
-         protected override Dialog CreateDialog(ActionSheetConfig config)
+
+        protected override Dialog CreateDialog(ActionSheetConfig config)
         {
             var dlg = new BottomSheetDialog(this.Activity);
 
@@ -22,14 +28,11 @@ namespace Acr.UserDialogs.Fragments
             {
                 Orientation = Orientation.Vertical
             };
+            layout.LayoutParameters.Height = this.DpToPixels(56);
 
             if (!String.IsNullOrWhiteSpace(config.Title))
             {
-                layout.AddView(new TextView(this.Activity)
-                {
-                    Text = config.Title,
-                    TextSize = 32
-                });
+                layout.AddView(this.GetHeaderText(config.Title));
             }
 
             foreach (var action in config.Options)
@@ -87,6 +90,24 @@ namespace Acr.UserDialogs.Fragments
                 LayoutParameters = layout
             };
         }
+
+
+        protected virtual TextView GetHeaderText(string text)
+        {
+            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent)
+            {
+                Gravity = GravityFlags.CenterVertical
+            };
+            layout.SetMargins(this.DpToPixels(16), 0, this.DpToPixels(16), 0);
+
+            return new TextView(this.Activity)
+            {
+                Text = text,
+                TextSize = 32,
+                LayoutParameters = layout
+            };
+        }
+
 
         protected virtual ImageView GetIcon(IBitmap icon)
         {
