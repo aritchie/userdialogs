@@ -13,7 +13,6 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
-
         public override IDisposable Alert(AlertConfig config)
         {
             var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
@@ -152,9 +151,45 @@ namespace Acr.UserDialogs
         {
             var snackbar = new TTGSnackbar
             {
+                Message = cfg.Message,
+                MessageTextColor = cfg.MessageTextColor.ToNative(),
                 ActionText = "",
-                ActionBlock = null
+                //ActionTextColor =
+                ActionBlock = null,
+                SecondActionText = "",
+                //SecondActionTextColor
+                SecondActionBlock = null,
+
+                Duration = cfg.Duration,
+                AnimationType = TTGSnackbarAnimationType.FadeInFadeOut
             };
+
+            if (cfg.PrimaryAction != null)
+            {
+                var color = cfg.PrimaryAction.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
+
+                snackbar.ActionText = cfg.PrimaryAction.Text;
+                snackbar.ActionTextColor = color.ToNative();
+                snackbar.ActionBlock = x =>
+                {
+                    snackbar.Dismiss();
+                    cfg.PrimaryAction.Action?.Invoke();
+                };
+            }
+
+            if (cfg.SecondaryAction != null)
+            {
+                var color = cfg.SecondaryAction.TextColor ?? ToastConfig.DefaultSecondaryTextColor;
+
+                snackbar.ActionText = cfg.SecondaryAction.Text;
+                snackbar.ActionTextColor = color.ToNative();
+                snackbar.ActionBlock = x =>
+                {
+                    snackbar.Dismiss();
+                    cfg.SecondaryAction.Action?.Invoke();
+                };
+            }
+
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(snackbar.Show);
 

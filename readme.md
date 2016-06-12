@@ -29,7 +29,13 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 * Xamarin (iOS Unified/Android)
 * Universal Windows Platform (Win10/UWP)
 * Portable Class Libraries (Profile 259)
-* Windows Phone 8/8.1 - It is here, but parts of unimplemented.  NO FEATURE REQUESTS OR SUPPORT - YOU WANT IT, SUBMIT A TESTED PULL REQUEST!
+
+## Experimental Platforms (no support)
+* tvOS
+* WPF/NET45
+* Windows Phone 8/8.1
+* MacOS - coming soon
+
 
 ## Setup
 

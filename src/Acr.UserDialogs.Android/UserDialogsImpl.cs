@@ -168,14 +168,23 @@ namespace Acr.UserDialogs
         protected virtual IDisposable ToastAppCompat(AppCompatActivity activity, ToastConfig cfg)
         {
             var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
-            var snackBar = Snackbar.Make(view, cfg.Description, (int)cfg.Duration.TotalMilliseconds);
-            snackBar.View.SetBackgroundColor(cfg.BackgroundColor.ToNative());
-            snackBar.View.Click += (sender, args) =>
+            var snackBar = Snackbar.Make(
+                view,
+                Html.FromHtml(cfg.Message),
+                (int)cfg.Duration.TotalMilliseconds
+            );
+
+            if (cfg.PrimaryAction != null)
             {
-                snackBar.Dismiss();
-                cfg.Action?.Invoke();
-            };
-            this.SetSnackbarTextView(snackBar, cfg);
+                snackBar.SetAction(cfg.PrimaryAction.Text, x =>
+                {
+                    cfg.PrimaryAction.Action?.Invoke();
+                    snackBar.Dismiss();
+                });
+                var color = cfg.PrimaryAction.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
+                snackBar.SetActionTextColor(color.ToNative());
+            }
+
             activity.RunOnUiThread(snackBar.Show);
             return new DisposableAction(() =>
             {
@@ -199,20 +208,16 @@ namespace Acr.UserDialogs
         {
             activity.RunOnUiThread(() =>
             {
-                var txt = cfg.Title;
-                if (!String.IsNullOrWhiteSpace(cfg.Description))
-                    txt += Environment.NewLine + cfg.Description;
-
                 AndHUD.Shared.ShowToast(
                     activity,
-                    txt,
+                    cfg.Message,
                     AndroidHUD.MaskType.None,
                     cfg.Duration,
                     false,
                     () =>
                     {
                         AndHUD.Shared.Dismiss();
-                        cfg.Action?.Invoke();
+                        cfg.PrimaryAction.Action?.Invoke();
                     }
                 );
             });
@@ -223,30 +228,9 @@ namespace Acr.UserDialogs
             );
         }
 
-
-        protected virtual void SetSnackbarTextView(Snackbar bar, ToastConfig cfg)
-        {
-            var group = (ViewGroup)bar.View;
-            for (var i = 0; i < group.ChildCount; i++)
-            {
-                var txt = group.GetChildAt(i) as TextView;
-                if (txt != null)
-                {
-                    var text = $"<b>{cfg.Title}</b>";
-                    if (!String.IsNullOrWhiteSpace(cfg.Description))
-                        text += $"\n<br /><i>{cfg.Description}</i>";
-
-                    txt.SetTextColor(cfg.TextColor.ToNative());
-                    txt.TextFormatted = Html.FromHtml(text);
-                    return;
-                }
-            }
-            throw new Exception("No textview found on snackbar");
-        }
-
         #endregion
 
-        #region Internals
+            #region Internals
 
         protected override IProgressDialog CreateDialogInstance()
         {
