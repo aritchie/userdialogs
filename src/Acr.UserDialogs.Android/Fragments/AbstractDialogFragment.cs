@@ -35,6 +35,9 @@ namespace Acr.UserDialogs.Fragments
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.SetCancelable(false);
             dialog.SetCanceledOnTouchOutside(false);
+
+            // TODO: fix for immersive mode - http://stackoverflow.com/questions/22794049/how-to-maintain-the-immersive-mode-in-dialogs/23207365#23207365
+            //dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         }
 
 

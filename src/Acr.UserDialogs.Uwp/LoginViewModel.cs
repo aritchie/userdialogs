@@ -2,9 +2,11 @@
 using System.Windows.Input;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class LoginViewModel {
+    public class LoginViewModel
+    {
 
         public ICommand Login { get; set; }
         public ICommand Cancel { get; set; }

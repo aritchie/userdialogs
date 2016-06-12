@@ -74,7 +74,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable Confirm(ConfirmConfig config)
         {
-            var dialog = new MessageDialog(config.Message, config.Title);
+            var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
             dialog.Commands.Add(new UICommand(config.OkText, x => config.OnConfirm(true)));
             dialog.DefaultCommandIndex = 0;
 
@@ -182,8 +182,8 @@ namespace Acr.UserDialogs
             var vm = new LoginViewModel
             {
                 LoginText = config.OkText,
-                Title = config.Title,
-                Message = config.Message,
+                Title = config.Title ?? String.Empty,
+                Message = config.Message ?? String.Empty,
                 UserName = config.LoginValue,
                 UserNamePlaceholder = config.LoginPlaceholder,
                 PasswordPlaceholder = config.PasswordPlaceholder,
@@ -217,7 +217,7 @@ namespace Acr.UserDialogs
             };
             var dialog = new ContentDialog
             {
-                Title = config.Title,
+                Title = config.Title ?? String.Empty,
                 Content = stack,
                 PrimaryButtonText = config.OkText
             };
@@ -268,7 +268,7 @@ namespace Acr.UserDialogs
             {
                 Background = new SolidColorBrush(config.BackgroundColor.ToNative()),
                 Foreground = new SolidColorBrush(config.TextColor.ToNative()),
-                Title = config.Title,
+                Title = config.Title ?? String.Empty,
                 Message = config.Description,
                 //ImageSource = config.Icon?.ToNative(),
                 Stretch = Stretch.Fill,
