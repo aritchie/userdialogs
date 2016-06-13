@@ -169,7 +169,6 @@ namespace Samples.ViewModels
         }
 
 
-#warning broken at the moment
         async Task PromptCommand(InputType inputType)
         {
             var msg = $"Enter a {inputType.ToString().ToUpper()} value";

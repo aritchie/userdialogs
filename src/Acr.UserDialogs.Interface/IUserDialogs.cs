@@ -48,7 +48,7 @@ namespace Acr.UserDialogs
         void ShowSuccess(string message, int timeoutMillis = 2000);
         void ShowError(string message, int timeoutMillis = 2000);
 
-        IDisposable Toast(string title, string description = null, TimeSpan? dismissTimer = null);
+        IDisposable Toast(string title, TimeSpan? dismissTimer = null);
         IDisposable Toast(ToastConfig cfg);
     }
 }

@@ -278,60 +278,10 @@ namespace Acr.UserDialogs
         }
 
 
-        //public virtual void InfoToast(string title, string description, int timeoutMillis)
-        //{
-        //    this.Toast(ToastEvent.Info, title, description, timeoutMillis);
-        //}
-
-
-        //public virtual void SuccessToast(string title, string description, int timeoutMillis)
-        //{
-        //    this.Toast(ToastEvent.Success, title, description, timeoutMillis);
-        //}
-
-
-        //public virtual void WarnToast(string title, string description, int timeoutMillis)
-        //{
-        //    this.Toast(ToastEvent.Warn, title, description, timeoutMillis);
-        //}
-
-
-        //public virtual void ErrorToast(string title, string description, int timeoutMillis)
-        //{
-        //    this.Toast(ToastEvent.Error, title, description, timeoutMillis);
-        //}
-
-                        //switch (@event)
-            //{
-            //    case ToastEvent.Info:
-            //        this.BackgroundColor = InfoBackgroundColor;
-            //        this.TextColor = InfoTextColor;
-            //        this.Icon = InfoIcon;
-            //        break;
-
-            //    case ToastEvent.Success:
-            //        this.BackgroundColor = SuccessBackgroundColor;
-            //        this.TextColor = SuccessTextColor;
-            //        this.Icon = SuccessIcon;
-            //        break;
-
-            //    case ToastEvent.Warn:
-            //        this.BackgroundColor = WarnBackgroundColor;
-            //        this.TextColor = WarnTextColor;
-            //        this.Icon = WarnIcon;
-            //        break;
-
-            //    case ToastEvent.Error:
-            //        this.BackgroundColor = ErrorBackgroundColor;
-            //        this.TextColor = ErrorTextColor;
-            //        this.Icon = ErrorIcon;
-            //        break;
-            //}
-        public virtual IDisposable Toast(string title, string description, TimeSpan? dismissTimer)
+        public virtual IDisposable Toast(string message, TimeSpan? dismissTimer)
         {
-            return this.Toast(new ToastConfig(title)
+            return this.Toast(new ToastConfig(message)
             {
-                Description = description,
                 Duration = dismissTimer ?? ToastConfig.DefaultDuration
             });
         }

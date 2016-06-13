@@ -37,6 +37,13 @@ namespace Acr.UserDialogs
         }
 
 
+        public ToastConfig SetMessageTextColor (Color color)
+        {
+            this.MessageTextColor = color;
+            return this;
+        }
+
+
         public ToastConfig SetPrimaryAction(ToastAction action)
         {
             this.PrimaryAction = action;

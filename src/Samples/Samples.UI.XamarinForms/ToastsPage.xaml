@@ -7,10 +7,10 @@
         <TableView>
             <TableRoot>
                 <TableSection>
-                    <TextCell Text="Success" Command="{Binding Success}" />
-                    <TextCell Text="Info" Command="{Binding Info}" />
-                    <TextCell Text="Warn" Command="{Binding Warn}" />
-                    <TextCell Text="Error" Command="{Binding Error}" />
+                    <TextCell Text="Message" Detail="{Binding Message}" />
+                    <TextCell Text="Action Text" Detail="{Binding ActionText}" />
+                    <TextCell Text="Duration (sec)" Detail="{Binding SecondsDuration}" />
+                    <TextCell Text="Open Toast" Command="{Binding Open}" />
                 </TableSection>
             </TableRoot>
         </TableView>
