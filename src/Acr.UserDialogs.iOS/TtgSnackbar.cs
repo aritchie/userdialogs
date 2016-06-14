@@ -392,7 +392,7 @@ namespace Acr.UserDialogs
 
         public void Dismiss(bool animated = true)
         {
-            dismissTimer.Invalidate();
+            dismissTimer?.Invalidate();
             dismissTimer = null;
 
             activityIndicatorView.StopAnimating();
@@ -402,12 +402,12 @@ namespace Acr.UserDialogs
             if (Superview != null)
                 superViewWidth = Superview.Frame.Width;
 
-            if (!animated)
-            {
-                this.ActionBlock?.Invoke(this);
-                this.RemoveFromSuperview();
-                return;
-            }
+            //if (!animated)
+            //{
+            //    this.ActionBlock?.Invoke(this);
+            //    this.RemoveFromSuperview();
+            //    return;
+            //}
 
             Action animationBlock = null;
 
@@ -448,15 +448,12 @@ namespace Acr.UserDialogs
 
             this.SetNeedsLayout();
 
-            UIView.Animate(
+            UIView.Animate (
                 AnimationDuration,
                 0,
                 UIViewAnimationOptions.CurveEaseIn,
-                animationBlock, () =>
-                {
-                    this.ActionBlock?.Invoke(this);
-                    this.RemoveFromSuperview();
-                }
+                animationBlock,
+                this.RemoveFromSuperview
             );
         }
 
@@ -520,28 +517,29 @@ namespace Acr.UserDialogs
         {
             if (button.Equals(actionButton))
             {
-                ActionBlock(this);
+                ActionBlock?.Invoke(this);
             }
             else if (button.Equals(secondActionButton))
             {
-                SecondActionBlock(this);
+                SecondActionBlock?.Invoke(this);
             }
 
-            if (!this.actionButton.Hidden)
-            {
-                actionButton.Hidden = true;
-                secondActionButton.Hidden = true;
+            this.Dismiss(true);
+            //if (!this.actionButton.Hidden)
+            //{
+            //    actionButton.Hidden = true;
+            //    secondActionButton.Hidden = true;
 
-                seperateView.Hidden = true;
+            //    seperateView.Hidden = true;
 
-                activityIndicatorView.Hidden = false;
+            //    activityIndicatorView.Hidden = false;
 
-                activityIndicatorView.StartAnimating();
-            }
-            else
-            {
-                this.Dismiss();
-            }
+            //    activityIndicatorView.StartAnimating();
+            //}
+            //else
+            //{
+            //    this.Dismiss();
+            //}
         }
     }
 }

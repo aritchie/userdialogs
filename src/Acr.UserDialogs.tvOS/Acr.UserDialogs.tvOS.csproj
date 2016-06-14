@@ -7,7 +7,7 @@
     <ProjectTypeGuids>{06FA79CB-D6CD-4721-BB4B-1BD202089C55};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>Acr.UserDialogs.tvOS</RootNamespace>
-    <AssemblyName>Acr.UserDialogs.tvOS</AssemblyName>
+    <AssemblyName>Acr.UserDialogs</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

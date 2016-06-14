@@ -147,19 +147,15 @@ namespace Acr.UserDialogs
         }
 
 
+        IDisposable currentToast;
         public override IDisposable Toast(ToastConfig cfg)
         {
+            this.currentToast?.Dispose();
+
             var snackbar = new TTGSnackbar
             {
                 Message = cfg.Message,
                 MessageTextColor = cfg.MessageTextColor.ToNative(),
-                ActionText = "",
-                //ActionTextColor =
-                ActionBlock = null,
-                SecondActionText = "",
-                //SecondActionTextColor
-                SecondActionBlock = null,
-
                 Duration = cfg.Duration,
                 AnimationType = TTGSnackbarAnimationType.FadeInFadeOut
             };
@@ -170,7 +166,7 @@ namespace Acr.UserDialogs
 
                 snackbar.ActionText = cfg.PrimaryAction.Text;
                 snackbar.ActionTextColor = color.ToNative();
-                snackbar.ActionBlock = x =>
+                snackbar.ActionBlock = x => 
                 {
                     snackbar.Dismiss();
                     cfg.PrimaryAction.Action?.Invoke();
@@ -181,9 +177,9 @@ namespace Acr.UserDialogs
             {
                 var color = cfg.SecondaryAction.TextColor ?? ToastConfig.DefaultSecondaryTextColor;
 
-                snackbar.ActionText = cfg.SecondaryAction.Text;
-                snackbar.ActionTextColor = color.ToNative();
-                snackbar.ActionBlock = x =>
+                snackbar.SecondActionText = cfg.SecondaryAction.Text;
+                snackbar.SecondActionTextColor = color.ToNative();
+                snackbar.SecondActionBlock = x => 
                 {
                     snackbar.Dismiss();
                     cfg.SecondaryAction.Action?.Invoke();
@@ -193,9 +189,10 @@ namespace Acr.UserDialogs
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(snackbar.Show);
 
-            return new DisposableAction(
+            this.currentToast = new DisposableAction(
                 () => app.InvokeOnMainThread(() => snackbar.Dismiss())
             );
+            return this.currentToast;
         }
 
 

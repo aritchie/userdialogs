@@ -24,7 +24,7 @@ namespace Samples.ViewModels
                     .SetPrimaryAction(x => x
                         .SetText(this.ActionText)
                         //.SetTextColor(new System.Drawing.Color.FromHex(this.ActionTextColor))
-                        .SetAction(() => dialogs.Toast("You clicked the primary button"))
+                        .SetAction(() => dialogs.Alert("You clicked the primary button"))
                     )
                 )
             );
