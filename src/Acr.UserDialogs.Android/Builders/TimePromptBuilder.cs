@@ -25,8 +25,8 @@ namespace Acr.UserDialogs.Builders
                 picker.CurrentMinute = new Integer(config.SelectedTime.Value.Minutes);
             }
 
-			var is24Hours = DateFormat.Is24HourFormat(activity);
-			picker.SetIs24HourView(new Boolean(is24Hours));
+            var is24Hours = DateFormat.Is24HourFormat(activity);
+            picker.SetIs24HourView(new Boolean(is24Hours));
 
             if (config.IsCancellable)
             {
