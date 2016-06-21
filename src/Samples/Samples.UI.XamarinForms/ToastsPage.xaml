@@ -7,9 +7,9 @@
         <TableView>
             <TableRoot>
                 <TableSection>
-                    <TextCell Text="Message" Detail="{Binding Message}" />
-                    <TextCell Text="Action Text" Detail="{Binding ActionText}" />
-                    <TextCell Text="Duration (sec)" Detail="{Binding SecondsDuration}" />
+                    <EntryCell Label="Message" Text="{Binding Message}" />
+                    <EntryCell Label="Action Text" Text="{Binding ActionText}" />
+                    <EntryCell Label="Duration (sec)" Text="{Binding SecondsDuration}" Keyboard="Numeric" />
                     <TextCell Text="Open Toast" Command="{Binding Open}" />
                 </TableSection>
             </TableRoot>

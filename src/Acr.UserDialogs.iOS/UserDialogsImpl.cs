@@ -48,30 +48,46 @@ namespace Acr.UserDialogs
             return this.Present(dlg);
         }
 
+        //public UIDatePickerMode Mode { get; set; } = UIDatePickerMode.Date;
+        //public int MinuteInterval { get; set; } = 1;
+        //public string OkText { get; set; }
+        //public Action<AIDatePickerController> Ok { get; set; }
+        //public string CancelText { get; set; }
+        //public Action<AIDatePickerController> Cancel { get; set; }
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var top = UIApplication.SharedApplication.GetTopViewController();
-            var picker = new DatePickerController(config, top)
+            var picker = new AI.AIDatePickerController
             {
-                ProvidesPresentationContextTransitionStyle = true,
-                DefinesPresentationContext = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+                Mode = UIDatePickerMode.Date,
+                SelectedDateTime = config.SelectedDate ?? DateTime.Now,
+                OkText = config.OkText,
+                CancelText = config.CancelText,
+                Ok = x => config.OnResult(new DatePromptResult(true, x.SelectedDateTime)),
+                Cancel = x => config.OnResult(new DatePromptResult(false, x.SelectedDateTime)),
             };
-            return this.Present(top, picker);
+            if (config.MaximumDate != null)
+                picker.MaximumDateTime = config.MaximumDate;
+
+            if (config.MinimumDate != null)
+                picker.MinimumDateTime = config.MinimumDate;
+            
+            return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
         }
 
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            var top = UIApplication.SharedApplication.GetTopViewController();
-            var picker = new TimePickerController(config, top)
+            var picker = new AI.AIDatePickerController 
             {
-                ProvidesPresentationContextTransitionStyle = true,
-                DefinesPresentationContext = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+                Mode = UIDatePickerMode.Time,
+                MinuteInterval = config.MinuteInterval,
+                OkText = config.OkText,
+                CancelText = config.CancelText,
+                Ok = x => config.OnResult(new TimePromptResult(true, x.SelectedDateTime.TimeOfDay)),
+                Cancel = x => config.OnResult(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
             };
-            return this.Present(top, picker);
+            return this.Present (UIApplication.SharedApplication.GetTopViewController(), picker);
         }
 
 
@@ -152,20 +168,20 @@ namespace Acr.UserDialogs
         {
             this.currentToast?.Dispose();
 
-            var snackbar = new TTGSnackbar
+            var snackbar = new TTG.TTGSnackbar
             {
                 Message = cfg.Message,
-                MessageTextColor = cfg.MessageTextColor.ToNative(),
                 Duration = cfg.Duration,
-                AnimationType = TTGSnackbarAnimationType.FadeInFadeOut
+                AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
             };
+            snackbar.MessageLabel.BackgroundColor = cfg.MessageTextColor.ToNative();
 
             if (cfg.PrimaryAction != null)
             {
                 var color = cfg.PrimaryAction.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
 
                 snackbar.ActionText = cfg.PrimaryAction.Text;
-                snackbar.ActionTextColor = color.ToNative();
+                snackbar.ActionButton.SetTitleColor(color.ToNative(), UIControlState.Normal);
                 snackbar.ActionBlock = x => 
                 {
                     snackbar.Dismiss();
@@ -178,7 +194,7 @@ namespace Acr.UserDialogs
                 var color = cfg.SecondaryAction.TextColor ?? ToastConfig.DefaultSecondaryTextColor;
 
                 snackbar.SecondActionText = cfg.SecondaryAction.Text;
-                snackbar.SecondActionTextColor = color.ToNative();
+                snackbar.SecondActionButton.SetTitleColor(color.ToNative(), UIControlState.Normal);
                 snackbar.SecondActionBlock = x => 
                 {
                     snackbar.Dismiss();
