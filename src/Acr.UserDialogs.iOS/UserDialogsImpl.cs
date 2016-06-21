@@ -48,12 +48,6 @@ namespace Acr.UserDialogs
             return this.Present(dlg);
         }
 
-        //public UIDatePickerMode Mode { get; set; } = UIDatePickerMode.Date;
-        //public int MinuteInterval { get; set; } = 1;
-        //public string OkText { get; set; }
-        //public Action<AIDatePickerController> Ok { get; set; }
-        //public string CancelText { get; set; }
-        //public Action<AIDatePickerController> Cancel { get; set; }
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
@@ -99,7 +93,6 @@ namespace Acr.UserDialogs
             var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
             dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnResult(new LoginResult(false, txtUser.Text, txtPass.Text))));
             dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(true, txtUser.Text, txtPass.Text))));
-
             dlg.AddTextField(x =>
             {
                 txtUser = x;
@@ -139,6 +132,7 @@ namespace Acr.UserDialogs
 
                 txt = x;
             });
+
             return this.Present(dlg);
         }
 
