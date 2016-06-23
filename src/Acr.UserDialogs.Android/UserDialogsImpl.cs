@@ -244,7 +244,7 @@ namespace Acr.UserDialogs
 
         protected virtual IDisposable Show(Activity activity, Android.App.AlertDialog.Builder builder)
         {
-            var dialog = builder.Show();
+            var dialog = builder.Create();
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             activity.RunOnUiThread(dialog.Show);
             return new DisposableAction(() =>
