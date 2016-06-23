@@ -229,62 +229,62 @@ namespace Acr.UserDialogs
 
         #endregion
 
-            #region Internals
+        #region Internals
 
-        protected override IProgressDialog CreateDialogInstance()
+    protected override IProgressDialog CreateDialogInstance()
+    {
+        return new ProgressDialog(this.TopActivityFunc());
+    }
+
+
+    protected virtual IDisposable Show(Activity activity, Dialog dialog)
+    {
+        activity.RunOnUiThread(dialog.Show);
+        return new DisposableAction(() =>
+            activity.RunOnUiThread(dialog.Dismiss)
+        );
+    }
+
+
+    protected virtual IDisposable Show(Activity activity, Android.App.AlertDialog.Builder builder)
+    {
+        var dialog = builder.Create();
+        dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+        activity.RunOnUiThread(dialog.Show);
+        return new DisposableAction(() =>
+            activity.RunOnUiThread(dialog.Dismiss)
+        );
+    }
+
+
+    protected virtual IDisposable ShowDialog<TFragment, TConfig>(FragmentActivity activity, TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
+    {
+        var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
+
+        activity.RunOnUiThread(() =>
         {
-            return new ProgressDialog(this.TopActivityFunc());
-        }
+            frag.Config = config;
+            frag.Show(activity.FragmentManager, FragmentTag);
+        });
+        return new DisposableAction(() =>
+            activity.RunOnUiThread(frag.Dismiss)
+        );
+    }
 
 
-        protected virtual IDisposable Show(Activity activity, Dialog dialog)
+    protected virtual IDisposable ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()
+    {
+        var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
+        activity.RunOnUiThread(() =>
         {
-            activity.RunOnUiThread(dialog.Show);
-            return new DisposableAction(() =>
-                activity.RunOnUiThread(dialog.Dismiss)
-            );
-        }
+            frag.Config = config;
+            frag.Show(activity.SupportFragmentManager, FragmentTag);
+        });
+        return new DisposableAction(() =>
+            activity.RunOnUiThread(frag.Dismiss)
+        );
+    }
 
-
-        protected virtual IDisposable Show(Activity activity, Android.App.AlertDialog.Builder builder)
-        {
-            var dialog = builder.Show();
-            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            activity.RunOnUiThread(dialog.Show);
-            return new DisposableAction(() =>
-                activity.RunOnUiThread(dialog.Dismiss)
-            );
-        }
-
-
-        protected virtual IDisposable ShowDialog<TFragment, TConfig>(FragmentActivity activity, TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
-        {
-            var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
-
-            activity.RunOnUiThread(() =>
-            {
-                frag.Config = config;
-                frag.Show(activity.FragmentManager, FragmentTag);
-            });
-            return new DisposableAction(() =>
-                activity.RunOnUiThread(frag.Dismiss)
-            );
-        }
-
-
-        protected virtual IDisposable ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()
-        {
-            var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
-            activity.RunOnUiThread(() =>
-            {
-                frag.Config = config;
-                frag.Show(activity.SupportFragmentManager, FragmentTag);
-            });
-            return new DisposableAction(() =>
-                activity.RunOnUiThread(frag.Dismiss)
-            );
-        }
-
-        #endregion
+    #endregion
     }
 }
