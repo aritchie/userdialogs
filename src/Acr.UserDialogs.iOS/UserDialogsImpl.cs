@@ -167,13 +167,13 @@ namespace Acr.UserDialogs
         {
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
             {
+                this.toastTimer.Stop();
+                this.toastTimer.Interval = cfg.Duration.TotalMilliseconds;
+
                 MessageBarManager.SharedInstance.ShowAtTheBottom = cfg.Position == ToastPosition.Bottom;
                 MessageBarManager.SharedInstance.HideAll();
                 MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
                 MessageBarManager.SharedInstance.ShowMessage(cfg.Title, cfg.Description ?? String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
-
-                this.toastTimer.Stop();
-                this.toastTimer.Interval = cfg.Duration.TotalMilliseconds;
                 this.toastTimer.Start();
             });
         }
