@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -266,10 +265,11 @@ namespace Acr.UserDialogs
         {
             var toast = new ToastPrompt
             {
-                Background = new SolidColorBrush(config.BackgroundColor.ToNative()),
-                Foreground = new SolidColorBrush(config.TextColor.ToNative()),
-                Title = config.Title ?? String.Empty,
-                Message = config.Description,
+                Message = config.Message,
+                Foreground = new SolidColorBrush(config.MessageTextColor.ToNative()),
+                //Background = new SolidColorBrush(config.BackgroundColor.ToNative()),
+                //Title = config.Title ?? String.Empty,
+                //Message = config.Description,
                 //ImageSource = config.Icon?.ToNative(),
                 Stretch = Stretch.Fill,
                 MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
@@ -282,9 +282,9 @@ namespace Acr.UserDialogs
         }
 
 
-#region Internals
+        #region Internals
 
-#if WINDOWS_UWP
+        #if WINDOWS_UWP
 
         protected virtual Popup CreatePopup(UIElement element)
         {
@@ -308,7 +308,7 @@ namespace Acr.UserDialogs
         }
 
 
-#endif
+        #endif
 
         protected virtual void SetPasswordPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
         {
@@ -404,6 +404,6 @@ namespace Acr.UserDialogs
                 catch { }
             });
         }
-#endregion
+        #endregion
     }
 }

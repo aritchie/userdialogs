@@ -14,8 +14,7 @@ namespace Acr.UserDialogs
         public string Message { get; set; }
         public Color MessageTextColor { get; set; } = DefaultMessageTextColor;
         public TimeSpan Duration { get; set; }
-        public ToastAction PrimaryAction { get; set; }
-        public ToastAction SecondaryAction { get; set; }
+        public ToastAction Action { get; set; }
 
 
         public ToastConfig(string message)
@@ -37,40 +36,25 @@ namespace Acr.UserDialogs
         }
 
 
+        public ToastConfig SetAction(Action<ToastAction> action)
+        {
+            var cfg = new ToastAction();
+            action(cfg);
+            return this;
+        }
+
+
+        public ToastConfig SetAction(ToastAction action)
+        {
+            this.Action = action;
+            return this;
+        }
+
+
         public ToastConfig SetMessageTextColor (Color color)
         {
             this.MessageTextColor = color;
             return this;
-        }
-
-
-        public ToastConfig SetPrimaryAction(ToastAction action)
-        {
-            this.PrimaryAction = action;
-            return this;
-        }
-
-
-        public ToastConfig SetPrimaryAction(Action<ToastAction> visitor)
-        {
-            var action = new ToastAction();
-            visitor(action);
-            return this.SetPrimaryAction(action);
-        }
-
-
-        public ToastConfig SetSecondaryAction(ToastAction action)
-        {
-            this.SecondaryAction = action;
-            return this;
-        }
-
-
-        public ToastConfig SetSecondaryAction(Action<ToastAction> visitor)
-        {
-            var action = new ToastAction();
-            visitor(action);
-            return this.SetSecondaryAction(action);
         }
     }
 }

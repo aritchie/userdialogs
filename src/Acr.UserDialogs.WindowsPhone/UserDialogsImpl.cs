@@ -200,14 +200,14 @@ namespace Acr.UserDialogs
         {
             // TODO: backgroundcolor and image
             var resources = Application.Current.Resources;
-            var textColor = new SolidColorBrush(cfg.TextColor.ToNative());
-            var bgColor = cfg.BackgroundColor.ToNative();
+            var textColor = new SolidColorBrush(cfg.MessageTextColor.ToNative());
+            //var bgColor = cfg.BackgroundColor.ToNative();
 
             var wrapper = new StackPanel
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 //Background = (Brush)resources["PhoneAccentBrush"],
-                Background = new SolidColorBrush(bgColor),
+                //Background = new SolidColorBrush(bgColor),
                 Width = Application.Current.Host.Content.ActualWidth
             };
             wrapper.Children.Add(new TextBlock
@@ -217,22 +217,22 @@ namespace Acr.UserDialogs
                 FontSize = (double)resources["PhoneFontSizeMedium"],
                 Margin = new Thickness(24, 32, 24, 12),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Text = cfg.Title
+                Text = cfg.Message
             });
 
-            if (!String.IsNullOrWhiteSpace(cfg.Description))
-            {
-                wrapper.Children.Add(new TextBlock
-                {
-                    //Foreground = (Brush)resources["PhoneForegroundBrush"],
-                    //FontSize = (double)resources["PhoneFontSizeMedium"],
-                    Foreground = textColor,
-                    FontSize = (double)resources["PhoneFontSizeSmall"],
-                    Margin = new Thickness(24, 32, 24, 12),
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    Text = cfg.Title
-                });
-            }
+            //if (!String.IsNullOrWhiteSpace(cfg.Description))
+            //{
+            //    wrapper.Children.Add(new TextBlock
+            //    {
+            //        //Foreground = (Brush)resources["PhoneForegroundBrush"],
+            //        //FontSize = (double)resources["PhoneFontSizeMedium"],
+            //        Foreground = textColor,
+            //        FontSize = (double)resources["PhoneFontSizeSmall"],
+            //        Margin = new Thickness(24, 32, 24, 12),
+            //        HorizontalAlignment = HorizontalAlignment.Center,
+            //        Text = cfg.Title
+            //    });
+            //}
 
             var popup = new Popup
             {
@@ -248,7 +248,7 @@ namespace Acr.UserDialogs
             wrapper.Tap += (sender, args) =>
             {
                 close();
-                cfg.Action?.Invoke();
+                cfg.PrimaryAction?.Action?.Invoke();
             };
 
             Task.Delay(cfg.Duration)
@@ -256,7 +256,7 @@ namespace Acr.UserDialogs
 
             return this.DispatchWithDispose(() =>
             {
-                SystemTray.BackgroundColor = bgColor;
+                //SystemTray.BackgroundColor = bgColor;
                 popup.IsOpen = true;
             }, close);
         }
