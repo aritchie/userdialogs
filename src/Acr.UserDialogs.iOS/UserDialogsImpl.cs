@@ -51,13 +51,12 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var picker = new AI.AIDatePickerController
-            {
+            var picker = new AI.AIDatePickerController {
                 Mode = UIDatePickerMode.Date,
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnResult(new DatePromptResult(true, x.SelectedDateTime)),
+                Ok = x => config.OnResult (new DatePromptResult (true, x.SelectedDateTime)),
                 Cancel = x => config.OnResult(new DatePromptResult(false, x.SelectedDateTime)),
             };
             if (config.MaximumDate != null)
@@ -168,14 +167,19 @@ namespace Acr.UserDialogs
                 Duration = cfg.Duration,
                 AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
             };
-            snackbar.MessageLabel.BackgroundColor = cfg.MessageTextColor.ToNative();
+            if (cfg.BackgroundColor != null)
+                snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
+            
+            if (cfg.MessageTextColor != null)
+                snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
 
             if (cfg.Action != null)
             {
-                var color = cfg.Action.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
-
+                var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                if (color != null)
+                    snackbar.ActionButton.SetTitleColor (color.Value.ToNative (), UIControlState.Normal);
+                
                 snackbar.ActionText = cfg.Action.Text;
-                snackbar.ActionButton.SetTitleColor(color.ToNative(), UIControlState.Normal);
                 snackbar.ActionBlock = x =>
                 {
                     snackbar.Dismiss();

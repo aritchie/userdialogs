@@ -63,8 +63,9 @@ namespace AI
 			    TranslatesAutoresizingMaskIntoConstraints = false,
                 UserInteractionEnabled = true
 			};
-			dismissButton.TouchUpInside += (s, e) =>
+			dismissButton.TouchUpInside += async (s, e) =>
 			{
+                await this.DismissViewControllerAsync(true);
 				Cancel?.Invoke(this);
 			};
 			this.View.AddSubview(dismissButton);
@@ -101,8 +102,9 @@ namespace AI
 			cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
 
 			cancelButton.TitleLabel.Font = UIFont.SystemFontOfSize(FontSize);
-			cancelButton.TouchUpInside += (s, e) =>
+			cancelButton.TouchUpInside += async (s, e) =>
 			{
+                await this.DismissViewControllerAsync(true);
 				Cancel?.Invoke(this);
 			};
 			buttonContainerView.AddSubview(cancelButton);
@@ -111,8 +113,9 @@ namespace AI
 			button.TranslatesAutoresizingMaskIntoConstraints = false;
             button.TitleLabel.Font = UIFont.BoldSystemFontOfSize(FontSize);
 			button.SetTitle(this.OkText, UIControlState.Normal);
-			button.TouchUpInside += (s, e) =>
+			button.TouchUpInside += async (s, e) =>
 			{
+                await this.DismissViewControllerAsync (true);
 				Ok?.Invoke(this);
 			};
 			buttonContainerView.AddSubview(button);
@@ -170,7 +173,7 @@ namespace AI
 				UIView.Animate(AnimatedTransitionDuration, 0, UIViewAnimationOptions.CurveEaseIn,
 				   () =>
 					{
-						this.dimmedView.Alpha = 0.5f;
+						this.dimmedView.Alpha = 0.7f;
 						frame = toViewController.View.Frame;
 						frame.Y = 0f;
 						toViewController.View.Frame = frame;

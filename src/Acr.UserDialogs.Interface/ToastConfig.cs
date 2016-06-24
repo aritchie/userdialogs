@@ -7,12 +7,13 @@ namespace Acr.UserDialogs
     public class ToastConfig
     {
         public static TimeSpan DefaultDuration { get; set; } = TimeSpan.FromSeconds(2.5);
-        public static Color DefaultMessageTextColor { get; set; } = Color.White;
-        public static Color DefaultPrimaryTextColor { get; set; } = Color.White;
-        public static Color DefaultSecondaryTextColor { get; set; } = Color.White;
+        public static Color? DefaultMessageTextColor { get; set; }
+        public static Color? DefaultActionTextColor { get; set; }
+        public static Color? DefaultBackgroundColor { get; set; }
 
         public string Message { get; set; }
-        public Color MessageTextColor { get; set; } = DefaultMessageTextColor;
+        public Color? MessageTextColor { get; set; }
+        public Color? BackgroundColor { get; set; }
         public TimeSpan Duration { get; set; }
         public ToastAction Action { get; set; }
 
@@ -20,6 +21,13 @@ namespace Acr.UserDialogs
         public ToastConfig(string message)
         {
             this.Message = message;
+        }
+
+
+        public ToastConfig SetBackgroundColor (Color color)
+        {
+            this.BackgroundColor = color;
+            return this;
         }
 
 
@@ -40,7 +48,7 @@ namespace Acr.UserDialogs
         {
             var cfg = new ToastAction();
             action(cfg);
-            return this;
+            return this.SetAction (cfg);
         }
 
 

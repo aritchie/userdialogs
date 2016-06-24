@@ -34,10 +34,8 @@ namespace TTG
 	    public TimeSpan Duration { get; set; } = TimeSpan.FromSeconds(3);
         public TTGSnackbarAnimationType AnimationType = TTGSnackbarAnimationType.SlideFromBottomBackToBottom;
 
-		// Show and hide animation duration. Default is 0.3
         public float AnimationDuration { get; set; } = 0.3f;
 
-		//private float _cornerRadius = 4;
 		public nfloat CornerRadius
 		{
 			get { return this.Layer.CornerRadius; }
@@ -56,46 +54,45 @@ namespace TTG
 			}
 		}
 
-		/// Left margin. Default is 4
-		//private float _leftMargin = 4;
-		public nfloat LeftMargin
-		{
-			get { return leftMarginConstraint.Constant; }
-			set { 
-                leftMarginConstraint.Constant = value; 
-                this.LayoutIfNeeded(); 
-            }
-		}
+        /// Left margin. Default is 4
+        //private float _leftMargin = 4;
+        public nfloat LeftMargin { get; set; } = 4;
+		//{
+		//	get { return leftMarginConstraint.Constant; }
+		//	set { 
+  //              leftMarginConstraint.Constant = value; 
+  //              this.LayoutIfNeeded(); 
+  //          }
+		//}
 
-		//nfloat _rightMargin = 4;
-		public nfloat RightMargin
-		{
-			get { return rightMarginConstraint.Constant; }
-			set { 
-                rightMarginConstraint.Constant = value; 
-                this.LayoutIfNeeded(); 
-            }
-		}
+        //nfloat _rightMargin = 4;
+        public nfloat RightMargin { get; set; } = 4;
+		//{
+		//	get { return rightMarginConstraint.Constant; }
+		//	set { 
+  //              rightMarginConstraint.Constant = value; 
+  //              this.LayoutIfNeeded(); 
+  //          }
+		//}
 
-		/// Bottom margin. Default is 4
-		public nfloat BottomMargin
-		{
-			get { return bottomMarginConstraint.Constant; }
-			set { 
-                bottomMarginConstraint.Constant = value; 
-                this.LayoutIfNeeded(); 
-            }
-		}
+        /// Bottom margin. Default is 4
+        public nfloat BottomMargin { get; set; } = 4;
+        //{
+        //	get { return bottomMarginConstraint.Constant; }
+        //	set { 
+        //              bottomMarginConstraint.Constant = value; 
+        //              this.LayoutIfNeeded(); 
+        //          }
+        //}
 
-		//private nfloat _height = 44;
-		public nfloat Height
-		{
-            get { return heightConstraint.Constant; }
-			set { 
-                heightConstraint.Constant = value; 
-                this.LayoutIfNeeded(); 
-            }
-		}
+        //private nfloat _height = 44;
+        public nfloat Height { get; set; } = 44;
+  //          get { return heightConstraint.Constant; }
+		//	set { 
+  //              heightConstraint.Constant = value; 
+  //              this.LayoutIfNeeded(); 
+  //          }
+		//}
 
 
 		public string Message
@@ -147,10 +144,11 @@ namespace TTG
 		{
             this.TranslatesAutoresizingMaskIntoConstraints = false;
             this.BackgroundColor = UIColor.DarkGray;
-            this.Layer.CornerRadius = CornerRadius;
+            this.Layer.CornerRadius = 4;
             this.Layer.MasksToBounds = true;
 
-            this.MessageLabel = new UILabel {
+            this.MessageLabel = new UILabel 
+            {
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 TextColor = UIColor.White,
                 Font = UIFont.BoldSystemFontOfSize (14),
@@ -162,7 +160,8 @@ namespace TTG
 
             this.AddSubview (this.MessageLabel);
 
-            this.ActionButton = new UIButton {
+            this.ActionButton = new UIButton 
+            {
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 BackgroundColor = UIColor.Clear
             };
@@ -177,7 +176,8 @@ namespace TTG
 
             this.AddSubview (this.ActionButton);
 
-            this.SecondActionButton = new UIButton {
+            this.SecondActionButton = new UIButton 
+            {
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 BackgroundColor = UIColor.Clear
             };
@@ -192,7 +192,8 @@ namespace TTG
 
             this.AddSubview (this.SecondActionButton);
 
-            this.seperateView = new UIView {
+            this.seperateView = new UIView 
+            {
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 BackgroundColor = UIColor.Gray
             };

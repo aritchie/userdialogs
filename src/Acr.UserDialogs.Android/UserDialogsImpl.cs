@@ -172,7 +172,9 @@ namespace Acr.UserDialogs
                 Html.FromHtml(cfg.Message),
                 (int)cfg.Duration.TotalMilliseconds
             );
-
+            if (cfg.BackgroundColor != null)
+                snackBar.View.SetBackgroundColor (cfg.BackgroundColor.Value.ToNative ());
+            
             if (cfg.Action != null)
             {
                 snackBar.SetAction(cfg.Action.Text, x =>
@@ -180,8 +182,9 @@ namespace Acr.UserDialogs
                     cfg.Action.Action?.Invoke();
                     snackBar.Dismiss();
                 });
-                var color = cfg.Action.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
-                snackBar.SetActionTextColor(color.ToNative());
+                var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                if (color != null)
+                    snackBar.SetActionTextColor(color.Value.ToNative());
             }
 
             activity.RunOnUiThread(snackBar.Show);
