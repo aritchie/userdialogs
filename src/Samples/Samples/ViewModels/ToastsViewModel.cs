@@ -21,7 +21,7 @@ namespace Samples.ViewModels
                 .Toast(new ToastConfig(this.Message)
                     //.SetMessageTextColor(System.Drawing.Color.FromHex(this.MessageTextColor))
                     .SetDuration(TimeSpan.FromSeconds(this.SecondsDuration))
-                    .SetPrimaryAction(x => x
+                    .SetAction(x => x
                         .SetText(this.ActionText)
                         //.SetTextColor(new System.Drawing.Color.FromHex(this.ActionTextColor))
                         .SetAction(() => dialogs.Alert("You clicked the primary button"))
@@ -35,10 +35,10 @@ namespace Samples.ViewModels
 
 
         int secondsDuration;
-        public int SecondsDuration 
+        public int SecondsDuration
         {
             get { return this.secondsDuration; }
-            set 
+            set
             {
                 if (this.secondsDuration == value)
                     return;
@@ -50,10 +50,10 @@ namespace Samples.ViewModels
 
 
         string actionText;
-        public string ActionText 
+        public string ActionText
         {
             get { return this.actionText; }
-            set 
+            set
             {
                 if (this.actionText == value)
                     return;
@@ -65,10 +65,10 @@ namespace Samples.ViewModels
 
 
         string actionTextColor;
-        public string ActionTextColor 
+        public string ActionTextColor
         {
             get { return this.actionTextColor; }
-            set 
+            set
             {
                 if (this.actionTextColor == value)
                     return;
@@ -80,10 +80,10 @@ namespace Samples.ViewModels
 
 
         string messageTextColor;
-        public string MessageTextColor 
+        public string MessageTextColor
         {
             get { return this.messageTextColor; }
-            set 
+            set
             {
                 if (this.messageTextColor == value)
                     return;
@@ -95,10 +95,10 @@ namespace Samples.ViewModels
 
 
         string message;
-        public string Message 
+        public string Message
         {
             get { return this.message; }
-            set 
+            set
             {
                 if (this.message == value)
                     return;

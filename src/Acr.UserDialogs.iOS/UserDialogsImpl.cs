@@ -65,14 +65,14 @@ namespace Acr.UserDialogs
 
             if (config.MinimumDate != null)
                 picker.MinimumDateTime = config.MinimumDate;
-            
+
             return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
         }
 
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            var picker = new AI.AIDatePickerController 
+            var picker = new AI.AIDatePickerController
             {
                 Mode = UIDatePickerMode.Time,
                 MinuteInterval = config.MinuteInterval,
@@ -170,29 +170,16 @@ namespace Acr.UserDialogs
             };
             snackbar.MessageLabel.BackgroundColor = cfg.MessageTextColor.ToNative();
 
-            if (cfg.PrimaryAction != null)
+            if (cfg.Action != null)
             {
-                var color = cfg.PrimaryAction.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
+                var color = cfg.Action.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
 
-                snackbar.ActionText = cfg.PrimaryAction.Text;
+                snackbar.ActionText = cfg.Action.Text;
                 snackbar.ActionButton.SetTitleColor(color.ToNative(), UIControlState.Normal);
-                snackbar.ActionBlock = x => 
+                snackbar.ActionBlock = x =>
                 {
                     snackbar.Dismiss();
-                    cfg.PrimaryAction.Action?.Invoke();
-                };
-            }
-
-            if (cfg.SecondaryAction != null)
-            {
-                var color = cfg.SecondaryAction.TextColor ?? ToastConfig.DefaultSecondaryTextColor;
-
-                snackbar.SecondActionText = cfg.SecondaryAction.Text;
-                snackbar.SecondActionButton.SetTitleColor(color.ToNative(), UIControlState.Normal);
-                snackbar.SecondActionBlock = x => 
-                {
-                    snackbar.Dismiss();
-                    cfg.SecondaryAction.Action?.Invoke();
+                    cfg.Action.Action?.Invoke();
                 };
             }
 

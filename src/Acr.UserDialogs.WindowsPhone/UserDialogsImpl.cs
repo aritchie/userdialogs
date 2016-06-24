@@ -248,7 +248,7 @@ namespace Acr.UserDialogs
             wrapper.Tap += (sender, args) =>
             {
                 close();
-                cfg.PrimaryAction?.Action?.Invoke();
+                cfg.Action.Action?.Invoke();
             };
 
             Task.Delay(cfg.Duration)

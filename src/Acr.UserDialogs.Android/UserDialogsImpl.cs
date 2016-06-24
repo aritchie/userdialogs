@@ -173,14 +173,14 @@ namespace Acr.UserDialogs
                 (int)cfg.Duration.TotalMilliseconds
             );
 
-            if (cfg.PrimaryAction != null)
+            if (cfg.Action != null)
             {
-                snackBar.SetAction(cfg.PrimaryAction.Text, x =>
+                snackBar.SetAction(cfg.Action.Text, x =>
                 {
-                    cfg.PrimaryAction.Action?.Invoke();
+                    cfg.Action.Action?.Invoke();
                     snackBar.Dismiss();
                 });
-                var color = cfg.PrimaryAction.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
+                var color = cfg.Action.TextColor ?? ToastConfig.DefaultPrimaryTextColor;
                 snackBar.SetActionTextColor(color.ToNative());
             }
 
@@ -216,7 +216,7 @@ namespace Acr.UserDialogs
                     () =>
                     {
                         AndHUD.Shared.Dismiss();
-                        cfg.PrimaryAction.Action?.Invoke();
+                        cfg.Action.Action?.Invoke();
                     }
                 );
             });
