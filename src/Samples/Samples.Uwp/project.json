@@ -1,12 +1,12 @@
 ﻿{
   "dependencies": {
-    "Coding4Fun.Toolkit.Controls": "2.1.7",
-    "Microsoft.ApplicationInsights": "1.2.3",
+    "Coding4Fun.Toolkit.Controls": "2.1.8",
+    "Microsoft.ApplicationInsights": "2.1.0",
     "Microsoft.ApplicationInsights.PersistenceChannel": "1.2.3",
-    "Microsoft.ApplicationInsights.WindowsApps": "1.1.0",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "Microsoft.ApplicationInsights.WindowsApps": "1.1.1",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
     "Splat": "1.6.2",
-    "Xamarin.Forms": "2.2.0.31"
+    "Xamarin.Forms": "2.3.0.49"
   },
   "frameworks": {
     "uap10.0": {}
