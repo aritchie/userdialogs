@@ -26,7 +26,8 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 ## Support Platforms
 
-* Xamarin (iOS Unified/Android)
+* iOS 7+
+* Android
 * Universal Windows Platform (Win10/UWP)
 * Portable Class Libraries (Profile 259)
 

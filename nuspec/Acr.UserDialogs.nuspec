@@ -21,7 +21,8 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 On android, be sure to call UserDialogs.Init() before using!
 
 Supported Platforms
-- Xamarin (iOS Unified/Android)
+- iOS 7+
+- Android
 - Universal Windows Platform (Win10/UWP)
 - Portable Class Libraries (Profile 259)
 - WP8/81 is here but UNSUPPORTED!

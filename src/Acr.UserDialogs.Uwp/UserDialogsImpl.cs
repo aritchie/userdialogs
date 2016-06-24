@@ -266,14 +266,16 @@ namespace Acr.UserDialogs
             var toast = new ToastPrompt
             {
                 Message = config.Message,
-                Foreground = new SolidColorBrush(config.MessageTextColor.ToNative()),
-                //Background = new SolidColorBrush(config.BackgroundColor.ToNative()),
-                //Title = config.Title ?? String.Empty,
-                //Message = config.Description,
                 //ImageSource = config.Icon?.ToNative(),
                 Stretch = Stretch.Fill,
                 MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
             };
+            if (config.MessageTextColor != null)
+                toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
+
+            if (config.BackgroundColor != null)
+                toast.Background = new SolidColorBrush(config.BackgroundColor.Value.ToNative());
+
             //toast.Completed += (sender, args) => {
             //    if (args.PopUpResult == PopUpResult.Ok)
             //        config.Action?.Invoke();
