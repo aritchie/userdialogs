@@ -141,11 +141,11 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Coding4Fun.Toolkit, Version=2.0.8.0, Culture=neutral, PublicKeyToken=c5fd7b72b1a17ce4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Coding4Fun.Toolkit.Controls.2.1.7\lib\wpa81\Coding4Fun.Toolkit.dll</HintPath>
+      <HintPath>..\packages\Coding4Fun.Toolkit.Controls.2.1.8\lib\wpa81\Coding4Fun.Toolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Coding4Fun.Toolkit.Controls, Version=2.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Coding4Fun.Toolkit.Controls.2.1.7\lib\wpa81\Coding4Fun.Toolkit.Controls.dll</HintPath>
+    <Reference Include="Coding4Fun.Toolkit.Controls, Version=2.1.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Coding4Fun.Toolkit.Controls.2.1.8\lib\wpa81\Coding4Fun.Toolkit.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -162,7 +162,6 @@
       <Name>Acr.UserDialogs.Interface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
