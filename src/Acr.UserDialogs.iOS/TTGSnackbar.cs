@@ -54,45 +54,13 @@ namespace TTG
 			}
 		}
 
-        /// Left margin. Default is 4
-        //private float _leftMargin = 4;
         public nfloat LeftMargin { get; set; } = 4;
-		//{
-		//	get { return leftMarginConstraint.Constant; }
-		//	set { 
-  //              leftMarginConstraint.Constant = value; 
-  //              this.LayoutIfNeeded(); 
-  //          }
-		//}
-
-        //nfloat _rightMargin = 4;
         public nfloat RightMargin { get; set; } = 4;
-		//{
-		//	get { return rightMarginConstraint.Constant; }
-		//	set { 
-  //              rightMarginConstraint.Constant = value; 
-  //              this.LayoutIfNeeded(); 
-  //          }
-		//}
+
 
         /// Bottom margin. Default is 4
         public nfloat BottomMargin { get; set; } = 4;
-        //{
-        //	get { return bottomMarginConstraint.Constant; }
-        //	set { 
-        //              bottomMarginConstraint.Constant = value; 
-        //              this.LayoutIfNeeded(); 
-        //          }
-        //}
-
-        //private nfloat _height = 44;
         public nfloat Height { get; set; } = 44;
-  //          get { return heightConstraint.Constant; }
-		//	set { 
-  //              heightConstraint.Constant = value; 
-  //              this.LayoutIfNeeded(); 
-  //          }
-		//}
 
 
 		public string Message
@@ -105,7 +73,8 @@ namespace TTG
         string actionText;
         public string ActionText {
             get { return actionText; }
-            set {
+            set 
+            {
                 actionText = value;
                 this.ActionButton.SetTitle(value, UIControlState.Normal);
             }
@@ -115,7 +84,8 @@ namespace TTG
         string secondActionText;
         public string SecondActionText {
             get { return secondActionText; }
-            set {
+            set 
+            {
                 secondActionText = value;
                 this.SecondActionButton.SetTitle (value, UIControlState.Normal);
             }
@@ -151,27 +121,28 @@ namespace TTG
             {
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 TextColor = UIColor.White,
-                Font = UIFont.BoldSystemFontOfSize (14),
+                Font = UIFont.SystemFontOfSize(14),
                 BackgroundColor = UIColor.Clear,
-                LineBreakMode = UILineBreakMode.CharacterWrap,
-                Lines = 2,
-                TextAlignment = UITextAlignment.Left
+                LineBreakMode = UILineBreakMode.WordWrap,
+                TextAlignment = UITextAlignment.Left,
+                Lines = 0
             };
 
-            this.AddSubview (this.MessageLabel);
+            this.AddSubview(this.MessageLabel);
 
             this.ActionButton = new UIButton 
             {
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 BackgroundColor = UIColor.Clear
             };
-            this.ActionButton.TitleLabel.Font = UIFont.BoldSystemFontOfSize (14);
+            this.ActionButton.TitleLabel.Font = UIFont.SystemFontOfSize(14);
             this.ActionButton.TitleLabel.AdjustsFontSizeToFitWidth = true;
             this.ActionButton.SetTitleColor (UIColor.White, UIControlState.Normal);
-            this.ActionButton.TouchUpInside += (s, e) => {
+            this.ActionButton.TouchUpInside += (s, e) => 
+            {
                 // there is a chance that user doesn't want to do anything here, he simply wants to dismiss
-                ActionBlock?.Invoke (this);
-                Dismiss ();
+                ActionBlock?.Invoke(this);
+                Dismiss();
             };
 
             this.AddSubview (this.ActionButton);
@@ -181,13 +152,13 @@ namespace TTG
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 BackgroundColor = UIColor.Clear
             };
-            this.SecondActionButton.TitleLabel.Font = UIFont.BoldSystemFontOfSize (14);
+            this.SecondActionButton.TitleLabel.Font = UIFont.BoldSystemFontOfSize(14);
             this.SecondActionButton.TitleLabel.AdjustsFontSizeToFitWidth = true;
-            //this.SecondActionButton.SetTitle (SecondActionText, UIControlState.Normal);
             this.SecondActionButton.SetTitleColor (UIColor.White, UIControlState.Normal);
-            this.SecondActionButton.TouchUpInside += (s, e) => {
-                SecondActionBlock?.Invoke (this);
-                Dismiss ();
+            this.SecondActionButton.TouchUpInside += (s, e) => 
+            {
+                SecondActionBlock?.Invoke(this);
+                Dismiss();
             };
 
             this.AddSubview (this.SecondActionButton);
@@ -201,21 +172,24 @@ namespace TTG
             this.AddSubview(this.seperateView);
 
             // Add constraints
-            var hConstraints = NSLayoutConstraint.FromVisualFormat (
+            var hConstraints = NSLayoutConstraint.FromVisualFormat(
                 "H:|-4-[messageLabel]-2-[seperateView(0.5)]-2-[actionButton]-0-[secondActionButton]-4-|",
-                0, new NSDictionary (),
-                NSDictionary.FromObjectsAndKeys (
-                    new NSObject [] {
+                0, 
+                new NSDictionary(),
+                NSDictionary.FromObjectsAndKeys(
+                    new NSObject[] {
                         MessageLabel,
                         seperateView,
                         ActionButton,
                         SecondActionButton
-                }, new NSObject [] {
-                    new NSString("messageLabel"),
-                    new NSString("seperateView"),
-                    new NSString("actionButton"),
-                    new NSString("secondActionButton")
-                })
+                    }, 
+                    new NSObject[] {
+                        new NSString("messageLabel"),
+                        new NSString("seperateView"),
+                        new NSString("actionButton"),
+                        new NSString("secondActionButton")
+                    }
+                )
             );
 
             var vConstraintsForMessageLabel = NSLayoutConstraint.FromVisualFormat (

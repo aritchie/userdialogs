@@ -54,7 +54,8 @@ namespace AI
 			{
 			    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
                 TintAdjustmentMode = UIViewTintAdjustmentMode.Dimmed,
-                BackgroundColor = UIColor.Black
+                BackgroundColor = UIColor.Black,
+                Alpha = 0.7F
 			};
 
 
