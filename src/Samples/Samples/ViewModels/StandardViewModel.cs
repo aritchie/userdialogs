@@ -113,6 +113,13 @@ namespace Samples.ViewModels
                 }, token);
                 this.Result($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
             });
+            this.Time24 = this.Create (async token => {
+                var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig {
+                    IsCancellable = true,
+                    Use24HourClock = true
+                }, token);
+                this.Result ($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
+            });
         }
 
 
@@ -147,6 +154,7 @@ namespace Samples.ViewModels
         public ICommand PromptNoTextOrCancel { get; }
         public ICommand Date { get; }
         public ICommand Time { get; }
+        public ICommand Time24 { get; }
 
 
         ICommand Create(Func<CancellationToken?, Task> action)

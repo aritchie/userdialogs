@@ -15,6 +15,7 @@
                     <TextCell Text="Confirm" Command="{Binding Confirm}" />
                     <TextCell Text="Date" Command="{Binding Date}" />
                     <TextCell Text="Time" Command="{Binding Time}" />
+					<TextCell Text="Time (24 Hour)" Command="{Binding Time24}" />
                     <TextCell Text="Login" Command="{Binding Login}" />
                     <TextCell Text="Prompt" Command="{Binding Prompt}" />
                     <TextCell Text="Prompt /w Text/No Cancel" Command="{Binding PromptNoTextOrCancel}" />

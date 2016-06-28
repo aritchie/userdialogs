@@ -5,21 +5,15 @@ namespace Acr.UserDialogs
 {
     public class TimePromptConfig
     {
-        public TimePromptConfig()
-        {
-            this.OkText = DefaultOkText;
-            this.CancelText = DefaultCancelText;
-            this.MinuteInterval = DefaultMinuteInterval;
-        }
-
-
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static int DefaultMinuteInterval { get; set; } = 1;
+        public static bool? DefaultUse24HourClock { get; set; }
 
         public string Title { get; set; }
-        public string OkText { get; set; }
-        public string CancelText { get; set; }
+        public string OkText { get; set; } = DefaultOkText;
+        public string CancelText { get; set; } = DefaultCancelText;
+        public bool? Use24HourClock { get; set; } = DefaultUse24HourClock;
         public TimeSpan? SelectedTime { get; set; }
 
         public Action<TimePromptResult> OnResult { get; set; }
@@ -38,6 +32,6 @@ namespace Acr.UserDialogs
         /// <summary>
         /// Only valid on iOS
         /// </summary>
-        public int MinuteInterval { get; set; }
+        public int MinuteInterval { get; set; } = DefaultMinuteInterval;
     }
 }

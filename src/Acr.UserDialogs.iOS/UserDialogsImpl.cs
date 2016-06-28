@@ -68,8 +68,9 @@ namespace Acr.UserDialogs
                 CancelText = config.CancelText,
                 Ok = x => config.OnResult(new TimePromptResult(true, x.SelectedDateTime.TimeOfDay)),
                 Cancel = x => config.OnResult(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
+                Use24HourClock = config.Use24HourClock
             };
-            return this.Present (UIApplication.SharedApplication.GetTopViewController(), picker);
+            return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
         }
 
 

@@ -15,13 +15,13 @@ namespace AI
         public DateTime? MinimumDateTime { get; set; }
 	    public int MinuteInterval { get; set; } = 1;
         public string OkText { get; set; }
+        public bool? Use24HourClock { get; set; }
         public Action<AIDatePickerController> Ok { get; set; }
         public string CancelText { get; set; }
         public Action<AIDatePickerController> Cancel { get; set; }
 
 	    public float FontSize { get; set; } = 16;
 		public NSDateFormatter DateFormatter { get; set; } = new NSDateFormatter();
-
 
 	    UIView dimmedView;
 
@@ -34,8 +34,6 @@ namespace AI
 			this.TransitioningDelegate = this;
             this.View.BackgroundColor = UIColor.Clear;
 
-
-			// Date Picker
 			var datePicker = new UIDatePicker
 			{
                 TranslatesAutoresizingMaskIntoConstraints = false,
@@ -44,6 +42,9 @@ namespace AI
                 Mode = Mode,
                 MinuteInterval = MinuteInterval
 			};
+            if (Use24HourClock == true)
+                datePicker.Locale = NSLocale.FromLocaleIdentifier("NL");
+            
 		    if (MinimumDateTime != null)
 		        datePicker.MinimumDate = MinimumDateTime.Value.ToNSDate();
 
