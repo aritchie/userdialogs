@@ -23,7 +23,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
-            var sheet = this.CreateNativeActionSheet (config);
+            var sheet = this.CreateNativeActionSheet(config);
             return this.Present(sheet);
         }
 
@@ -166,7 +166,7 @@ namespace Acr.UserDialogs
             {
                 var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
                 if (color != null)
-                    snackbar.ActionButton.SetTitleColor (color.Value.ToNative (), UIControlState.Normal);
+                    snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
                 
                 snackbar.ActionText = cfg.Action.Text;
                 snackbar.ActionBlock = x =>
@@ -229,15 +229,15 @@ namespace Acr.UserDialogs
 
         protected virtual UIAlertController CreateNativeActionSheet (ActionSheetConfig config)
         {
-            var sheet = UIAlertController.Create (config.Title, null, UIAlertControllerStyle.ActionSheet);
+            var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
 
             if (config.Destructive != null)
-                this.AddActionSheetOption (config.Destructive, sheet, UIAlertActionStyle.Destructive);
+                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
 
             config
                 .Options
-                .ToList ()
-                .ForEach (x => this.AddActionSheetOption (x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
+                .ToList()
+                .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
 
             if (config.Cancel != null)
                 this.AddActionSheetOption (config.Cancel, sheet, UIAlertActionStyle.Cancel);

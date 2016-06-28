@@ -9,6 +9,7 @@ namespace Acr.UserDialogs
     public class ActionSheetConfig : IAndroidStyleDialogConfig
     {
         public static int? DefaultAndroidStyleId { get; set; }
+        public static bool DefaultUseOriginalAndroidSheet { get; set; }
 
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static string DefaultDestructiveText { get; set; } = "Remove";
@@ -20,6 +21,8 @@ namespace Acr.UserDialogs
         public ActionSheetOption Destructive { get; set; }
         public IList<ActionSheetOption> Options { get; set; } = new List<ActionSheetOption>();
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
+        public bool UseOriginalAndroidSheet { get; set; } = DefaultUseOriginalAndroidSheet;
+
 
         /// <summary>
         /// This icon is applied to the list items, not to destructive or cancel
@@ -34,16 +37,16 @@ namespace Acr.UserDialogs
         }
 
 
-        public ActionSheetConfig SetCancel(string text = null, Action action = null)
+        public ActionSheetConfig SetCancel(string text = null, Action action = null, IBitmap icon = null)
         {
-            this.Cancel = new ActionSheetOption(text ?? DefaultCancelText, action);
+            this.Cancel = new ActionSheetOption(text ?? DefaultCancelText, action, icon);
             return this;
         }
 
 
-        public ActionSheetConfig SetDestructive(string text = null, Action action = null)
+        public ActionSheetConfig SetDestructive(string text = null, Action action = null, IBitmap icon = null)
         {
-            this.Destructive = new ActionSheetOption(text ?? DefaultDestructiveText, action);
+            this.Destructive = new ActionSheetOption(text ?? DefaultDestructiveText, action, icon);
             return this;
         }
 

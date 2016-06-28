@@ -61,7 +61,9 @@ namespace Acr.UserDialogs.Fragments
                 Orientation = Orientation.Horizontal,
                 LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(48))
             };
-            row.AddView(this.GetIcon(action.ItemIcon));
+            if (action.ItemIcon != null)
+                row.AddView(this.GetIcon(action.ItemIcon));
+            
             row.AddView(this.GetText(action.Text, isDestructive));
             row.Click += (sender, args) =>
             {
@@ -74,14 +76,15 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual TextView GetHeaderText(string text)
         {
-            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent) 
+            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(56)) 
             {
                 LeftMargin = this.DpToPixels(16)
             };
             var txt = new TextView(this.Activity)
             {
                 Text = text,
-                LayoutParameters = layout
+                LayoutParameters = layout,
+                Gravity = GravityFlags.CenterVertical
             };
             txt.SetTextSize(ComplexUnitType.Sp, 16);
             return txt;
@@ -100,7 +103,8 @@ namespace Acr.UserDialogs.Fragments
             var txt = new TextView(this.Activity) 
             {
                 Text = text,
-                LayoutParameters = layout
+                LayoutParameters = layout,
+                Gravity = GravityFlags.CenterVertical
             };
             txt.SetTextSize(ComplexUnitType.Sp, 16);
             if (isDestructive)
@@ -112,12 +116,13 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual ImageView GetIcon(IBitmap icon)
         {
-            var layout = new LinearLayout.LayoutParams(this.DpToPixels(24), this.DpToPixels(24)) {
-                Gravity = GravityFlags.CenterVertical,
+            var layout = new LinearLayout.LayoutParams(this.DpToPixels(24), this.DpToPixels(24)) 
+            {
                 TopMargin = this.DpToPixels(8),
                 BottomMargin = this.DpToPixels(8),
                 LeftMargin = this.DpToPixels(16),
-                RightMargin = this.DpToPixels(16)
+                RightMargin = this.DpToPixels(16),
+                Gravity = GravityFlags.Center
             };
 
             var img = new ImageView(this.Activity)
@@ -135,7 +140,7 @@ namespace Acr.UserDialogs.Fragments
         {
             var view = new View(this.Activity)
             {
-                Background = new ColorDrawable(System.Drawing.Color.DarkGray.ToNative()),
+                Background = new ColorDrawable(System.Drawing.Color.LightGray.ToNative()),
                 LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(1))
             };
             view.SetPadding(0, this.DpToPixels(7), 0, this.DpToPixels(8));

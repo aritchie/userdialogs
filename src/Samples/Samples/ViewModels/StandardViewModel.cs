@@ -37,8 +37,8 @@ namespace Samples.ViewModels
                         testImage
                     );
                 }
-                cfg.SetDestructive(action: () => this.Result("Destructive BOOM Selected"));
-                cfg.SetCancel(action: () => this.Result("Cancel Selected"));
+                cfg.SetDestructive(null, () => this.Result("Destructive BOOM Selected"), testImage);
+                cfg.SetCancel(null, () => this.Result("Cancel Selected"), testImage);
 
                 var disp = this.Dialogs.ActionSheet(cfg);
                 if (this.AutoCancel)
