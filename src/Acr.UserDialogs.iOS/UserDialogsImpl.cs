@@ -23,19 +23,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
-            var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
-
-            if (config.Destructive != null)
-                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
-
-            config
-                .Options
-                .ToList()
-                .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
-
-            if (config.Cancel != null)
-                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
-
+            var sheet = this.CreateNativeActionSheet (config);
             return this.Present(sheet);
         }
 
@@ -51,7 +39,8 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var picker = new AI.AIDatePickerController {
+            var picker = new AI.AIDatePickerController 
+            {
                 Mode = UIDatePickerMode.Date,
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
@@ -237,6 +226,24 @@ namespace Acr.UserDialogs
             this.currentOverlay = null;
         }
 
+
+        protected virtual UIAlertController CreateNativeActionSheet (ActionSheetConfig config)
+        {
+            var sheet = UIAlertController.Create (config.Title, null, UIAlertControllerStyle.ActionSheet);
+
+            if (config.Destructive != null)
+                this.AddActionSheetOption (config.Destructive, sheet, UIAlertActionStyle.Destructive);
+
+            config
+                .Options
+                .ToList ()
+                .ForEach (x => this.AddActionSheetOption (x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
+
+            if (config.Cancel != null)
+                this.AddActionSheetOption (config.Cancel, sheet, UIAlertActionStyle.Cancel);
+
+            return sheet;
+        }
 
         protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
         {

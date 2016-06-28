@@ -1,5 +1,6 @@
 using System;
 using Android.App;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.Design.Widget;
 using Android.Util;
@@ -23,32 +24,28 @@ namespace Acr.UserDialogs.Fragments
         protected override Dialog CreateDialog(ActionSheetConfig config)
         {
             var dlg = new BottomSheetDialog(this.Activity);
-
             var layout = new LinearLayout(this.Activity)
             {
                 Orientation = Orientation.Vertical
             };
-            layout.LayoutParameters.Height = this.DpToPixels(56);
 
             if (!String.IsNullOrWhiteSpace(config.Title))
-            {
                 layout.AddView(this.GetHeaderText(config.Title));
-            }
 
             foreach (var action in config.Options)
-                layout.AddView(this.CreateRow(action));
+                layout.AddView(this.CreateRow(action, false));
 
             if (config.Destructive != null)
             {
                 layout.AddView(this.CreateDivider());
-                layout.AddView(this.CreateRow(config.Destructive));
+                layout.AddView(this.CreateRow(config.Destructive, true));
             }
             if (config.Cancel != null)
             {
                 if (config.Destructive == null)
                     layout.AddView(this.CreateDivider());
 
-                layout.AddView(this.CreateRow(config.Cancel));
+                layout.AddView(this.CreateRow(config.Cancel, false));
             }
             dlg.SetContentView(layout);
             dlg.SetCancelable(false);
@@ -56,7 +53,7 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
-        protected virtual View CreateRow(ActionSheetOption action)
+        protected virtual View CreateRow(ActionSheetOption action, bool isDestructive)
         {
             var row = new LinearLayout(this.Activity)
             {
@@ -65,7 +62,7 @@ namespace Acr.UserDialogs.Fragments
                 LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(48))
             };
             row.AddView(this.GetIcon(action.ItemIcon));
-            row.AddView(this.GetText(action.Text));
+            row.AddView(this.GetText(action.Text, isDestructive));
             row.Click += (sender, args) =>
             {
                 action.Action?.Invoke();
@@ -75,74 +72,81 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
-        protected virtual TextView GetText(string text)
+        protected virtual TextView GetHeaderText(string text)
         {
-            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent)
+            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent) 
             {
-                Gravity = GravityFlags.CenterVertical
+                LeftMargin = this.DpToPixels(16)
             };
-            layout.SetMargins(this.DpToPixels(16), 0, this.DpToPixels(16), 0);
-
-            return new TextView(this.Activity)
+            var txt = new TextView(this.Activity)
             {
                 Text = text,
-                TextSize = 16,
                 LayoutParameters = layout
             };
+            txt.SetTextSize(ComplexUnitType.Sp, 16);
+            return txt;
         }
 
 
-        protected virtual TextView GetHeaderText(string text)
+        protected virtual TextView GetText(string text, bool isDestructive)
         {
-            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent)
+            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent) 
             {
-                Gravity = GravityFlags.CenterVertical
+                TopMargin = this.DpToPixels(8),
+                BottomMargin = this.DpToPixels(8),
+                LeftMargin = this.DpToPixels(16)
             };
-            layout.SetMargins(this.DpToPixels(16), 0, this.DpToPixels(16), 0);
 
-            return new TextView(this.Activity)
+            var txt = new TextView(this.Activity) 
             {
                 Text = text,
-                TextSize = 32,
                 LayoutParameters = layout
             };
+            txt.SetTextSize(ComplexUnitType.Sp, 16);
+            if (isDestructive)
+                txt.SetTextColor(Color.Red);
+
+            return txt;
         }
 
 
         protected virtual ImageView GetIcon(IBitmap icon)
         {
-            var layout = new LinearLayout.LayoutParams(this.DpToPixels(24), this.DpToPixels(24))
-            {
-               Gravity = GravityFlags.CenterVertical
+            var layout = new LinearLayout.LayoutParams(this.DpToPixels(24), this.DpToPixels(24)) {
+                Gravity = GravityFlags.CenterVertical,
+                TopMargin = this.DpToPixels(8),
+                BottomMargin = this.DpToPixels(8),
+                LeftMargin = this.DpToPixels(16),
+                RightMargin = this.DpToPixels(16)
             };
-            layout.SetMargins(this.DpToPixels(16), 0, this.DpToPixels(16), 0);
 
             var img = new ImageView(this.Activity)
             {
                 LayoutParameters = layout
             };
             if (icon != null)
-            {
                 img.SetImageDrawable(icon.ToNative());
-            }
+
             return img;
         }
 
 
         protected virtual View CreateDivider()
         {
-            return new View(this.Activity)
+            var view = new View(this.Activity)
             {
                 Background = new ColorDrawable(System.Drawing.Color.DarkGray.ToNative()),
                 LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(1))
             };
+            view.SetPadding(0, this.DpToPixels(7), 0, this.DpToPixels(8));
+            return view;
         }
 
 
         protected virtual int DpToPixels(int dp)
         {
-            var px = dp * ((int)this.Activity.Resources.DisplayMetrics.DensityDpi / (int)DisplayMetrics.DensityDefault);
-            return Convert.ToInt32(px);
+            var value = TypedValue.ApplyDimension(ComplexUnitType.Dip, dp, this.Activity.Resources.DisplayMetrics);
+            return Convert.ToInt32(value);
         }
 
         /*

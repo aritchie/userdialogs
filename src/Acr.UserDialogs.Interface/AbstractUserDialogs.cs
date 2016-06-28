@@ -31,8 +31,8 @@ namespace Acr.UserDialogs
             if (title != null)
                 cfg.Title = title;
 
-            if (cancel != null)
-                cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
+            // you must have a cancel option for actionsheetasync
+            cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
 
             if (destructive != null)
                 cfg.SetDestructive(destructive, () => tcs.TrySetResult(destructive));
