@@ -1,7 +1,9 @@
 using System;
 using Android.App;
+using Android.Text.Format;
 using Android.Widget;
 using Java.Lang;
+using Boolean = Java.Lang.Boolean;
 
 
 namespace Acr.UserDialogs.Builders
@@ -22,6 +24,9 @@ namespace Acr.UserDialogs.Builders
                 picker.CurrentHour = new Integer(config.SelectedTime.Value.Hours);
                 picker.CurrentMinute = new Integer(config.SelectedTime.Value.Minutes);
             }
+
+            var is24Hours = DateFormat.Is24HourFormat(activity);
+            picker.SetIs24HourView(new Boolean(is24Hours));
 
             if (config.IsCancellable)
             {
