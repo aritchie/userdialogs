@@ -139,7 +139,8 @@ namespace Samples.ViewModels
             return new Command(() =>
             {
                 var cfg = new ActionSheetConfig()
-                    .SetTitle("Test Title");
+                    .SetTitle("Test Title")
+                    .SetUseBottomSheet(useBottomSheet);
 
                 var testImage = BitmapLoader.Current.LoadFromResource("icon.png", null, null).Result;
 
