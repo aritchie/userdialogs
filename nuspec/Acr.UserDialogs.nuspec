@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.0.0-beta3</version>
+        <version>6.0.0-betar</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -74,7 +74,7 @@ This is a new version due to breaking changes
 [BREAKING][feature][ios] New snackbar for old toast setup that everyone complained about (thanks to Marc Bruins - https://github.com/MarcBruins)
 [feature][ios] Better looking date/time picker (thanks to Marc Bruins - https://github.com/MarcBruins)
 [feature] Toasts are also dismissable from code now (via disposable)
-[feature][droid] Actionsheets now look like actionsheets via the bottomsheet from the design library
+[feature][droid] Make actionsheets look like bottomsheets from the design library - Set ActionSheetConfig.UseBottomSheet = true
 [feature][droid] Ability to set style on alert based dialogs using AndroidStyleId
 [fix][ios] destruction button should be at the top on iOS actionsheets
 [fix][droid] fixes for fragment dialogs
