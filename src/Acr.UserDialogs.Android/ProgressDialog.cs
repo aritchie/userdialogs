@@ -84,7 +84,14 @@ namespace Acr.UserDialogs
         public virtual void Hide()
         {
             this.IsShowing = false;
-            this.activity.RunOnUiThread(() => AndHUD.Shared.Dismiss(this.activity));
+            this.activity.RunOnUiThread(() =>
+            {
+                try
+                {
+                    AndHUD.Shared.Dismiss(this.activity);
+                }
+                catch { }
+            });
         }
 
         #endregion
