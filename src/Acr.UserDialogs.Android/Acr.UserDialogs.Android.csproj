@@ -97,6 +97,7 @@
     <Compile Include="Fragments\AlertDialogFragment.cs" />
     <Compile Include="Fragments\BottomSheetDialogFragment.cs" />
     <Compile Include="Fragments\ConfirmDialogFragment.cs" />
+    <Compile Include="Fragments\LoadingFragment.cs" />
     <Compile Include="Fragments\TimeDialogFragment.cs" />
     <Compile Include="Fragments\DateDialogFragment.cs" />
     <Compile Include="Fragments\ConfigStore.cs" />
