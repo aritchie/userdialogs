@@ -12,6 +12,7 @@
                     <TextCell Text="Alert (Long Text)" Command="{Binding AlertLongText}" />
                     <TextCell Text="ActionSheet" Command="{Binding ActionSheet}" />
                     <TextCell Text="ActionSheet (async)" Command="{Binding ActionSheetAsync}" />
+                    <TextCell Text="Bottom Sheet (Android Only)" Command="{Binding BottomSheet}" />
                     <TextCell Text="Confirm" Command="{Binding Confirm}" />
                     <TextCell Text="Date" Command="{Binding Date}" />
                     <TextCell Text="Time" Command="{Binding Time}" />

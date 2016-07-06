@@ -44,10 +44,10 @@ namespace Acr.UserDialogs
         {
             var activity = this.TopActivityFunc();
             if (activity is AppCompatActivity) {
-                if (config.UseOriginalAndroidSheet)
-                    return this.ShowDialog<ActionSheetAppCompatDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);      
-             
-                return this.ShowDialog<Fragments.BottomSheetDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
+                if (config.UseBottomSheet)
+                    return this.ShowDialog<Fragments.BottomSheetDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
+
+                return this.ShowDialog<ActionSheetAppCompatDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
             }
 
             if (activity is FragmentActivity)
@@ -176,8 +176,8 @@ namespace Acr.UserDialogs
                 (int)cfg.Duration.TotalMilliseconds
             );
             if (cfg.BackgroundColor != null)
-                snackBar.View.SetBackgroundColor (cfg.BackgroundColor.Value.ToNative ());
-            
+                snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative ());
+
             if (cfg.Action != null)
             {
                 snackBar.SetAction(cfg.Action.Text, x =>
@@ -288,6 +288,6 @@ namespace Acr.UserDialogs
             );
         }
 
-    #endregion
+        #endregion
     }
 }

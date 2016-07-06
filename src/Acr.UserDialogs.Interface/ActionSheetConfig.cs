@@ -9,7 +9,7 @@ namespace Acr.UserDialogs
     public class ActionSheetConfig : IAndroidStyleDialogConfig
     {
         public static int? DefaultAndroidStyleId { get; set; }
-        public static bool DefaultUseOriginalAndroidSheet { get; set; }
+        public static bool DefaultUseBottomSheet { get; set; }
 
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static string DefaultDestructiveText { get; set; } = "Remove";
@@ -21,7 +21,11 @@ namespace Acr.UserDialogs
         public ActionSheetOption Destructive { get; set; }
         public IList<ActionSheetOption> Options { get; set; } = new List<ActionSheetOption>();
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
-        public bool UseOriginalAndroidSheet { get; set; } = DefaultUseOriginalAndroidSheet;
+
+        /// <summary>
+        /// This only currently applies to android
+        /// </summary>
+        public bool UseBottomSheet { get; set; } = DefaultUseBottomSheet;
 
 
         /// <summary>
@@ -33,6 +37,13 @@ namespace Acr.UserDialogs
         public ActionSheetConfig SetTitle(string title)
         {
             this.Title = title;
+            return this;
+        }
+
+
+        public ActionSheetConfig SetUseBottomSheet(bool useBottomSheet)
+        {
+            this.UseBottomSheet = useBottomSheet;
             return this;
         }
 
