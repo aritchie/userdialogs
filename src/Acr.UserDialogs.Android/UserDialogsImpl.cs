@@ -9,7 +9,6 @@ using Android.Support.V4.App;
 using Android.Text;
 using AndroidHUD;
 using Splat;
-using System.Threading;
 
 namespace Acr.UserDialogs
 {
@@ -36,7 +35,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new AlertBuilder().Build(activity, config).Create());
+            return this.Show(activity, new AlertBuilder().Build(activity, config));
         }
 
 
@@ -53,7 +52,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new ActionSheetBuilder().Build(activity, config).Create());
+            return this.Show(activity, new ActionSheetBuilder().Build(activity, config));
         }
 
 
@@ -66,7 +65,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new ConfirmBuilder().Build(activity, config).Create());
+            return this.Show(activity, new ConfirmBuilder().Build(activity, config));
         }
 
 
@@ -79,7 +78,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<DateDialogFragment, DatePromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, DatePromptBuilder.Build(activity, config));
+            return this.Show(activity, () => DatePromptBuilder.Build(activity, config));
         }
 
 
@@ -92,7 +91,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new LoginBuilder().Build(activity, config).Create());
+            return this.Show(activity, new LoginBuilder().Build(activity, config));
         }
 
 
@@ -105,7 +104,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new PromptBuilder().Build(activity, config).Create());
+            return this.Show(activity, new PromptBuilder().Build(activity, config));
         }
 
 
@@ -118,7 +117,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<TimeDialogFragment, TimePromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, TimePromptBuilder.Build(activity, config));
+            return this.Show(activity, () => TimePromptBuilder.Build(activity, config));
         }
 
         #endregion
@@ -211,40 +210,24 @@ namespace Acr.UserDialogs
 
         protected virtual IDisposable ToastFallback(Activity activity, ToastConfig cfg)
         {
-            activity.RunOnUiThread(() =>
-            {
-                AndHUD.Shared.ShowToast(
-                    activity,
-                    cfg.Message,
-                    AndroidHUD.MaskType.None,
-                    cfg.Duration,
-                    false,
-                    () =>
-                    {
-                        AndHUD.Shared.Dismiss();
-                        cfg.Action.Action?.Invoke();
-                    }
-                );
-            });
-            return new DisposableAction(() =>
-                activity.RunOnUiThread(() =>
-                    AndHUD.Shared.Dismiss(activity)
-                )
+            AndHUD.Shared.ShowToast(
+                activity,
+                cfg.Message,
+                AndroidHUD.MaskType.None,
+                cfg.Duration,
+                false,
+                () =>
+                {
+                    AndHUD.Shared.Dismiss();
+                    cfg.Action.Action?.Invoke();
+                }
             );
+            return new DisposableAction(() => AndHUD.Shared.Dismiss(activity));
         }
 
         #endregion
 
         #region Internals
-
-        protected virtual void RunOnUiThread(Action action) 
-        {
-            if (Android.App.Application.SynchronizationContext == SynchronizationContext.Current)
-                action();
-            else
-                Android.App.Application.SynchronizationContext.Post(_ => action(), null);            
-        }
-
 
         protected override IProgressDialog CreateDialogInstance()
         {
@@ -252,9 +235,14 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual IDisposable Show(Activity activity, Dialog dialog)
+        protected virtual IDisposable Show(Activity activity, Func<Dialog> dialogBuilder)
         {
-            activity.RunOnUiThread(dialog.Show);
+            Dialog dialog = null;
+            activity.RunOnUiThread(() =>
+            {
+                dialog = dialogBuilder();
+                dialog.Show();
+            });
             return new DisposableAction(() =>
                 activity.RunOnUiThread(dialog.Dismiss)
             );
@@ -263,13 +251,17 @@ namespace Acr.UserDialogs
 
         protected virtual IDisposable Show(Activity activity, Android.App.AlertDialog.Builder builder)
         {
-            var dialog = builder.Create();
-            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            //activity.RunOnUiThread(dialog.Show);
-            this.RunOnUiThread(dialog.Show);
+            // you must create the dialog on the same thread as you show it
+            Android.App.AlertDialog dialog = null;
+            activity.RunOnUiThread(() =>
+            {
+                dialog = builder.Create();
+                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+                dialog.Show();
+            });
+
             return new DisposableAction(() =>
-                //activity.RunOnUiThread(dialog.Dismiss)
-                this.RunOnUiThread(dialog.Dismiss)
+                activity.RunOnUiThread(dialog.Dismiss)
             );
         }
 
