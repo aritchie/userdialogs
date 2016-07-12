@@ -16,7 +16,8 @@ namespace Samples.Droid.Classic
             base.OnCreate(bundle);
             Forms.Init(this, bundle);
 
-            UserDialogs.Init(this);
+            //UserDialogs.Init(this);
+            UserDialogs.Init(() => (Activity)Forms.Context);
             this.LoadApplication(new App());
         }
     }

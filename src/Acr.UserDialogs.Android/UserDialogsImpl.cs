@@ -9,7 +9,7 @@ using Android.Support.V4.App;
 using Android.Text;
 using AndroidHUD;
 using Splat;
-
+using System.Threading;
 
 namespace Acr.UserDialogs
 {
@@ -237,6 +237,15 @@ namespace Acr.UserDialogs
 
         #region Internals
 
+        protected virtual void RunOnUiThread(Action action) 
+        {
+            if (Android.App.Application.SynchronizationContext == SynchronizationContext.Current)
+                action();
+            else
+                Android.App.Application.SynchronizationContext.Post(_ => action(), null);            
+        }
+
+
         protected override IProgressDialog CreateDialogInstance()
         {
             return new ProgressDialog(this.TopActivityFunc());
@@ -256,9 +265,11 @@ namespace Acr.UserDialogs
         {
             var dialog = builder.Create();
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            activity.RunOnUiThread(dialog.Show);
+            //activity.RunOnUiThread(dialog.Show);
+            this.RunOnUiThread(dialog.Show);
             return new DisposableAction(() =>
-                activity.RunOnUiThread(dialog.Dismiss)
+                //activity.RunOnUiThread(dialog.Dismiss)
+                this.RunOnUiThread(dialog.Dismiss)
             );
         }
 
