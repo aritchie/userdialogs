@@ -8,7 +8,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Samples.Droid.Classic
 {
-    [Activity(Label = "Samples.Droid.Classic", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "ACR User Dialogs (Classic)", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)

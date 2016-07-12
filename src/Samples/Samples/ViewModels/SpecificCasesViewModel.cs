@@ -23,11 +23,7 @@ namespace Samples.ViewModels
             {
                 this.Dialogs.ShowLoading("You really shouldn't use ShowLoading");
                 Task.Delay(TimeSpan.FromSeconds(2))
-                    .ContinueWith(x =>
-                    {
-                        this.Dialogs.HideLoading();
-                        this.Dialogs.Alert("Do you see me?");
-                    });
+                    .ContinueWith(x => this.Dialogs.Alert("Do you see me?"));
             });
         }
 

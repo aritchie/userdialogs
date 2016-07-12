@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -142,7 +143,15 @@ namespace Samples.ViewModels
                     .SetTitle("Test Title")
                     .SetUseBottomSheet(useBottomSheet);
 
-                var testImage = BitmapLoader.Current.LoadFromResource("icon.png", null, null).Result;
+                IBitmap testImage = null;
+                try
+                {
+                    testImage = BitmapLoader.Current.LoadFromResource("icon.png", null, null).Result;
+                }
+                catch
+                {
+                    Debug.WriteLine("Could not load image");
+                }
 
                 for (var i = 0; i < 5; i++)
                 {
