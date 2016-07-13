@@ -1,61 +1,65 @@
 ﻿using System;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class ConfirmConfig {
+    public class ConfirmConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
+    {
         public static string DefaultYes { get; set; } = "Yes";
         public static string DefaultNo { get; set; } = "No";
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
+        public static int? DefaultAndroidStyleId { get; set; }
 
 
         public string Title { get; set; }
         public string Message { get; set; }
+        public int? AndroidStyleId { get; set; }
         public Action<bool> OnConfirm { get; set; }
 
-        public string OkText { get; set; }
-        public string CancelText { get; set; }
+        public string OkText { get; set; } = DefaultOkText;
+        public string CancelText { get; set; } = DefaultCancelText;
 
 
-        public ConfirmConfig() {
-            this.OkText = DefaultOkText;
-            this.CancelText = DefaultCancelText;
-        }
-
-
-        public ConfirmConfig UseYesNo() {
+        public ConfirmConfig UseYesNo()
+        {
             this.OkText = DefaultYes;
             this.CancelText = DefaultNo;
             return this;
         }
 
 
-        public ConfirmConfig SetTitle(string title) {
+        public ConfirmConfig SetTitle(string title)
+        {
             this.Title = title;
             return this;
         }
 
 
-        public ConfirmConfig SetMessage(string message) {
+        public ConfirmConfig SetMessage(string message)
+        {
             this.Message = message;
             return this;
         }
 
 
-        public ConfirmConfig SetOkText(string text) {
+        public ConfirmConfig SetOkText(string text)
+        {
             this.OkText = text;
             return this;
         }
 
 
-        public ConfirmConfig SetAction(Action<bool> onConfirm) {
+        public ConfirmConfig SetAction(Action<bool> onConfirm)
+        {
             this.OnConfirm = onConfirm;
             return this;
         }
 
 
-        public ConfirmConfig SetCancelText(string text) {
+        public ConfirmConfig SetCancelText(string text)
+        {
             this.CancelText = text;
             return this;
         }

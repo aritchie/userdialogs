@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,32 +22,8 @@ namespace Samples.ViewModels
                 )
             );
 
-            this.ActionSheet = new Command(() =>
-            {
-                var cfg = new ActionSheetConfig()
-                    .SetTitle("Test Title");
-
-                //var testImage = BitmapLoader.Current.LoadFromResource("icon.png", null, null).Result;
-
-                for (var i = 0; i < 5; i++)
-                {
-                    var display = (i + 1);
-                    cfg.Add(
-                        "Option " + display,
-                        () => this.Result($"Option {display} Selected")
-                        //testImage
-                    );
-                }
-                cfg.SetDestructive(action: () => this.Result("Destructive BOOM Selected"));
-                cfg.SetCancel(action: () => this.Result("Cancel Selected"));
-
-                var disp = this.Dialogs.ActionSheet(cfg);
-                if (this.AutoCancel)
-                {
-                    Task.Delay(TimeSpan.FromSeconds(3))
-                        .ContinueWith(x => disp.Dispose());
-                }
-            });
+            this.ActionSheet = this.CreateActionSheetCommand(false);
+            this.BottomSheet = this.CreateActionSheetCommand(true);
 
             this.ActionSheetAsync = this.Create(async token =>
             {
@@ -113,6 +90,13 @@ namespace Samples.ViewModels
                 }, token);
                 this.Result($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
             });
+            this.Time24 = this.Create (async token => {
+                var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig {
+                    IsCancellable = true,
+                    Use24HourClock = true
+                }, token);
+                this.Result ($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
+            });
         }
 
 
@@ -141,12 +125,54 @@ namespace Samples.ViewModels
         public ICommand AlertLongText { get; }
         public ICommand ActionSheet { get; }
         public ICommand ActionSheetAsync { get; }
+        public ICommand BottomSheet { get; }
         public ICommand Confirm { get; }
         public ICommand Login { get; }
         public ICommand Prompt { get; }
         public ICommand PromptNoTextOrCancel { get; }
         public ICommand Date { get; }
         public ICommand Time { get; }
+        public ICommand Time24 { get; }
+
+
+        ICommand CreateActionSheetCommand(bool useBottomSheet)
+        {
+            return new Command(() =>
+            {
+                var cfg = new ActionSheetConfig()
+                    .SetTitle("Test Title")
+                    .SetUseBottomSheet(useBottomSheet);
+
+                IBitmap testImage = null;
+                try
+                {
+                    testImage = BitmapLoader.Current.LoadFromResource("icon.png", null, null).Result;
+                }
+                catch
+                {
+                    Debug.WriteLine("Could not load image");
+                }
+
+                for (var i = 0; i < 5; i++)
+                {
+                    var display = (i + 1);
+                    cfg.Add(
+                        "Option " + display,
+                        () => this.Result($"Option {display} Selected"),
+                        testImage
+                    );
+                }
+                cfg.SetDestructive(null, () => this.Result("Destructive BOOM Selected"), testImage);
+                cfg.SetCancel(null, () => this.Result("Cancel Selected"), testImage);
+
+                var disp = this.Dialogs.ActionSheet(cfg);
+                if (this.AutoCancel)
+                {
+                    Task.Delay(TimeSpan.FromSeconds(3))
+                        .ContinueWith(x => disp.Dispose());
+                }
+            });
+        }
 
 
         ICommand Create(Func<CancellationToken?, Task> action)
@@ -169,7 +195,6 @@ namespace Samples.ViewModels
         }
 
 
-#warning broken at the moment
         async Task PromptCommand(InputType inputType)
         {
             var msg = $"Enter a {inputType.ToString().ToUpper()} value";

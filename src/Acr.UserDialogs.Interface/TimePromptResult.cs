@@ -3,16 +3,12 @@
 
 namespace Acr.UserDialogs
 {
-    public class TimePromptResult
+    public class TimePromptResult : AbstractStandardDialogResult<TimeSpan>
     {
-        public TimePromptResult(bool ok, TimeSpan selectedTime)
+        public TimePromptResult(bool ok, TimeSpan selectedTime) : base(ok, selectedTime)
         {
-            this.Ok = ok;
-            this.SelectedTime = selectedTime;
         }
 
-
-        public bool Ok { get; }
-        public TimeSpan SelectedTime { get; set; }
+        public TimeSpan SelectedTime => this.Value;
     }
 }

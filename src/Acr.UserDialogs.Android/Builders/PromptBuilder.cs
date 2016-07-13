@@ -10,9 +10,9 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public static class PromptBuilder
+    public class PromptBuilder : AbstractAlertDialogBuilder<PromptConfig>
     {
-        public static AlertDialog.Builder Build(Activity activity, PromptConfig config)
+        public override AlertDialog.Builder Build(Activity activity, PromptConfig config)
         {
             var txt = new EditText(activity)
             {
@@ -23,8 +23,8 @@ namespace Acr.UserDialogs.Builders
 
             SetInputType(txt, config.InputType);
 
-            var builder = new AlertDialog
-                .Builder(activity)
+            var builder = this
+                .CreateBaseBuilder(activity, config.AndroidStyleId)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
@@ -43,7 +43,7 @@ namespace Acr.UserDialogs.Builders
         }
 
 
-        public static AppCompatAlertDialog.Builder Build(AppCompatActivity activity, PromptConfig config)
+        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, PromptConfig config)
         {
             var txt = new EditText(activity)
             {
@@ -54,8 +54,8 @@ namespace Acr.UserDialogs.Builders
 
             SetInputType(txt, config.InputType);
 
-            var builder = new AppCompatAlertDialog
-                .Builder(activity)
+            var builder = this
+                .CreateBaseBuilder(activity, config.AndroidStyleId)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)

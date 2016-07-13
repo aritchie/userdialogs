@@ -8,12 +8,12 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public static class ActionSheetBuilder
+    public class ActionSheetBuilder : AbstractAlertDialogBuilder<ActionSheetConfig>
     {
-        public static AlertDialog.Builder Build(Activity activity, ActionSheetConfig config)
+        public override AlertDialog.Builder Build(Activity activity, ActionSheetConfig config)
         {
-            var dlg = new AlertDialog
-                .Builder(activity)
+            var dlg = this
+                .CreateBaseBuilder(activity, config.AndroidStyleId)
                 .SetCancelable(false)
                 .SetTitle(config.Title);
             //.SetCustomTitle(new TextView(activity) {
@@ -47,10 +47,10 @@ namespace Acr.UserDialogs.Builders
         }
 
 
-        public static AppCompatAlertDialog.Builder Build(AppCompatActivity activity, ActionSheetConfig config)
+        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, ActionSheetConfig config)
         {
-            var dlg = new AppCompatAlertDialog
-                .Builder(activity)
+            var dlg = this
+                .CreateBaseBuilder(activity, config.AndroidStyleId)
                 .SetCancelable(false)
                 .SetTitle(config.Title);
             //.SetCustomTitle(new TextView(activity) {

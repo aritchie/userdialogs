@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -74,7 +73,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable Confirm(ConfirmConfig config)
         {
-            var dialog = new MessageDialog(config.Message, config.Title);
+            var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
             dialog.Commands.Add(new UICommand(config.OkText, x => config.OnConfirm(true)));
             dialog.DefaultCommandIndex = 0;
 
@@ -182,18 +181,18 @@ namespace Acr.UserDialogs
             var vm = new LoginViewModel
             {
                 LoginText = config.OkText,
-                Title = config.Title,
-                Message = config.Message,
+                Title = config.Title ?? String.Empty,
+                Message = config.Message ?? String.Empty,
                 UserName = config.LoginValue,
                 UserNamePlaceholder = config.LoginPlaceholder,
                 PasswordPlaceholder = config.PasswordPlaceholder,
                 CancelText = config.CancelText
             };
             vm.Login = new Command(() =>
-                config.OnResult?.Invoke(new LoginResult(vm.UserName, vm.Password, true))
+                config.OnResult?.Invoke(new LoginResult(true, vm.UserName, vm.Password))
             );
             vm.Cancel = new Command(() =>
-                config.OnResult?.Invoke(new LoginResult(vm.UserName, vm.Password, false))
+                config.OnResult?.Invoke(new LoginResult(false, vm.UserName, vm.Password))
             );
             var dlg = new LoginContentDialog
             {
@@ -217,7 +216,7 @@ namespace Acr.UserDialogs
             };
             var dialog = new ContentDialog
             {
-                Title = config.Title,
+                Title = config.Title ?? String.Empty,
                 Content = stack,
                 PrimaryButtonText = config.OkText
             };
@@ -246,45 +245,48 @@ namespace Acr.UserDialogs
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
-            this.Show(image, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
+            //this.Show(image, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
         }
 
 
         public override void ShowError(string message, int timeoutMillis)
         {
-            this.Show(null, message, ToastConfig.ErrorBackgroundColor, timeoutMillis);
+            //this.Show(null, message, ToastConfig.ErrorBackgroundColor, timeoutMillis);
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
-            this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
+            //this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
         }
 
 
-        public override void Toast(ToastConfig config)
+        public override IDisposable Toast(ToastConfig config)
         {
             var toast = new ToastPrompt
             {
-                Background = new SolidColorBrush(config.BackgroundColor.ToNative()),
-                Foreground = new SolidColorBrush(config.TextColor.ToNative()),
-                Title = config.Title,
-                Message = config.Description,
-                ImageSource = config.Icon?.ToNative(),
+                Message = config.Message,
+                //ImageSource = config.Icon?.ToNative(),
                 Stretch = Stretch.Fill,
                 MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
             };
+            if (config.MessageTextColor != null)
+                toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
+
+            if (config.BackgroundColor != null)
+                toast.Background = new SolidColorBrush(config.BackgroundColor.Value.ToNative());
+
             //toast.Completed += (sender, args) => {
             //    if (args.PopUpResult == PopUpResult.Ok)
             //        config.Action?.Invoke();
             //};
-            this.Dispatch(toast.Show);
+            return this.DispatchAndDispose(toast.Show, toast.Hide);
         }
 
 
-#region Internals
+        #region Internals
 
-#if WINDOWS_UWP
+        #if WINDOWS_UWP
 
         protected virtual Popup CreatePopup(UIElement element)
         {
@@ -308,7 +310,7 @@ namespace Acr.UserDialogs
         }
 
 
-#endif
+        #endif
 
         protected virtual void SetPasswordPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
         {
@@ -404,6 +406,6 @@ namespace Acr.UserDialogs
                 catch { }
             });
         }
-#endregion
+        #endregion
     }
 }

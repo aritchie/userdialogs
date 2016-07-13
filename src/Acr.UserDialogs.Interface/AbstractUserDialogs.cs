@@ -20,7 +20,7 @@ namespace Acr.UserDialogs
         public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
         public abstract void ShowError(string message, int timeoutMillis);
         public abstract void ShowSuccess(string message, int timeoutMillis);
-        public abstract void Toast(ToastConfig config);
+        public abstract IDisposable Toast(ToastConfig config);
         protected abstract IProgressDialog CreateDialogInstance();
 
 
@@ -31,8 +31,8 @@ namespace Acr.UserDialogs
             if (title != null)
                 cfg.Title = title;
 
-            if (cancel != null)
-                cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
+            // you must have a cancel option for actionsheetasync
+            cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
 
             if (destructive != null)
                 cfg.SetDestructive(destructive, () => tcs.TrySetResult(destructive));
@@ -278,36 +278,11 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual void InfoToast(string title, string description, int timeoutMillis)
+        public virtual IDisposable Toast(string message, TimeSpan? dismissTimer)
         {
-            this.Toast(ToastEvent.Info, title, description, timeoutMillis);
-        }
-
-
-        public virtual void SuccessToast(string title, string description, int timeoutMillis)
-        {
-            this.Toast(ToastEvent.Success, title, description, timeoutMillis);
-        }
-
-
-        public virtual void WarnToast(string title, string description, int timeoutMillis)
-        {
-            this.Toast(ToastEvent.Warn, title, description, timeoutMillis);
-        }
-
-
-        public virtual void ErrorToast(string title, string description, int timeoutMillis)
-        {
-            this.Toast(ToastEvent.Error, title, description, timeoutMillis);
-        }
-
-
-        public virtual void Toast(ToastEvent toastEvent, string title, string description, int timeoutMillis)
-        {
-            this.Toast(new ToastConfig(toastEvent, title)
+            return this.Toast(new ToastConfig(message)
             {
-                Description = description,
-                Duration = TimeSpan.FromMilliseconds(timeoutMillis)
+                Duration = dismissTimer ?? ToastConfig.DefaultDuration
             });
         }
     }

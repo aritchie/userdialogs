@@ -134,9 +134,9 @@ namespace Acr.UserDialogs
             prompt.Content = stack;
 
             prompt.Dismissed += (sender, args) => config.OnResult(new LoginResult(
+                args.Result == CustomMessageBoxResult.LeftButton,
                 txtUser.Text,
-                txtPass.Password,
-                args.Result == CustomMessageBoxResult.LeftButton
+                txtPass.Password
             ));
             return this.DispatchWithDispose(prompt.Show, prompt.Dismiss);
         }
@@ -196,68 +196,54 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void Toast(ToastConfig cfg)
+        public override IDisposable Toast(ToastConfig cfg)
         {
-            // TODO: backgroundcolor and image
             var resources = Application.Current.Resources;
-            var textColor = new SolidColorBrush(cfg.TextColor.ToNative());
-            var bgColor = cfg.BackgroundColor.ToNative();
 
             var wrapper = new StackPanel
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                //Background = (Brush)resources["PhoneAccentBrush"],
-                Background = new SolidColorBrush(bgColor),
                 Width = Application.Current.Host.Content.ActualWidth
             };
-            wrapper.Children.Add(new TextBlock
+            if (cfg.BackgroundColor != null)
+                wrapper.Background = new SolidColorBrush(cfg.BackgroundColor.Value.ToNative());
+
+            var txt = new TextBlock
             {
-                //Foreground = (Brush)resources["PhoneForegroundBrush"],
-                Foreground = textColor,
-                FontSize = (double)resources["PhoneFontSizeMedium"],
+                FontSize = (double) resources["PhoneFontSizeMedium"],
                 Margin = new Thickness(24, 32, 24, 12),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Text = cfg.Title
-            });
+                Text = cfg.Message
+            };
+            if (cfg.MessageTextColor != null)
+                txt.Foreground = new SolidColorBrush(cfg.MessageTextColor.Value.ToNative());
 
-            if (!String.IsNullOrWhiteSpace(cfg.Description))
-            {
-                wrapper.Children.Add(new TextBlock
-                {
-                    //Foreground = (Brush)resources["PhoneForegroundBrush"],
-                    //FontSize = (double)resources["PhoneFontSizeMedium"],
-                    Foreground = textColor,
-                    FontSize = (double)resources["PhoneFontSizeSmall"],
-                    Margin = new Thickness(24, 32, 24, 12),
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    Text = cfg.Title
-                });
-            }
-
+            wrapper.Children.Add(txt);
             var popup = new Popup
             {
                 Child = wrapper,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            wrapper.Tap += (sender, args) =>
+            Action close = () =>
             {
                 SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
                 popup.IsOpen = false;
-                cfg.Action?.Invoke();
             };
 
-            this.Dispatch(() =>
+            wrapper.Tap += (sender, args) =>
             {
-                //SystemTray.BackgroundColor = (Color)resources["PhoneAccentColor"];
-                SystemTray.BackgroundColor = bgColor;
-                popup.IsOpen = true;
-            });
+                close();
+                cfg.Action.Action?.Invoke();
+            };
+
             Task.Delay(cfg.Duration)
-                .ContinueWith(x => this.Dispatch(() =>
-                {
-                    SystemTray.BackgroundColor = (Color)resources["PhoneBackgroundColor"];
-                    popup.IsOpen = false;
-                }));
+                .ContinueWith(x => this.Dispatch(close));
+
+            return this.DispatchWithDispose(() =>
+            {
+                //SystemTray.BackgroundColor = bgColor;
+                popup.IsOpen = true;
+            }, close);
         }
 
 

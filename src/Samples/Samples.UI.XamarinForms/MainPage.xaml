@@ -25,5 +25,10 @@
                 <samples:SettingsPage />
             </x:Arguments>
         </NavigationPage>
+        <NavigationPage Title="Specific Cases">
+            <x:Arguments>
+                <samples:SpecificCasesPage />
+            </x:Arguments>
+        </NavigationPage>
     </TabbedPage.Children>
 </TabbedPage>

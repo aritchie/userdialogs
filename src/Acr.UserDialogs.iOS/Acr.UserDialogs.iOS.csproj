@@ -34,20 +34,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AcrMessageBarStyleSheet.cs" />
-    <Compile Include="TimePickerController.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="MessageBar\MessageBarManager.cs" />
-    <Compile Include="MessageBar\MessageBarMessageType.cs" />
-    <Compile Include="MessageBar\MessageBarStyleSheet.cs" />
-    <Compile Include="MessageBar\MessageBarViewController.cs" />
-    <Compile Include="MessageBar\MessageView.cs" />
-    <Compile Include="MessageBar\MessageWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressDialog.cs" />
     <Compile Include="UserDialogsImpl.cs" />
-    <Compile Include="ModalDateTimePickerViewController.cs" />
-    <Compile Include="DatePickerController.cs" />
+    <Compile Include="TTGSnackbar.cs" />
+    <Compile Include="AIDatePickerController.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -64,6 +57,9 @@
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Splat.1.6.2\lib\Xamarin.iOS10\Splat.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.Support.iOS">
+      <HintPath>..\packages\Acr.Support.2.1.0\lib\Xamarin.iOS10\Acr.Support.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

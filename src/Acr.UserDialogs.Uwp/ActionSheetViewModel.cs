@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class ActionSheetViewModel {
+    public class ActionSheetViewModel
+    {
 
         public string Title { get; set; }
 

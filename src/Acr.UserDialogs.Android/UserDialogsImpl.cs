@@ -7,10 +7,8 @@ using Android.Support.V7.App;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Text;
-using Android.Widget;
 using AndroidHUD;
 using Splat;
-
 
 namespace Acr.UserDialogs
 {
@@ -37,20 +35,24 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, AlertBuilder.Build(activity, config));
+            return this.Show(activity, new AlertBuilder().Build(activity, config));
         }
 
 
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var activity = this.TopActivityFunc();
-            if (activity is AppCompatActivity)
+            if (activity is AppCompatActivity) {
+                if (config.UseBottomSheet)
+                    return this.ShowDialog<Fragments.BottomSheetDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
+
                 return this.ShowDialog<ActionSheetAppCompatDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
+            }
 
             if (activity is FragmentActivity)
                 return this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, ActionSheetBuilder.Build(activity, config));
+            return this.Show(activity, new ActionSheetBuilder().Build(activity, config));
         }
 
 
@@ -63,7 +65,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, ConfirmBuilder.Build(activity, config));
+            return this.Show(activity, new ConfirmBuilder().Build(activity, config));
         }
 
 
@@ -76,7 +78,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<DateDialogFragment, DatePromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, DatePromptBuilder.Build(activity, config));
+            return this.Show(activity, () => DatePromptBuilder.Build(activity, config));
         }
 
 
@@ -89,7 +91,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, LoginBuilder.Build(activity, config));
+            return this.Show(activity, new LoginBuilder().Build(activity, config));
         }
 
 
@@ -102,7 +104,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, PromptBuilder.Build(activity, config));
+            return this.Show(activity, new PromptBuilder().Build(activity, config));
         }
 
 
@@ -115,7 +117,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<TimeDialogFragment, TimePromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, TimePromptBuilder.Build(activity, config));
+            return this.Show(activity, () => TimePromptBuilder.Build(activity, config));
         }
 
         #endregion
@@ -152,75 +154,75 @@ namespace Acr.UserDialogs
 
         #region Toasts
 
-        public override void Toast(ToastConfig cfg)
+        public override IDisposable Toast(ToastConfig cfg)
         {
             var activity = this.TopActivityFunc();
             var compat = activity as AppCompatActivity;
 
             if (compat == null)
-                this.ToastFallback(activity, cfg);
-            else
-                this.ToastAppCompat(compat, cfg);
+                return this.ToastFallback(activity, cfg);
+
+            return this.ToastAppCompat(compat, cfg);
         }
 
 
-        protected virtual void ToastAppCompat(AppCompatActivity activity, ToastConfig cfg)
+        protected virtual IDisposable ToastAppCompat(AppCompatActivity activity, ToastConfig cfg)
         {
             var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
-            var snackBar = Snackbar.Make(view, cfg.Description, (int)cfg.Duration.TotalMilliseconds);
-            snackBar.View.SetBackgroundColor(cfg.BackgroundColor.ToNative());
-            snackBar.View.Click += (sender, args) =>
+            var snackBar = Snackbar.Make(
+                view,
+                Html.FromHtml(cfg.Message),
+                (int)cfg.Duration.TotalMilliseconds
+            );
+            if (cfg.BackgroundColor != null)
+                snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative ());
+
+            if (cfg.Action != null)
             {
-                snackBar.Dismiss();
-                cfg.Action?.Invoke();
-            };
-            this.SetSnackbarTextView(snackBar, cfg);
+                snackBar.SetAction(cfg.Action.Text, x =>
+                {
+                    cfg.Action.Action?.Invoke();
+                    snackBar.Dismiss();
+                });
+                var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                if (color != null)
+                    snackBar.SetActionTextColor(color.Value.ToNative());
+            }
+
             activity.RunOnUiThread(snackBar.Show);
-        }
-
-
-        protected virtual void ToastFallback(Activity activity, ToastConfig cfg)
-        {
-            activity.RunOnUiThread(() =>
+            return new DisposableAction(() =>
             {
-                var txt = cfg.Title;
-                if (!String.IsNullOrWhiteSpace(cfg.Description))
-                    txt += Environment.NewLine + cfg.Description;
-
-                AndHUD.Shared.ShowToast(
-                    activity,
-                    txt,
-                    AndroidHUD.MaskType.None,
-                    cfg.Duration,
-                    false,
-                    () =>
+                if (snackBar.IsShown)
+                    activity.RunOnUiThread(() =>
                     {
-                        AndHUD.Shared.Dismiss();
-                        cfg.Action?.Invoke();
-                    }
-                );
+                        try
+                        {
+                            snackBar.Dismiss();
+                        }
+                        catch
+                        {
+                            // catch and swallow
+                        }
+                    });
             });
         }
 
 
-        protected virtual void SetSnackbarTextView(Snackbar bar, ToastConfig cfg)
+        protected virtual IDisposable ToastFallback(Activity activity, ToastConfig cfg)
         {
-            var group = (ViewGroup)bar.View;
-            for (var i = 0; i < group.ChildCount; i++)
-            {
-                var txt = group.GetChildAt(i) as TextView;
-                if (txt != null)
+            AndHUD.Shared.ShowToast(
+                activity,
+                cfg.Message,
+                AndroidHUD.MaskType.None,
+                cfg.Duration,
+                false,
+                () =>
                 {
-                    var text = $"<b>{cfg.Title}</b>";
-                    if (!String.IsNullOrWhiteSpace(cfg.Description))
-                        text += $"\n<br /><i>{cfg.Description}</i>";
-
-                    txt.SetTextColor(cfg.TextColor.ToNative());
-                    txt.TextFormatted = Html.FromHtml(text);
-                    return;
+                    AndHUD.Shared.Dismiss();
+                    cfg.Action.Action?.Invoke();
                 }
-            }
-            throw new Exception("No textview found on snackbar");
+            );
+            return new DisposableAction(() => AndHUD.Shared.Dismiss(activity));
         }
 
         #endregion
@@ -233,9 +235,14 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual IDisposable Show(Activity activity, Dialog dialog)
+        protected virtual IDisposable Show(Activity activity, Func<Dialog> dialogBuilder)
         {
-            activity.RunOnUiThread(dialog.Show);
+            Dialog dialog = null;
+            activity.RunOnUiThread(() =>
+            {
+                dialog = dialogBuilder();
+                dialog.Show();
+            });
             return new DisposableAction(() =>
                 activity.RunOnUiThread(dialog.Dismiss)
             );
@@ -244,9 +251,15 @@ namespace Acr.UserDialogs
 
         protected virtual IDisposable Show(Activity activity, Android.App.AlertDialog.Builder builder)
         {
-            var dialog = builder.Create();
-            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            activity.RunOnUiThread(dialog.Show);
+            // you must create the dialog on the same thread as you show it
+            Android.App.AlertDialog dialog = null;
+            activity.RunOnUiThread(() =>
+            {
+                dialog = builder.Create();
+                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+                dialog.Show();
+            });
+
             return new DisposableAction(() =>
                 activity.RunOnUiThread(dialog.Dismiss)
             );
@@ -256,12 +269,9 @@ namespace Acr.UserDialogs
         protected virtual IDisposable ShowDialog<TFragment, TConfig>(FragmentActivity activity, TConfig config) where TFragment : AbstractDialogFragment<TConfig> where TConfig : class, new()
         {
             var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
+            frag.Config = config;
+            activity.RunOnUiThread(() => frag.Show(activity.FragmentManager, FragmentTag));
 
-            activity.RunOnUiThread(() =>
-            {
-                frag.Config = config;
-                frag.Show(activity.FragmentManager, FragmentTag);
-            });
             return new DisposableAction(() =>
                 activity.RunOnUiThread(frag.Dismiss)
             );

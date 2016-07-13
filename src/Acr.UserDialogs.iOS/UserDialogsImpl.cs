@@ -1,13 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Timers;
-using Acr.Support.iOS;
 using UIKit;
-using BigTed;
 using CoreGraphics;
 using Foundation;
-using MessageBar;
+using Acr.Support.iOS;
+using BigTed;
 using Splat;
 
 
@@ -15,20 +13,6 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
-        readonly Timer toastTimer;
-
-
-        public UserDialogsImpl()
-        {
-            this.toastTimer = new Timer();
-            this.toastTimer.Elapsed += (sender, args) =>
-            {
-                this.toastTimer.Stop();
-                UIApplication.SharedApplication.InvokeOnMainThread(MessageBarManager.SharedInstance.HideAll);
-            };
-        }
-
-
         public override IDisposable Alert(AlertConfig config)
         {
             var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
@@ -39,19 +23,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
-            var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
-
-            if (config.Destructive != null)
-                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
-
-            config
-                .Options
-                .ToList()
-                .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
-
-            if (config.Cancel != null)
-                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
-
+            var sheet = this.CreateNativeActionSheet(config);
             return this.Present(sheet);
         }
 
@@ -67,27 +39,38 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var top = UIApplication.SharedApplication.GetTopViewController();
-            var picker = new DatePickerController(config, top)
+            var picker = new AI.AIDatePickerController 
             {
-                ProvidesPresentationContextTransitionStyle = true,
-                DefinesPresentationContext = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+                Mode = UIDatePickerMode.Date,
+                SelectedDateTime = config.SelectedDate ?? DateTime.Now,
+                OkText = config.OkText,
+                CancelText = config.CancelText,
+                Ok = x => config.OnResult (new DatePromptResult (true, x.SelectedDateTime)),
+                Cancel = x => config.OnResult(new DatePromptResult(false, x.SelectedDateTime)),
             };
-            return this.Present(top, picker);
+            if (config.MaximumDate != null)
+                picker.MaximumDateTime = config.MaximumDate;
+
+            if (config.MinimumDate != null)
+                picker.MinimumDateTime = config.MinimumDate;
+
+            return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
         }
 
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            var top = UIApplication.SharedApplication.GetTopViewController();
-            var picker = new TimePickerController(config, top)
+            var picker = new AI.AIDatePickerController
             {
-                ProvidesPresentationContextTransitionStyle = true,
-                DefinesPresentationContext = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+                Mode = UIDatePickerMode.Time,
+                MinuteInterval = config.MinuteInterval,
+                OkText = config.OkText,
+                CancelText = config.CancelText,
+                Ok = x => config.OnResult(new TimePromptResult(true, x.SelectedDateTime.TimeOfDay)),
+                Cancel = x => config.OnResult(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
+                Use24HourClock = config.Use24HourClock
             };
-            return this.Present(top, picker);
+            return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
         }
 
 
@@ -97,9 +80,8 @@ namespace Acr.UserDialogs
             UITextField txtPass = null;
 
             var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, false))));
-            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(txtUser.Text, txtPass.Text, true))));
-
+            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnResult(new LoginResult(false, txtUser.Text, txtPass.Text))));
+            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(true, txtUser.Text, txtPass.Text))));
             dlg.AddTextField(x =>
             {
                 txtUser = x;
@@ -139,6 +121,7 @@ namespace Acr.UserDialogs
 
                 txt = x;
             });
+
             return this.Present(dlg);
         }
 
@@ -163,19 +146,44 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void Toast(ToastConfig cfg)
+        IDisposable currentToast;
+        public override IDisposable Toast(ToastConfig cfg)
         {
-            UIApplication.SharedApplication.InvokeOnMainThread(() =>
-            {
-                this.toastTimer.Stop();
-                this.toastTimer.Interval = cfg.Duration.TotalMilliseconds;
+            this.currentToast?.Dispose();
 
-                MessageBarManager.SharedInstance.ShowAtTheBottom = cfg.Position == ToastPosition.Bottom;
-                MessageBarManager.SharedInstance.HideAll();
-                MessageBarManager.SharedInstance.StyleSheet = new AcrMessageBarStyleSheet(cfg);
-                MessageBarManager.SharedInstance.ShowMessage(cfg.Title, cfg.Description ?? String.Empty, MessageType.Success, null, () => cfg.Action?.Invoke());
-                this.toastTimer.Start();
-            });
+            var snackbar = new TTG.TTGSnackbar
+            {
+                Message = cfg.Message,
+                Duration = cfg.Duration,
+                AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
+            };
+            if (cfg.BackgroundColor != null)
+                snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
+            
+            if (cfg.MessageTextColor != null)
+                snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
+
+            if (cfg.Action != null)
+            {
+                var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                if (color != null)
+                    snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
+                
+                snackbar.ActionText = cfg.Action.Text;
+                snackbar.ActionBlock = x =>
+                {
+                    snackbar.Dismiss();
+                    cfg.Action.Action?.Invoke();
+                };
+            }
+
+            var app = UIApplication.SharedApplication;
+            app.InvokeOnMainThread(snackbar.Show);
+
+            this.currentToast = new DisposableAction(
+                () => app.InvokeOnMainThread(() => snackbar.Dismiss())
+            );
+            return this.currentToast;
         }
 
 
@@ -219,6 +227,24 @@ namespace Acr.UserDialogs
             this.currentOverlay = null;
         }
 
+
+        protected virtual UIAlertController CreateNativeActionSheet (ActionSheetConfig config)
+        {
+            var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
+
+            if (config.Destructive != null)
+                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
+
+            config
+                .Options
+                .ToList()
+                .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
+
+            if (config.Cancel != null)
+                this.AddActionSheetOption (config.Cancel, sheet, UIAlertActionStyle.Cancel);
+
+            return sheet;
+        }
 
         protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
         {

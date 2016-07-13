@@ -3,16 +3,13 @@ using System;
 namespace Acr.UserDialogs
 {
 
-    public class PromptResult
+    public class PromptResult : AbstractStandardDialogResult<string>
     {
-        public PromptResult(bool ok, string text)
+        public PromptResult(bool ok, string text) : base(ok, text)
         {
-            this.Ok = ok;
-            this.Text = text;
         }
 
-        public bool Ok { get; }
-        public string Text { get; }
+
+        public string Text => this.Value;
     }
 }
-

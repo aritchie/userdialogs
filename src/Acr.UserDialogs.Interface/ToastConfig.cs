@@ -1,111 +1,32 @@
 ﻿using System;
 using System.Drawing;
-using Splat;
 
 
 namespace Acr.UserDialogs
 {
-
-    public enum ToastEvent
-    {
-        Info,
-        Warn,
-        Error,
-        Success
-    }
-
-
-    public enum ToastPosition
-    {
-        Bottom,
-        Top
-    }
-
     public class ToastConfig
     {
-
-        // icons only on ios
-        // action text only on android, tap action is on all!
-
-        /// <summary>
-        /// Only currently applies to iOS
-        /// </summary>
-        public static ToastPosition DefaultPosition { get; set; } = ToastPosition.Top;
-
-        public static IBitmap InfoIcon { get; set; }
-        public static Color InfoBackgroundColor { get; set; } = Color.Gainsboro; //Color.FromArgb(96, 0, 482, 1);
-        public static Color InfoTextColor { get; set; } = Color.Black;
-
-        public static IBitmap SuccessIcon { get; set; }
-        public static Color SuccessBackgroundColor { get; set; } = Color.LawnGreen; //Color.FromArgb(96, 0, 831, 176);
-        public static Color SuccessTextColor { get; set; } = Color.Black;
-
-        public static IBitmap WarnIcon { get; set; }
-        public static Color WarnBackgroundColor { get; set; } = Color.Coral;
-        public static Color WarnTextColor { get; set; } = Color.White;
-
-        public static IBitmap ErrorIcon { get; set; }
-        public static Color ErrorBackgroundColor { get; set; } = Color.Red;
-        public static Color ErrorTextColor { get; set; } = Color.White;
-
         public static TimeSpan DefaultDuration { get; set; } = TimeSpan.FromSeconds(2.5);
+        public static Color? DefaultMessageTextColor { get; set; }
+        public static Color? DefaultActionTextColor { get; set; }
+        public static Color? DefaultBackgroundColor { get; set; }
 
-
-        public ToastEvent Event { get; }
-
-        /// <summary>
-        /// Only applies to iOS at the moment
-        /// </summary>
-        public ToastPosition Position { get; set; }
-        public Color BackgroundColor { get; set; }
-        public IBitmap Icon { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public Color TextColor { get; set; }
+        public string Message { get; set; }
+        public Color? MessageTextColor { get; set; }
+        public Color? BackgroundColor { get; set; }
         public TimeSpan Duration { get; set; }
-        public Action Action { get; set; }
+        public ToastAction Action { get; set; }
 
 
-        public ToastConfig(ToastEvent @event, string title, string description = null)
+        public ToastConfig(string message)
         {
-            this.Event = @event;
-            this.Title = title;
-            this.Description = description;
-            this.Duration = DefaultDuration;
-            this.Position = ToastPosition.Top;
-
-            switch (@event)
-            {
-                case ToastEvent.Info:
-                    this.BackgroundColor = InfoBackgroundColor;
-                    this.TextColor = InfoTextColor;
-                    this.Icon = InfoIcon;
-                    break;
-
-                case ToastEvent.Success:
-                    this.BackgroundColor = SuccessBackgroundColor;
-                    this.TextColor = SuccessTextColor;
-                    this.Icon = SuccessIcon;
-                    break;
-
-                case ToastEvent.Warn:
-                    this.BackgroundColor = WarnBackgroundColor;
-                    this.TextColor = WarnTextColor;
-                    this.Icon = WarnIcon;
-                    break;
-
-                case ToastEvent.Error:
-                    this.BackgroundColor = ErrorBackgroundColor;
-                    this.TextColor = ErrorTextColor;
-                    this.Icon = ErrorIcon;
-                    break;
-            }
+            this.Message = message;
         }
 
 
-        public ToastConfig SetDescription(string description)
+        public ToastConfig SetBackgroundColor (Color color)
         {
-            this.Description = description;
+            this.BackgroundColor = color;
             return this;
         }
 
@@ -116,37 +37,31 @@ namespace Acr.UserDialogs
         }
 
 
-        public ToastConfig SetDuration(TimeSpan duration)
+        public ToastConfig SetDuration(TimeSpan? duration = null)
         {
-            this.Duration = duration;
+            this.Duration = duration ?? DefaultDuration;
             return this;
         }
 
 
-        public ToastConfig SetPosition(ToastPosition position)
+        public ToastConfig SetAction(Action<ToastAction> action)
         {
-            this.Position = position;
-            return this;
-        }
-
-        public ToastConfig SetIcon(IBitmap bitmap)
-        {
-            this.Icon = bitmap;
-            return this;
+            var cfg = new ToastAction();
+            action(cfg);
+            return this.SetAction (cfg);
         }
 
 
-        public ToastConfig SetColorList(Color? bg, Color? text)
-        {
-            if (bg != null) this.BackgroundColor = bg.Value;
-            if (text != null) this.TextColor = text.Value;
-            return this;
-        }
-
-
-        public ToastConfig SetAction(Action action)
+        public ToastConfig SetAction(ToastAction action)
         {
             this.Action = action;
+            return this;
+        }
+
+
+        public ToastConfig SetMessageTextColor (Color color)
+        {
+            this.MessageTextColor = color;
             return this;
         }
     }

@@ -1,19 +1,17 @@
 ﻿using System;
 
 
-namespace Acr.UserDialogs {
-    
-    public class LoginResult {
+namespace Acr.UserDialogs
+{
 
-        public string LoginText { get; private set; }
-        public string Password { get; private set; }
-        public bool Ok { get; private set; }
+    public class LoginResult : AbstractStandardDialogResult<Credentials>
+    {
+        public string LoginText => this.Value.UserName;
+        public string Password => this.Value.Password;
 
 
-        public LoginResult(string login, string pass, bool ok) {
-            this.LoginText = login;
-            this.Password = pass;
-            this.Ok = ok;
+        public LoginResult(bool ok, string login, string pass) : base(ok, new Credentials(login, pass))
+        {
         }
     }
 }

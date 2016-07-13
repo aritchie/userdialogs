@@ -1,5 +1,6 @@
 using System;
 using Android.App;
+using Android.Text.Format;
 using Android.Widget;
 using Java.Lang;
 
@@ -23,13 +24,15 @@ namespace Acr.UserDialogs.Builders
                 picker.CurrentMinute = new Integer(config.SelectedTime.Value.Minutes);
             }
 
+            var is24Hour = config.Use24HourClock ?? DateFormat.Is24HourFormat (activity);
+            picker.SetIs24HourView(new Java.Lang.Boolean(is24Hour));
+
             if (config.IsCancellable)
             {
                 builder.SetNegativeButton(
                     config.CancelText,
                     (sender, args) =>
                     {
-
                         var ts = new TimeSpan(0, picker.CurrentHour.IntValue(), picker.CurrentMinute.IntValue(), 0);
                         config.OnResult?.Invoke(new TimePromptResult(false, ts));
                     }
