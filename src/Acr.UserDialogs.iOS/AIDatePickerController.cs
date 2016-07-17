@@ -44,7 +44,7 @@ namespace AI
 			};
             if (Use24HourClock == true)
                 datePicker.Locale = NSLocale.FromLocaleIdentifier("NL");
-            
+
 		    if (MinimumDateTime != null)
 		        datePicker.MinimumDate = MinimumDateTime.Value.ToNSDate();
 
@@ -68,7 +68,7 @@ namespace AI
 			dismissButton.TouchUpInside += async (s, e) =>
 			{
                 await this.DismissViewControllerAsync(true);
-				Cancel?.Invoke(this);
+				this.Cancel?.Invoke(this);
 			};
 			this.View.AddSubview(dismissButton);
 
@@ -100,23 +100,24 @@ namespace AI
 
 			var cancelButton = new UIButton();
 			cancelButton.TranslatesAutoresizingMaskIntoConstraints = false;
-			cancelButton.SetTitle(CancelText, UIControlState.Normal);
+			cancelButton.SetTitle(this.CancelText, UIControlState.Normal);
 			cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
 
-			cancelButton.TitleLabel.Font = UIFont.SystemFontOfSize(FontSize);
+			cancelButton.TitleLabel.Font = UIFont.SystemFontOfSize(this.FontSize);
 			cancelButton.TouchUpInside += async (s, e) =>
 			{
                 await this.DismissViewControllerAsync(true);
-				Cancel?.Invoke(this);
+				this.Cancel?.Invoke(this);
 			};
 			buttonContainerView.AddSubview(cancelButton);
 
 			var button = new UIButton(UIButtonType.System);
 			button.TranslatesAutoresizingMaskIntoConstraints = false;
-            button.TitleLabel.Font = UIFont.BoldSystemFontOfSize(FontSize);
+            button.TitleLabel.Font = UIFont.BoldSystemFontOfSize(this.FontSize);
 			button.SetTitle(this.OkText, UIControlState.Normal);
 			button.TouchUpInside += async (s, e) =>
 			{
+			    this.SelectedDateTime = datePicker.Date.ToDateTime();
                 await this.DismissViewControllerAsync (true);
 				Ok?.Invoke(this);
 			};
@@ -125,8 +126,12 @@ namespace AI
 			var views = NSDictionary.FromObjectsAndKeys(
 				new NSObject[] { dismissButton, containerView, datePicker, buttonContainerView, buttonDividerView, cancelButton, button },
 				new NSObject[] {
-					new NSString("DismissButton"), new NSString("DatePickerContainerView"), new NSString("datePicker"),
-					new NSString("ButtonContainerView"), new NSString("ButtonDividerView"), new NSString("CancelButton"),
+					new NSString("DismissButton"),
+                    new NSString("DatePickerContainerView"),
+                    new NSString("datePicker"),
+					new NSString("ButtonContainerView"),
+                    new NSString("ButtonDividerView"),
+                    new NSString("CancelButton"),
 					new NSString("SelectButton")
 				}
 			);
