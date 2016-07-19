@@ -13,6 +13,17 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
+        protected internal Func<UIViewController> TopViewControllerFunc { get; set; }
+
+        public UserDialogsImpl()
+            : this(() => UIApplication.SharedApplication.GetTopViewController())
+        { }
+
+        public UserDialogsImpl(Func<UIViewController> topViewController)
+        {
+            this.TopViewControllerFunc = topViewController;
+        }
+
         public override IDisposable Alert(AlertConfig config)
         {
             var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
@@ -39,22 +50,22 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var picker = new AI.AIDatePickerController 
+            var picker = new AI.AIDatePickerController
             {
                 Mode = UIDatePickerMode.Date,
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnResult (new DatePromptResult (true, x.SelectedDateTime)),
+                Ok = x => config.OnResult(new DatePromptResult(true, x.SelectedDateTime)),
                 Cancel = x => config.OnResult(new DatePromptResult(false, x.SelectedDateTime)),
             };
-            if (config.MaximumDate != null)
+            if(config.MaximumDate != null)
                 picker.MaximumDateTime = config.MaximumDate;
 
-            if (config.MinimumDate != null)
+            if(config.MinimumDate != null)
                 picker.MinimumDateTime = config.MinimumDate;
 
-            return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
+            return this.Present(TopViewControllerFunc(), picker);
         }
 
 
@@ -70,7 +81,7 @@ namespace Acr.UserDialogs
                 Cancel = x => config.OnResult(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
                 Use24HourClock = config.Use24HourClock
             };
-            return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
+            return this.Present(TopViewControllerFunc(), picker);
         }
 
 
@@ -103,7 +114,7 @@ namespace Acr.UserDialogs
             var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
             UITextField txt = null;
 
-            if (config.IsCancellable)
+            if(config.IsCancellable)
             {
                 dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
                     config.OnResult(new PromptResult(false, txt.Text.Trim())
@@ -116,7 +127,7 @@ namespace Acr.UserDialogs
             {
                 this.SetInputType(x, config.InputType);
                 x.Placeholder = config.Placeholder ?? String.Empty;
-                if (config.Text != null)
+                if(config.Text != null)
                     x.Text = config.Text;
 
                 txt = x;
@@ -157,18 +168,18 @@ namespace Acr.UserDialogs
                 Duration = cfg.Duration,
                 AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
             };
-            if (cfg.BackgroundColor != null)
+            if(cfg.BackgroundColor != null)
                 snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
-            
-            if (cfg.MessageTextColor != null)
+
+            if(cfg.MessageTextColor != null)
                 snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
 
-            if (cfg.Action != null)
+            if(cfg.Action != null)
             {
                 var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
-                if (color != null)
+                if(color != null)
                     snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
-                
+
                 snackbar.ActionText = cfg.Action.Text;
                 snackbar.ActionBlock = x =>
                 {
@@ -228,11 +239,11 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual UIAlertController CreateNativeActionSheet (ActionSheetConfig config)
+        protected virtual UIAlertController CreateNativeActionSheet(ActionSheetConfig config)
         {
             var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
 
-            if (config.Destructive != null)
+            if(config.Destructive != null)
                 this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
 
             config
@@ -240,8 +251,8 @@ namespace Acr.UserDialogs
                 .ToList()
                 .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
 
-            if (config.Cancel != null)
-                this.AddActionSheetOption (config.Cancel, sheet, UIAlertActionStyle.Cancel);
+            if(config.Cancel != null)
+                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
 
             return sheet;
         }
@@ -250,10 +261,10 @@ namespace Acr.UserDialogs
         {
             var alertAction = UIAlertAction.Create(opt.Text, style, x => opt.Action?.Invoke());
 
-            if (opt.ItemIcon == null && image != null)
+            if(opt.ItemIcon == null && image != null)
                 opt.ItemIcon = image;
 
-            if (opt.ItemIcon != null)
+            if(opt.ItemIcon != null)
                 alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new NSString("image"));
 
             controller.AddAction(alertAction);
@@ -272,7 +283,7 @@ namespace Acr.UserDialogs
             app.InvokeOnMainThread(() =>
             {
                 var top = app.GetTopViewController();
-                if (alert.PreferredStyle == UIAlertControllerStyle.ActionSheet && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
+                if(alert.PreferredStyle == UIAlertControllerStyle.ActionSheet && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
                 {
                     var x = top.View.Bounds.Width / 2;
                     var y = top.View.Bounds.Bottom;
@@ -312,7 +323,7 @@ namespace Acr.UserDialogs
 
         protected virtual void SetInputType(UITextField txt, InputType inputType)
         {
-            switch (inputType)
+            switch(inputType)
             {
                 case InputType.DecimalNumber:
                     txt.KeyboardType = UIKeyboardType.DecimalPad;
