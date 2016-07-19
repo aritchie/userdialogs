@@ -188,11 +188,11 @@ namespace Acr.UserDialogs
                 };
             }
 
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(snackbar.Show);
+            var vc = TopViewControllerFunc();
+            vc.InvokeOnMainThread(snackbar.Show);
 
             this.currentToast = new DisposableAction(
-                () => app.InvokeOnMainThread(() => snackbar.Dismiss())
+                () => vc.InvokeOnMainThread(() => snackbar.Dismiss())
             );
             return this.currentToast;
         }
@@ -205,14 +205,14 @@ namespace Acr.UserDialogs
 
         protected virtual void ShowWithOverlay(int timemillis, Action action)
         {
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
+            var vc = TopViewControllerFunc();
+            vc.InvokeOnMainThread(() =>
             {
                 this.ShowOverlay();
                 action();
             });
             Task.Delay(timemillis)
-                .ContinueWith(x => app.InvokeOnMainThread(this.DismissOverlay));
+                .ContinueWith(x => vc.InvokeOnMainThread(this.DismissOverlay));
         }
 
 
@@ -279,27 +279,26 @@ namespace Acr.UserDialogs
 
         protected virtual IDisposable Present(UIAlertController alert)
         {
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
+            var vc = TopViewControllerFunc();
+            vc.InvokeOnMainThread(() =>
             {
-                var top = app.GetTopViewController();
                 if(alert.PreferredStyle == UIAlertControllerStyle.ActionSheet && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
                 {
-                    var x = top.View.Bounds.Width / 2;
-                    var y = top.View.Bounds.Bottom;
+                    var x = vc.View.Bounds.Width / 2;
+                    var y = vc.View.Bounds.Bottom;
                     var rect = new CGRect(x, y, 0, 0);
 
-                    alert.PopoverPresentationController.SourceView = top.View;
+                    alert.PopoverPresentationController.SourceView = vc.View;
                     alert.PopoverPresentationController.SourceRect = rect;
                     alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
                 }
-                top.PresentViewController(alert, true, null);
+                vc.PresentViewController(alert, true, null);
             });
             return new DisposableAction(() =>
             {
                 try
                 {
-                    app.InvokeOnMainThread(() => alert.DismissViewController(true, null));
+                    vc.InvokeOnMainThread(() => alert.DismissViewController(true, null));
                 }
                 catch { }
             });
@@ -308,13 +307,13 @@ namespace Acr.UserDialogs
 
         protected virtual IDisposable Present(UIViewController presenter, UIViewController controller)
         {
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() => presenter.PresentViewController(controller, true, null));
+            var vc = TopViewControllerFunc();
+            vc.InvokeOnMainThread(() => presenter.PresentViewController(controller, true, null));
             return new DisposableAction(() =>
             {
                 try
                 {
-                    app.InvokeOnMainThread(() => controller.DismissViewController(true, null));
+                    vc.InvokeOnMainThread(() => controller.DismissViewController(true, null));
                 }
                 catch { }
             });
