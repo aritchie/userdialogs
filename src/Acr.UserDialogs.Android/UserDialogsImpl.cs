@@ -193,6 +193,7 @@ namespace Acr.UserDialogs
             return new DisposableAction(() =>
             {
                 if (snackBar.IsShown)
+                {
                     activity.RunOnUiThread(() =>
                     {
                         try
@@ -204,6 +205,7 @@ namespace Acr.UserDialogs
                             // catch and swallow
                         }
                     });
+                }
             });
         }
 
@@ -231,7 +233,20 @@ namespace Acr.UserDialogs
 
         protected override IProgressDialog CreateDialogInstance()
         {
-            return new ProgressDialog(this.TopActivityFunc());
+            var dialog = new ProgressDialog();
+            var activity = this.TopActivityFunc() as AppCompatActivity;
+
+            if (activity != null)
+            {
+                var frag = new LoadingFragment();
+                activity.RunOnUiThread(() =>
+                {
+                    frag.Config = dialog;
+                    frag.Show(activity.SupportFragmentManager, FragmentTag);
+                });
+            }
+
+            return dialog;
         }
 
 

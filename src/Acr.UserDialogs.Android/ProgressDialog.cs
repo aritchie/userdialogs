@@ -1,6 +1,5 @@
 using System;
 using AndroidHUD;
-using Android.App;
 
 
 namespace Acr.UserDialogs
@@ -8,12 +7,8 @@ namespace Acr.UserDialogs
 
     public class ProgressDialog : IProgressDialog
     {
-        readonly Activity activity;
-
-
-        public ProgressDialog(Activity activity)
+        public ProgressDialog()
         {
-            this.activity = activity;
             this.MaskType = MaskType.Black;
         }
 
@@ -84,14 +79,11 @@ namespace Acr.UserDialogs
         public virtual void Hide()
         {
             this.IsShowing = false;
-            this.activity.RunOnUiThread(() =>
+            try
             {
-                try
-                {
-                    AndHUD.Shared.Dismiss(this.activity);
-                }
-                catch { }
-            });
+                AndHUD.Shared.Dismiss();
+            }
+            catch { }
         }
 
         #endregion
@@ -126,14 +118,14 @@ namespace Acr.UserDialogs
             if (this.cancelAction != null)
                 txt += "\n" + this.cancelText;
 
-            this.activity.RunOnUiThread(() => AndHUD.Shared.Show(
+            AndHUD.Shared.Show(
                 this.activity,
                 txt,
                 p,
                 this.MaskType.ToNative(),
                 null,
                 this.OnCancelClick
-            ));
+            );
         }
 
 
