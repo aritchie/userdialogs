@@ -7,6 +7,7 @@ using Android.Support.V7.App;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Text;
+using Android.Widget;
 using AndroidHUD;
 using Splat;
 
@@ -174,8 +175,9 @@ namespace Acr.UserDialogs
                 Html.FromHtml(cfg.Message),
                 (int)cfg.Duration.TotalMilliseconds
             );
+            this.TrySetToastTextColor(snackBar, cfg);
             if (cfg.BackgroundColor != null)
-                snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative ());
+                snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
 
             if (cfg.Action != null)
             {
@@ -207,6 +209,29 @@ namespace Acr.UserDialogs
                     });
                 }
             });
+        }
+
+
+        protected virtual void TrySetToastTextColor(Snackbar snackBar, ToastConfig cfg)
+        {
+            var textColor = cfg.MessageTextColor ?? ToastConfig.DefaultMessageTextColor;
+            if (textColor == null)
+                return;
+
+            var viewGroup = snackBar.View as ViewGroup;
+            if (viewGroup != null)
+            {
+                for (var i = 0; i < viewGroup.ChildCount; i++)
+                {
+                    var child = viewGroup.GetChildAt(i);
+                    var textView = child as TextView;
+                    if (textView != null)
+                    {
+                        textView.SetTextColor(textColor.Value.ToNative());
+                        break;
+                    }
+                }
+            }
         }
 
 

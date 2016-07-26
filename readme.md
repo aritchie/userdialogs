@@ -61,6 +61,7 @@ To use, simply reference the nuget package in each of your platform projects.
 All config objects contain static vars that contain defaults which are basically used as a poor man's stylesheet.  These save you time of always have to pass what the text for OK should be.  This is particularily useful for multilingual applications.
 
 - ActionSheetConfig
+    - DefaultAndroidStyleId
     - DefaultCancelText
     - DefaultDestructiveText
     - DefaultItemIcon
@@ -88,19 +89,11 @@ All config objects contain static vars that contain defaults which are basically
     - DefaultOkText
     - DefaultCancelText
 -ToastConfig
-    - InfoIcon
-    - InfoBackgroundColor
-    - InfoTextColor
-    - SuccessIcon
-    - SuccessBackgroundColor
-    - SuccessTextColor
-    - WarnIcon
-    - WarnBackgroundColor
-    - WarnTextColor
-    - ErrorIcon
-    - ErrorBackgroundColor
-    - ErrorTextColor
     - DefaultDuration
+    - DefaultMessageTextColor
+    - DefaultActionTextColor
+    - DefaultBackgroundColor
+
 - TimePromptConfig
     - DefaultOkText
     - DefaultCancelText
