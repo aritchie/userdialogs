@@ -1,5 +1,6 @@
 using System;
 using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.Design.Widget;
@@ -18,6 +19,14 @@ namespace Acr.UserDialogs.Fragments
         {
             dialog.SetCancelable(false);
             dialog.SetCanceledOnTouchOutside(false);
+            dialog.KeyPress += this.OnKeyPress;
+        }
+
+
+        protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
+        {
+            this.Config?.Cancel?.Action?.Invoke();
+            base.OnKeyPress(sender, args);
         }
 
 
@@ -63,7 +72,7 @@ namespace Acr.UserDialogs.Fragments
             };
             if (action.ItemIcon != null)
                 row.AddView(this.GetIcon(action.ItemIcon));
-            
+
             row.AddView(this.GetText(action.Text, isDestructive));
             row.Click += (sender, args) =>
             {
@@ -76,7 +85,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual TextView GetHeaderText(string text)
         {
-            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(56)) 
+            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(56))
             {
                 LeftMargin = this.DpToPixels(16)
             };
@@ -93,14 +102,14 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual TextView GetText(string text, bool isDestructive)
         {
-            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent) 
+            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent)
             {
                 TopMargin = this.DpToPixels(8),
                 BottomMargin = this.DpToPixels(8),
                 LeftMargin = this.DpToPixels(16)
             };
 
-            var txt = new TextView(this.Activity) 
+            var txt = new TextView(this.Activity)
             {
                 Text = text,
                 LayoutParameters = layout,
@@ -116,7 +125,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual ImageView GetIcon(IBitmap icon)
         {
-            var layout = new LinearLayout.LayoutParams(this.DpToPixels(24), this.DpToPixels(24)) 
+            var layout = new LinearLayout.LayoutParams(this.DpToPixels(24), this.DpToPixels(24))
             {
                 TopMargin = this.DpToPixels(8),
                 BottomMargin = this.DpToPixels(8),

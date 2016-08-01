@@ -1,5 +1,6 @@
 using System;
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Views;
@@ -35,9 +36,22 @@ namespace Acr.UserDialogs.Fragments
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.SetCancelable(false);
             dialog.SetCanceledOnTouchOutside(false);
-
+            dialog.KeyPress += this.OnKeyPress;
             // TODO: fix for immersive mode - http://stackoverflow.com/questions/22794049/how-to-maintain-the-immersive-mode-in-dialogs/23207365#23207365
             //dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }
+
+
+        public override void OnDetach()
+        {
+            base.OnDetach();
+            if (this.Dialog != null)
+                this.Dialog.KeyPress -= this.OnKeyPress;
+        }
+
+
+        protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
+        {
         }
 
 
@@ -65,7 +79,16 @@ namespace Acr.UserDialogs.Fragments
 
             var dialog = this.CreateDialog(this.Config);
             this.SetDialogDefaults(dialog);
+
             return dialog;
+        }
+
+
+        public override void OnDetach()
+        {
+            base.OnDetach();
+            if (this.Dialog != null)
+                this.Dialog.KeyPress -= this.OnKeyPress;
         }
 
 
@@ -74,6 +97,12 @@ namespace Acr.UserDialogs.Fragments
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.SetCancelable(false);
             dialog.SetCanceledOnTouchOutside(false);
+            dialog.KeyPress += this.OnKeyPress;
+        }
+
+
+        protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
+        {
         }
 
 
