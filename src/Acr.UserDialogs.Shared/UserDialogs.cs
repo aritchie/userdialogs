@@ -3,6 +3,9 @@
 using Android.App;
 using Acr.Support.Android;
 #endif
+#if __IOS__
+using UIKit;
+#endif
 
 namespace Acr.UserDialogs {
 
@@ -48,6 +51,26 @@ namespace Acr.UserDialogs {
             ActivityLifecycleCallbacks.Register(activity);
             Init(() => ActivityLifecycleCallbacks.CurrentTopActivity);
         }
+#endif
+
+#if __IOS__
+
+        /// <summary>
+        /// Initialize iOS user dialogs
+        /// </summary>
+        public static void Init(Func<UIViewController> viewControllerFunc)
+        {
+            Instance = new UserDialogsImpl(viewControllerFunc);
+        }
+
+        /// <summary>
+        /// Initialize iOS user dialogs
+        /// </summary>
+        public static void Init(UIViewController viewController)
+        {
+            Instance = new UserDialogsImpl(() => viewController);
+        }
+
 #endif
 
         static IUserDialogs customInstance;
