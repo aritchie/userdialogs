@@ -52,6 +52,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
+            this.Dismiss();
         }
 
 
@@ -103,6 +104,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
+            this.Dismiss();
         }
 
 
