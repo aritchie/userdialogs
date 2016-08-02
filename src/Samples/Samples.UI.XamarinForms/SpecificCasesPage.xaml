@@ -6,6 +6,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Button Text="Loading Task to Alert" Command="{Binding LoadingTaskToAlert}" />
+            <Button Text="Two Date Pickers" Command="{Binding TwoDatePickers}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
