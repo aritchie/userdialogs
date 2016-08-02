@@ -23,11 +23,11 @@ namespace Acr.UserDialogs
 
         IDisposable DatePrompt(DatePromptConfig config);
         Task<DatePromptResult> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null);
-        Task<DatePromptResult> DatePromptAsync(string title = null, CancellationToken? cancelToken = null);
+        Task<DatePromptResult> DatePromptAsync(string title = null, DateTime? selectedDate = null, CancellationToken? cancelToken = null);
 
         IDisposable TimePrompt(TimePromptConfig config);
         Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null);
-        Task<TimePromptResult> TimePromptAsync(string title = null, CancellationToken? cancelToken = null);
+        Task<TimePromptResult> TimePromptAsync(string title = null, TimeSpan? selectedTime = null, CancellationToken? cancelToken = null);
 
         IDisposable Prompt(PromptConfig config);
         Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default, CancellationToken? cancelToken = null);

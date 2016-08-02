@@ -188,10 +188,14 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<DatePromptResult> DatePromptAsync(string title, CancellationToken? cancelToken = null)
+        public virtual Task<DatePromptResult> DatePromptAsync(string title, DateTime? selectedDate, CancellationToken? cancelToken = null)
         {
             return this.DatePromptAsync(
-                new DatePromptConfig { Title = title },
+                new DatePromptConfig
+                {
+                    Title = title,
+                    SelectedDate = selectedDate
+                },
                 cancelToken
             );
         }
@@ -213,10 +217,14 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<TimePromptResult> TimePromptAsync(string title, CancellationToken? cancelToken = null)
+        public virtual Task<TimePromptResult> TimePromptAsync(string title, TimeSpan? selectedTime, CancellationToken? cancelToken = null)
         {
             return this.TimePromptAsync(
-                new TimePromptConfig { Title = title },
+                new TimePromptConfig
+                {
+                    Title = title,
+                    SelectedTime = selectedTime
+                },
                 cancelToken
             );
         }
