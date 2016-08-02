@@ -119,7 +119,7 @@ namespace Acr.UserDialogs
                 txt += "\n" + this.cancelText;
 
             AndHUD.Shared.Show(
-                this.activity,
+                null, // TODO
                 txt,
                 p,
                 this.MaskType.ToNative(),

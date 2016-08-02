@@ -52,10 +52,23 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
-            this.Dismiss();
+            switch (args.KeyCode)
+            {
+                case Keycode.Back:
+                    this.OnBackButton();
+                    this.Dismiss();
+                    break;
+
+                case Keycode.Enter:
+                    this.OnEnterButton();
+                    this.Dismiss();
+                    break;
+            }
         }
 
 
+        protected virtual void OnBackButton() { }
+        protected virtual void OnEnterButton() { }
         protected abstract Dialog CreateDialog(T config);
         protected AppCompatActivity AppCompatActivity => this.Activity as AppCompatActivity;
     }
@@ -104,10 +117,23 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
-            this.Dismiss();
+            switch (args.KeyCode)
+            {
+                case Keycode.Back:
+                    this.OnBackButton();
+                    this.Dismiss();
+                    break;
+
+                case Keycode.Enter:
+                    this.OnEnterButton();
+                    this.Dismiss();
+                    break;
+            }
         }
 
 
+        protected virtual void OnBackButton() { }
+        protected virtual void OnEnterButton() { }
         protected abstract Dialog CreateDialog(T config);
     }
 }
