@@ -183,7 +183,7 @@ namespace Acr.UserDialogs
             {
                 snackBar.SetAction(cfg.Action.Text, x =>
                 {
-                    cfg.Action.Action?.Invoke();
+                    cfg.Action?.Action?.Invoke();
                     snackBar.Dismiss();
                 });
                 var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
