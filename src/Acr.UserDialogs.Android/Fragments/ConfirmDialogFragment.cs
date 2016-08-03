@@ -10,7 +10,15 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
-            this.Config?.OnConfirm(false);
+            switch (args.KeyCode)
+            {
+                case Keycode.Back:
+                case Keycode.Enter:
+                    args.Handled = true;
+                    this.Config?.OnConfirm(args.KeyCode == Keycode.Enter);
+                    this.Dismiss();
+                    break;
+            }
             base.OnKeyPress(sender, args);
         }
     }
@@ -20,7 +28,15 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
-            this.Config?.OnConfirm(args.KeyCode == Keycode.Enter);
+            switch (args.KeyCode)
+            {
+                case Keycode.Back:
+                case Keycode.Enter:
+                    args.Handled = true;
+                    this.Config?.OnConfirm(args.KeyCode == Keycode.Enter);
+                    this.Dismiss();
+                    break;
+            }
             base.OnKeyPress(sender, args);
         }
     }

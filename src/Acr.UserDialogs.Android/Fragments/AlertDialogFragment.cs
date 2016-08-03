@@ -1,6 +1,7 @@
 using System;
 using Acr.UserDialogs.Builders;
 using Android.Content;
+using Android.Views;
 
 
 namespace Acr.UserDialogs.Fragments
@@ -9,8 +10,13 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
-            this.Config?.OnOk?.Invoke();
             base.OnKeyPress(sender, args);
+            if (args.KeyCode != Keycode.Back)
+                return;
+
+            args.Handled = true;
+            this.Config?.OnOk?.Invoke();
+            this.Dismiss();
         }
     }
 
@@ -19,8 +25,13 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
-            this.Config?.OnOk?.Invoke();
             base.OnKeyPress(sender, args);
+            if (args.KeyCode != Keycode.Back)
+                return;
+
+            args.Handled = true;
+            this.Config?.OnOk?.Invoke();
+            this.Dismiss();
         }
     }
 }

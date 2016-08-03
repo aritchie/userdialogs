@@ -2,6 +2,7 @@ using System;
 using Acr.UserDialogs.Builders;
 using Android.App;
 using Android.Content;
+using Android.Views;
 
 
 namespace Acr.UserDialogs.Fragments
@@ -10,8 +11,13 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
-            this.Config?.OnResult(new TimePromptResult(false, TimeSpan.MinValue));
             base.OnKeyPress(sender, args);
+            if (args.KeyCode != Keycode.Back)
+                return;
+
+            args.Handled = true;
+            this.Config?.OnResult?.Invoke(new TimePromptResult(false, TimeSpan.MinValue));
+            this.Dismiss();
         }
 
 
@@ -26,8 +32,13 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
-            this.Config?.OnResult(new TimePromptResult(false, TimeSpan.MinValue));
             base.OnKeyPress(sender, args);
+            if (args.KeyCode != Keycode.Back)
+                return;
+
+            args.Handled = true;
+            this.Config?.OnResult?.Invoke(new TimePromptResult(false, TimeSpan.MinValue));
+            this.Dismiss();
         }
 
 

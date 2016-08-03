@@ -25,7 +25,12 @@ namespace Acr.UserDialogs.Fragments
 
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
+            if (args.KeyCode != Keycode.Back)
+                return;
+
+            args.Handled = true;
             this.Config?.Cancel?.Action?.Invoke();
+            this.Dismiss();
             base.OnKeyPress(sender, args);
         }
 
