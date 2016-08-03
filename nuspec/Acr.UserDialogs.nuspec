@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.0.1</version>
+        <version>6.1.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -69,6 +69,13 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.1.0
+[fix][droid] snackbar message color works now
+[fix][droid] back button does cancels dialogs
+[fix][droid] confirm dialog now uses enter as ok click
+[feature] add SelectedDate parameter to DatePromptAsync
+[feature] add SelectedTime parameter to TimePromptAsync
+
 6.0.1
 [fix][ios] date/time picker not returning proper value
 
