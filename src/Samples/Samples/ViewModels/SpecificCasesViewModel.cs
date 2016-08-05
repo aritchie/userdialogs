@@ -30,10 +30,19 @@ namespace Samples.ViewModels
 
                 this.Dialogs.Alert($"Date 1: {v1.SelectedDate} - Date 2: {v2.SelectedDate}");
             });
+            this.StartLoadingTwice = new Command(async () =>
+            {
+                this.Dialogs.ShowLoading("Loading 1");
+                await Task.Delay(1000);
+                this.Dialogs.ShowLoading("Loading 2");
+                await Task.Delay(1000);
+                this.Dialogs.HideLoading();
+            });
         }
 
 
         public ICommand LoadingTaskToAlert { get; }
         public ICommand TwoDatePickers { get; }
+        public ICommand StartLoadingTwice { get; }
     }
 }

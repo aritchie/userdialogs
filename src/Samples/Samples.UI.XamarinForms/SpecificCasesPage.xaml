@@ -7,6 +7,7 @@
         <StackLayout>
             <Button Text="Loading Task to Alert" Command="{Binding LoadingTaskToAlert}" />
             <Button Text="Two Date Pickers" Command="{Binding TwoDatePickers}" />
+            <Button Text="Start Loading Twice" Command="{Binding StartLoadingTwice}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
