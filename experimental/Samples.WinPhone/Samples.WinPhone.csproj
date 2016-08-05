@@ -190,10 +190,6 @@
       <Project>{6a0ae941-711d-4c36-a311-960b65534b22}</Project>
       <Name>Acr.UserDialogs.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Acr.UserDialogs.WindowsPhone\Acr.UserDialogs.WindowsPhone.csproj">
-      <Project>{a9215e66-03e0-45fe-aab7-f1488c82bb1a}</Project>
-      <Name>Acr.UserDialogs.WindowsPhone</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Samples.UI.XamarinForms\Samples.UI.XamarinForms.csproj">
       <Project>{2c87761b-7cce-468f-9a2a-020af0c857af}</Project>
       <Name>Samples.UI.XamarinForms</Name>

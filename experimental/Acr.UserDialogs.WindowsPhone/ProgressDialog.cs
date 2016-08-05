@@ -2,20 +2,24 @@
 using System.Windows;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public class ProgressDialog : IProgressDialog {
-        private readonly ProgressPopUp progress = new ProgressPopUp();
+    public class ProgressDialog : IProgressDialog
+    {
+        readonly ProgressPopUp progress = new ProgressPopUp();
 
         #region IProgressDialog Members
 
         public MaskType MaskType { get; set; }
 
 
-        private string text;
-        public virtual string Title {
+        string text;
+        public virtual string Title
+        {
             get { return this.text; }
-            set {
+            set
+            {
                 if (this.text == value)
                     return;
 
@@ -25,10 +29,12 @@ namespace Acr.UserDialogs {
         }
 
 
-        private int percentComplete;
-        public virtual int PercentComplete {
+        int percentComplete;
+        public virtual int PercentComplete
+        {
             get { return this.percentComplete; }
-            set {
+            set
+            {
                 if (this.percentComplete == value)
                     return;
 
@@ -46,7 +52,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        public bool IsDeterministic {
+        public bool IsDeterministic
+        {
             get { return !this.progress.IsIndeterminate; }
             set { this.progress.IsIndeterminate = !value; }
         }
@@ -55,12 +62,14 @@ namespace Acr.UserDialogs {
         public bool IsShowing { get; protected set; }
 
 
-        public virtual void SetCancel(Action onCancel, string cancelText) {
+        public virtual void SetCancel(Action onCancel, string cancelText)
+        {
             this.progress.SetCancel(onCancel, cancelText);
         }
 
 
-        public void Show() {
+        public void Show()
+        {
             if (this.IsShowing)
                 return;
 
@@ -69,7 +78,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        public virtual void Hide() {
+        public virtual void Hide()
+        {
             if (!this.IsShowing)
                 return;
 
@@ -78,15 +88,19 @@ namespace Acr.UserDialogs {
         }
 
 
-        protected virtual void Dispatch(Action action) {
+        protected virtual void Dispatch(Action action)
+        {
             Deployment.Current.Dispatcher.BeginInvoke(action);
         }
 
 
-        private void Refresh() {
-            this.Dispatch(() => {
+        private void Refresh()
+        {
+            this.Dispatch(() =>
+            {
                 this.progress.LoadingText = this.text;
-                if (this.IsDeterministic) { 
+                if (this.IsDeterministic)
+                {
                     this.progress.PercentComplete = this.percentComplete;
                     this.progress.CompletionText = this.percentComplete + "%";
                 }
@@ -98,7 +112,8 @@ namespace Acr.UserDialogs {
 
         #region IDisposable Members
 
-        public void Dispose() {
+        public void Dispose()
+        {
             this.Hide();
         }
 
