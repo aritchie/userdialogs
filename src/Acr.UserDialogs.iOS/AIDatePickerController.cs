@@ -27,12 +27,17 @@ namespace AI
 	    UIView dimmedView;
 
 
+        public AIDatePickerController() 
+        {
+            //this.ModalPresentationStyle = UIModalPresentationStyle.Custom;
+            this.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+            this.TransitioningDelegate = this;            
+        }
+
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-			this.ModalPresentationStyle = UIModalPresentationStyle.Custom;
-			this.TransitioningDelegate = this;
             this.View.BackgroundColor = UIColor.Clear;
 
 			var datePicker = new UIDatePicker
@@ -125,8 +130,18 @@ namespace AI
 			buttonContainerView.AddSubview(button);
 
 			var views = NSDictionary.FromObjectsAndKeys(
-				new NSObject[] { dismissButton, containerView, datePicker, buttonContainerView, buttonDividerView, cancelButton, button },
-				new NSObject[] {
+				new NSObject[] 
+                { 
+                    dismissButton, 
+                    containerView, 
+                    datePicker, 
+                    buttonContainerView, 
+                    buttonDividerView, 
+                    cancelButton, 
+                    button 
+                },
+				new NSObject[] 
+                {
 					new NSString("DismissButton"),
                     new NSString("DatePickerContainerView"),
                     new NSString("datePicker"),
