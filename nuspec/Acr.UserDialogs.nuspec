@@ -48,25 +48,25 @@ Supported Platforms
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
                 <dependency id="Xamarin.Android.Support.Design" version="[23.3, 24)" />
             </group>
-            <group targetFramework="wp8">
+            <!--<group targetFramework="wp8">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
             </group>
             <group targetFramework="wpa81">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.8, 3.0)" />
-            </group>
+            </group>-->
             <group targetFramework="uap10.0">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.8, 3.0)" />
             </group>
-            <group targetFramework="Xamarin.tvOS10">
+            <!--<group targetFramework="Xamarin.tvOS10">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
             <group targetFramework="net45">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Ookii.Dialogs" version="[1.0, 2.0)" />
-            </group>
+            </group>-->
         </dependencies>
         <releaseNotes>
 6.1.0
@@ -104,14 +104,14 @@ This is a new version due to breaking changes
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS10" />
 
         <!-- wp8 -->
-        <file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />
+        <!--<file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />-->
 
         <!-- wpa81 -->
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81" />
+        <!--<file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81" />
         <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.pdb" target="lib\wpa81" />
         <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs\*.*" target="lib\wpa81\Acr.UserDialogs" />
         <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wpa81" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\wpa81" />
+        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\wpa81" />-->
 
         <!-- uwp -->
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0" />
