@@ -24,9 +24,8 @@ namespace Samples.ViewModels
             {
                 var cancelled = false;
 
-                using (var dlg = this.Dialogs.Progress("Test Progress"))
+                using (var dlg = this.Dialogs.Progress("Test Progress", () => cancelled = true))
                 {
-                    dlg.SetCancel(() => cancelled = true);
                     while (!cancelled && dlg.PercentComplete < 100)
                     {
                         await Task.Delay(TimeSpan.FromMilliseconds(500));
@@ -90,11 +89,14 @@ namespace Samples.ViewModels
             return new Command(async () =>
             {
                 var cancelSrc = new CancellationTokenSource();
+                var config = new ProgressDialogConfig()
+                    .SetTitle("Loading")
+                    .SetIsDeterministic(false)
+                    .SetMaskType(mask)
+                    .SetCancel(onCancel: cancelSrc.Cancel);
 
-                using (var dlg = this.Dialogs.Loading("Loading", maskType: mask))
+                using (this.Dialogs.Progress(config))
                 {
-                    dlg.SetCancel(cancelSrc.Cancel);
-
                     try
                     {
                         await Task.Delay(TimeSpan.FromSeconds(5), cancelSrc.Token);
