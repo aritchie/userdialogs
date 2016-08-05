@@ -200,6 +200,7 @@ namespace Samples.ViewModels
             var msg = $"Enter a {inputType.ToString().ToUpper()} value";
             this.cancelSrc?.CancelAfter(TimeSpan.FromSeconds(3));
             var r = await this.Dialogs.PromptAsync(msg, inputType: inputType, cancelToken: this.cancelSrc?.Token);
+            await Task.Delay(500);
             this.Result(r.Ok
                 ? "OK " + r.Text
                 : "Prompt Cancelled");

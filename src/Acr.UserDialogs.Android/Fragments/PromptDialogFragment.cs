@@ -2,6 +2,7 @@ using System;
 using Acr.UserDialogs.Builders;
 using Android.Content;
 using Android.Views;
+using Android.Widget;
 
 
 namespace Acr.UserDialogs.Fragments
@@ -10,18 +11,29 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
+            base.OnKeyPress(sender, args);
             switch (args.KeyCode)
             {
                 case Keycode.Back:
+                    args.Handled = true;
+                    if (this.Config.IsCancellable)
+                        this.SetAction(false);
+                    break;
+
                 case Keycode.Enter:
                     args.Handled = true;
-                    var ok = args.KeyCode == Keycode.Enter;
-                    this.Config?.OnAction(new PromptResult(ok, ""));
-                    this.Dismiss();
+                    this.SetAction(true);
                     break;
             }
-            base.OnKeyPress(sender, args);
-       }
+        }
+
+
+        protected virtual void SetAction(bool ok)
+        {
+            var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
+            this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
+            this.Dismiss();
+        }
     }
 
 
@@ -29,6 +41,28 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
+            base.OnKeyPress(sender, args);
+            switch (args.KeyCode)
+            {
+                case Keycode.Back:
+                    args.Handled = true;
+                    if (this.Config.IsCancellable)
+                        this.SetAction(false);
+                    break;
+
+                case Keycode.Enter:
+                    args.Handled = true;
+                    this.SetAction(true);
+                    break;
+            }
+        }
+
+
+        protected virtual void SetAction(bool ok)
+        {
+            var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
+            this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
+            this.Dismiss();
         }
     }
 }

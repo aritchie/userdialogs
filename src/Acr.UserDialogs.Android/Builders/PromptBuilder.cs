@@ -16,6 +16,7 @@ namespace Acr.UserDialogs.Builders
         {
             var txt = new EditText(activity)
             {
+                Id = Int32.MaxValue,
                 Hint = config.Placeholder
             };
             if (config.Text != null)
@@ -47,6 +48,7 @@ namespace Acr.UserDialogs.Builders
         {
             var txt = new EditText(activity)
             {
+                Id = Int32.MaxValue,
                 Hint = config.Placeholder
             };
             if (config.Text != null)

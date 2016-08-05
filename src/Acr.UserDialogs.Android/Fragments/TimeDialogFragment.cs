@@ -16,8 +16,11 @@ namespace Acr.UserDialogs.Fragments
                 return;
 
             args.Handled = true;
-            this.Config?.OnAction?.Invoke(new TimePromptResult(false, TimeSpan.MinValue));
-            this.Dismiss();
+            if (this.Config.IsCancellable)
+            {
+                this.Config?.OnAction?.Invoke(new TimePromptResult(false, TimeSpan.MinValue));
+                this.Dismiss();
+            }
         }
 
 
@@ -37,8 +40,11 @@ namespace Acr.UserDialogs.Fragments
                 return;
 
             args.Handled = true;
-            this.Config?.OnAction?.Invoke(new TimePromptResult(false, TimeSpan.MinValue));
-            this.Dismiss();
+            if (this.Config.IsCancellable)
+            {
+                this.Config?.OnAction?.Invoke(new TimePromptResult(false, TimeSpan.MinValue));
+                this.Dismiss();
+            }
         }
 
 
