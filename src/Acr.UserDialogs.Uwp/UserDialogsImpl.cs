@@ -245,19 +245,27 @@ namespace Acr.UserDialogs
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
-            //this.Show(image, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
+            throw new ArgumentException("This is not supported on UWP right now");
+            //this.Toast(new ToastConfig(message).SetDuration(TimeSpan.FromMilliseconds(timeoutMillis)));
         }
 
 
         public override void ShowError(string message, int timeoutMillis)
         {
-            //this.Show(null, message, ToastConfig.ErrorBackgroundColor, timeoutMillis);
+            this.Toast(new ToastConfig(message)
+                .SetDuration(TimeSpan.FromMilliseconds(timeoutMillis))
+                .SetBackgroundColor(Color.Red)
+            );
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
-            //this.Show(null, message, ToastConfig.SuccessBackgroundColor, timeoutMillis);
+            this.Toast(new ToastConfig(message)
+                .SetDuration(TimeSpan.FromMilliseconds(timeoutMillis))
+                .SetBackgroundColor(Color.LawnGreen)
+                .SetMessageTextColor(Color.Black)
+            );
         }
 
 
@@ -266,7 +274,6 @@ namespace Acr.UserDialogs
             var toast = new ToastPrompt
             {
                 Message = config.Message,
-                //ImageSource = config.Icon?.ToNative(),
                 Stretch = Stretch.Fill,
                 MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
             };
@@ -276,10 +283,6 @@ namespace Acr.UserDialogs
             if (config.BackgroundColor != null)
                 toast.Background = new SolidColorBrush(config.BackgroundColor.Value.ToNative());
 
-            //toast.Completed += (sender, args) => {
-            //    if (args.PopUpResult == PopUpResult.Ok)
-            //        config.Action?.Invoke();
-            //};
             return this.DispatchAndDispose(toast.Show, toast.Hide);
         }
 
