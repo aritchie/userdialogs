@@ -77,10 +77,6 @@
       <Project>{6a0ae941-711d-4c36-a311-960b65534b22}</Project>
       <Name>Acr.UserDialogs.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Acr.UserDialogs.WindowsForms\Acr.UserDialogs.WindowsForms.csproj">
-      <Project>{358e6895-66e1-42a1-9dc4-6edf0a001739}</Project>
-      <Name>Acr.UserDialogs.WindowsForms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
       <Project>{74cee6c1-4ce8-4279-82af-d5a5ddd76d18}</Project>
       <Name>Samples</Name>
