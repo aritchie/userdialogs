@@ -42,7 +42,8 @@ namespace Acr.UserDialogs
 
 		public static NSDate ToNSDate(this DateTime dt)
 		{
-			if (dt == DateTime.MinValue) return null; // ?
+			if (dt == DateTime.MinValue)
+                return null;
 
 			var ldt = dt.ToLocalTime();
 			var components = new NSDateComponents
