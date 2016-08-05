@@ -61,8 +61,10 @@ namespace Acr.UserDialogs
         IProgressDialog loading;
         public virtual void ShowLoading(string title, MaskType? maskType)
         {
-            if (this.loading == null)
-                this.loading = this.Loading(title, null, null, true, maskType);
+            if (this.loading != null)
+                this.HideLoading();
+
+            this.loading = this.Loading(title, null, null, true, maskType);
         }
 
 
