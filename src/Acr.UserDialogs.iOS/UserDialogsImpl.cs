@@ -13,6 +13,20 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
+        readonly Func<UIViewController> viewControllerFunc;
+
+
+        public UserDialogsImpl() : this(() => UIApplication.SharedApplication.GetTopViewController())
+        {
+        }
+
+
+        public UserDialogsImpl(Func<UIViewController> viewControllerFunc)
+        {
+            this.viewControllerFunc = viewControllerFunc;
+        }
+
+
         public override IDisposable Alert(AlertConfig config)
         {
             var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
@@ -54,7 +68,7 @@ namespace Acr.UserDialogs
             if (config.MinimumDate != null)
                 picker.MinimumDateTime = config.MinimumDate;
 
-            return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
+            return this.Present(picker);
         }
 
 
@@ -70,7 +84,7 @@ namespace Acr.UserDialogs
                 Cancel = x => config.OnAction(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
                 Use24HourClock = config.Use24HourClock
             };
-            return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
+            return this.Present(picker);
         }
 
 
@@ -143,11 +157,12 @@ namespace Acr.UserDialogs
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
-            
+
             BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis);
             //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis));
             //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(UIImage.FromBundle("icon-success"), message, timeoutMillis));
         }
+
 
         IDisposable currentToast;
         public override IDisposable Toast(ToastConfig cfg)
@@ -192,8 +207,7 @@ namespace Acr.UserDialogs
 
         #region Internals
 
-
-        protected virtual UIAlertController CreateNativeActionSheet (ActionSheetConfig config)
+        protected virtual UIAlertController CreateNativeActionSheet(ActionSheetConfig config)
         {
             var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
 
@@ -206,7 +220,7 @@ namespace Acr.UserDialogs
                 .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
 
             if (config.Cancel != null)
-                this.AddActionSheetOption (config.Cancel, sheet, UIAlertActionStyle.Cancel);
+                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
 
             return sheet;
         }
@@ -236,7 +250,7 @@ namespace Acr.UserDialogs
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(() =>
             {
-                var top = app.GetTopViewController();
+                var top = this.viewControllerFunc();
                 if (alert.PreferredStyle == UIAlertControllerStyle.ActionSheet && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
                 {
                     var x = top.View.Bounds.Width / 2;
@@ -260,10 +274,12 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual IDisposable Present(UIViewController presenter, UIViewController controller)
+        protected virtual IDisposable Present(UIViewController controller)
         {
             var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() => presenter.PresentViewController(controller, true, null));
+            var top = this.viewControllerFunc();
+
+            app.InvokeOnMainThread(() => top.PresentViewController(controller, true, null));
             return new DisposableAction(() =>
             {
                 try

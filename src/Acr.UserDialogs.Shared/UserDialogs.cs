@@ -1,4 +1,7 @@
 ﻿using System;
+#if __IOS__
+using UIKit;
+#endif
 #if __ANDROID__
 using Android.App;
 using Acr.Support.Android;
@@ -48,6 +51,16 @@ namespace Acr.UserDialogs {
             ActivityLifecycleCallbacks.Register(activity);
             Init(() => ActivityLifecycleCallbacks.CurrentTopActivity);
         }
+#elif __IOS__
+
+        /// <summary>
+        /// OPTIONAL: Initialize iOS user dialogs with your top viewcontroll function
+        /// </summary>
+        public static void Init(Func<UIViewController> viewControllerFunc)
+        {
+            Instance = new UserDialogsImpl(viewControllerFunc);
+        }
+
 #endif
 
         static IUserDialogs customInstance;

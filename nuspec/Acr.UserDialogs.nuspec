@@ -73,12 +73,14 @@ Supported Platforms
 6.1.0
 [BREAKING] all config objects now use a consistent naming for OnEvent called OnAction instead of OnAction, OnAction, OnEtc
 [BREAKING] progress dialog interface has changed ever so slightly
+[BREAKING] winphone 8 has been removed from the nuget package - it still exists on github!
+[feature][ios] Add optional Init function to allow for top viewcontroller control similar to android top activity - this is good for extensions apparently (Thanks to Kyle Spearrin)
+[fix][ios] showerror/success images not being displayed
+[fix][ios] date/time dialogs no longer show a solid black background
 [fix][droid] snackbar font color works now
 [fix][droid] nre on unassigned toast action
 [fix][droid] back button does cancels dialogs if dialog is cancellable
 [fix][droid] prompt dialog now uses enter as ok click
-[fix][ios] showerror/success images not being displayed
-[fix][ios] date/time dialogs no longer show a solid black background
 [fix][uwp] show error/success now uses toasts
 [feature] ShowLoading will now close previous instances that were not closed (stupid proofing)
 [feature] add SelectedDate parameter to DatePromptAsync
