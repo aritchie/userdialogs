@@ -38,7 +38,6 @@ Supported Platforms
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
             <group targetFramework="Xamarin.iOS10">
-                <dependency id="BTProgressHUD" version="[1.2.0.3, 2)" />
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
             </group>
@@ -48,32 +47,36 @@ Supported Platforms
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
                 <dependency id="Xamarin.Android.Support.Design" version="[23.3, 24)" />
             </group>
-            <!--<group targetFramework="wp8">
+            <group targetFramework="uap10.0">
+                <dependency id="Splat" version="[1.6.2, 2.0)" />
+                <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.8, 3.0)" />
+            </group>
+            <!--
+            <group targetFramework="Xamarin.tvOS10">
+                <dependency id="Splat" version="[1.6.2, 2.0)" />
+            </group>
+			<group targetFramework="wp8">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
             </group>
             <group targetFramework="wpa81">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.8, 3.0)" />
-            </group>-->
-            <group targetFramework="uap10.0">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.8, 3.0)" />
-            </group>
-            <!--<group targetFramework="Xamarin.tvOS10">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
             <group targetFramework="net45">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Ookii.Dialogs" version="[1.0, 2.0)" />
-            </group>-->
+            </group>
+            -->
         </dependencies>
         <releaseNotes>
 6.1.0
 [BREAKING] all config objects now use a consistent naming for OnEvent called OnAction instead of OnAction, OnAction, OnEtc
-[fix][droid] snackbar message color works now
+[BREAKING] progress dialog interface has changed ever so slightly
+[fix][droid] snackbar background color works now
 [fix][droid] back button does cancels dialogs if dialog is cancellable
 [fix][droid] prompt dialog now uses enter as ok click
+[fix][ios] showerror/success images not being displayed
 [feature] add SelectedDate parameter to DatePromptAsync
 [feature] add SelectedTime parameter to TimePromptAsync
 
