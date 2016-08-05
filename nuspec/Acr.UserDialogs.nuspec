@@ -77,6 +77,7 @@ Supported Platforms
 [fix][droid] back button does cancels dialogs if dialog is cancellable
 [fix][droid] prompt dialog now uses enter as ok click
 [fix][ios] showerror/success images not being displayed
+[fix][ios] date/time dialogs no longer show a solid black background
 [feature] add SelectedDate parameter to DatePromptAsync
 [feature] add SelectedTime parameter to TimePromptAsync
 
