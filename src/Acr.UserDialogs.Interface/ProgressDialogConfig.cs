@@ -1,9 +1,10 @@
 ﻿using System;
 
 
-namespace Acr.UserDialogs {
-
-    public class ProgressDialogConfig {
+namespace Acr.UserDialogs
+{
+    public class ProgressDialogConfig
+    {
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static string DefaultTitle { get; set; } = "Loading";
         public static MaskType DefaultMaskType { get; set; } = MaskType.Black;
@@ -17,7 +18,8 @@ namespace Acr.UserDialogs {
         public Action OnCancel { get; set; }
 
 
-        public ProgressDialogConfig() {
+        public ProgressDialogConfig()
+        {
             this.Title = DefaultTitle;
             this.CancelText = DefaultCancelText;
             this.MaskType = DefaultMaskType;
@@ -25,7 +27,8 @@ namespace Acr.UserDialogs {
         }
 
 
-        public ProgressDialogConfig SetCancel(string cancelText = null, Action onCancel = null) {
+        public ProgressDialogConfig SetCancel(string cancelText = null, Action onCancel = null)
+        {
             if (cancelText != null)
                 this.CancelText = cancelText;
 
@@ -34,25 +37,29 @@ namespace Acr.UserDialogs {
         }
 
 
-        public ProgressDialogConfig SetTitle(string title) {
+        public ProgressDialogConfig SetTitle(string title)
+        {
             this.Title = title;
             return this;
         }
 
 
-        public ProgressDialogConfig SetMaskType(MaskType maskType) {
+        public ProgressDialogConfig SetMaskType(MaskType maskType)
+        {
             this.MaskType = maskType;
             return this;
         }
 
 
-        public ProgressDialogConfig SetAutoShow(bool autoShow) {
+        public ProgressDialogConfig SetAutoShow(bool autoShow)
+        {
             this.AutoShow = autoShow;
             return this;
         }
 
 
-        public ProgressDialogConfig SetIsDeterministic(bool isDeterministic) {
+        public ProgressDialogConfig SetIsDeterministic(bool isDeterministic)
+        {
             this.IsDeterministic = isDeterministic;
             return this;
         }

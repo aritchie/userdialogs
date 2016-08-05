@@ -15,7 +15,7 @@ namespace Acr.UserDialogs.Fragments
                 return;
 
             args.Handled = true;
-            this.Config?.OnOk?.Invoke();
+            this.Config?.OnAction?.Invoke();
             this.Dismiss();
         }
     }
@@ -30,7 +30,7 @@ namespace Acr.UserDialogs.Fragments
                 return;
 
             args.Handled = true;
-            this.Config?.OnOk?.Invoke();
+            this.Config?.OnAction?.Invoke();
             this.Dismiss();
         }
     }

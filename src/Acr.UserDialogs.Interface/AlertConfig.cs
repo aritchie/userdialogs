@@ -13,7 +13,7 @@ namespace Acr.UserDialogs
         public string Title { get; set; }
         public string Message { get; set; }
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
-        public Action OnOk { get; set; }
+        public Action OnAction { get; set; }
 
 
         public AlertConfig SetOkText(string text)
@@ -37,9 +37,9 @@ namespace Acr.UserDialogs
         }
 
 
-        public AlertConfig SetCallback(Action onOk)
+        public AlertConfig SetAction(Action action)
         {
-            this.OnOk = onOk;
+            this.OnAction = action;
             return this;
         }
     }

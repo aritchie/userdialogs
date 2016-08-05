@@ -22,7 +22,7 @@ namespace Acr.UserDialogs
         public override IDisposable Alert(AlertConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
-            dialog.Commands.Add(new UICommand(config.OkText, x => config.OnOk?.Invoke()));
+            dialog.Commands.Add(new UICommand(config.OkText, x => config.OnAction?.Invoke()));
             IAsyncOperation<IUICommand> dialogTask = null;
 
             return this.DispatchAndDispose(
@@ -74,10 +74,10 @@ namespace Acr.UserDialogs
         public override IDisposable Confirm(ConfirmConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
-            dialog.Commands.Add(new UICommand(config.OkText, x => config.OnConfirm(true)));
+            dialog.Commands.Add(new UICommand(config.OkText, x => config.OnAction(true)));
             dialog.DefaultCommandIndex = 0;
 
-            dialog.Commands.Add(new UICommand(config.CancelText, x => config.OnConfirm(false)));
+            dialog.Commands.Add(new UICommand(config.CancelText, x => config.OnAction(false)));
             dialog.CancelCommandIndex = 1;
 
             IAsyncOperation<IUICommand> dialogTask = null;
@@ -109,7 +109,7 @@ namespace Acr.UserDialogs
                 picker.CancelButton.Click += (sender, args) =>
                 {
                     var result = new DatePromptResult(false, this.GetDateForCalendar(picker.DatePicker));
-                    config.OnResult?.Invoke(result);
+                    config.OnAction?.Invoke(result);
                     popup.IsOpen = false;
                 };
             }
@@ -118,7 +118,7 @@ namespace Acr.UserDialogs
             picker.OkButton.Click += (sender, args) =>
             {
                 var result = new DatePromptResult(true, this.GetDateForCalendar(picker.DatePicker));
-                config.OnResult?.Invoke(result);
+                config.OnAction?.Invoke(result);
                 popup.IsOpen = false;
             };
             if (config.SelectedDate != null)
@@ -152,7 +152,7 @@ namespace Acr.UserDialogs
                 picker.CancelButton.Click += (sender, args) =>
                 {
                     var result = new TimePromptResult(false, picker.TimePicker.Time);
-                    config.OnResult?.Invoke(result);
+                    config.OnAction?.Invoke(result);
                     popup.IsOpen = false;
                 };
             }
@@ -161,7 +161,7 @@ namespace Acr.UserDialogs
             picker.OkButton.Click += (sender, args) =>
             {
                 var result = new TimePromptResult(true, picker.TimePicker.Time);
-                config.OnResult?.Invoke(result);
+                config.OnAction?.Invoke(result);
                 popup.IsOpen = false;
             };
             if (config.SelectedTime != null)
@@ -189,10 +189,10 @@ namespace Acr.UserDialogs
                 CancelText = config.CancelText
             };
             vm.Login = new Command(() =>
-                config.OnResult?.Invoke(new LoginResult(true, vm.UserName, vm.Password))
+                config.OnAction?.Invoke(new LoginResult(true, vm.UserName, vm.Password))
             );
             vm.Cancel = new Command(() =>
-                config.OnResult?.Invoke(new LoginResult(false, vm.UserName, vm.Password))
+                config.OnAction?.Invoke(new LoginResult(false, vm.UserName, vm.Password))
             );
             var dlg = new LoginContentDialog
             {
@@ -231,7 +231,7 @@ namespace Acr.UserDialogs
                 dialog.SecondaryButtonText = config.CancelText;
                 dialog.SecondaryButtonCommand = new Command(() =>
                 {
-                    config.OnResult?.Invoke(new PromptResult(false, String.Empty));
+                    config.OnAction?.Invoke(new PromptResult(false, String.Empty));
                     dialog.Hide();
                 });
             }
@@ -323,7 +323,7 @@ namespace Acr.UserDialogs
 
             dialog.PrimaryButtonCommand = new Command(() =>
             {
-                config.OnResult?.Invoke(new PromptResult(true, txt.Password));
+                config.OnAction?.Invoke(new PromptResult(true, txt.Password));
                 dialog.Hide();
             });
         }
@@ -340,7 +340,7 @@ namespace Acr.UserDialogs
 
             dialog.PrimaryButtonCommand = new Command(() =>
             {
-                config.OnResult?.Invoke(new PromptResult(true, txt.Text.Trim()));
+                config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim()));
                 dialog.Hide();
             });
         }

@@ -30,13 +30,13 @@ namespace Acr.UserDialogs.Builders
                 .SetTitle(config.Title)
                 .SetView(txt)
                 .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnResult(new PromptResult(true, txt.Text.Trim()))
+                    config.OnAction(new PromptResult(true, txt.Text.Trim()))
                 );
 
             if (config.IsCancellable)
             {
                 builder.SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnResult(new PromptResult(false, txt.Text.Trim()))
+                    config.OnAction(new PromptResult(false, txt.Text.Trim()))
                 );
             }
             return builder;
@@ -61,13 +61,13 @@ namespace Acr.UserDialogs.Builders
                 .SetTitle(config.Title)
                 .SetView(txt)
                 .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnResult(new PromptResult(true, txt.Text.Trim()))
+                    config.OnAction(new PromptResult(true, txt.Text.Trim()))
                 );
 
             if (config.IsCancellable)
             {
                 builder.SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnResult(new PromptResult(false, txt.Text.Trim()))
+                    config.OnAction(new PromptResult(false, txt.Text.Trim()))
                 );
             }
             return builder;

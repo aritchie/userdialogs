@@ -123,7 +123,7 @@ namespace Acr.UserDialogs
         public virtual Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<object>();
-            config.OnOk = () => tcs.TrySetResult(null);
+            config.OnAction = () => tcs.TrySetResult(null);
 
             var disp = this.Alert(config);
             cancelToken?.Register(() =>
@@ -150,7 +150,7 @@ namespace Acr.UserDialogs
         public virtual Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<bool>();
-            config.OnConfirm = x => tcs.TrySetResult(x);
+            config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.Confirm(config);
             cancelToken?.Register(() =>
@@ -177,7 +177,7 @@ namespace Acr.UserDialogs
         public virtual Task<DatePromptResult> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<DatePromptResult>();
-            config.OnResult = x => tcs.TrySetResult(x);
+            config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.DatePrompt(config);
             cancelToken?.Register(() =>
@@ -206,7 +206,7 @@ namespace Acr.UserDialogs
         public virtual Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<TimePromptResult>();
-            config.OnResult = x => tcs.TrySetResult(x);
+            config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.TimePrompt(config);
             cancelToken?.Register(() =>
@@ -235,7 +235,7 @@ namespace Acr.UserDialogs
         public virtual Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<LoginResult>();
-            config.OnResult = x => tcs.TrySetResult(x);
+            config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.Login(config);
             cancelToken?.Register(() =>
@@ -261,7 +261,7 @@ namespace Acr.UserDialogs
         public virtual Task<PromptResult> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
         {
             var tcs = new TaskCompletionSource<PromptResult>();
-            config.OnResult = x => tcs.TrySetResult(x);
+            config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.Prompt(config);
             cancelToken?.Register(() =>

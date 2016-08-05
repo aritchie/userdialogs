@@ -14,7 +14,7 @@ namespace Acr.UserDialogs.Fragments
             if (args.KeyCode != Keycode.Back)
                 return;
 
-            this.Config?.OnResult(new LoginResult(false, null, null));
+            this.Config?.OnAction(new LoginResult(false, null, null));
             this.Dismiss();
         }
     }
@@ -28,7 +28,7 @@ namespace Acr.UserDialogs.Fragments
             if (args.KeyCode != Keycode.Back)
                 return;
 
-            this.Config?.OnResult(new LoginResult(false, null, null));
+            this.Config?.OnAction(new LoginResult(false, null, null));
             this.Dismiss();
         }
     }

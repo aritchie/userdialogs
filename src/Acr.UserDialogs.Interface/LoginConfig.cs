@@ -21,7 +21,7 @@ namespace Acr.UserDialogs
         public string LoginPlaceholder { get; set; } = DefaultLoginPlaceholder;
         public string PasswordPlaceholder { get; set; } = DefaultPasswordPlaceholder;
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
-        public Action<LoginResult> OnResult { get; set; }
+        public Action<LoginResult> OnAction { get; set; }
 
 
         public LoginConfig SetTitle(string title)
@@ -73,9 +73,9 @@ namespace Acr.UserDialogs
         }
 
 
-        public LoginConfig SetAction(Action<LoginResult> onResult)
+        public LoginConfig SetAction(Action<LoginResult> action)
         {
-            this.OnResult = onResult;
+            this.OnAction = action;
             return this;
         }
     }

@@ -70,9 +70,10 @@ Supported Platforms
         </dependencies>
         <releaseNotes>
 6.1.0
+[BREAKING] all config objects now use a consistent naming for OnEvent called OnAction instead of OnAction, OnAction, OnEtc
 [fix][droid] snackbar message color works now
-[fix][droid] back button does cancels dialogs
-[fix][droid] confirm dialog now uses enter as ok click
+[fix][droid] back button does cancels dialogs if dialog is cancellable
+[fix][droid] prompt dialog now uses enter as ok click
 [feature] add SelectedDate parameter to DatePromptAsync
 [feature] add SelectedTime parameter to TimePromptAsync
 

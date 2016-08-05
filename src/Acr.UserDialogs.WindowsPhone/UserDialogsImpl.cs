@@ -26,7 +26,7 @@ namespace Acr.UserDialogs
                 LeftButtonContent = config.OkText,
                 IsRightButtonEnabled = false
             };
-            alert.Dismissed += (sender, args) => config.OnOk?.Invoke();
+            alert.Dismissed += (sender, args) => config.OnAction?.Invoke();
             return this.DispatchWithDispose(alert.Show, alert.Dismiss);
         }
 
@@ -96,7 +96,7 @@ namespace Acr.UserDialogs
                 LeftButtonContent = config.OkText,
                 RightButtonContent = config.CancelText
             };
-            confirm.Dismissed += (sender, args) => config.OnConfirm(args.Result == CustomMessageBoxResult.LeftButton);
+            confirm.Dismissed += (sender, args) => config.OnAction(args.Result == CustomMessageBoxResult.LeftButton);
             return this.DispatchWithDispose(confirm.Show, confirm.Dismiss);
         }
 
@@ -133,7 +133,7 @@ namespace Acr.UserDialogs
             stack.Children.Add(txtPass);
             prompt.Content = stack;
 
-            prompt.Dismissed += (sender, args) => config.OnResult(new LoginResult(
+            prompt.Dismissed += (sender, args) => config.OnAction(new LoginResult(
                 args.Result == CustomMessageBoxResult.LeftButton,
                 txtUser.Text,
                 txtPass.Password
@@ -172,7 +172,7 @@ namespace Acr.UserDialogs
             {
                 var ok = args.Result == CustomMessageBoxResult.LeftButton;
                 var text = isSecure ? password.Password : txt.Text.Trim();
-                config.OnResult(new PromptResult(ok, text));
+                config.OnAction(new PromptResult(ok, text));
             };
             return this.DispatchWithDispose(prompt.Show, prompt.Dismiss);
         }

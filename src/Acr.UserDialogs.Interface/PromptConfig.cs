@@ -12,7 +12,7 @@ namespace Acr.UserDialogs
 
         public string Title { get; set; }
         public string Message { get; set; }
-        public Action<PromptResult> OnResult { get; set; }
+        public Action<PromptResult> OnAction { get; set; }
 
         public bool IsCancellable { get; set; } = true;
         public string Text { get; set; }

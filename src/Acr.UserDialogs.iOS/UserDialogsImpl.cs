@@ -16,7 +16,7 @@ namespace Acr.UserDialogs
         public override IDisposable Alert(AlertConfig config)
         {
             var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnOk?.Invoke()));
+            alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke()));
             return this.Present(alert);
         }
 
@@ -31,8 +31,8 @@ namespace Acr.UserDialogs
         public override IDisposable Confirm(ConfirmConfig config)
         {
             var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnConfirm(false)));
-            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnConfirm(true)));
+            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction(false)));
+            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction(true)));
             return this.Present(dlg);
         }
 
@@ -45,8 +45,8 @@ namespace Acr.UserDialogs
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnResult (new DatePromptResult (true, x.SelectedDateTime)),
-                Cancel = x => config.OnResult(new DatePromptResult(false, x.SelectedDateTime)),
+                Ok = x => config.OnAction (new DatePromptResult (true, x.SelectedDateTime)),
+                Cancel = x => config.OnAction(new DatePromptResult(false, x.SelectedDateTime)),
             };
             if (config.MaximumDate != null)
                 picker.MaximumDateTime = config.MaximumDate;
@@ -66,8 +66,8 @@ namespace Acr.UserDialogs
                 MinuteInterval = config.MinuteInterval,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnResult(new TimePromptResult(true, x.SelectedDateTime.TimeOfDay)),
-                Cancel = x => config.OnResult(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
+                Ok = x => config.OnAction(new TimePromptResult(true, x.SelectedDateTime.TimeOfDay)),
+                Cancel = x => config.OnAction(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
                 Use24HourClock = config.Use24HourClock
             };
             return this.Present(UIApplication.SharedApplication.GetTopViewController(), picker);
@@ -80,8 +80,8 @@ namespace Acr.UserDialogs
             UITextField txtPass = null;
 
             var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnResult(new LoginResult(false, txtUser.Text, txtPass.Text))));
-            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnResult(new LoginResult(true, txtUser.Text, txtPass.Text))));
+            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))));
+            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction(new LoginResult(true, txtUser.Text, txtPass.Text))));
             dlg.AddTextField(x =>
             {
                 txtUser = x;
@@ -106,11 +106,11 @@ namespace Acr.UserDialogs
             if (config.IsCancellable)
             {
                 dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
-                    config.OnResult(new PromptResult(false, txt.Text.Trim())
+                    config.OnAction(new PromptResult(false, txt.Text.Trim())
                 )));
             }
             dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
-                config.OnResult(new PromptResult(true, txt.Text.Trim())
+                config.OnAction(new PromptResult(true, txt.Text.Trim())
             )));
             dlg.AddTextField(x =>
             {

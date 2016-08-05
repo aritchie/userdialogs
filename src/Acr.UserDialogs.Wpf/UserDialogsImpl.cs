@@ -73,7 +73,7 @@ namespace Acr.UserDialogs
             dlg.ButtonClicked += (sender, args) =>
             {
                 var ok = ((TaskDialogButton)args.Item).ButtonType == ButtonType.Ok;
-                config.OnConfirm(ok);
+                config.OnAction(ok);
             };
             return new DisposableAction(dlg.Dispose);
         }
@@ -103,7 +103,7 @@ namespace Acr.UserDialogs
             //dlg.MainInstruction
             dlg.ShowDialog();
 
-            config.OnResult(new LoginResult(
+            config.OnAction(new LoginResult(
                 true,
                 dlg.UserName,
                 dlg.Password

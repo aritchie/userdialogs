@@ -16,7 +16,7 @@ namespace Acr.UserDialogs
         public string Title { get; set; }
         public string Message { get; set; }
         public int? AndroidStyleId { get; set; }
-        public Action<bool> OnConfirm { get; set; }
+        public Action<bool> OnAction { get; set; }
 
         public string OkText { get; set; } = DefaultOkText;
         public string CancelText { get; set; } = DefaultCancelText;
@@ -51,9 +51,9 @@ namespace Acr.UserDialogs
         }
 
 
-        public ConfirmConfig SetAction(Action<bool> onConfirm)
+        public ConfirmConfig SetAction(Action<bool> action)
         {
-            this.OnConfirm = onConfirm;
+            this.OnAction = action;
             return this;
         }
 

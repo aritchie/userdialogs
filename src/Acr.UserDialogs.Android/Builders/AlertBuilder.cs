@@ -22,7 +22,7 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke());
+                .SetPositiveButton(config.OkText, (o, e) => config.OnAction?.Invoke());
         }
 
 
@@ -33,7 +33,7 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetPositiveButton(config.OkText, (o, e) => config.OnOk?.Invoke());
+                .SetPositiveButton(config.OkText, (o, e) => config.OnAction?.Invoke());
         }
     }
 }

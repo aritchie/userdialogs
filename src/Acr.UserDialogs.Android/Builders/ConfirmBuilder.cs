@@ -16,8 +16,8 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetPositiveButton(config.OkText, (s, a) => config.OnConfirm(true))
-                .SetNegativeButton(config.CancelText, (s, a) => config.OnConfirm(false));
+                .SetPositiveButton(config.OkText, (s, a) => config.OnAction(true))
+                .SetNegativeButton(config.CancelText, (s, a) => config.OnAction(false));
         }
 
 
@@ -28,8 +28,8 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetPositiveButton(config.OkText, (s, a) => config.OnConfirm(true))
-                .SetNegativeButton(config.CancelText, (s, a) => config.OnConfirm(false));
+                .SetPositiveButton(config.OkText, (s, a) => config.OnAction(true))
+                .SetNegativeButton(config.CancelText, (s, a) => config.OnAction(false));
         }
     }
 }

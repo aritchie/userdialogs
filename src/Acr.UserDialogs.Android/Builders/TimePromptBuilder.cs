@@ -34,7 +34,7 @@ namespace Acr.UserDialogs.Builders
                     (sender, args) =>
                     {
                         var ts = new TimeSpan(0, picker.CurrentHour.IntValue(), picker.CurrentMinute.IntValue(), 0);
-                        config.OnResult?.Invoke(new TimePromptResult(false, ts));
+                        config.OnAction?.Invoke(new TimePromptResult(false, ts));
                     }
                 );
             }
@@ -43,7 +43,7 @@ namespace Acr.UserDialogs.Builders
                 (sender, args) =>
                 {
                     var ts = new TimeSpan(0, picker.CurrentHour.IntValue(), picker.CurrentMinute.IntValue(), 0);
-                    config.OnResult?.Invoke(new TimePromptResult(true, ts));
+                    config.OnAction?.Invoke(new TimePromptResult(true, ts));
                 }
             );
 

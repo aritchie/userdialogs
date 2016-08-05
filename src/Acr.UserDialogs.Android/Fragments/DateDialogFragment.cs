@@ -16,7 +16,7 @@ namespace Acr.UserDialogs.Fragments
                 return;
 
             args.Handled = true;
-            this.Config?.OnResult?.Invoke(new DatePromptResult(false, DateTime.MinValue));
+            this.Config?.OnAction?.Invoke(new DatePromptResult(false, DateTime.MinValue));
             this.Dismiss();
         }
 
@@ -37,7 +37,7 @@ namespace Acr.UserDialogs.Fragments
                 return;
 
             args.Handled = true;
-            this.Config?.OnResult?.Invoke(new DatePromptResult(false, DateTime.MinValue));
+            this.Config?.OnAction?.Invoke(new DatePromptResult(false, DateTime.MinValue));
             this.Dismiss();
         }
 

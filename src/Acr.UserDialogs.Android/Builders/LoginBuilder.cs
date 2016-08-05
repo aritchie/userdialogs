@@ -44,10 +44,10 @@ namespace Acr.UserDialogs.Builders
                 .SetMessage(config.Message)
                 .SetView(layout)
                 .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnResult(new LoginResult(true, txtUser.Text, txtPass.Text))
+                    config.OnAction(new LoginResult(true, txtUser.Text, txtPass.Text))
                 )
                 .SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnResult(new LoginResult(false, txtUser.Text, txtPass.Text))
+                    config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))
                 );
         }
 
@@ -84,10 +84,10 @@ namespace Acr.UserDialogs.Builders
                 .SetMessage(config.Message)
                 .SetView(layout)
                 .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnResult(new LoginResult(true, txtUser.Text, txtPass.Text))
+                    config.OnAction(new LoginResult(true, txtUser.Text, txtPass.Text))
                 )
                 .SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnResult(new LoginResult(false, txtUser.Text, txtPass.Text))
+                    config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))
                 );
         }
     }

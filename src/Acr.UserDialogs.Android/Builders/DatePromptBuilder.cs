@@ -35,9 +35,9 @@ namespace Acr.UserDialogs.Builders
                     (int) DialogButtonType.Negative,
                     new SpannableString(config.CancelText),
                     (sender, args) => config
-                        .OnResult?
+                        .OnAction?
                         .Invoke(new DatePromptResult(
-                            false, 
+                            false,
                             dialog.DatePicker.DateTime.Date
                         ))
                 );
@@ -46,9 +46,9 @@ namespace Acr.UserDialogs.Builders
                 (int)DialogButtonType.Positive,
                 new SpannableString(config.OkText),
                 (sender, args) => config
-                    .OnResult?
+                    .OnAction?
                     .Invoke(new DatePromptResult(
-                        true, 
+                        true,
                         dialog.DatePicker.DateTime.Date
                     ))
             );
