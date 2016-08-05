@@ -1,15 +1,18 @@
 using System;
+using Android.App;
 using AndroidHUD;
 
 
 namespace Acr.UserDialogs
 {
-
     public class ProgressDialog : IProgressDialog
     {
-        public ProgressDialog()
+        readonly Activity activity;
+
+
+        public ProgressDialog(Activity activity)
         {
-            this.MaskType = MaskType.Black;
+            this.activity = activity;
         }
 
         #region IProgressDialog Members
@@ -29,7 +32,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public MaskType MaskType { get; set; }
+        public MaskType MaskType { get; set; } = MaskType.Black;
 
 
         int percentComplete;
@@ -119,7 +122,7 @@ namespace Acr.UserDialogs
                 txt += "\n" + this.cancelText;
 
             AndHUD.Shared.Show(
-                null, // TODO
+                this.activity,
                 txt,
                 p,
                 this.MaskType.ToNative(),

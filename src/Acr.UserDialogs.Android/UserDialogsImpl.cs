@@ -259,18 +259,19 @@ namespace Acr.UserDialogs
 
         protected override IProgressDialog CreateDialogInstance()
         {
-            var dialog = new ProgressDialog();
             var activity = this.TopActivityFunc() as AppCompatActivity;
+            var dialog = new ProgressDialog(activity);
 
-            if (activity != null)
-            {
-                var frag = new LoadingFragment();
-                activity.RunOnUiThread(() =>
-                {
-                    frag.Config = dialog;
-                    frag.Show(activity.SupportFragmentManager, FragmentTag);
-                });
-            }
+
+            //if (activity != null)
+            //{
+            //    var frag = new LoadingFragment();
+            //    activity.RunOnUiThread(() =>
+            //    {
+            //        frag.Config = dialog;
+            //        frag.Show(activity.SupportFragmentManager, FragmentTag);
+            //    });
+            //}
 
             return dialog;
         }
