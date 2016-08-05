@@ -8,10 +8,12 @@ namespace Acr.UserDialogs
     public class ProgressDialog : IProgressDialog
     {
         readonly Activity activity;
+        readonly ProgressDialogConfig config;
 
 
-        public ProgressDialog(Activity activity)
+        public ProgressDialog(ProgressDialogConfig config, Activity activity)
         {
+            this.config = config;
             this.activity = activity;
         }
 
@@ -30,9 +32,6 @@ namespace Acr.UserDialogs
                 this.Refresh();
             }
         }
-
-
-        public MaskType MaskType { get; set; } = MaskType.Black;
 
 
         int percentComplete;
@@ -56,17 +55,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual bool IsDeterministic { get; set; }
         public virtual bool IsShowing { get; private set; }
-
-
-        Action cancelAction;
-        string cancelText;
-        public virtual void SetCancel(Action onCancel, string cancel)
-        {
-            this.cancelAction = onCancel;
-            this.cancelText = cancel;
-        }
 
 
         public virtual void Show()
@@ -109,7 +98,7 @@ namespace Acr.UserDialogs
 
             var p = -1;
             var txt = this.Title;
-            if (this.IsDeterministic)
+            if (this.config.IsDeterministic)
             {
                 p = this.PercentComplete;
                 if (!String.IsNullOrWhiteSpace(txt))
@@ -118,27 +107,27 @@ namespace Acr.UserDialogs
                 txt += p + "%\n";
             }
 
-            if (this.cancelAction != null)
-                txt += "\n" + this.cancelText;
+            if (this.config.OnCancel != null)
+                txt += "\n" + this.config.CancelText;
 
             AndHUD.Shared.Show(
                 this.activity,
                 txt,
                 p,
-                this.MaskType.ToNative(),
+                this.config.MaskType.ToNative(),
                 null,
                 this.OnCancelClick
             );
         }
 
 
-        private void OnCancelClick()
+        void OnCancelClick()
         {
-            if (this.cancelAction == null)
+            if (this.config.OnCancel == null)
                 return;
 
             this.Hide();
-            this.cancelAction();
+            this.config.OnCancel();
         }
 
         #endregion

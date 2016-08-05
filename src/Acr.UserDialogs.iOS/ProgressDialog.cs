@@ -8,10 +8,13 @@ namespace Acr.UserDialogs
 
     public class ProgressDialog : IProgressDialog
     {
+        readonly ProgressDialogConfig config;
 
-        public ProgressDialog()
+
+        public ProgressDialog(ProgressDialogConfig config)
         {
-            this.MaskType = MaskType.Black;
+            this.config = config;
+            this.title = config.Title;
         }
 
 
@@ -30,9 +33,6 @@ namespace Acr.UserDialogs
                 this.Refresh();
             }
         }
-
-
-        public MaskType MaskType { get; set; }
 
 
         int percentComplete;
@@ -55,18 +55,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual bool IsDeterministic { get; set; }
         public virtual bool IsShowing { get; private set; }
-
-
-        string cancelText;
-        Action cancelAction;
-        public virtual void SetCancel(Action onCancel, string cancel)
-        {
-            this.cancelAction = onCancel;
-            this.cancelText = cancel;
-            this.Refresh();
-        }
 
 
         public virtual void Show()
@@ -102,7 +91,7 @@ namespace Acr.UserDialogs
 
             var txt = this.Title;
             float p = -1;
-            if (this.IsDeterministic)
+            if (this.config.IsDeterministic)
             {
                 p = (float)this.PercentComplete / 100;
                 if (!String.IsNullOrWhiteSpace(txt))
@@ -114,22 +103,22 @@ namespace Acr.UserDialogs
 
             UIApplication.SharedApplication.InvokeOnMainThread(() =>
             {
-                if (this.cancelAction == null)
+                if (this.config.OnCancel == null)
                 {
                     BTProgressHUD.Show(
                         this.Title,
                         p,
-                        this.MaskType.ToNative()
+                        this.config.MaskType.ToNative()
                     );
                 }
                 else
                 {
                     BTProgressHUD.Show(
-                        this.cancelText,
-                        this.cancelAction,
+                        this.config.CancelText,
+                        this.config.OnCancel,
                         txt,
                         p,
-                        this.MaskType.ToNative()
+                        this.config.MaskType.ToNative()
                     );
                 }
             });

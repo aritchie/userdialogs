@@ -39,7 +39,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var picker = new AI.AIDatePickerController 
+            var picker = new AI.AIDatePickerController
             {
                 Mode = UIDatePickerMode.Date,
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
@@ -159,7 +159,7 @@ namespace Acr.UserDialogs
             };
             if (cfg.BackgroundColor != null)
                 snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
-            
+
             if (cfg.MessageTextColor != null)
                 snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
 
@@ -168,7 +168,7 @@ namespace Acr.UserDialogs
                 var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
                 if (color != null)
                     snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
-                
+
                 snackbar.ActionText = cfg.Action.Text;
                 snackbar.ActionBlock = x =>
                 {
@@ -260,9 +260,9 @@ namespace Acr.UserDialogs
         }
 
 
-        protected override IProgressDialog CreateDialogInstance()
+        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
         {
-            return new ProgressDialog();
+            return new ProgressDialog(config);
         }
 
 

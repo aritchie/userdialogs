@@ -381,9 +381,9 @@ namespace Acr.UserDialogs
         }
 
 
-        protected override IProgressDialog CreateDialogInstance()
+        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
         {
-            return new ProgressDialog();
+            return new ProgressDialog(config);
         }
 
 

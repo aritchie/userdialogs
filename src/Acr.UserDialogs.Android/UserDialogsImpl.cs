@@ -257,10 +257,10 @@ namespace Acr.UserDialogs
 
         #region Internals
 
-        protected override IProgressDialog CreateDialogInstance()
+        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
         {
-            var activity = this.TopActivityFunc() as AppCompatActivity;
-            var dialog = new ProgressDialog(activity);
+            var activity = this.TopActivityFunc();
+            var dialog = new ProgressDialog(config, activity);
 
 
             //if (activity != null)

@@ -12,41 +12,20 @@ namespace Acr.UserDialogs
     public class ProgressDialog : IProgressDialog, INotifyPropertyChanged
     {
         readonly ProgressContentDialog dialog;
-        Action cancelAction;
+        readonly ProgressDialogConfig config;
 
 
-        public ProgressDialog()
+        public ProgressDialog(ProgressDialogConfig config)
         {
-            this.CancelVisibility = Visibility.Collapsed;
-            this.IsIndeterministic = true;
+            this.config = config;
+            //this.CancelVisibility = Visibility.Collapsed;
+            //this.TextPercentVisibility = config.IsDeterministic ? Visibility.Visible : Visibility.Collapsed;
             this.dialog = new ProgressContentDialog { DataContext = this };
-            this.Cancel = new Command(() => this.cancelAction?.Invoke());
-        }
-
-
-        public bool IsIndeterministic { get; private set; }
-
-        bool deter;
-        public bool IsDeterministic
-        {
-            get { return this.deter; }
-            set
-            {
-                this.deter = value;
-                this.IsIndeterministic = !value;
-                this.TextPercentVisibility = value
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
-
-                this.Change();
-                this.Change("IsIndeterministic");
-            }
+            this.Cancel = new Command(() => config.OnCancel?.Invoke());
         }
 
 
         public bool IsShowing { get; private set; }
-
-        public MaskType MaskType { get; set; }
 
 
         int percent;
@@ -61,18 +40,6 @@ namespace Acr.UserDialogs
                     this.percent = 0;
                 else
                     this.percent = value;
-                this.Change();
-            }
-        }
-
-
-        Visibility textVis;
-        public Visibility TextPercentVisibility
-        {
-            get { return this.textVis; }
-            private set
-            {
-                this.textVis = value;
                 this.Change();
             }
         }
@@ -106,14 +73,6 @@ namespace Acr.UserDialogs
         }
 
 
-        public void SetCancel(Action onCancel, string cancelText = "Cancel")
-        {
-            this.CancelVisibility = Visibility.Visible;
-            this.cancelAction = onCancel;
-            this.CancelText = cancelText;
-        }
-
-
         public void Show()
         {
             if (this.IsShowing)
@@ -131,30 +90,9 @@ namespace Acr.UserDialogs
 
 
         public ICommand Cancel { get; }
-
-
-        string cancelText;
-        public string CancelText
-        {
-            get { return this.cancelText; }
-            set
-            {
-                this.cancelText = value;
-                this.Change();
-            }
-        }
-
-
-        Visibility cancelVisible;
-        public Visibility CancelVisibility
-        {
-            get { return this.cancelVisible; }
-            private set
-            {
-                this.cancelVisible = value;
-                this.Change();
-            }
-        }
+        public Visibility CancelVisibility => this.config.OnCancel == null
+            ? Visibility.Collapsed
+            : Visibility.Visible;
 
 
         public event PropertyChangedEventHandler PropertyChanged;

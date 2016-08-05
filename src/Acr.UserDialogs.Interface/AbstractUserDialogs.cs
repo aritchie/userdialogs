@@ -21,7 +21,7 @@ namespace Acr.UserDialogs
         public abstract void ShowError(string message, int timeoutMillis);
         public abstract void ShowSuccess(string message, int timeoutMillis);
         public abstract IDisposable Toast(ToastConfig config);
-        protected abstract IProgressDialog CreateDialogInstance();
+        protected abstract IProgressDialog CreateDialogInstance(ProgressDialogConfig config);
 
 
         public virtual Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
@@ -105,13 +105,8 @@ namespace Acr.UserDialogs
 
         public virtual IProgressDialog Progress(ProgressDialogConfig config)
         {
-            var dlg = this.CreateDialogInstance();
+            var dlg = this.CreateDialogInstance(config);
             dlg.Title = config.Title;
-            dlg.IsDeterministic = config.IsDeterministic;
-            dlg.MaskType = config.MaskType;
-
-            if (config.OnCancel != null)
-                dlg.SetCancel(config.OnCancel, config.CancelText);
 
             if (config.AutoShow)
                 dlg.Show();
