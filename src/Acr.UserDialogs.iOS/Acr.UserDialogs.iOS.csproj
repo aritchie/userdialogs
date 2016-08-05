@@ -40,7 +40,6 @@
     <Compile Include="UserDialogsImpl.cs" />
     <Compile Include="TTGSnackbar.cs" />
     <Compile Include="AIDatePickerController.cs" />
-    <Compile Include="DateTimeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
