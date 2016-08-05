@@ -2,14 +2,15 @@ using System;
 using Acr.UserDialogs.Builders;
 using Acr.UserDialogs.Fragments;
 using Android.App;
+using Android.Text;
 using Android.Views;
+using Android.Widget;
+using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Support.Design.Widget;
-using Android.Support.V4.App;
-using Android.Text;
-using Android.Widget;
 using AndroidHUD;
 using Splat;
+
 
 namespace Acr.UserDialogs
 {
