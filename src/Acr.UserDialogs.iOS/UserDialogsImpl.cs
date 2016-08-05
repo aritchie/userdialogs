@@ -128,23 +128,26 @@ namespace Acr.UserDialogs
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
-            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis));
+            BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis);
+            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis));
         }
 
 
         public override void ShowError(string message, int timeoutMillis)
         {
+            BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis);
             //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis));
-            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(ProgressHUD.Shared.ErrorImage, message, timeoutMillis));
+            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(UIImage.FromBundle("icon-error"), message, timeoutMillis));
         }
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
         {
+            
+            BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis);
             //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis));
-            this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(ProgressHUD.Shared.SuccessImage, message, timeoutMillis));
+            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(UIImage.FromBundle("icon-success"), message, timeoutMillis));
         }
-
 
         IDisposable currentToast;
         public override IDisposable Toast(ToastConfig cfg)
@@ -188,44 +191,6 @@ namespace Acr.UserDialogs
 
 
         #region Internals
-
-        UIView currentOverlay;
-
-
-        protected virtual void ShowWithOverlay(int timemillis, Action action)
-        {
-            var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
-            {
-                this.ShowOverlay();
-                action();
-            });
-            Task.Delay(timemillis)
-                .ContinueWith(x => app.InvokeOnMainThread(this.DismissOverlay));
-        }
-
-
-        protected virtual void ShowOverlay()
-        {
-            this.currentOverlay = new UIView(UIScreen.MainScreen.Bounds)
-            {
-                AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
-                Alpha = 0.7F,
-                BackgroundColor = UIColor.Black,
-                UserInteractionEnabled = false
-            };
-            UIApplication
-                .SharedApplication
-                .GetTopWindow()
-                .AddSubview(this.currentOverlay);
-        }
-
-
-        protected virtual void DismissOverlay()
-        {
-            this.currentOverlay?.RemoveFromSuperview();
-            this.currentOverlay = null;
-        }
 
 
         protected virtual UIAlertController CreateNativeActionSheet (ActionSheetConfig config)
