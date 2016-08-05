@@ -18,7 +18,7 @@ namespace Samples.ViewModels
             this.LoadingNone = this.LoadingCommand(MaskType.None);
 
             this.ShowError = new Command(() => this.Dialogs.ShowError("TEST ERROR!"));
-            this.ShowSuccess = new Command(() => this.Dialogs.ShowError("TEST SUCCESS!"));
+            this.ShowSuccess = new Command(() => this.Dialogs.ShowSuccess("TEST SUCCESS!"));
 
             this.Progress = new Command(async () =>
             {
