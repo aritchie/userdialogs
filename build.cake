@@ -5,7 +5,7 @@
 
 var target = Argument("target", Argument("t", "package"));
 
-Setup(x => 
+Setup(x =>
 {
     DeleteFiles("./*.nupkg");
     DeleteFiles("./output/*.*");
@@ -21,7 +21,6 @@ Task("build")
 	DotNetBuild("./src/lib.sln", x => x
         .SetConfiguration("Release")
         .SetVerbosity(Verbosity.Minimal)
-        .WithTarget("build")
         .WithProperty("TreatWarningsAsErrors", "false")
     );
 });
@@ -34,7 +33,7 @@ Task("package")
     {
          RepositoryUrl = "https://github.com/aritchie/userdialogs",
          Branch = "master"
-    });    
+    });
 	NuGetPack(new FilePath("./nuspec/Acr.UserDialogs.nuspec"), new NuGetPackSettings());
 	MoveFiles("./*.nupkg", "./output");
 });
