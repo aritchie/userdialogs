@@ -12,6 +12,8 @@ namespace Acr.UserDialogs.Fragments
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
             base.OnKeyPress(sender, args);
+            args.Handled = false;
+
             switch (args.KeyCode)
             {
                 case Keycode.Back:
@@ -42,6 +44,8 @@ namespace Acr.UserDialogs.Fragments
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
             base.OnKeyPress(sender, args);
+            args.Handled = false;
+
             switch (args.KeyCode)
             {
                 case Keycode.Back:

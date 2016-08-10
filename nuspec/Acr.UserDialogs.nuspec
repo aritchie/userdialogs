@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.1.1</version>
+        <version>6.1.2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -70,6 +70,9 @@ Supported Platforms
             -->
         </dependencies>
         <releaseNotes>
+6.1.2
+[fix][droid] prompt dialog with numeric restriction was not allowing input
+
 6.1.0
 [BREAKING] all config objects now use a consistent naming for OnEvent called OnAction instead of OnAction, OnAction, OnEtc
 [BREAKING] progress dialog interface has changed ever so slightly
