@@ -9,6 +9,7 @@ namespace Acr.UserDialogs
 
     public abstract class AbstractUserDialogs : IUserDialogs
     {
+        const string NO_ONACTION = "OnAction should not be set as async will not use it";
 
         public abstract IDisposable Alert(AlertConfig config);
         public abstract IDisposable ActionSheet(ActionSheetConfig config);
@@ -117,6 +118,9 @@ namespace Acr.UserDialogs
 
         public virtual Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null)
         {
+            if (config.OnAction != null)
+                throw new ArgumentException(NO_ONACTION);
+
             var tcs = new TaskCompletionSource<object>();
             config.OnAction = () => tcs.TrySetResult(null);
 
@@ -144,6 +148,9 @@ namespace Acr.UserDialogs
 
         public virtual Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null)
         {
+            if (config.OnAction != null)
+                throw new ArgumentException(NO_ONACTION);
+
             var tcs = new TaskCompletionSource<bool>();
             config.OnAction = x => tcs.TrySetResult(x);
 
@@ -171,6 +178,9 @@ namespace Acr.UserDialogs
 
         public virtual Task<DatePromptResult> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
         {
+            if (config.OnAction != null)
+                throw new ArgumentException(NO_ONACTION);
+
             var tcs = new TaskCompletionSource<DatePromptResult>();
             config.OnAction = x => tcs.TrySetResult(x);
 
@@ -200,6 +210,9 @@ namespace Acr.UserDialogs
 
         public virtual Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null)
         {
+            if (config.OnAction != null)
+                throw new ArgumentException(NO_ONACTION);
+
             var tcs = new TaskCompletionSource<TimePromptResult>();
             config.OnAction = x => tcs.TrySetResult(x);
 
@@ -229,6 +242,9 @@ namespace Acr.UserDialogs
 
         public virtual Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
         {
+            if (config.OnAction != null)
+                throw new ArgumentException(NO_ONACTION);
+
             var tcs = new TaskCompletionSource<LoginResult>();
             config.OnAction = x => tcs.TrySetResult(x);
 
@@ -255,6 +271,9 @@ namespace Acr.UserDialogs
 
         public virtual Task<PromptResult> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
         {
+            if (config.OnAction != null)
+                throw new ArgumentException(NO_ONACTION);
+
             var tcs = new TaskCompletionSource<PromptResult>();
             config.OnAction = x => tcs.TrySetResult(x);
 
