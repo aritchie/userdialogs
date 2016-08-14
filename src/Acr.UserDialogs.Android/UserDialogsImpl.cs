@@ -250,7 +250,16 @@ namespace Acr.UserDialogs
                     cfg.Action.Action?.Invoke();
                 }
             );
-            return new DisposableAction(() => AndHUD.Shared.Dismiss(activity));
+            return new DisposableAction(() =>
+            {
+                try
+                {
+                    AndHUD.Shared.Dismiss(activity);
+                }
+                catch
+                {
+                }
+            });
         }
 
         #endregion
