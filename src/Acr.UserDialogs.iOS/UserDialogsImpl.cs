@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using UIKit;
 using CoreGraphics;
 using Foundation;
@@ -169,38 +168,40 @@ namespace Acr.UserDialogs
         {
             this.currentToast?.Dispose();
 
-            var snackbar = new TTG.TTGSnackbar
-            {
-                Message = cfg.Message,
-                Duration = cfg.Duration,
-                AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
-            };
-            if (cfg.BackgroundColor != null)
-                snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
-
-            if (cfg.MessageTextColor != null)
-                snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
-
-            if (cfg.Action != null)
-            {
-                var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
-                if (color != null)
-                    snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
-
-                snackbar.ActionText = cfg.Action.Text;
-                snackbar.ActionBlock = x =>
-                {
-                    snackbar.Dismiss();
-                    cfg.Action.Action?.Invoke();
-                };
-            }
-
             var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(snackbar.Show);
+            app.InvokeOnMainThread(() =>
+            {
+                var snackbar = new TTG.TTGSnackbar
+                {
+                    Message = cfg.Message,
+                    Duration = cfg.Duration,
+                    AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
+                };
+                if (cfg.BackgroundColor != null)
+                    snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
 
-            this.currentToast = new DisposableAction(
-                () => app.InvokeOnMainThread(() => snackbar.Dismiss())
-            );
+                if (cfg.MessageTextColor != null)
+                    snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
+
+                if (cfg.Action != null)
+                {
+                    var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                    if (color != null)
+                        snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
+
+                    snackbar.ActionText = cfg.Action.Text;
+                    snackbar.ActionBlock = x =>
+                    {
+                        snackbar.Dismiss();
+                        cfg.Action.Action?.Invoke();
+                    };
+                }
+                snackbar.Show();
+
+                this.currentToast = new DisposableAction(
+                    () => app.InvokeOnMainThread(() => snackbar.Dismiss())
+                );
+            });
             return this.currentToast;
         }
 
