@@ -328,8 +328,10 @@ namespace Acr.UserDialogs
                 PlaceholderText = config.Placeholder,
                 Password = config.Text ?? String.Empty
             };
-            stack.Children.Add(txt);
+            if (config.MaxLength != null)
+                txt.MaxLength = config.MaxLength.Value;
 
+            stack.Children.Add(txt);
             dialog.PrimaryButtonCommand = new Command(() =>
             {
                 config.OnAction?.Invoke(new PromptResult(true, txt.Password));
@@ -345,6 +347,9 @@ namespace Acr.UserDialogs
                 PlaceholderText = config.Placeholder,
                 Text = config.Text ?? String.Empty
             };
+            if (config.MaxLength != null)
+                txt.MaxLength = config.MaxLength.Value;
+
             stack.Children.Add(txt);
 
             dialog.PrimaryButtonCommand = new Command(() =>

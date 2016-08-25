@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.1.3</version>
+        <version>6.2.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -70,11 +70,14 @@ Supported Platforms
             -->
         </dependencies>
         <releaseNotes>
-6.1.3
+6.2.0
 [fix][droid] date/time dialogs should not show keyboard
 [fix][uwp] progress dialog showing percent even when indeterministic
 [fix][uwp] fix toast from background thread
 [fix][ios] toast creation needs to be done on uithread
+[fix][ios] alert dialogs all marshall back to main thread now
+[fix][ios] time dialog is not using selected time
+[feature] maxlength for prompt dialog
 [feature][droid] actionsheet is now dismissable
 [feature] showloading can be called even when stoploading was not called (stupid proofing)
 [feature] onaction/async cannot be set together.  plugin will now throw error (stupid proofing)

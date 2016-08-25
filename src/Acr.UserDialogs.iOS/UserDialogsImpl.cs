@@ -28,25 +28,30 @@ namespace Acr.UserDialogs
 
         public override IDisposable Alert(AlertConfig config)
         {
-            var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke()));
-            return this.Present(alert);
+            return this.Present(() =>
+            {
+                var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke()));
+                return alert;
+            });
         }
 
 
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
-            var sheet = this.CreateNativeActionSheet(config);
-            return this.Present(sheet);
+            return this.Present(() => this.CreateNativeActionSheet(config));
         }
 
 
         public override IDisposable Confirm(ConfirmConfig config)
         {
-            var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction(false)));
-            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction(true)));
-            return this.Present(dlg);
+            return this.Present(() =>
+            {
+                var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction(false)));
+                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction(true)));
+                return dlg;
+            });
         }
 
 
@@ -89,53 +94,67 @@ namespace Acr.UserDialogs
 
         public override IDisposable Login(LoginConfig config)
         {
-            UITextField txtUser = null;
-            UITextField txtPass = null;
 
-            var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))));
-            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction(new LoginResult(true, txtUser.Text, txtPass.Text))));
-            dlg.AddTextField(x =>
+            return this.Present(() =>
             {
-                txtUser = x;
-                x.Placeholder = config.LoginPlaceholder;
-                x.Text = config.LoginValue ?? String.Empty;
+                UITextField txtUser = null;
+                UITextField txtPass = null;
+
+                var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))));
+                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction(new LoginResult(true, txtUser.Text, txtPass.Text))));
+                dlg.AddTextField(x =>
+                {
+                    txtUser = x;
+                    x.Placeholder = config.LoginPlaceholder;
+                    x.Text = config.LoginValue ?? String.Empty;
+                });
+                dlg.AddTextField(x =>
+                {
+                    txtPass = x;
+                    x.Placeholder = config.PasswordPlaceholder;
+                    x.SecureTextEntry = true;
+                });
+                return dlg;
             });
-            dlg.AddTextField(x =>
-            {
-                txtPass = x;
-                x.Placeholder = config.PasswordPlaceholder;
-                x.SecureTextEntry = true;
-            });
-            return this.Present(dlg);
         }
 
 
         public override IDisposable Prompt(PromptConfig config)
         {
-            var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-            UITextField txt = null;
-
-            if (config.IsCancellable)
+            return this.Present(() =>
             {
-                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
-                    config.OnAction(new PromptResult(false, txt.Text.Trim())
+                var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+                UITextField txt = null;
+
+                if (config.IsCancellable)
+                {
+                    dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
+                        config.OnAction(new PromptResult(false, txt.Text.Trim())
+                    )));
+                }
+                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
+                    config.OnAction(new PromptResult(true, txt.Text.Trim())
                 )));
-            }
-            dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
-                config.OnAction(new PromptResult(true, txt.Text.Trim())
-            )));
-            dlg.AddTextField(x =>
-            {
-                this.SetInputType(x, config.InputType);
-                x.Placeholder = config.Placeholder ?? String.Empty;
-                if (config.Text != null)
-                    x.Text = config.Text;
+                dlg.AddTextField(x =>
+                {
+                    if (config.MaxLength != null)
+                    {
+                        txt.ShouldChangeCharacters =  (tf, replace, range) =>
+                        {
+                            var len = txt.Text.Length + replace.Length - range.Length;
+                            return len <= config.MaxLength.Value;
+                        };
+                    }
+                    this.SetInputType(x, config.InputType);
+                    x.Placeholder = config.Placeholder ?? String.Empty;
+                    if (config.Text != null)
+                        x.Text = config.Text;
 
-                txt = x;
+                    txt = x;
+                });
+                return dlg;
             });
-
-            return this.Present(dlg);
         }
 
 
@@ -246,11 +265,13 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual IDisposable Present(UIAlertController alert)
+        protected virtual IDisposable Present(Func<UIAlertController> alertFunc)
         {
+            UIAlertController alert = null;
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(() =>
             {
+                alert = alertFunc();
                 var top = this.viewControllerFunc();
                 if (alert.PreferredStyle == UIAlertControllerStyle.ActionSheet && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
                 {

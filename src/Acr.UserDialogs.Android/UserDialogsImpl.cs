@@ -170,29 +170,32 @@ namespace Acr.UserDialogs
 
         protected virtual IDisposable ToastAppCompat(AppCompatActivity activity, ToastConfig cfg)
         {
-            var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
-            var snackBar = Snackbar.Make(
-                view,
-                Html.FromHtml(cfg.Message),
-                (int)cfg.Duration.TotalMilliseconds
-            );
-            this.TrySetToastTextColor(snackBar, cfg);
-            if (cfg.BackgroundColor != null)
-                snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
-
-            if (cfg.Action != null)
+            Snackbar snackBar = null;
+            activity.RunOnUiThread(() =>
             {
-                snackBar.SetAction(cfg.Action.Text, x =>
-                {
-                    cfg.Action?.Action?.Invoke();
-                    snackBar.Dismiss();
-                });
-                var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
-                if (color != null)
-                    snackBar.SetActionTextColor(color.Value.ToNative());
-            }
+                var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
+                snackBar = Snackbar.Make(
+                    view,
+                    Html.FromHtml(cfg.Message),
+                    (int) cfg.Duration.TotalMilliseconds
+                );
+                this.TrySetToastTextColor(snackBar, cfg);
+                if (cfg.BackgroundColor != null)
+                    snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
 
-            activity.RunOnUiThread(snackBar.Show);
+                if (cfg.Action != null)
+                {
+                    snackBar.SetAction(cfg.Action.Text, x =>
+                    {
+                        cfg.Action?.Action?.Invoke();
+                        snackBar.Dismiss();
+                    });
+                    var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                    if (color != null)
+                        snackBar.SetActionTextColor(color.Value.ToNative());
+                }
+                snackBar.Show();
+            });
             return new DisposableAction(() =>
             {
                 if (snackBar.IsShown)

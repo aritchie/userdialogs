@@ -9,6 +9,7 @@ namespace Acr.UserDialogs
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static int? DefaultAndroidStyleId { get; set; }
+        public static int? DefaultMaxLength { get; set; }
 
         public string Title { get; set; }
         public string Message { get; set; }
@@ -20,6 +21,7 @@ namespace Acr.UserDialogs
         public string OkText { get; set; } = DefaultOkText;
         public string CancelText { get; set; } = DefaultCancelText;
         public string Placeholder { get; set; }
+        public int? MaxLength { get; set; } = DefaultMaxLength;
         public int? AndroidStyleId { get; set; }
         public InputType InputType { get; set; } = InputType.Default;
 
@@ -48,6 +50,13 @@ namespace Acr.UserDialogs
         public PromptConfig SetOkText(string text)
         {
             this.OkText = text;
+            return this;
+        }
+
+
+        public PromptConfig SetMaxLength(int maxLength)
+        {
+            this.MaxLength = maxLength;
             return this;
         }
 

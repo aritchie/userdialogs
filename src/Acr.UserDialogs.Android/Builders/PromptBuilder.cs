@@ -22,6 +22,9 @@ namespace Acr.UserDialogs.Builders
             if (config.Text != null)
                 txt.Text = config.Text;
 
+            if (config.MaxLength != null)
+                txt.SetFilters(new [] { new InputFilterLengthFilter(config.MaxLength.Value) });
+
             SetInputType(txt, config.InputType);
 
             var builder = this
