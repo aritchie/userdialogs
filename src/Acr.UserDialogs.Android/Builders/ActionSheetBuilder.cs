@@ -14,7 +14,6 @@ namespace Acr.UserDialogs.Builders
         {
             var dlg = this
                 .CreateBaseBuilder(activity, config.AndroidStyleId)
-                .SetCancelable(false)
                 .SetTitle(config.Title);
             //.SetCustomTitle(new TextView(activity) {
             //    Text = config.Title,
@@ -51,7 +50,6 @@ namespace Acr.UserDialogs.Builders
         {
             var dlg = this
                 .CreateBaseBuilder(activity, config.AndroidStyleId)
-                .SetCancelable(false)
                 .SetTitle(config.Title);
             //.SetCustomTitle(new TextView(activity) {
             //    Text = config.Title,

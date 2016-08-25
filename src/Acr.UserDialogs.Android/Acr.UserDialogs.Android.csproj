@@ -103,7 +103,6 @@
     <Compile Include="Fragments\ConfigStore.cs" />
     <Compile Include="Fragments\LoginDialogFragment.cs" />
     <Compile Include="Fragments\PromptDialogFragment.cs" />
-    <Compile Include="ProgressFragmentConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressDialog.cs" />
     <Compile Include="UserDialogsImpl.cs" />

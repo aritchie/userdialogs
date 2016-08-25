@@ -3,10 +3,8 @@ using System;
 
 namespace Acr.UserDialogs
 {
-
     public static class Extensions
     {
-
         public static AndroidHUD.MaskType ToNative(this MaskType maskType)
         {
             switch (maskType)

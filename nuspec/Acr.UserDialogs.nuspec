@@ -75,6 +75,7 @@ Supported Platforms
 [fix][uwp] progress dialog showing percent even when indeterministic
 [fix][uwp] fix toast from background thread
 [fix][ios] toast creation needs to be done on uithread
+[feature][droid] actionsheet is now dismissable
 [feature] showloading can be called even when stoploading was not called (stupid proofing)
 [feature] onaction/async cannot be set together.  plugin will now throw error (stupid proofing)
 
