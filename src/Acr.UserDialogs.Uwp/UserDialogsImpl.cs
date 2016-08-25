@@ -271,19 +271,25 @@ namespace Acr.UserDialogs
 
         public override IDisposable Toast(ToastConfig config)
         {
-            var toast = new ToastPrompt
+            ToastPrompt toast = null;
+
+            return this.DispatchAndDispose(() =>
             {
-                Message = config.Message,
-                Stretch = Stretch.Fill,
-                MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
-            };
-            if (config.MessageTextColor != null)
-                toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
+                toast = new ToastPrompt
+                {
+                    Message = config.Message,
+                    Stretch = Stretch.Fill,
+                    MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
+                };
+                if (config.MessageTextColor != null)
+                    toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
 
-            if (config.BackgroundColor != null)
-                toast.Background = new SolidColorBrush(config.BackgroundColor.Value.ToNative());
+                if (config.BackgroundColor != null)
+                    toast.Background = new SolidColorBrush(config.BackgroundColor.Value.ToNative());
 
-            return this.DispatchAndDispose(toast.Show, toast.Hide);
+                toast.Show();
+            },
+            () => toast.Hide());
         }
 
 
