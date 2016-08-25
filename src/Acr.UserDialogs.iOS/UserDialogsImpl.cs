@@ -81,6 +81,7 @@ namespace Acr.UserDialogs
             var picker = new AI.AIDatePickerController
             {
                 Mode = UIDatePickerMode.Time,
+				SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add ((TimeSpan)config.SelectedTime) : DateTime.Now,
                 MinuteInterval = config.MinuteInterval,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
