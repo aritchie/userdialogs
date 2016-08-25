@@ -79,8 +79,8 @@ Supported Platforms
 [fix][ios] time dialog is not using selected time
 [feature] maxlength for prompt dialog
 [feature][droid] actionsheet is now dismissable
-[feature] showloading can be called even when stoploading was not called (stupid proofing)
-[feature] onaction/async cannot be set together.  plugin will now throw error (stupid proofing)
+[feature] showloading can be called even when stoploading was not called
+[feature] onaction/async cannot be set together.  plugin will now throw error
 
 6.1.2
 [fix][droid] prompt dialog with numeric restriction was not allowing input
