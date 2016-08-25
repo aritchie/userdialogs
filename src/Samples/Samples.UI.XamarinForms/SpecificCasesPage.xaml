@@ -4,10 +4,12 @@
              x:Class="Samples.SpecificCasesPage"
              Title="Specific Cases">
     <ContentPage.Content>
-        <StackLayout>
-            <Button Text="Loading Task to Alert" Command="{Binding LoadingTaskToAlert}" />
-            <Button Text="Two Date Pickers" Command="{Binding TwoDatePickers}" />
-            <Button Text="Start Loading Twice" Command="{Binding StartLoadingTwice}" />
-        </StackLayout>
+        <ListView ItemsSource="{Binding Commands}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Text}" Command="{Binding Command}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>
