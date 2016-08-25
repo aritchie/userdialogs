@@ -72,21 +72,21 @@ Supported Platforms
         <releaseNotes>
 6.2.0
 [fix][droid] date/time dialogs should not show keyboard
-[fix][uwp] progress dialog showing percent even when indeterministic
-[fix][uwp] fix toast from background thread
 [fix][ios] toast creation needs to be done on uithread
 [fix][ios] alert dialogs all marshall back to main thread now
 [fix][ios] time dialog is not using selected time
+[fix][uwp] progress dialog showing percent even when indeterministic
+[fix][uwp] fix toast from background thread
 [feature] maxlength for prompt dialog
-[feature][droid] actionsheet is now dismissable
 [feature] showloading can be called even when stoploading was not called
 [feature] onaction/async cannot be set together.  plugin will now throw error
+[feature][droid] actionsheet is now dismissable by touching outside of the dialog
 
 6.1.2
 [fix][droid] prompt dialog with numeric restriction was not allowing input
 
 6.1.0
-[BREAKING] all config objects now use a consistent naming for OnEvent called OnAction instead of OnAction, OnAction, OnEtc
+[BREAKING] all config objects now use a consistent naming for OnEvent called OnAction instead of OnOk, OnConfirm, OnEtc
 [BREAKING] progress dialog interface has changed ever so slightly
 [BREAKING] winphone 8 has been removed from the nuget package - it still exists on github!
 [feature][ios] Add optional Init function to allow for top viewcontroller control similar to android top activity - this is good for extensions apparently (Thanks to Kyle Spearrin)
