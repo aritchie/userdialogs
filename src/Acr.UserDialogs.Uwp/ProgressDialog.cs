@@ -18,8 +18,6 @@ namespace Acr.UserDialogs
         public ProgressDialog(ProgressDialogConfig config)
         {
             this.config = config;
-            //this.CancelVisibility = Visibility.Collapsed;
-            //this.TextPercentVisibility = config.IsDeterministic ? Visibility.Visible : Visibility.Collapsed;
             this.dialog = new ProgressContentDialog { DataContext = this };
             this.Cancel = new Command(() => config.OnCancel?.Invoke());
         }
@@ -43,6 +41,10 @@ namespace Acr.UserDialogs
                 this.Change();
             }
         }
+
+
+        public bool IsIndeterministic => !this.config.IsDeterministic;
+        public Visibility TextPercentVisibility => this.config.IsDeterministic ? Visibility.Visible : Visibility.Collapsed;
 
 
         string title;
