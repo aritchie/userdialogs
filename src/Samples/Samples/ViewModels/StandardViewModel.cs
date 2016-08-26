@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,95 +13,152 @@ namespace Samples.ViewModels
 {
     public class StandardViewModel : AbstractViewModel
     {
+        public IList<CommandViewModel> Commands { get; } = new List<CommandViewModel>();
+
+
         public StandardViewModel(IUserDialogs dialogs) : base(dialogs)
         {
-            this.Alert = this.Create(async token => await this.Dialogs.AlertAsync("Test alert", "Alert Title", null, token));
-            this.AlertLongText = this.Create(async token =>
-                await this.Dialogs.AlertAsync(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat diam nec eros ornare, vitae cursus nunc molestie. Praesent eget lacus non neque cursus posuere. Nunc venenatis quam sed justo bibendum, ut convallis arcu lobortis. Vestibulum in diam nisl. Nulla pulvinar lacus vel laoreet auctor. Morbi mi urna, viverra et accumsan in, pretium vel lorem. Proin elementum viverra commodo. Sed nunc justo, sollicitudin eu fermentum vitae, faucibus a est. Nulla ante turpis, iaculis et magna sed, facilisis blandit dolor. Morbi est felis, semper non turpis non, tincidunt consectetur enim.",
-                    cancelToken: token
-                )
-            );
-
-            this.ActionSheet = this.CreateActionSheetCommand(false);
-            this.BottomSheet = this.CreateActionSheetCommand(true);
-
-            this.ActionSheetAsync = this.Create(async token =>
+            this.Commands = new List<CommandViewModel>
             {
-                var result = await this.Dialogs.ActionSheetAsync("Test Title", "Cancel", "Destroy", token, "Button1", "Button2", "Button3");
-                this.Result(result);
-            });
-
-            this.Confirm = this.Create(async token =>
-            {
-                var r = await this.Dialogs.ConfirmAsync("Pick a choice", "Pick Title", cancelToken: token);
-                var text = r ? "Yes" : "No";
-                this.Result($"Confirmation Choice: {text}");
-            });
-
-            this.Login = this.Create(async token =>
-            {
-                var r = await this.Dialogs.LoginAsync(new LoginConfig
+                new CommandViewModel
                 {
-                    Message = "DANGER"
-                }, token);
-                var status = r.Ok ? "Success" : "Cancelled";
-                this.Result($"Login {status} - User Name: {r.LoginText} - Password: {r.Password}");
-            });
-
-            this.Prompt = new Command(() => this.Dialogs.ActionSheet(new ActionSheetConfig()
-                .SetTitle("Choose Type")
-                .Add("Default", () => this.PromptCommand(InputType.Default))
-                .Add("E-Mail", () => this.PromptCommand(InputType.Email))
-                .Add("Name", () => this.PromptCommand(InputType.Name))
-                .Add("Number", () => this.PromptCommand(InputType.Number))
-                .Add("Number with Decimal", () => this.PromptCommand(InputType.DecimalNumber))
-                .Add("Password", () => this.PromptCommand(InputType.Password))
-                .Add("Numeric Password (PIN)", () => this.PromptCommand(InputType.NumericPassword))
-                .Add("Phone", () => this.PromptCommand(InputType.Phone))
-                .Add("Url", () => this.PromptCommand(InputType.Url))
-                .SetCancel()
-            ));
-            this.PromptMaxLength = new Command(() => this.Dialogs.Prompt(new PromptConfig()
-                .SetMaxLength(10)
-                .SetText("Maximum Text Length (10)")
-            ));
-            this.PromptNoTextOrCancel = this.Create(async token =>
-            {
-                var result = await this.Dialogs.PromptAsync(new PromptConfig
+                    Text = "Alert",
+                    Command = this.Create(async token => await this.Dialogs.AlertAsync("Test alert", "Alert Title", null, token))
+                },
+                new CommandViewModel
                 {
-                    Title = "PromptWithTextAndNoCancel",
-                    Text = "Existing Text",
-                    IsCancellable = false
-                }, token);
-                this.Result($"Result - {result.Text}");
-            });
-
-            this.Date = this.Create(async token =>
-            {
-                var result = await this.Dialogs.DatePromptAsync(new DatePromptConfig
+                    Text = "Alert Long Text",
+                    Command = this.Create(async token =>
+                        await this.Dialogs.AlertAsync(
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat diam nec eros ornare, vitae cursus nunc molestie. Praesent eget lacus non neque cursus posuere. Nunc venenatis quam sed justo bibendum, ut convallis arcu lobortis. Vestibulum in diam nisl. Nulla pulvinar lacus vel laoreet auctor. Morbi mi urna, viverra et accumsan in, pretium vel lorem. Proin elementum viverra commodo. Sed nunc justo, sollicitudin eu fermentum vitae, faucibus a est. Nulla ante turpis, iaculis et magna sed, facilisis blandit dolor. Morbi est felis, semper non turpis non, tincidunt consectetur enim.",
+                            cancelToken: token
+                        )
+                    )
+                },
+                new CommandViewModel
                 {
-                    IsCancellable = true,
-                    MinimumDate = DateTime.Now.AddDays(-3),
-                    MaximumDate = DateTime.Now.AddDays(1)
-                }, token);
-                this.Result($"Date Prompt: {result.Ok} - Value: {result.SelectedDate}");
-            });
-            this.Time = this.Create(async token =>
-            {
-                var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig
+                    Text = "Action Sheet",
+                    Command = this.CreateActionSheetCommand(false, true)
+                },
+                new CommandViewModel
                 {
-                    IsCancellable = true
-                }, token);
-                this.Result($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
-            });
-            this.Time24 = this.Create (async token => {
-                var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig {
-                    IsCancellable = true,
-                    Use24HourClock = true
-                }, token);
-                this.Result ($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
-            });
+                    Text = "Action Sheet (No Cancel)",
+                    Command = this.CreateActionSheetCommand(false, false)
+                },
+                new CommandViewModel
+                {
+                    Text = "Action Sheet (async)",
+                    Command = this.Create(async token =>
+                    {
+                        var result = await this.Dialogs.ActionSheetAsync("Test Title", "Cancel", "Destroy", token, "Button1", "Button2", "Button3");
+                        this.Result(result);
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Bottom Sheet (Android Only)",
+                    Command = this.CreateActionSheetCommand(true, true)
+                },
+                new CommandViewModel
+                {
+                    Text = "Confirm",
+                    Command = this.Create(async token =>
+                    {
+                        var r = await this.Dialogs.ConfirmAsync("Pick a choice", "Pick Title", cancelToken: token);
+                        var text = r ? "Yes" : "No";
+                        this.Result($"Confirmation Choice: {text}");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Login",
+                    Command = this.Create(async token =>
+                    {
+                        var r = await this.Dialogs.LoginAsync(new LoginConfig
+                        {
+                            Message = "DANGER"
+                        }, token);
+                        var status = r.Ok ? "Success" : "Cancelled";
+                        this.Result($"Login {status} - User Name: {r.LoginText} - Password: {r.Password}");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Prompt",
+                    Command = new Command(() => this.Dialogs.ActionSheet(new ActionSheetConfig()
+                        .SetTitle("Choose Type")
+                        .Add("Default", () => this.PromptCommand(InputType.Default))
+                        .Add("E-Mail", () => this.PromptCommand(InputType.Email))
+                        .Add("Name", () => this.PromptCommand(InputType.Name))
+                        .Add("Number", () => this.PromptCommand(InputType.Number))
+                        .Add("Number with Decimal", () => this.PromptCommand(InputType.DecimalNumber))
+                        .Add("Password", () => this.PromptCommand(InputType.Password))
+                        .Add("Numeric Password (PIN)", () => this.PromptCommand(InputType.NumericPassword))
+                        .Add("Phone", () => this.PromptCommand(InputType.Phone))
+                        .Add("Url", () => this.PromptCommand(InputType.Url))
+                        .SetCancel()
+                    ))
+                },
+                new CommandViewModel
+                {
+                    Text = "Prompt Max Length",
+                    Command = new Command(() => this.Dialogs.Prompt(new PromptConfig()
+                        .SetMaxLength(10)
+                        .SetText("Maximum Text Length (10)")
+                    ))
+                },
+                new CommandViewModel
+                {
+                    Text = "Prompt (No Text or Cancel)",
+                    Command = this.Create(async token =>
+                    {
+                        var result = await this.Dialogs.PromptAsync(new PromptConfig
+                        {
+                            Title = "PromptWithTextAndNoCancel",
+                            Text = "Existing Text",
+                            IsCancellable = false
+                        }, token);
+                        this.Result($"Result - {result.Text}");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Date",
+                    Command = this.Create(async token =>
+                    {
+                        var result = await this.Dialogs.DatePromptAsync(new DatePromptConfig
+                        {
+                            IsCancellable = true,
+                            MinimumDate = DateTime.Now.AddDays(-3),
+                            MaximumDate = DateTime.Now.AddDays(1)
+                        }, token);
+                        this.Result($"Date Prompt: {result.Ok} - Value: {result.SelectedDate}");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Time",
+                    Command = this.Create(async token =>
+                    {
+                        var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig
+                        {
+                            IsCancellable = true
+                        }, token);
+                        this.Result($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Time (24 hour clock)",
+                    Command = this.Create (async token => {
+                        var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig {
+                            IsCancellable = true,
+                            Use24HourClock = true
+                        }, token);
+                        this.Result ($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
+                    })
+                }
+            };
         }
 
 
@@ -125,22 +183,7 @@ namespace Samples.ViewModels
         }
 
 
-        public ICommand Alert { get; }
-        public ICommand AlertLongText { get; }
-        public ICommand ActionSheet { get; }
-        public ICommand ActionSheetAsync { get; }
-        public ICommand BottomSheet { get; }
-        public ICommand Confirm { get; }
-        public ICommand Login { get; }
-        public ICommand Prompt { get; }
-        public ICommand PromptMaxLength { get; }
-        public ICommand PromptNoTextOrCancel { get; }
-        public ICommand Date { get; }
-        public ICommand Time { get; }
-        public ICommand Time24 { get; }
-
-
-        ICommand CreateActionSheetCommand(bool useBottomSheet)
+        ICommand CreateActionSheetCommand(bool useBottomSheet, bool cancel)
         {
             return new Command(() =>
             {
@@ -168,7 +211,8 @@ namespace Samples.ViewModels
                     );
                 }
                 cfg.SetDestructive(null, () => this.Result("Destructive BOOM Selected"), testImage);
-                cfg.SetCancel(null, () => this.Result("Cancel Selected"), testImage);
+                if (cancel)
+                    cfg.SetCancel(null, () => this.Result("Cancel Selected"), testImage);
 
                 var disp = this.Dialogs.ActionSheet(cfg);
                 if (this.AutoCancel)

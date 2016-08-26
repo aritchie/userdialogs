@@ -4,24 +4,18 @@
              x:Class="Samples.StandardPage"
              Title="Standard Dialogs">
     <ContentPage.Content>
-        <TableView>
-            <TableRoot>
-                <TableSection>
-                    <SwitchCell Text="Cancel After 3 Seconds" On="{Binding AutoCancel}" />
-                    <TextCell Text="Alert" Command="{Binding Alert}" />
-                    <TextCell Text="Alert (Long Text)" Command="{Binding AlertLongText}" />
-                    <TextCell Text="ActionSheet" Command="{Binding ActionSheet}" />
-                    <TextCell Text="ActionSheet (async)" Command="{Binding ActionSheetAsync}" />
-                    <TextCell Text="Bottom Sheet (Android Only)" Command="{Binding BottomSheet}" />
-                    <TextCell Text="Confirm" Command="{Binding Confirm}" />
-                    <TextCell Text="Date" Command="{Binding Date}" />
-                    <TextCell Text="Time" Command="{Binding Time}" />
-					<TextCell Text="Time (24 Hour)" Command="{Binding Time24}" />
-                    <TextCell Text="Login" Command="{Binding Login}" />
-                    <TextCell Text="Prompt" Command="{Binding Prompt}" />
-                    <TextCell Text="Prompt /w Text/No Cancel" Command="{Binding PromptNoTextOrCancel}" />
-                </TableSection>
-            </TableRoot>
-        </TableView>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Switch IsToggled="{Binding AutoCancel}" />
+                <Label Text="Cancel After 3 Seconds" />
+            </StackLayout>
+            <ListView ItemsSource="{Binding Commands}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Text}" Command="{Binding Command}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
