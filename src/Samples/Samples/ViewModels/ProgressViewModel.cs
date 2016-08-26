@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -10,78 +11,108 @@ namespace Samples.ViewModels
 {
     public class ProgressViewModel : AbstractViewModel
     {
+        public IList<CommandViewModel> Commands { get; } = new List<CommandViewModel>();
+
+
         public ProgressViewModel(IUserDialogs dialogs) : base(dialogs)
         {
-            this.Loading = this.LoadingCommand(MaskType.Black);
-            this.LoadingClear = this.LoadingCommand(MaskType.Clear);
-            this.LoadingGradient = this.LoadingCommand(MaskType.Gradient);
-            this.LoadingNone = this.LoadingCommand(MaskType.None);
-
-            this.ShowError = new Command(() => this.Dialogs.ShowError("TEST ERROR!"));
-            this.ShowSuccess = new Command(() => this.Dialogs.ShowSuccess("TEST SUCCESS!"));
-
-            this.Progress = new Command(async () =>
+            this.Commands = new List<CommandViewModel>
             {
-                var cancelled = false;
-
-                using (var dlg = this.Dialogs.Progress("Test Progress", () => cancelled = true))
+                new CommandViewModel
                 {
-                    while (!cancelled && dlg.PercentComplete < 100)
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(500));
-                        dlg.PercentComplete += 2;
-                    }
-                }
-                this.Result(cancelled ? "Progress Cancelled" : "Progress Complete");
-            });
-
-            this.ProgressNoCancel = new Command(async () =>
-            {
-                using (var dlg = this.Dialogs.Progress("Progress (No Cancel)"))
+                    Text = "Loading",
+                    Command = this.LoadingCommand(MaskType.Black)
+                },
+                new CommandViewModel
                 {
-                    while (dlg.PercentComplete < 100)
+                    Text = "Loading (Clear)",
+                    Command = this.LoadingCommand(MaskType.Clear)
+                },
+                new CommandViewModel
+                {
+                    Text = "Loading (Gradient)",
+                    Command = this.LoadingCommand(MaskType.Gradient)
+                },
+                new CommandViewModel
+                {
+                    Text = "Loading (None)",
+                    Command = this.LoadingCommand(MaskType.None)
+                },
+                new CommandViewModel
+                {
+                    Text = "Show Error",
+                    Command = new Command(() => this.Dialogs.ShowError("TEST ERROR!"))
+                },
+                new CommandViewModel
+                {
+                    Text = "Show Success",
+                    Command = new Command(() => this.Dialogs.ShowSuccess("TEST SUCCESS!"))
+                },
+                new CommandViewModel
+                {
+                    Text = "Progress",
+                    Command = new Command(async () =>
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(1));
-                        dlg.PercentComplete += 20;
-                    }
+                        var cancelled = false;
+
+                        using (var dlg = this.Dialogs.Progress("Test Progress", () => cancelled = true))
+                        {
+                            while (!cancelled && dlg.PercentComplete < 100)
+                            {
+                                await Task.Delay(TimeSpan.FromMilliseconds(500));
+                                dlg.PercentComplete += 2;
+                            }
+                        }
+                        this.Result(cancelled ? "Progress Cancelled" : "Progress Complete");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Progress (No Cancel)",
+                    Command = new Command(async () =>
+                    {
+                        using (var dlg = this.Dialogs.Progress("Progress (No Cancel)"))
+                        {
+                            while (dlg.PercentComplete < 100)
+                            {
+                                await Task.Delay(TimeSpan.FromSeconds(1));
+                                dlg.PercentComplete += 20;
+                            }
+                        }
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Loading (No Cancel)",
+                    Command = new Command(async () =>
+                    {
+                        using (this.Dialogs.Loading("Loading (No Cancel)"))
+                            await Task.Delay(TimeSpan.FromSeconds(3));
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Loading To Success",
+                    Command = new Command(async () =>
+                    {
+                        using (this.Dialogs.Loading("Test Loading"))
+                            await Task.Delay(3000);
+
+                        this.Dialogs.ShowSuccess("Success Loading!");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Manual Loading",
+                    Command = new Command(async () =>
+                    {
+                        this.Dialogs.ShowLoading("Manual Loading");
+                        await Task.Delay(3000);
+                        this.Dialogs.HideLoading();
+                    })
                 }
-            });
-
-            this.LoadingNoCancel = new Command(async () =>
-            {
-                using (this.Dialogs.Loading("Loading (No Cancel)"))
-                    await Task.Delay(TimeSpan.FromSeconds(3));
-            });
-
-            this.LoadingToSuccess = new Command(async () =>
-            {
-                using (this.Dialogs.Loading("Test Loading"))
-                    await Task.Delay(3000);
-
-                this.Dialogs.ShowSuccess("Success Loading!");
-            });
-
-            this.ManualLoading = new Command(async () =>
-            {
-                this.Dialogs.ShowLoading("Manual Loading");
-                await Task.Delay(3000);
-                this.Dialogs.HideLoading();
-            });
+            };
         }
-
-
-
-        public ICommand Progress { get; }
-        public ICommand ProgressNoCancel { get; }
-        public ICommand Loading { get; }
-        public ICommand LoadingClear { get; }
-        public ICommand LoadingGradient { get; }
-        public ICommand LoadingNone { get; }
-        public ICommand ShowError { get; }
-        public ICommand ShowSuccess { get; }
-        public ICommand LoadingToSuccess { get; }
-        public ICommand LoadingNoCancel { get; }
-        public ICommand ManualLoading { get; }
 
 
         ICommand LoadingCommand(MaskType mask)

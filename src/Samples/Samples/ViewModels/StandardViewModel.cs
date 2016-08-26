@@ -61,6 +61,10 @@ namespace Samples.ViewModels
                 .Add("Url", () => this.PromptCommand(InputType.Url))
                 .SetCancel()
             ));
+            this.PromptMaxLength = new Command(() => this.Dialogs.Prompt(new PromptConfig()
+                .SetMaxLength(10)
+                .SetText("Maximum Text Length (10)")
+            ));
             this.PromptNoTextOrCancel = this.Create(async token =>
             {
                 var result = await this.Dialogs.PromptAsync(new PromptConfig
@@ -129,6 +133,7 @@ namespace Samples.ViewModels
         public ICommand Confirm { get; }
         public ICommand Login { get; }
         public ICommand Prompt { get; }
+        public ICommand PromptMaxLength { get; }
         public ICommand PromptNoTextOrCancel { get; }
         public ICommand Date { get; }
         public ICommand Time { get; }
