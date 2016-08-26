@@ -81,6 +81,16 @@ namespace Samples.ViewModels
                             TaskCreationOptions.LongRunning
                         )
                     )
+                },
+                new CommandViewModel
+                {
+                    Text = "Alert from Background Thread",
+                    Command = new Command(() =>
+                        Task.Factory.StartNew(() =>
+                            this.Dialogs.Alert("Test From Background"),
+                            TaskCreationOptions.LongRunning
+                        )
+                    )
                 }
             };
         }

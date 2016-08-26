@@ -71,16 +71,15 @@ Supported Platforms
         </dependencies>
         <releaseNotes>
 6.2.0
-[fix][droid] date/time dialogs should not show keyboard
-[fix][ios] toast creation needs to be done on uithread
-[fix][ios] alert dialogs all marshall back to main thread now
-[fix][ios] time dialog is not using selected time
-[fix][uwp] progress dialog showing percent even when indeterministic
-[fix][uwp] fix toast from background thread
 [feature] maxlength for prompt dialog
 [feature] showloading can be called even when stoploading was not called
 [feature] onaction/async cannot be set together.  plugin will now throw error
 [feature][droid] actionsheet is now dismissable by touching outside of the dialog
+[fix][droid] date/time dialogs should not show keyboard
+[fix][ios] alert dialogs and toasts all marshall back to main thread now
+[fix][ios] time dialog is not using selected time
+[fix][uwp] progress dialog showing percent even when indeterministic
+[fix][uwp] fix toast from background thread
 
 6.1.2
 [fix][droid] prompt dialog with numeric restriction was not allowing input
