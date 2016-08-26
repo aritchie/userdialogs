@@ -12,8 +12,18 @@ namespace Acr.UserDialogs.Fragments
         protected override void SetDialogDefaults(Dialog dialog)
         {
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            dialog.SetCanceledOnTouchOutside(true);
             dialog.KeyPress += this.OnKeyPress;
+            if (this.Config.Cancel == null)
+            {
+                dialog.SetCancelable(false);
+                dialog.SetCanceledOnTouchOutside(false);
+            }
+            else
+            {
+                dialog.SetCancelable(true);
+                dialog.SetCanceledOnTouchOutside(true);
+                dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
+            }
         }
 
 
@@ -42,8 +52,18 @@ namespace Acr.UserDialogs.Fragments
         protected override void SetDialogDefaults(Dialog dialog)
         {
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            dialog.SetCanceledOnTouchOutside(true);
             dialog.KeyPress += this.OnKeyPress;
+            if (this.Config.Cancel == null)
+            {
+                dialog.SetCancelable(false);
+                dialog.SetCanceledOnTouchOutside(false);
+            }
+            else
+            {
+                dialog.SetCancelable(true);
+                dialog.SetCanceledOnTouchOutside(true);
+                dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
+            }
         }
 
 

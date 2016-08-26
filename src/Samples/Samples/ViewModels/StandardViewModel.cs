@@ -38,12 +38,12 @@ namespace Samples.ViewModels
                 new CommandViewModel
                 {
                     Text = "Action Sheet",
-                    Command = this.CreateActionSheetCommand(false, true)
+                    Command = this.CreateActionSheetCommand(false, true, 6)
                 },
                 new CommandViewModel
                 {
                     Text = "Action Sheet (No Cancel)",
-                    Command = this.CreateActionSheetCommand(false, false)
+                    Command = this.CreateActionSheetCommand(false, false, 3)
                 },
                 new CommandViewModel
                 {
@@ -57,7 +57,7 @@ namespace Samples.ViewModels
                 new CommandViewModel
                 {
                     Text = "Bottom Sheet (Android Only)",
-                    Command = this.CreateActionSheetCommand(true, true)
+                    Command = this.CreateActionSheetCommand(true, true, 6)
                 },
                 new CommandViewModel
                 {
@@ -183,7 +183,7 @@ namespace Samples.ViewModels
         }
 
 
-        ICommand CreateActionSheetCommand(bool useBottomSheet, bool cancel)
+        ICommand CreateActionSheetCommand(bool useBottomSheet, bool cancel, int items)
         {
             return new Command(() =>
             {
@@ -201,9 +201,9 @@ namespace Samples.ViewModels
                     Debug.WriteLine("Could not load image");
                 }
 
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < items; i++)
                 {
-                    var display = (i + 1);
+                    var display = i + 1;
                     cfg.Add(
                         "Option " + display,
                         () => this.Result($"Option {display} Selected"),

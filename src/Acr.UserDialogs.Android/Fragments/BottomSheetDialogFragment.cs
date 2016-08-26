@@ -17,9 +17,18 @@ namespace Acr.UserDialogs.Fragments
     {
         protected override void SetDialogDefaults(Dialog dialog)
         {
-            //dialog.SetCancelable(false);
-            dialog.SetCanceledOnTouchOutside(false);
             dialog.KeyPress += this.OnKeyPress;
+            if (this.Config.Cancel == null)
+            {
+                dialog.SetCancelable(false);
+                dialog.SetCanceledOnTouchOutside(false);
+            }
+            else
+            {
+                dialog.SetCancelable(true);
+                dialog.SetCanceledOnTouchOutside(true);
+                dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
+            }
         }
 
 

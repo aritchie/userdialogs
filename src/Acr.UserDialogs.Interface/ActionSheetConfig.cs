@@ -27,7 +27,6 @@ namespace Acr.UserDialogs
         /// </summary>
         public bool UseBottomSheet { get; set; } = DefaultUseBottomSheet;
 
-
         /// <summary>
         /// This icon is applied to the list items, not to destructive or cancel
         /// </summary>
