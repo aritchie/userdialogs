@@ -96,6 +96,8 @@ namespace Acr.UserDialogs
         {
             var picker = new AI.AIPickerController(config)
             {
+                OkText = config.OkText,
+                CancelText = config.CancelText,
                 Ok = x => config.OnAction(new PickerPromptResult(true, x.SelectedItems)),
                 Cancel = x => config.OnAction(new PickerPromptResult(false, x.SelectedItems)),
             };
