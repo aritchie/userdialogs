@@ -122,6 +122,11 @@ namespace Acr.UserDialogs
             return this.Show(activity, () => TimePromptBuilder.Build(activity, config));
         }
 
+        public override IDisposable PickerPrompt(PickerPromptConfig config)
+        {
+            return null;
+        }
+
         #endregion
 
         #region Images

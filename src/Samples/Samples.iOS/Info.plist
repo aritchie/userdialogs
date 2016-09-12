@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>7.1</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.acrapps.userdialogs</string>
+	<string>com.theflighthangar.userdialogs</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>

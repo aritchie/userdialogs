@@ -11,6 +11,8 @@ using Xamarin.Forms;
 
 namespace Samples.ViewModels
 {
+    using System.Linq;
+
     public class StandardViewModel : AbstractViewModel
     {
         public IList<CommandViewModel> Commands { get; } = new List<CommandViewModel>();
@@ -157,7 +159,25 @@ namespace Samples.ViewModels
                         }, token);
                         this.Result ($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
                     })
+                },
+                new CommandViewModel
+                {
+                    Text = "Picker",
+                    Command = this.Create (async token => {
+                        var result = await this.Dialogs.PickerPromptAsync(new PickerPromptConfig {
+                            IsCancellable = true,
+                            PickerCollections = new List<IList<string>>
+                            {
+                                new List<string> {"1","2","3" },
+                                new List<string> {"4","5","6" },
+                                new List<string> {"7","8","9" }
+                            },
+                            SelectedItemIndex = new List<int> {0,1,2}
+                        }, token);
+                        this.Result ($"Picker Prompt: {result.Ok} - Value: {string.Join(",", result.SelectedValues.ToArray())}");
+                    })
                 }
+
             };
         }
 

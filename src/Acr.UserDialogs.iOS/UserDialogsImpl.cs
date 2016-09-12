@@ -92,6 +92,16 @@ namespace Acr.UserDialogs
             return this.Present(picker);
         }
 
+        public override IDisposable PickerPrompt(PickerPromptConfig config)
+        {
+            var picker = new AI.AIPickerController(config)
+            {
+                Ok = x => config.OnAction(new PickerPromptResult(true, x.SelectedItems)),
+                Cancel = x => config.OnAction(new PickerPromptResult(false, x.SelectedItems)),
+            };
+            return this.Present(picker);
+        }
+
 
         public override IDisposable Login(LoginConfig config)
         {

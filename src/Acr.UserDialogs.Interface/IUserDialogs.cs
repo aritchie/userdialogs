@@ -29,6 +29,9 @@ namespace Acr.UserDialogs
         Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null);
         Task<TimePromptResult> TimePromptAsync(string title = null, TimeSpan? selectedTime = null, CancellationToken? cancelToken = null);
 
+        IDisposable PickerPrompt(PickerPromptConfig config);
+        Task<PickerPromptResult> PickerPromptAsync(PickerPromptConfig config, CancellationToken? cancelToken = null);
+
         IDisposable Prompt(PromptConfig config);
         Task<PromptResult> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", InputType inputType = InputType.Default, CancellationToken? cancelToken = null);
         Task<PromptResult> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null);

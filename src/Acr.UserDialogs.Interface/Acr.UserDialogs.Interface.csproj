@@ -48,9 +48,11 @@
     <Compile Include="IAndroidThemeDialog.cs" />
     <Compile Include="IStandardDialogConfig.cs" />
     <Compile Include="IStandardDialogResult.cs" />
+    <Compile Include="PickerPromptConfig.cs" />
     <Compile Include="TimePromptConfig.cs" />
     <Compile Include="DatePromptConfig.cs" />
     <Compile Include="DatePromptResult.cs" />
+    <Compile Include="PickerPromptResult.cs" />
     <Compile Include="TimePromptResult.cs" />
     <Compile Include="InputType.cs" />
     <Compile Include="IProgressDialog.cs" />
