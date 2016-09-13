@@ -16,7 +16,7 @@ namespace Acr.UserDialogs
         public abstract IDisposable Confirm(ConfirmConfig config);
         public abstract IDisposable DatePrompt(DatePromptConfig config);
         public abstract IDisposable TimePrompt(TimePromptConfig config);
-        public abstract IDisposable PickerPrompt(PickerPromptConfig config);
+        public abstract IDisposable MultiPickerPrompt(MultiPickerPromptConfig config);
         public abstract IDisposable Login(LoginConfig config);
         public abstract IDisposable Prompt(PromptConfig config);
         public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
@@ -240,15 +240,15 @@ namespace Acr.UserDialogs
             );
         }
 
-        public virtual Task<PickerPromptResult> PickerPromptAsync(PickerPromptConfig config, CancellationToken? cancelToken = null)
+        public virtual Task<MultiPickerPromptResult> MultiPickerPromptAsync(MultiPickerPromptConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
 
-            var tcs = new TaskCompletionSource<PickerPromptResult>();
+            var tcs = new TaskCompletionSource<MultiPickerPromptResult>();
             config.OnAction = x => tcs.TrySetResult(x);
 
-            var disp = this.PickerPrompt(config);
+            var disp = this.MultiPickerPrompt(config);
             cancelToken?.Register(() =>
             {
                 disp.Dispose();

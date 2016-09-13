@@ -7,16 +7,16 @@ namespace AI
 {
     using System.Collections.Generic;
 
-    [Register ("AIPickerController")]
-	public class AIPickerController : UIViewController, IUIViewControllerAnimatedTransitioning, IUIViewControllerTransitioningDelegate
+    [Register ("AIMultiPickerController")]
+	public class AIMultiPickerController : UIViewController, IUIViewControllerAnimatedTransitioning, IUIViewControllerTransitioningDelegate
 	{
         public double AnimatedTransitionDuration { get; set; } = 0.4;
 	    public UIColor BackgroundColor { get; set; } = UIColor.White;
-	    public PickerPromptConfig config { get; set; }
+	    public MultiPickerPromptConfig config { get; set; }
         public string OkText { get; set; }
-        public Action<AIPickerController> Ok { get; set; }
+        public Action<AIMultiPickerController> Ok { get; set; }
         public string CancelText { get; set; }
-        public Action<AIPickerController> Cancel { get; set; }
+        public Action<AIMultiPickerController> Cancel { get; set; }
         public IList<int> SelectedItems { get; set; } = new List<int>();
 
 	    public float FontSize { get; set; } = 16;
@@ -25,7 +25,7 @@ namespace AI
 	    UIView dimmedView;
 
 
-        public AIPickerController(PickerPromptConfig ppc) 
+        public AIMultiPickerController(MultiPickerPromptConfig ppc) 
         {
             this.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
             this.TransitioningDelegate = this;
@@ -81,7 +81,11 @@ namespace AI
 		    {
 		        var v = config.SelectedItemIndex[i];
 
-                picker.Select(v, i, false);
+		        if (config.IsSpinner)
+                    picker.Select(((PickerViewModel)picker.Model).GetSpinnerIndex(i, v), i, false); 
+                else
+                    picker.Select(v, i, false);
+
 		        SelectedItems.Add(v);
 		    }
 		    ((PickerViewModel) picker.Model).SelectedItems = SelectedItems;
@@ -240,11 +244,62 @@ namespace AI
         public class PickerViewModel : UIPickerViewModel
         {
             private IList<IList<string>> _collections;
+            private bool _isSpinner = false;
+            private int _setCount;
+            private int[] _listCount;
+            private int[] _numSets;
             public IList<int> SelectedItems;
-            public PickerViewModel(PickerPromptConfig ppc)
+
+            public PickerViewModel(MultiPickerPromptConfig ppc)
             {
-                _collections = ppc.PickerCollections;
+                if (ppc.IsSpinner)
+                {
+                    _isSpinner = true;
+
+                    _setCount = ppc.PickerCollections.Count;
+                    _listCount = new int[_setCount];
+                    _numSets = new int[_setCount];
+
+                    var listOfList = new List<IList<string>>();
+
+                    int count = 0;
+                    foreach (var list in ppc.PickerCollections)
+                    {
+                        _listCount[count] = list.Count;
+
+                        if (_listCount[count] < 30) //Add 5 sets before and after
+                        {
+                            _numSets[count] = 20;
+                            var l = new List<string>();
+                            for(int i = 0 ;i < list.Count * (_numSets[count] * 2 + 1); i++)
+                                l.Add(list[i% list.Count]);
+
+                            listOfList.Add(l);
+                            _collections = listOfList;
+                        }
+                        else //Add 3 sets before and after
+                        {
+                            _numSets[count] = 8;
+                            var l = new List<string>();
+                            for (int i = 0; i < list.Count * (_numSets[count]*2+1); i++)
+                                l.Add(list[i % list.Count]);
+
+                            listOfList.Add(l);
+                            _collections = listOfList;
+                        }
+
+                        count++;
+                    }
+                }
+                else
+                    _collections = ppc.PickerCollections;
             }
+
+            public int GetSpinnerIndex(int component, int row)
+            {
+                return row + (_listCount[component] * _numSets[component]);
+            }
+
             public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
             {
                 return _collections[(int)component].Count;
@@ -263,7 +318,10 @@ namespace AI
 
             public override void Selected(UIPickerView picker, nint row, nint component)
             {
-                SelectedItems[(int)component] = (int)row;
+                if(_isSpinner)
+                    SelectedItems[(int)component] = (int)row % _listCount[component];
+                else
+                    SelectedItems[(int)component] = (int)row;
             }
         }
     }

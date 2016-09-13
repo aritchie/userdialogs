@@ -6,7 +6,7 @@ namespace Acr.UserDialogs
     using System.Collections;
     using System.Collections.Generic;
 
-    public class PickerPromptConfig
+    public class MultiPickerPromptConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
@@ -16,8 +16,9 @@ namespace Acr.UserDialogs
         public string CancelText { get; set; } = DefaultCancelText;
         public IList<IList<string>> PickerCollections { get; set; }
         public IList<int> SelectedItemIndex { get; set; }
+        public bool IsSpinner { get; set; } = false;
 
-        public Action<PickerPromptResult> OnAction { get; set; }
+        public Action<MultiPickerPromptResult> OnAction { get; set; }
         public bool IsCancellable { get; set; } = true;
     }
 }

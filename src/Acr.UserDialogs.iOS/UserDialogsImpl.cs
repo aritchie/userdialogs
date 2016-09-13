@@ -92,14 +92,14 @@ namespace Acr.UserDialogs
             return this.Present(picker);
         }
 
-        public override IDisposable PickerPrompt(PickerPromptConfig config)
+        public override IDisposable MultiPickerPrompt(MultiPickerPromptConfig config)
         {
-            var picker = new AI.AIPickerController(config)
+            var picker = new AI.AIMultiPickerController(config)
             {
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnAction(new PickerPromptResult(true, x.SelectedItems)),
-                Cancel = x => config.OnAction(new PickerPromptResult(false, x.SelectedItems)),
+                Ok = x => config.OnAction(new MultiPickerPromptResult(true, x.SelectedItems)),
+                Cancel = x => config.OnAction(new MultiPickerPromptResult(false, x.SelectedItems)),
             };
             return this.Present(picker);
         }

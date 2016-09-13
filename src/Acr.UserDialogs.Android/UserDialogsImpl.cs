@@ -122,7 +122,7 @@ namespace Acr.UserDialogs
             return this.Show(activity, () => TimePromptBuilder.Build(activity, config));
         }
 
-        public override IDisposable PickerPrompt(PickerPromptConfig config)
+        public override IDisposable MultiPickerPrompt(MultiPickerPromptConfig config)
         {
             return null;
         }
