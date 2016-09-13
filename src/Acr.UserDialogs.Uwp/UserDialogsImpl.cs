@@ -74,10 +74,10 @@ namespace Acr.UserDialogs
         public override IDisposable Confirm(ConfirmConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
-            dialog.Commands.Add(new UICommand(config.OkText, x => config.OnAction(true)));
+            dialog.Commands.Add(new UICommand(config.OkText, x => config.OnAction?.Invoke(true)));
             dialog.DefaultCommandIndex = 0;
 
-            dialog.Commands.Add(new UICommand(config.CancelText, x => config.OnAction(false)));
+            dialog.Commands.Add(new UICommand(config.CancelText, x => config.OnAction?.Invoke(false)));
             dialog.CancelCommandIndex = 1;
 
             IAsyncOperation<IUICommand> dialogTask = null;
@@ -207,13 +207,10 @@ namespace Acr.UserDialogs
 
         public override IDisposable Prompt(PromptConfig config)
         {
-            var stack = new StackPanel
-            {
-                Children =
-                {
-                    new TextBlock { Text = config.Message }
-                }
-            };
+            var stack = new StackPanel();
+            if (!String.IsNullOrWhiteSpace(config.Message))
+                stack.Children.Add(new TextBlock { Text = config.Message });
+
             var dialog = new ContentDialog
             {
                 Title = config.Title ?? String.Empty,
@@ -325,7 +322,7 @@ namespace Acr.UserDialogs
         {
             var txt = new PasswordBox
             {
-                PlaceholderText = config.Placeholder,
+                PlaceholderText = config.Placeholder ?? String.Empty,
                 Password = config.Text ?? String.Empty
             };
             if (config.MaxLength != null)
@@ -344,7 +341,7 @@ namespace Acr.UserDialogs
         {
             var txt = new TextBox
             {
-                PlaceholderText = config.Placeholder,
+                PlaceholderText = config.Placeholder ?? String.Empty,
                 Text = config.Text ?? String.Empty
             };
             if (config.MaxLength != null)
