@@ -102,10 +102,15 @@ namespace Samples.ViewModels
                 new CommandViewModel
                 {
                     Text = "Prompt Max Length",
-                    Command = new Command(() => this.Dialogs.Prompt(new PromptConfig()
-                        .SetMaxLength(10)
-                        .SetText("Maximum Text Length (10)")
-                    ))
+                    Command = this.Create(async token => 
+                    {
+                        var result = await this.Dialogs.PromptAsync(new PromptConfig()
+                            .SetMaxLength(10)
+                            .SetTitle("Max Length Prompt")
+                            .SetPlaceholder("Maximum Text Length (10)"), token);
+
+                        this.Result($"Result - {result.Ok} - {result.Text}");
+                    })
                 },
                 new CommandViewModel
                 {
@@ -118,7 +123,7 @@ namespace Samples.ViewModels
                             Text = "Existing Text",
                             IsCancellable = false
                         }, token);
-                        this.Result($"Result - {result.Text}");
+                        this.Result($"Result - {result.Ok} - {result.Text}");
                     })
                 },
                 new CommandViewModel

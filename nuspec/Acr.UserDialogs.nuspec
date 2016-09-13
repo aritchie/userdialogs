@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -70,6 +70,9 @@ Supported Platforms
             -->
         </dependencies>
         <releaseNotes>
+6.2.1
+[fix][ios] fix NRE on maxlength prompt
+
 6.2.0
 [feature] maxlength for prompt dialog
 [feature] showloading can be called even when stoploading was not called

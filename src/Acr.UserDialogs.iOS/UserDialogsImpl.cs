@@ -48,8 +48,8 @@ namespace Acr.UserDialogs
             return this.Present(() =>
             {
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction(false)));
-                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction(true)));
+                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(false)));
+                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(true)));
                 return dlg;
             });
         }
@@ -63,8 +63,8 @@ namespace Acr.UserDialogs
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnAction (new DatePromptResult (true, x.SelectedDateTime)),
-                Cancel = x => config.OnAction(new DatePromptResult(false, x.SelectedDateTime)),
+                Ok = x => config.OnAction?.Invoke(new DatePromptResult (true, x.SelectedDateTime)),
+                Cancel = x => config.OnAction?.Invoke(new DatePromptResult(false, x.SelectedDateTime)),
             };
             if (config.MaximumDate != null)
                 picker.MaximumDateTime = config.MaximumDate;
@@ -85,8 +85,8 @@ namespace Acr.UserDialogs
                 MinuteInterval = config.MinuteInterval,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnAction(new TimePromptResult(true, x.SelectedDateTime.TimeOfDay)),
-                Cancel = x => config.OnAction(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
+                Ok = x => config.OnAction?.Invoke(new TimePromptResult(true, x.SelectedDateTime.TimeOfDay)),
+                Cancel = x => config.OnAction?.Invoke(new TimePromptResult(false, x.SelectedDateTime.TimeOfDay)),
                 Use24HourClock = config.Use24HourClock
             };
             return this.Present(picker);
@@ -102,8 +102,8 @@ namespace Acr.UserDialogs
                 UITextField txtPass = null;
 
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))));
-                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction(new LoginResult(true, txtUser.Text, txtPass.Text))));
+                dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(new LoginResult(false, txtUser.Text, txtPass.Text))));
+                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(new LoginResult(true, txtUser.Text, txtPass.Text))));
                 dlg.AddTextField(x =>
                 {
                     txtUser = x;
@@ -131,14 +131,15 @@ namespace Acr.UserDialogs
                 if (config.IsCancellable)
                 {
                     dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
-                        config.OnAction(new PromptResult(false, txt.Text.Trim())
+                        config.OnAction?.Invoke(new PromptResult(false, txt.Text.Trim())
                     )));
                 }
                 dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
-                    config.OnAction(new PromptResult(true, txt.Text.Trim())
+                    config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim())
                 )));
                 dlg.AddTextField(x =>
                 {
+                    txt = x;
                     if (config.MaxLength != null)
                     {
                         txt.ShouldChangeCharacters =  (tf, replace, range) =>
@@ -147,12 +148,10 @@ namespace Acr.UserDialogs
                             return len <= config.MaxLength.Value;
                         };
                     }
-                    this.SetInputType(x, config.InputType);
-                    x.Placeholder = config.Placeholder ?? String.Empty;
+                    this.SetInputType(txt, config.InputType);
+                    txt.Placeholder = config.Placeholder ?? String.Empty;
                     if (config.Text != null)
-                        x.Text = config.Text;
-
-                    txt = x;
+                        txt.Text = config.Text;
                 });
                 return dlg;
             });
