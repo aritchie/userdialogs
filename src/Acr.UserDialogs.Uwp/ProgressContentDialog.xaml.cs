@@ -2,11 +2,14 @@
 using Windows.UI.Xaml.Controls;
 
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs
+{
 
-    public sealed partial class ProgressContentDialog : ContentDialog {
+    public sealed partial class ProgressContentDialog : ContentDialog
+    {
 
-        public ProgressContentDialog() {
+        public ProgressContentDialog()
+        {
             this.InitializeComponent();
         }
     }

@@ -43,6 +43,7 @@ namespace Acr.UserDialogs
         }
 
 
+        public string CancelText => this.config.CancelText;
         public bool IsIndeterministic => !this.config.IsDeterministic;
         public Visibility TextPercentVisibility => this.config.IsDeterministic ? Visibility.Visible : Visibility.Collapsed;
 
