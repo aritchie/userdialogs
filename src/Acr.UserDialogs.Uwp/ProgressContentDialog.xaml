@@ -7,13 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     MinHeight="0"
-    Background="Black"
     Opacity="0.7">
 
     <ContentDialog.Content>
         <StackPanel>
             <TextBlock Text="{Binding Title}" FontSize="17" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <ProgressBar x:Name="ProgressBar" Value="{Binding Complete}" HorizontalAlignment="Stretch" IsIndeterminate="{Binding IsIndeterministic}" />
+            <ProgressBar x:Name="ProgressBar" Value="{Binding PercentComplete}" HorizontalAlignment="Stretch" IsIndeterminate="{Binding IsIndeterministic}" />
             <TextBlock Text="{Binding PercentComplete}" HorizontalAlignment="Center" FontSize="17" Foreground="White" Visibility="{Binding TextPercentVisibility}" />
             <Button Visibility="{Binding CancelVisibility}" HorizontalAlignment="Center" Content="{Binding CancelText}" Command="{Binding Cancel}" />
         </StackPanel>

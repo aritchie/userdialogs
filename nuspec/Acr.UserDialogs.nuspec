@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -70,10 +70,13 @@ Supported Platforms
             -->
         </dependencies>
         <releaseNotes>
+6.2.2
+[fix][uwp] progress indicator was not bound properly
+
 6.2.1
-[fix][ios] fix NRE on maxlength prompt
-[fix][uwp] fix NRE on progress
-[fix][uwp] fix NRE on prompt placeholder
+[fix][ios] NRE on maxlength prompt
+[fix][uwp] NRE on progress
+[fix][uwp] NRE on prompt placeholder
 [fix][uwp] prompt no longer requires Message property be set in the config
 
 6.2.0
