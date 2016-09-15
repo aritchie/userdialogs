@@ -75,6 +75,7 @@ Supported Platforms
         <releaseNotes>
 6.2.3
 [fix][droid] NRE on fallback toast click (when not in use)
+[fix][uwp] deterministic progress dialog min and max set properly
 
 6.2.2
 [fix][uwp] progress indicator was not bound properly
