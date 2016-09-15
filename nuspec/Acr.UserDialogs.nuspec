@@ -54,23 +54,6 @@ Supported Platforms
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.8, 3.0)" />
             </group>
-            <!--
-            <group targetFramework="Xamarin.tvOS10">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-            </group>
-			<group targetFramework="wp8">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="WPtoolkit" version="[4.2013.08.16, 5.0)" />
-            </group>
-            <group targetFramework="wpa81">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.8, 3.0)" />
-            </group>
-            <group targetFramework="net45">
-                <dependency id="Splat" version="[1.6.2, 2.0)" />
-                <dependency id="Ookii.Dialogs" version="[1.0, 2.0)" />
-            </group>
-            -->
         </dependencies>
         <releaseNotes>
 6.2.3
