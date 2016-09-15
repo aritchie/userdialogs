@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.2.2</version>
+        <version>6.2.3</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -73,6 +73,9 @@ Supported Platforms
             -->
         </dependencies>
         <releaseNotes>
+6.2.3
+[fix][droid] NRE on fallback toast click (when not in use)
+
 6.2.2
 [fix][uwp] progress indicator was not bound properly
 
