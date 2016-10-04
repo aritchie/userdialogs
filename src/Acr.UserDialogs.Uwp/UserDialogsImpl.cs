@@ -209,7 +209,7 @@ namespace Acr.UserDialogs
         {
             var stack = new StackPanel();
             if (!String.IsNullOrWhiteSpace(config.Message))
-                stack.Children.Add(new TextBlock { Text = config.Message });
+                stack.Children.Add(new TextBlock { Text = config.Message, TextWrapping = TextWrapping.WrapWholeWords });
 
             var dialog = new ContentDialog
             {
