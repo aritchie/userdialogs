@@ -91,6 +91,14 @@ namespace Samples.ViewModels
                             TaskCreationOptions.LongRunning
                         )
                     )
+                },
+                new CommandViewModel
+                {
+                    Text = "Large Toast Text",
+                    Command = new Command(() =>
+                        this.Dialogs.Toast(
+                            "This is a really long message to test text wrapping and other such things that are painful for toast dialogs to render fully in two line labels");
+                    )
                 }
             };
         }

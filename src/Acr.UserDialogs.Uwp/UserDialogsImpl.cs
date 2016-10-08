@@ -276,6 +276,7 @@ namespace Acr.UserDialogs
                 {
                     Message = config.Message,
                     Stretch = Stretch.Fill,
+                    TextWrapping = TextWrapping.WrapWholeWords,
                     MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
                 };
                 if (config.MessageTextColor != null)
