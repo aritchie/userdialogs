@@ -275,8 +275,8 @@ namespace Acr.UserDialogs
                 toast = new ToastPrompt
                 {
                     Message = config.Message,
-                    Stretch = Stretch.Fill,
-                    TextWrapping = TextWrapping.WrapWholeWords,
+                    //Stretch = Stretch.Fill,
+                    TextWrapping = TextWrapping.Wrap,
                     MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
                 };
                 if (config.MessageTextColor != null)

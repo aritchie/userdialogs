@@ -59,6 +59,7 @@ Supported Platforms
 6.2.4
 [fix][droid] allow negatives for decimal input type on prompt
 [fix][uwp] Text wrapping on prompt window
+[fix][uwp] Text wrapping on toasts
 
 6.2.3
 [fix][droid] NRE on fallback toast click (when not in use)
