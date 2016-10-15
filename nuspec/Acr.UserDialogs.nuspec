@@ -58,6 +58,7 @@ Supported Platforms
         <releaseNotes>
 6.2.4
 [fix][droid] allow negatives for decimal input type on prompt
+[fix][droid] backspace key not working on login dialog with appcompat mode
 [fix][uwp] Text wrapping on prompt window
 [fix][uwp] Text wrapping on toasts
 
