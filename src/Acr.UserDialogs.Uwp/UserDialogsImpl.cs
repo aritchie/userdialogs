@@ -209,7 +209,7 @@ namespace Acr.UserDialogs
         {
             var stack = new StackPanel();
             if (!String.IsNullOrWhiteSpace(config.Message))
-                stack.Children.Add(new TextBlock { Text = config.Message });
+                stack.Children.Add(new TextBlock { Text = config.Message, TextWrapping = TextWrapping.WrapWholeWords });
 
             var dialog = new ContentDialog
             {
@@ -275,7 +275,8 @@ namespace Acr.UserDialogs
                 toast = new ToastPrompt
                 {
                     Message = config.Message,
-                    Stretch = Stretch.Fill,
+                    //Stretch = Stretch.Fill,
+                    TextWrapping = TextWrapping.Wrap,
                     MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
                 };
                 if (config.MessageTextColor != null)

@@ -84,7 +84,7 @@ namespace Acr.UserDialogs.Builders
             switch (inputType)
             {
                 case InputType.DecimalNumber:
-                    txt.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal;
+                    txt.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal | InputTypes.NumberFlagSigned;
                     txt.SetSingleLine(true);
                     break;
 

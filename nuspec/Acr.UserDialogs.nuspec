@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.2.3</version>
+        <version>6.2.4</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -56,6 +56,11 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.2.4
+[fix][droid] allow negatives for decimal input type on prompt
+[fix][uwp] Text wrapping on prompt window
+[fix][uwp] Text wrapping on toasts
+
 6.2.3
 [fix][droid] NRE on fallback toast click (when not in use)
 [fix][uwp] deterministic progress dialog min and max set properly
