@@ -1,4 +1,7 @@
-﻿6.2.4
+﻿6.2.5
+[fix][all] default toast colours were not being used
+
+6.2.4
 [feature][ios][uwp] You can now add a message to actionsheet (android coming soon)
 [fix][droid] allow negatives for decimal input type on prompt
 [fix][droid] backspace key not working on login dialog with appcompat mode
