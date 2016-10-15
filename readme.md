@@ -1,9 +1,4 @@
-﻿# v5 Announcement
-
-Acr.UserDialogs.Android.AppCompat is now obsolete.  v5 has this all internalized and uses the most modern mechanism is can to display dialogs.
-Android Support Libraries should be agnostic now.  I will allow nuget to flow up to the next major (v24).
-
-# ACR User Dialogs for Xamarin and Windows
+﻿# ACR User Dialogs for Xamarin and Windows
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
 Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
@@ -133,7 +128,5 @@ All config objects contain static vars that contain defaults which are basically
 * iOS - Modal Date/Time Dialogs provided by [SharpMobileCode](https://github.com/SharpMobileCode/ModalPickerViewController/blob/master/ModalPickerSample/ModalPickerSampleViewController.cs)
 * iOS - Toasts powered by TTGSnackBar ported by @MarcBruins (https://github.com/MarcBruins/TTGSnackbar-Xamarin-iOS)
 * iOS - Date/Time Picker powered by AIDatePicker ported by @MarcBruins (https://github.com/MarcBruins/AIDatePickerController-Xamarin-iOS)
-* WinPhone - All dialogs by [WPToolkit](http://coding4fun.codeplex.com/)
 * UWP - Coding4Fun Toolkit (http://coding4fun.codeplex.com)
 * Splat - Provides a nice layer of xplat stuff by @paulcbetts (https://github.com/paulcbetts) 
-* WPF/Windows Forms - Dialogs done by Ookii.Dialogs 
