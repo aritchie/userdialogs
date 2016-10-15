@@ -6,14 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    MinHeight="0"
-    Opacity="0.7">
+    MinHeight="0">
 
     <ContentDialog.Content>
-        <StackPanel>
-            <TextBlock Text="{Binding Title}" FontSize="17" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <StackPanel Margin="0">
+            <TextBlock Text="{Binding Title}" FontSize="17" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5" />
             <ProgressBar x:Name="ProgressBar" Value="{Binding PercentComplete}" HorizontalAlignment="Stretch" IsIndeterminate="{Binding IsIndeterministic}" Minimum="0" Maximum="100" />
-            <TextBlock Text="{Binding PercentComplete}" HorizontalAlignment="Center" FontSize="17" Foreground="White" Visibility="{Binding TextPercentVisibility}" />
+            <TextBlock Text="{Binding PercentComplete}" HorizontalAlignment="Center" FontSize="17" Visibility="{Binding TextPercentVisibility}" Margin="0,0,0,5" />
             <Button Visibility="{Binding CancelVisibility}" HorizontalAlignment="Center" Content="{Binding CancelText}" Command="{Binding Cancel}" />
         </StackPanel>
     </ContentDialog.Content>
