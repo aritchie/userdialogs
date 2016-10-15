@@ -12,9 +12,9 @@ namespace Acr.UserDialogs
         public static Color? DefaultBackgroundColor { get; set; }
 
         public string Message { get; set; }
-        public Color? MessageTextColor { get; set; }
-        public Color? BackgroundColor { get; set; }
-        public TimeSpan Duration { get; set; }
+        public Color? MessageTextColor { get; set; } = DefaultMessageTextColor;
+        public Color? BackgroundColor { get; set; } = DefaultBackgroundColor;
+        public TimeSpan Duration { get; set; } = DefaultDuration;
         public ToastAction Action { get; set; }
 
 
@@ -55,6 +55,9 @@ namespace Acr.UserDialogs
         public ToastConfig SetAction(ToastAction action)
         {
             this.Action = action;
+            if (action.TextColor == null)
+                action.TextColor = DefaultActionTextColor;
+
             return this;
         }
 

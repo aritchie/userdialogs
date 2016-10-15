@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.2.4</version>
+        <version>6.2.5</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -56,6 +56,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.2.5
+[fix][all] default toast colours were not being used
+
 6.2.4
 [feature][ios][uwp] You can now add a message to actionsheet (android coming soon)
 [fix][droid] allow negatives for decimal input type on prompt
