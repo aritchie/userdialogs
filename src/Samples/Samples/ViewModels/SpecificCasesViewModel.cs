@@ -91,6 +91,11 @@ namespace Samples.ViewModels
                             TaskCreationOptions.LongRunning
                         )
                     )
+                },
+                new CommandViewModel
+                {
+                    Text = "Toast (no action)",
+                    Command = new Command(() => this.Dialogs.Toast("TEST"))
                 }
             };
         }
