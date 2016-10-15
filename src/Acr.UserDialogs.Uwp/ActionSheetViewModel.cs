@@ -10,6 +10,10 @@ namespace Acr.UserDialogs
     {
 
         public string Title { get; set; }
+        public string Message { get; set; }
+
+        public Visibility MessageVisibility
+            => String.IsNullOrWhiteSpace(this.Message) ? Visibility.Collapsed : Visibility.Visible;
 
         public ActionSheetOptionViewModel Destructive { get; set; }
         public Visibility DestructiveVisibility { get; set; }

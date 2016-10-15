@@ -39,6 +39,7 @@ namespace Acr.UserDialogs
             var vm = new ActionSheetViewModel
             {
                 Title = config.Title,
+                Message = config.Message,
                 Cancel = new ActionSheetOptionViewModel(config.Cancel != null, config.Cancel?.Text, () =>
                 {
                     dlg.Hide();

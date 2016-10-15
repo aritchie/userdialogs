@@ -229,7 +229,7 @@ namespace Acr.UserDialogs
 
         protected virtual UIAlertController CreateNativeActionSheet(ActionSheetConfig config)
         {
-            var sheet = UIAlertController.Create(config.Title, null, UIAlertControllerStyle.ActionSheet);
+            var sheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
 
             if (config.Destructive != null)
                 this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);

@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using Android.App;
 using Android.Support.V7.App;
+using Android.Views;
+using Android.Widget;
 using AlertDialog = Android.App.AlertDialog;
 using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
@@ -80,5 +82,37 @@ namespace Acr.UserDialogs.Builders
 
             return dlg;
         }
+
+
+        //protected virtual View GetCustomTitle(Activity activity, ActionSheetConfig config)
+        //{
+        //    var layout = new LinearLayout(activity)
+        //    {
+        //        LayoutParameters = new ViewGroup.LayoutParams(
+        //            ViewGroup.LayoutParams.MatchParent,
+        //            ViewGroup.LayoutParams.MatchParent
+        //        )
+        //    };
+
+        //    if (!String.IsNullOrWhiteSpace(config.Message))
+        //    {
+        //        layout.AddView(new TextView(activity)
+        //        {
+        //            Text = config.Message
+        //        });
+        //    }
+
+        //    var adapter = new ActionSheetListAdapter(activity, Android.Resource.Layout.SelectDialogItem, Android.Resource.Id.Text1, config);
+        //    var listView = new ListView(activity)
+        //    {
+        //        Adapter = adapter
+        //    };
+        //    listView.ItemClick += (sender, args) =>
+        //    {
+        //        config.Options[args.Position].Action?.Invoke();
+        //        // TODO: I don't have the dialog here to dismiss this.  Need to get rid of build concept!
+        //    };
+        //    return layout;
+        //}
     }
 }

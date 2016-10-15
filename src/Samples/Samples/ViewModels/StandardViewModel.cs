@@ -42,6 +42,11 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Action Sheet /w Message",
+                    Command = this.CreateActionSheetCommand(false, false, 6, "This is an example of using a message in Acr.UserDialogs actionsheets.  I needed a long message here!")
+                },
+                new CommandViewModel
+                {
                     Text = "Action Sheet (No Cancel)",
                     Command = this.CreateActionSheetCommand(false, false, 3)
                 },
@@ -194,12 +199,13 @@ namespace Samples.ViewModels
         }
 
 
-        ICommand CreateActionSheetCommand(bool useBottomSheet, bool cancel, int items)
+        ICommand CreateActionSheetCommand(bool useBottomSheet, bool cancel, int items, string message = null)
         {
             return new Command(() =>
             {
                 var cfg = new ActionSheetConfig()
                     .SetTitle("Test Title")
+                    .SetMessage(message)
                     .SetUseBottomSheet(useBottomSheet);
 
                 IBitmap testImage = null;

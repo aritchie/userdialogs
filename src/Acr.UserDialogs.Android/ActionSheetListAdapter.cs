@@ -12,6 +12,7 @@ namespace Acr.UserDialogs
     public class ActionSheetListAdapter : ArrayAdapter<ActionSheetOption>
     {
         readonly ActionSheetConfig config;
+        public bool AddMarginForImage { get; set; } = true;
 
 
         public ActionSheetListAdapter(Context context, int resource, int textViewResourceId, ActionSheetConfig config) : base(context, resource, textViewResourceId, config.Options)
@@ -32,10 +33,12 @@ namespace Acr.UserDialogs
             if (item.ItemIcon != null)
                 textView.SetCompoundDrawablesWithIntrinsicBounds(item.ItemIcon.ToNative(), null, null, null);
 
-            //Add margin between image and text (support various screen densities)
-            var dp = (int)(10 * parent.Context.Resources.DisplayMetrics.Density + 0.5f);
-            textView.CompoundDrawablePadding = dp;
-
+            if (this.AddMarginForImage)
+            {
+                //Add margin between image and text (support various screen densities)
+                var dp = (int) (10*parent.Context.Resources.DisplayMetrics.Density + 0.5f);
+                textView.CompoundDrawablePadding = dp;
+            }
             return view;
         }
     }

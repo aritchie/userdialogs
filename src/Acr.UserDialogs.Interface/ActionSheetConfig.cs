@@ -17,6 +17,7 @@ namespace Acr.UserDialogs
 
 
         public string Title { get; set; }
+        public string Message { get; set; }
         public ActionSheetOption Cancel { get; set; }
         public ActionSheetOption Destructive { get; set; }
         public IList<ActionSheetOption> Options { get; set; } = new List<ActionSheetOption>();
@@ -57,6 +58,13 @@ namespace Acr.UserDialogs
         public ActionSheetConfig SetDestructive(string text = null, Action action = null, IBitmap icon = null)
         {
             this.Destructive = new ActionSheetOption(text ?? DefaultDestructiveText, action, icon);
+            return this;
+        }
+
+
+        public ActionSheetConfig SetMessage(string msg)
+        {
+            this.Message = msg;
             return this;
         }
 

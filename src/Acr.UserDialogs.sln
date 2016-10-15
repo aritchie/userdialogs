@@ -18,12 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\nuspec\Acr.UserDialogs.nuspec = ..\nuspec\Acr.UserDialogs.nuspec
 		..\build.cake = ..\build.cake
 		..\build.cmd = ..\build.cmd
-		..\ISSUE_TEMPLATE = ..\ISSUE_TEMPLATE
 		..\..\notifications\license.txt = ..\..\notifications\license.txt
 		..\nuspec\pack.cmd = ..\nuspec\pack.cmd
 		..\nuspec\Plugin.UserDialogs.nuspec = ..\nuspec\Plugin.UserDialogs.nuspec
 		..\nuspec\push.cmd = ..\nuspec\push.cmd
-		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples\Samples.csproj", "{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}"
@@ -43,6 +41,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.UI.XamarinForms", "Samples\Samples.UI.XamarinForms\Samples.UI.XamarinForms.csproj", "{2C87761B-7CCE-468F-9A2A-020AF0C857AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid.Classic", "Samples.Droid.Classic\Samples.Droid.Classic.csproj", "{147D06EE-F59B-4E26-A18B-A19FD07C2B95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E016AD70-2C74-4ADE-8189-7E7D90018423}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\changelog.md = ..\docs\changelog.md
+		..\ISSUE_TEMPLATE = ..\ISSUE_TEMPLATE
+		..\readme.md = ..\readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

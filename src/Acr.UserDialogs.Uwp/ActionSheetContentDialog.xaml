@@ -9,6 +9,7 @@
     mc:Ignorable="d">
     <ContentDialog.Content>
         <StackPanel>
+            <TextBlock Text="{Binding Message}" FontSize="12" Visibility="{Binding MessageVisibility}" />
             <!--Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
             <ListBox x:Name="List" ItemsSource="{Binding Options}" SelectionMode="Single">
                 <ListBox.ItemTemplate>
