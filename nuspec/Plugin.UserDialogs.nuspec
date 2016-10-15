@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Plugin.UserDialogs</id>
-        <version>6.2.4</version>
+        <version>1.0.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -35,12 +35,12 @@ Supported Platforms
         -->
         <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <tags>windows xamarin xam.pcl dialogs</tags>
+        <tags>windows xamarin xam.pcl dialogs plugin</tags>
         <dependencies>
             <dependency id="Acr.UserDialogs" version="[6.2.4,)" />
         </dependencies>
         <releaseNotes>
-
+Acr.UserDialogs 6.2.4
         </releaseNotes>
     </metadata>
 </package>
