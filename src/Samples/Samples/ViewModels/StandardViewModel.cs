@@ -76,7 +76,12 @@ namespace Samples.ViewModels
                     {
                         var r = await this.Dialogs.LoginAsync(new LoginConfig
                         {
-                            Message = "DANGER"
+                            //LoginValue = "LastUserName",
+                            Message = "DANGER",
+                            OkText = "DO IT",
+                            CancelText = "GET OUT",
+                            LoginPlaceholder = "Username Placeholder",
+                            PasswordPlaceholder = "Password Placeholder"
                         }, token);
                         var status = r.Ok ? "Success" : "Cancelled";
                         this.Result($"Login {status} - User Name: {r.LoginText} - Password: {r.Password}");

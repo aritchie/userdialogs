@@ -12,8 +12,10 @@ namespace Acr.UserDialogs.Fragments
         {
             base.OnKeyPress(sender, args);
             if (args.KeyCode != Keycode.Back)
+            {
+                args.Handled = true;
                 return;
-
+            }
             this.Config?.OnAction(new LoginResult(false, null, null));
             this.Dismiss();
         }
@@ -26,8 +28,11 @@ namespace Acr.UserDialogs.Fragments
         {
             base.OnKeyPress(sender, args);
             if (args.KeyCode != Keycode.Back)
+            {
+                args.Handled = false;
                 return;
-
+            }
+            args.Handled = true;
             this.Config?.OnAction(new LoginResult(false, null, null));
             this.Dismiss();
         }
