@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.2.5</version>
+        <version>6.2.6</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -48,7 +48,7 @@ Supported Platforms
                 <dependency id="AndHUD" version="[1.2.0, 2)" />
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
-                <dependency id="Xamarin.Android.Support.Design" version="[23.3, 24)" />
+                <dependency id="Xamarin.Android.Support.Design" version="[23.3, 25)" />
             </group>
             <group targetFramework="uap10.0">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
@@ -56,6 +56,10 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.2.6
+[fix][all] cancellation token memory leak (thanks to @smstuebe)
+[update] allow updates to google libs
+
 6.2.5
 [fix][all] default toast colours were not being used
 
