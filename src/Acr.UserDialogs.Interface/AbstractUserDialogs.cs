@@ -25,7 +25,7 @@ namespace Acr.UserDialogs
         protected abstract IProgressDialog CreateDialogInstance(ProgressDialogConfig config);
 
 
-        public virtual Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
+        public virtual async Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
         {
             var tcs = new TaskCompletionSource<string>();
             var cfg = new ActionSheetConfig();
@@ -42,9 +42,10 @@ namespace Acr.UserDialogs
                 cfg.Add(btn, () => tcs.TrySetResult(btn));
 
             var disp = this.ActionSheet(cfg);
-            cancelToken?.Register(disp.Dispose);
-
-            return tcs.Task;
+            using (cancelToken?.Register(disp.Dispose))
+            {
+                return await tcs.Task;
+            }
         }
 
 
@@ -116,7 +117,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
@@ -125,16 +126,12 @@ namespace Acr.UserDialogs
             config.OnAction = () => tcs.TrySetResult(null);
 
             var disp = this.Alert(config);
-            cancelToken?.Register(() =>
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
             {
-                disp.Dispose();
-                tcs.TrySetCanceled();
-            });
-
-            return tcs.Task;
+                await tcs.Task;
+            } 
         }
-
-
+        
         public virtual Task AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
         {
             return this.AlertAsync(new AlertConfig
@@ -146,7 +143,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
@@ -155,12 +152,10 @@ namespace Acr.UserDialogs
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.Confirm(config);
-            cancelToken?.Register(() =>
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
             {
-                disp.Dispose();
-                tcs.TrySetCanceled();
-            });
-            return tcs.Task;
+                return await tcs.Task;
+            }
         }
 
 
@@ -176,7 +171,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<DatePromptResult> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<DatePromptResult> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
@@ -185,13 +180,10 @@ namespace Acr.UserDialogs
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.DatePrompt(config);
-            cancelToken?.Register(() =>
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
             {
-                disp.Dispose();
-                tcs.TrySetCanceled();
-            });
-
-            return tcs.Task;
+                return await tcs.Task;
+            }
         }
 
 
@@ -208,7 +200,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
@@ -217,13 +209,10 @@ namespace Acr.UserDialogs
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.TimePrompt(config);
-            cancelToken?.Register(() =>
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
             {
-                disp.Dispose();
-                tcs.TrySetCanceled();
-            });;
-
-            return tcs.Task;
+                return await tcs.Task;
+            }
         }
 
 
@@ -240,7 +229,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
@@ -249,13 +238,10 @@ namespace Acr.UserDialogs
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.Login(config);
-            cancelToken?.Register(() =>
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
             {
-                disp.Dispose();
-                tcs.TrySetCanceled();
-            });
-
-            return tcs.Task;
+                return await tcs.Task;
+            }
         }
 
 
@@ -269,7 +255,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<PromptResult> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<PromptResult> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
@@ -278,13 +264,10 @@ namespace Acr.UserDialogs
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.Prompt(config);
-            cancelToken?.Register(() =>
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
             {
-                disp.Dispose();
-                tcs.TrySetCanceled();
-            });
-
-            return tcs.Task;
+                return await tcs.Task;
+            }
         }
 
 
@@ -308,6 +291,13 @@ namespace Acr.UserDialogs
             {
                 Duration = dismissTimer ?? ToastConfig.DefaultDuration
             });
+        }
+
+
+        private static void Cancel<TResult>(IDisposable disp, TaskCompletionSource<TResult> tcs)
+        {
+            disp.Dispose();
+            tcs.TrySetCanceled();
         }
     }
 }
