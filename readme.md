@@ -21,7 +21,7 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 ## Support Platforms
 
-* iOS 7+
+* iOS 8+
 * Android
 * Universal Windows Platform (Win10/UWP)
 * Portable Class Libraries (Profile 259)
