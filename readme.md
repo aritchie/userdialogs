@@ -125,7 +125,6 @@ All config objects contain static vars that contain defaults which are basically
 
 * Android - Progress/Loading uses Redth's [AndHUD](https://github.com/Redth/AndHUD)
 * iOS - Progress/Loading uses Nic Wise's [BTProgressHUD](https://github.com/nicwise/BTProgressHUD)
-* iOS - Modal Date/Time Dialogs provided by [SharpMobileCode](https://github.com/SharpMobileCode/ModalPickerViewController/blob/master/ModalPickerSample/ModalPickerSampleViewController.cs)
 * iOS - Toasts powered by TTGSnackBar ported by @MarcBruins (https://github.com/MarcBruins/TTGSnackbar-Xamarin-iOS)
 * iOS - Date/Time Picker powered by AIDatePicker ported by @MarcBruins (https://github.com/MarcBruins/AIDatePickerController-Xamarin-iOS)
 * UWP - Coding4Fun Toolkit (http://coding4fun.codeplex.com)
