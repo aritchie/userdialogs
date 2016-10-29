@@ -336,6 +336,15 @@ namespace Acr.UserDialogs
                 config.OnAction?.Invoke(new PromptResult(true, txt.Password));
                 dialog.Hide();
             });
+            if (config.Validate != null)
+            {
+                dialog.PrimaryButtonCommand.CanExecute(false);
+                txt.PasswordChanged += (sender, args) =>
+                {
+                    var valid = config.Validate(txt.Password);
+                    dialog.PrimaryButtonCommand.CanExecute(valid);
+                };
+            }
         }
 
 
@@ -356,6 +365,15 @@ namespace Acr.UserDialogs
                 config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim()));
                 dialog.Hide();
             });
+            if (config.Validate != null)
+            {
+                dialog.PrimaryButtonCommand.CanExecute(false);
+                txt.TextChanged += (sender, args) =>
+                {
+                    var valid = config.Validate(txt.Text);
+                    dialog.PrimaryButtonCommand.CanExecute(valid);
+                };
+            }
         }
 
 

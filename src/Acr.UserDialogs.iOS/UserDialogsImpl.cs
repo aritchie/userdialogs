@@ -63,7 +63,7 @@ namespace Acr.UserDialogs
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnAction?.Invoke(new DatePromptResult (true, x.SelectedDateTime)),
+                Ok = x => config.OnAction?.Invoke(new DatePromptResult(true, x.SelectedDateTime)),
                 Cancel = x => config.OnAction?.Invoke(new DatePromptResult(false, x.SelectedDateTime)),
             };
             if (config.MaximumDate != null)
@@ -95,7 +95,6 @@ namespace Acr.UserDialogs
 
         public override IDisposable Login(LoginConfig config)
         {
-
             return this.Present(() =>
             {
                 UITextField txtUser = null;
@@ -134,9 +133,11 @@ namespace Acr.UserDialogs
                         config.OnAction?.Invoke(new PromptResult(false, txt.Text.Trim())
                     )));
                 }
-                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
+
+                var btnOk = UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
                     config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim())
-                )));
+                ));
+                dlg.AddAction(btnOk);
                 dlg.AddTextField(x =>
                 {
                     txt = x;
@@ -147,6 +148,10 @@ namespace Acr.UserDialogs
                             var len = txt.Text.Length + replace.Length - range.Length;
                             return len <= config.MaxLength.Value;
                         };
+                    }
+                    if (config.Validate != null)
+                    {
+                        txt.Ended += (sender, args) => btnOk.Enabled = config.Validate(txt.Text);
                     }
                     this.SetInputType(txt, config.InputType);
                     txt.Placeholder = config.Placeholder ?? String.Empty;

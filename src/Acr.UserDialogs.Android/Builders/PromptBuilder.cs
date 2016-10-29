@@ -37,6 +37,14 @@ namespace Acr.UserDialogs.Builders
                     config.OnAction(new PromptResult(true, txt.Text.Trim()))
                 );
 
+            if (config.Validate != null)
+            {
+                txt.AfterTextChanged += (sender, args) =>
+                {
+                    var valid = config.Validate.Invoke(txt.Text);
+
+                };
+            }
             if (config.IsCancellable)
             {
                 builder.SetNegativeButton(config.CancelText, (s, a) =>
