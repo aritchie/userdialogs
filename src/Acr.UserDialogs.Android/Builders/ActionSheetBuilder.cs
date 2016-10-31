@@ -2,20 +2,17 @@ using System;
 using System.Linq;
 using Android.App;
 using Android.Support.V7.App;
-using Android.Views;
-using Android.Widget;
 using AlertDialog = Android.App.AlertDialog;
 using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 
 namespace Acr.UserDialogs.Builders
 {
-    public class ActionSheetBuilder : AbstractAlertDialogBuilder<ActionSheetConfig>
+    public class ActionSheetBuilder : IAlertDialogBuilder<ActionSheetConfig>
     {
-        public override AlertDialog.Builder Build(Activity activity, ActionSheetConfig config)
+        public Dialog Build(Activity activity, ActionSheetConfig config)
         {
-            var dlg = this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            var dlg = new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetTitle(config.Title);
             //.SetCustomTitle(new TextView(activity) {
             //    Text = config.Title,
@@ -44,14 +41,13 @@ namespace Acr.UserDialogs.Builders
             if (config.Cancel != null)
                 dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
 
-            return dlg;
+            return dlg.Create();
         }
 
 
-        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, ActionSheetConfig config)
+        public Dialog Build(AppCompatActivity activity, ActionSheetConfig config)
         {
-            var dlg = this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            var dlg = new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetTitle(config.Title);
             //.SetCustomTitle(new TextView(activity) {
             //    Text = config.Title,
@@ -80,7 +76,7 @@ namespace Acr.UserDialogs.Builders
             if (config.Cancel != null)
                 dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
 
-            return dlg;
+            return dlg.Create();
         }
 
 

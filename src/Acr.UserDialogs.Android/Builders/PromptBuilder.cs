@@ -10,9 +10,9 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public class PromptBuilder : AbstractAlertDialogBuilder<PromptConfig>
+    public class PromptBuilder : IAlertDialogBuilder<PromptConfig>
     {
-        public override AlertDialog.Builder Build(Activity activity, PromptConfig config)
+        public Dialog Build(Activity activity, PromptConfig config)
         {
             var txt = new EditText(activity)
             {
@@ -27,8 +27,7 @@ namespace Acr.UserDialogs.Builders
 
             SetInputType(txt, config.InputType);
 
-            var builder = this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            var builder = new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
@@ -37,25 +36,20 @@ namespace Acr.UserDialogs.Builders
                     config.OnAction(new PromptResult(true, txt.Text.Trim()))
                 );
 
-            if (config.Validate != null)
-            {
-                txt.AfterTextChanged += (sender, args) =>
-                {
-                    var valid = config.Validate.Invoke(txt.Text);
-
-                };
-            }
             if (config.IsCancellable)
             {
                 builder.SetNegativeButton(config.CancelText, (s, a) =>
                     config.OnAction(new PromptResult(false, txt.Text.Trim()))
                 );
             }
-            return builder;
+            var dialog = builder.Create();
+            this.HookValidation(dialog, txt, config.Validate);
+
+            return dialog;
         }
 
 
-        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, PromptConfig config)
+        public Dialog Build(AppCompatActivity activity, PromptConfig config)
         {
             var txt = new EditText(activity)
             {
@@ -67,8 +61,7 @@ namespace Acr.UserDialogs.Builders
 
             SetInputType(txt, config.InputType);
 
-            var builder = this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            var builder = new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
@@ -83,7 +76,26 @@ namespace Acr.UserDialogs.Builders
                     config.OnAction(new PromptResult(false, txt.Text.Trim()))
                 );
             }
-            return builder;
+            var dialog = builder.Create();
+            this.HookValidation(dialog, txt, config.Validate);
+
+            return dialog;
+        }
+
+
+        protected virtual void HookValidation(Dialog dialog, EditText txt, Func<string, bool> validate)
+        {
+            if (validate == null)
+                return;
+
+            var buttonId = (int) Android.Content.DialogButtonType.Positive;
+            ((AlertDialog)dialog).GetButton(buttonId).Enabled = false;
+
+            txt.AfterTextChanged += (sender, args) =>
+            {
+                var valid = validate.Invoke(txt.Text);
+                ((AlertDialog)dialog).GetButton(buttonId).Enabled = valid;
+            };
         }
 
 

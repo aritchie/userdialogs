@@ -10,9 +10,9 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public class LoginBuilder : AbstractAlertDialogBuilder<LoginConfig>
+    public class LoginBuilder : IAlertDialogBuilder<LoginConfig>
     {
-        public override AlertDialog.Builder Build(Activity activity, LoginConfig config)
+        public Dialog Build(Activity activity, LoginConfig config)
         {
             var txtUser = new EditText(activity)
             {
@@ -37,8 +37,7 @@ namespace Acr.UserDialogs.Builders
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            return this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            return new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetTitle(config.Title)
                 .SetMessage(config.Message)
@@ -48,11 +47,12 @@ namespace Acr.UserDialogs.Builders
                 )
                 .SetNegativeButton(config.CancelText, (s, a) =>
                     config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))
-                );
+                )
+                .Create();
         }
 
 
-        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, LoginConfig config)
+        public Dialog Build(AppCompatActivity activity, LoginConfig config)
         {
             var txtUser = new EditText(activity)
             {
@@ -77,8 +77,7 @@ namespace Acr.UserDialogs.Builders
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            return this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            return new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetTitle(config.Title)
                 .SetMessage(config.Message)
@@ -88,7 +87,8 @@ namespace Acr.UserDialogs.Builders
                 )
                 .SetNegativeButton(config.CancelText, (s, a) =>
                     config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))
-                );
+                )
+                .Create();
         }
     }
 }

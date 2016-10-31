@@ -7,9 +7,9 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public class AlertBuilder : AbstractAlertDialogBuilder<AlertConfig>
+    public class AlertBuilder : IAlertDialogBuilder<AlertConfig>
     {
-        public override AlertDialog.Builder Build(Activity activity, AlertConfig config)
+        public Dialog Build(Activity activity, AlertConfig config)
         {
             //var layout = new LinearLayout(context) {
             //    Orientation = Orientation.Vertical,
@@ -22,18 +22,19 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetPositiveButton(config.OkText, (o, e) => config.OnAction?.Invoke());
+                .SetPositiveButton(config.OkText, (o, e) => config.OnAction?.Invoke())
+                .Create();
         }
 
 
-        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, AlertConfig config)
+        public Dialog Build(AppCompatActivity activity, AlertConfig config)
         {
-            return this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            return new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetPositiveButton(config.OkText, (o, e) => config.OnAction?.Invoke());
+                .SetPositiveButton(config.OkText, (o, e) => config.OnAction?.Invoke())
+                .Create();
         }
     }
 }

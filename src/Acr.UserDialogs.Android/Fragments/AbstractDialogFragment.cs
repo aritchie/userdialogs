@@ -8,7 +8,7 @@ using Android.Views;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public abstract class AbstractAppCompatDialogFragment<T> : Android.Support.V7.App.AppCompatDialogFragment where T : class
+    public abstract class AbstractAppCompatDialogFragment<T> : AppCompatDialogFragment where T : class
     {
         public T Config { get; set; }
 

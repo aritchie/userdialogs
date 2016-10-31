@@ -37,7 +37,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new AlertBuilder().Build(activity, config));
+            return this.Show(activity, () => new AlertBuilder().Build(activity, config));
         }
 
 
@@ -54,7 +54,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new ActionSheetBuilder().Build(activity, config));
+            return this.Show(activity, () => new ActionSheetBuilder().Build(activity, config));
         }
 
 
@@ -67,7 +67,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new ConfirmBuilder().Build(activity, config));
+            return this.Show(activity, () => new ConfirmBuilder().Build(activity, config));
         }
 
 
@@ -93,7 +93,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new LoginBuilder().Build(activity, config));
+            return this.Show(activity, () => new LoginBuilder().Build(activity, config));
         }
 
 
@@ -106,7 +106,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new PromptBuilder().Build(activity, config));
+            return this.Show(activity, () => new PromptBuilder().Build(activity, config));
         }
 
 
@@ -297,23 +297,6 @@ namespace Acr.UserDialogs
                 dialog = dialogBuilder();
                 dialog.Show();
             });
-            return new DisposableAction(() =>
-                activity.RunOnUiThread(dialog.Dismiss)
-            );
-        }
-
-
-        protected virtual IDisposable Show(Activity activity, Android.App.AlertDialog.Builder builder)
-        {
-            // you must create the dialog on the same thread as you show it
-            Android.App.AlertDialog dialog = null;
-            activity.RunOnUiThread(() =>
-            {
-                dialog = builder.Create();
-                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-                dialog.Show();
-            });
-
             return new DisposableAction(() =>
                 activity.RunOnUiThread(dialog.Dismiss)
             );

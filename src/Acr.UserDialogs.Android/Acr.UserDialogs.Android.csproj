@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionSheetListAdapter.cs" />
-    <Compile Include="Builders\AbstractAlertDialogBuilder.cs" />
     <Compile Include="Builders\AlertBuilder.cs" />
     <Compile Include="Builders\ConfirmBuilder.cs" />
     <Compile Include="Builders\ActionSheetBuilder.cs" />
@@ -92,7 +91,6 @@
     <Compile Include="Builders\PromptBuilder.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Fragments\AbstractDialogFragment.cs" />
-    <Compile Include="Fragments\AbstractBuilderDialogFragment.cs" />
     <Compile Include="Fragments\ActionSheetDialogFragment.cs" />
     <Compile Include="Fragments\AlertDialogFragment.cs" />
     <Compile Include="Fragments\BottomSheetDialogFragment.cs" />

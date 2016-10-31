@@ -1,5 +1,6 @@
 using System;
 using Acr.UserDialogs.Builders;
+using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
@@ -7,7 +8,7 @@ using Android.Widget;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public class PromptDialogFragment : AbstractBuilderDialogFragment<PromptConfig, PromptBuilder>
+    public class PromptDialogFragment : AbstractDialogFragment<PromptConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
@@ -27,6 +28,12 @@ namespace Acr.UserDialogs.Fragments
                     this.SetAction(true);
                     break;
             }
+        }
+
+
+        protected override Dialog CreateDialog(PromptConfig config)
+        {
+            return new PromptBuilder().Build(this.Activity, config);
         }
 
 
@@ -39,7 +46,7 @@ namespace Acr.UserDialogs.Fragments
     }
 
 
-    public class PromptAppCompatDialogFragment : AbstractBuilderAppCompatDialogFragment<PromptConfig, PromptBuilder>
+    public class PromptAppCompatDialogFragment : AbstractAppCompatDialogFragment<PromptConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
@@ -59,6 +66,11 @@ namespace Acr.UserDialogs.Fragments
                     this.SetAction(true);
                     break;
             }
+        }
+
+        protected override Dialog CreateDialog(PromptConfig config)
+        {
+            return new PromptBuilder().Build(this.Activity, config);
         }
 
 

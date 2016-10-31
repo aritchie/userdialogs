@@ -7,7 +7,7 @@ using Android.Views;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public class ActionSheetDialogFragment : AbstractBuilderDialogFragment<ActionSheetConfig, ActionSheetBuilder>
+    public class ActionSheetDialogFragment : AbstractDialogFragment<ActionSheetConfig>
     {
         protected override void SetDialogDefaults(Dialog dialog)
         {
@@ -43,11 +43,16 @@ namespace Acr.UserDialogs.Fragments
             args.Handled = true;
             this.Config?.Cancel?.Action?.Invoke();
             this.Dismiss();
+        }
+
+        protected override Dialog CreateDialog(ActionSheetConfig config)
+        {
+            return new ActionSheetBuilder().Build(this.Activity, config);
         }
     }
 
 
-    public class ActionSheetAppCompatDialogFragment : AbstractBuilderAppCompatDialogFragment<ActionSheetConfig, ActionSheetBuilder>
+    public class ActionSheetAppCompatDialogFragment : AbstractAppCompatDialogFragment<ActionSheetConfig>
     {
         protected override void SetDialogDefaults(Dialog dialog)
         {
@@ -83,6 +88,12 @@ namespace Acr.UserDialogs.Fragments
             args.Handled = true;
             this.Config?.Cancel?.Action?.Invoke();
             this.Dismiss();
+        }
+
+
+        protected override Dialog CreateDialog(ActionSheetConfig config)
+        {
+            return new ActionSheetBuilder().Build(this.Activity, config);
         }
     }
 }
