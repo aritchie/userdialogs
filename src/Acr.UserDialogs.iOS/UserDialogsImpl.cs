@@ -143,15 +143,22 @@ namespace Acr.UserDialogs
                     txt = x;
                     if (config.MaxLength != null)
                     {
-                        txt.ShouldChangeCharacters =  (tf, replace, range) =>
+                        txt.ShouldChangeCharacters = (tf, replace, range) =>
                         {
                             var len = txt.Text.Length + replace.Length - range.Length;
                             return len <= config.MaxLength.Value;
                         };
                     }
-                    if (config.Validate != null)
+                    if (config.OnTextChanged != null)
                     {
-                        txt.Ended += (sender, args) => btnOk.Enabled = config.Validate(txt.Text);
+                        txt.Ended += (sender, e) =>
+                        {
+                            var args = new PromptTextChangedArgs { Value = txt.Text };
+                            config.OnTextChanged(args);
+                            btnOk.Enabled = args.IsValid;
+                            if (!txt.Text.Equals(args.Value))
+                                txt.Text = args.Value;
+                        };
                     }
                     this.SetInputType(txt, config.InputType);
                     txt.Placeholder = config.Placeholder ?? String.Empty;

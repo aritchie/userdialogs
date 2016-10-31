@@ -43,7 +43,7 @@ namespace Acr.UserDialogs.Builders
                 );
             }
             var dialog = builder.Create();
-            this.HookValidation(dialog, txt, config.Validate);
+            this.HookTextChanged(dialog, txt, config.OnTextChanged);
 
             return dialog;
         }
@@ -77,15 +77,15 @@ namespace Acr.UserDialogs.Builders
                 );
             }
             var dialog = builder.Create();
-            this.HookValidation(dialog, txt, config.Validate);
+            this.HookTextChanged(dialog, txt, config.OnTextChanged);
 
             return dialog;
         }
 
 
-        protected virtual void HookValidation(Dialog dialog, EditText txt, Func<string, bool> validate)
+        protected virtual void HookTextChanged(Dialog dialog, EditText txt, Action<PromptTextChangedArgs> onChange)
         {
-            if (validate == null)
+            if (onChange == null)
                 return;
 
             var buttonId = (int) Android.Content.DialogButtonType.Positive;
@@ -93,8 +93,12 @@ namespace Acr.UserDialogs.Builders
 
             txt.AfterTextChanged += (sender, args) =>
             {
-                var valid = validate.Invoke(txt.Text);
-                ((AlertDialog)dialog).GetButton(buttonId).Enabled = valid;
+                var promptArgs = new PromptTextChangedArgs { Value = txt.Text };
+                onChange(promptArgs);
+                ((AlertDialog)dialog).GetButton(buttonId).Enabled = promptArgs.IsValid;
+
+                if (!promptArgs.Value.Equals(txt.Text))
+                    txt.Text = promptArgs.Value;
             };
         }
 

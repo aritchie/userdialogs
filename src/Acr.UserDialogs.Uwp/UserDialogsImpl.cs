@@ -336,15 +336,23 @@ namespace Acr.UserDialogs
                 config.OnAction?.Invoke(new PromptResult(true, txt.Password));
                 dialog.Hide();
             });
-            if (config.Validate != null)
+            if (config.OnTextChanged == null)
+                return;
+
+            var args = new PromptTextChangedArgs { Value = String.Empty };
+            config.OnTextChanged(args);
+
+            dialog.PrimaryButtonCommand.CanExecute(args.IsValid);
+            txt.PasswordChanged += (sender, e) =>
             {
-                dialog.PrimaryButtonCommand.CanExecute(false);
-                txt.PasswordChanged += (sender, args) =>
-                {
-                    var valid = config.Validate(txt.Password);
-                    dialog.PrimaryButtonCommand.CanExecute(valid);
-                };
-            }
+                args.IsValid = true; // reset
+                args.Value = txt.Password;
+                config.OnTextChanged(args);
+
+                dialog.PrimaryButtonCommand.CanExecute(args.IsValid);
+                if (!args.Value.Equals(txt.Password))
+                    txt.Password = args.Value;
+            };
         }
 
 
@@ -365,15 +373,24 @@ namespace Acr.UserDialogs
                 config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim()));
                 dialog.Hide();
             });
-            if (config.Validate != null)
+
+            if (config.OnTextChanged == null)
+                return;
+
+            var args = new PromptTextChangedArgs { Value = String.Empty };
+            config.OnTextChanged(args);
+
+            dialog.PrimaryButtonCommand.CanExecute(args.IsValid);
+            txt.TextChanged += (sender, e) =>
             {
-                dialog.PrimaryButtonCommand.CanExecute(false);
-                txt.TextChanged += (sender, args) =>
-                {
-                    var valid = config.Validate(txt.Text);
-                    dialog.PrimaryButtonCommand.CanExecute(valid);
-                };
-            }
+                args.IsValid = true; // reset
+                args.Value = txt.Text;
+                config.OnTextChanged(args);
+
+                dialog.PrimaryButtonCommand.CanExecute(args.IsValid);
+                if (!args.Value.Equals(txt.Text))
+                    txt.Text = args.Value;
+            };
         }
 
 

@@ -24,7 +24,7 @@ namespace Acr.UserDialogs
         public int? MaxLength { get; set; } = DefaultMaxLength;
         public int? AndroidStyleId { get; set; }
         public InputType InputType { get; set; } = InputType.Default;
-        public Func<string, bool> Validate { get; set; }
+        public Action<PromptTextChangedArgs> OnTextChanged { get; set; }
 
 
         public PromptConfig SetTitle(string title)
@@ -91,9 +91,9 @@ namespace Acr.UserDialogs
         }
 
 
-        public PromptConfig SetValidate(Func<string, bool> validate)
+        public PromptConfig SetOnTextChanged(Action<PromptTextChangedArgs> onChange)
         {
-            this.Validate = validate;
+            this.OnTextChanged = onChange;
             return this;
         }
     }

@@ -7,6 +7,6 @@
 
 ## Additional Functionality
 
-Validation
+Value Formatting & Validation
 Text Max Length
 Input Types

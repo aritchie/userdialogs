@@ -21,7 +21,7 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 On android, be sure to call UserDialogs.Init() before using!
 
 Supported Platforms
-- iOS 7+
+- iOS 8+
 - Android
 - Universal Windows Platform (Win10/UWP)
 - Portable Class Libraries (Profile 259)
@@ -48,7 +48,7 @@ Supported Platforms
                 <dependency id="AndHUD" version="[1.2.0, 2)" />
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
-                <dependency id="Xamarin.Android.Support.Design" version="[23.3, 24)" />
+                <dependency id="Xamarin.Android.Support.Design" version="[23.3, 25)" />
             </group>
             <group targetFramework="uap10.0">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
@@ -57,7 +57,7 @@ Supported Platforms
         </dependencies>
         <releaseNotes>
 6.3.0
-[feature][all] add ability to validate text value in Prompt dialog
+[feature][all] PromptConfig.OnTextChanged action adds the ability to disable positive button as well as change current textbox value (great for formatting)
 [internal] refactoring internal android logic for dialog management
 
 6.2.6

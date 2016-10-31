@@ -139,6 +139,34 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Prompt Text Validate",
+                    Command = new Command(async () =>
+                    {
+                        var result = await this.Dialogs.PromptAsync(new PromptConfig
+                        {
+                            Title = "Prompt Text Validate",
+                            Message = "You must type the word \"yes\" to enable OK button",
+                            OnTextChanged = args => args.IsValid = args.Value.Equals("yes", StringComparison.CurrentCultureIgnoreCase)
+                        });
+                        this.Result($"Result - {result.Ok} - {result.Text}");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Prompt Text Format",
+                    Command = new Command(async () =>
+                    {
+                        var result = await this.Dialogs.PromptAsync(new PromptConfig
+                        {
+                            Title = "Prompt Text Format",
+                            Message = "Type in lower case and it will convert to upper case",
+                            OnTextChanged = args => args.Value = args.Value.ToUpper()
+                        });
+                        this.Result($"Result - {result.Ok} - {result.Text}");
+                    })
+                },
+                new CommandViewModel
+                {
                     Text = "Date",
                     Command = this.Create(async token =>
                     {
