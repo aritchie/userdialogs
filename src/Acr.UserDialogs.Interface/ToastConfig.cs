@@ -6,9 +6,24 @@ namespace Acr.UserDialogs
 {
     public class ToastConfig
     {
+        /// <summary>
+        /// The default duration for how long the toast should remain on-screen.  Defaults to 2.5 seconds
+        /// </summary>
         public static TimeSpan DefaultDuration { get; set; } = TimeSpan.FromSeconds(2.5);
+
+        /// <summary>
+        /// The default message text color to use.  If not set, defaults very depending on platform.
+        /// </summary>
         public static Color? DefaultMessageTextColor { get; set; }
+
+        /// <summary>
+        /// The default text color in the action button.  If not set, defaults very depending on platform.
+        /// </summary>
         public static Color? DefaultActionTextColor { get; set; }
+
+        /// <summary>
+        /// The default toast background color.  If not set, defaults very depending on platform.
+        /// </summary>
         public static Color? DefaultBackgroundColor { get; set; }
 
         public string Message { get; set; }

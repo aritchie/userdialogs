@@ -44,9 +44,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E016AD70-2C74-4ADE-8189-7E7D90018423}"
 	ProjectSection(SolutionItems) = preProject
 		..\docs\alerts.md = ..\docs\alerts.md
+		..\docs\android.md = ..\docs\android.md
 		..\docs\changelog.md = ..\docs\changelog.md
 		..\docs\confirm.md = ..\docs\confirm.md
 		..\docs\date.md = ..\docs\date.md
+		..\docs\faq.md = ..\docs\faq.md
 		..\ISSUE_TEMPLATE = ..\ISSUE_TEMPLATE
 		..\..\notifications\license.txt = ..\..\notifications\license.txt
 		..\docs\loading.md = ..\docs\loading.md
