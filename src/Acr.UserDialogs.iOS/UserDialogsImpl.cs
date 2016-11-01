@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Linq;
 using UIKit;
 using CoreGraphics;
@@ -142,10 +143,12 @@ namespace Acr.UserDialogs
                     txt = x;
                     if (config.MaxLength != null)
                     {
-                        txt.ShouldChangeCharacters =  (tf, replace, range) =>
+                        txt.ShouldChangeCharacters = (field, replacePosition, replacement) =>
                         {
-                            var len = txt.Text.Length + replace.Length - range.Length;
-                            return len <= config.MaxLength.Value;
+                            var updatedText = new StringBuilder(field.Text);
+                            updatedText.Remove((int)replacePosition.Location, (int)replacePosition.Length);
+                            updatedText.Insert((int)replacePosition.Location, replacement);
+                            return updatedText.ToString().Length <= config.MaxLength.Value;
                         };
                     }
                     this.SetInputType(txt, config.InputType);
