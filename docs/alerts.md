@@ -4,5 +4,5 @@
 ## Config
 
 ## Themeing/Defaults
-AlertConfig.DefaultOkText  "Ok";
-DefaultAndroidStyleId
+string DefaultOkText = "Ok";
+int? DefaultAndroidStyleId

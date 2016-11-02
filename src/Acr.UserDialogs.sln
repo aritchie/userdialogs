@@ -43,6 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid.Classic", "Sa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E016AD70-2C74-4ADE-8189-7E7D90018423}"
 	ProjectSection(SolutionItems) = preProject
+		..\docs\actionsheets.md = ..\docs\actionsheets.md
 		..\docs\alerts.md = ..\docs\alerts.md
 		..\docs\android.md = ..\docs\android.md
 		..\docs\changelog.md = ..\docs\changelog.md
@@ -51,7 +52,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E016AD70-2
 		..\docs\faq.md = ..\docs\faq.md
 		..\ISSUE_TEMPLATE = ..\ISSUE_TEMPLATE
 		..\..\notifications\license.txt = ..\..\notifications\license.txt
-		..\docs\loading.md = ..\docs\loading.md
 		..\docs\login.md = ..\docs\login.md
 		..\docs\progress.md = ..\docs\progress.md
 		..\docs\prompt.md = ..\docs\prompt.md

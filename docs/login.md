@@ -1,6 +1,13 @@
-﻿# Loading
+﻿# Login
 
 
 ## Config
 
-## Additional Functionality
+## Theming/Defaults
+
+ LoginConfig
+    - DefaultTitle
+    - DefaultOkText
+    - DefaultCancelText
+    - DefaultLoginPlaceholder
+    - DefaultPasswordPlaceholder
