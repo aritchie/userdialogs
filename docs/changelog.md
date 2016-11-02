@@ -1,6 +1,7 @@
 ﻿# CHANGELOG
 
 ## 6.3.0
+* [fix][ios] prompt maxlength was preventing character deletion
 * [feature] [all] PromptConfig.OnTextChanged action adds the ability to disable positive button as well as change current textbox value (great for formatting)
 * [internal] refactoring internal android logic for dialog management
 
