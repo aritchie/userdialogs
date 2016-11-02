@@ -341,17 +341,19 @@ namespace Acr.UserDialogs
 
             var args = new PromptTextChangedArgs { Value = String.Empty };
             config.OnTextChanged(args);
+            dialog.IsPrimaryButtonEnabled = args.IsValid;
 
-            dialog.PrimaryButtonCommand.CanExecute(args.IsValid);
             txt.PasswordChanged += (sender, e) =>
             {
                 args.IsValid = true; // reset
                 args.Value = txt.Password;
                 config.OnTextChanged(args);
 
-                dialog.PrimaryButtonCommand.CanExecute(args.IsValid);
+                dialog.IsPrimaryButtonEnabled = args.IsValid;
                 if (!args.Value.Equals(txt.Password))
+                {
                     txt.Password = args.Value;
+                }
             };
         }
 
@@ -379,17 +381,21 @@ namespace Acr.UserDialogs
 
             var args = new PromptTextChangedArgs { Value = String.Empty };
             config.OnTextChanged(args);
+            dialog.IsPrimaryButtonEnabled = args.IsValid;
 
-            dialog.PrimaryButtonCommand.CanExecute(args.IsValid);
             txt.TextChanged += (sender, e) =>
             {
                 args.IsValid = true; // reset
                 args.Value = txt.Text;
                 config.OnTextChanged(args);
+                dialog.IsPrimaryButtonEnabled = args.IsValid;
 
-                dialog.PrimaryButtonCommand.CanExecute(args.IsValid);
                 if (!args.Value.Equals(txt.Text))
+                {
                     txt.Text = args.Value;
+                    txt.SelectionStart = Math.Max(0, txt.Text.Length);
+                    txt.SelectionLength = 0;
+                }
             };
         }
 
