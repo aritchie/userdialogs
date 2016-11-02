@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Xamarin.Forms;
@@ -91,6 +92,24 @@ namespace Samples.ViewModels
                             TaskCreationOptions.LongRunning
                         )
                     )
+                },
+                new CommandViewModel
+                {
+                    Text = "Two alerts with one Cancellation Token Source",
+                    Command = new Command(async () =>
+                    {
+                        try
+                        {
+                            var cts = new CancellationTokenSource();
+
+                            await this.Dialogs.AlertAsync("Press ok and then wait", "Hi", null, cts.Token);
+                            cts.CancelAfter(TimeSpan.FromSeconds(3));
+                            await this.Dialogs.AlertAsync("I'll close soon, just wait", "Hi", null, cts.Token);
+                        }
+                        catch(OperationCanceledException)
+                        {
+                        }
+                    })
                 },
                 new CommandViewModel
                 {
