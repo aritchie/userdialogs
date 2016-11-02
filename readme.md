@@ -4,7 +4,7 @@ A cross platform library that allows you to call for standard user dialogs from 
 Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
-
+[CHANGE LOG](docs/changelog.md)
 
 ### Features
 
@@ -19,9 +19,6 @@ _Docs are a work in progress of Nov 1, 2016_
 * [Prompt](docs/prompt.md)
 * [Toasts](docs/toasts.md)
 * [Time](docs/time.md)
-
-* [examples](https://github.com/aritchie/userdialogs/tree/master/src/Samples/Samples)
-* [FAQ](docs/faq.md)
 
 ## Support Platforms
 
@@ -56,6 +53,10 @@ To use, simply reference the nuget package in each of your platform projects.
 
     // from your PCL app.cs (remember to Init on android platform project)
     Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
+
+## Other Docs
+* [Source Code](https://github.com/aritchie/userdialogs/tree/master/src/Samples/Samples)
+* [FAQ](docs/faq.md)
 
 ## Powered By:
 
