@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.3.0</version>
+        <version>6.3.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -56,6 +56,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.3.1
+[fix][droid] NRE on OnTextChanged
+
 6.3.0
 [fix][ios] prompt maxlength was preventing character deletion
 [feature][all] PromptConfig.OnTextChanged action adds the ability to disable positive button as well as change current textbox value (great for formatting)
