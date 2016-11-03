@@ -89,11 +89,17 @@ namespace Acr.UserDialogs.Builders
                 return;
 
             var buttonId = (int) Android.Content.DialogButtonType.Positive;
-            ((AlertDialog)dialog).GetButton(buttonId).Enabled = false;
+            var promptArgs = new PromptTextChangedArgs { Value = String.Empty };
 
+            dialog.ShowEvent += (sender, args) =>
+            {
+                onChange(promptArgs);
+                ((AlertDialog)dialog).GetButton(buttonId).Enabled = promptArgs.IsValid;
+            };
             txt.AfterTextChanged += (sender, args) =>
             {
-                var promptArgs = new PromptTextChangedArgs { Value = txt.Text };
+                promptArgs.IsValid = true;
+                promptArgs.Value = txt.Text;
                 onChange(promptArgs);
                 ((AlertDialog)dialog).GetButton(buttonId).Enabled = promptArgs.IsValid;
 
