@@ -103,8 +103,11 @@ namespace Acr.UserDialogs.Builders
                 onChange(promptArgs);
                 ((AlertDialog)dialog).GetButton(buttonId).Enabled = promptArgs.IsValid;
 
-                if (!promptArgs.Value.Equals(txt.Text))
+                if (!txt.Text.Equals(promptArgs.Value))
+                {
                     txt.Text = promptArgs.Value;
+                    txt.SetSelection(txt.Text.Length);
+                }
             };
         }
 

@@ -10,7 +10,7 @@
     - DefaultCancelText
 
 ## Additional Functionality
-
+```csharp
 new PromptConfig
 {
     OnTextChanged = args => {
@@ -18,6 +18,7 @@ new PromptConfig
         args.Text = ""; // you can read the current value as well as replace the textbox value here
     }
 }
+```
 
 Text Max Length
 
