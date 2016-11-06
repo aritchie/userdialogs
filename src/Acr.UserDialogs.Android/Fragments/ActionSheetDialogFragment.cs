@@ -13,23 +13,22 @@ namespace Acr.UserDialogs.Fragments
         {
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.KeyPress += this.OnKeyPress;
-            if (this.Config.Cancel == null)
-            {
-                dialog.SetCancelable(false);
-                dialog.SetCanceledOnTouchOutside(false);
-            }
-            else
-            {
-                dialog.SetCancelable(true);
-                dialog.SetCanceledOnTouchOutside(true);
-                dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
-            }
+
+            dialog.SetCancelable(this.Config.Cancel != null);
+            dialog.SetCanceledOnTouchOutside(this.Config.Cancel != null);
         }
 
 
         public override void Dismiss()
         {
             base.Dismiss();
+            this.Config?.Cancel?.Action?.Invoke();
+        }
+
+
+        public override void OnCancel(IDialogInterface dialog)
+        {
+            base.OnCancel(dialog);
             this.Config?.Cancel?.Action?.Invoke();
         }
 
@@ -44,6 +43,7 @@ namespace Acr.UserDialogs.Fragments
             this.Config?.Cancel?.Action?.Invoke();
             this.Dismiss();
         }
+
 
         protected override Dialog CreateDialog(ActionSheetConfig config)
         {
@@ -67,8 +67,22 @@ namespace Acr.UserDialogs.Fragments
             {
                 dialog.SetCancelable(true);
                 dialog.SetCanceledOnTouchOutside(true);
-                dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
+                dialog.CancelEvent += (sender, args) =>
+                {
+                    this.Config.Cancel.Action.Invoke();
+                };
+                dialog.DismissEvent += (sender, args) =>
+                {
+                    this.Config.Cancel.Action.Invoke();
+                };
             }
+        }
+
+
+        public override void OnCancel(IDialogInterface dialog)
+        {
+            base.OnCancel(dialog);
+            this.Config?.Cancel?.Action?.Invoke();
         }
 
 
