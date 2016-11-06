@@ -16,7 +16,7 @@ namespace Acr.UserDialogs
         public DateTime? SelectedDate { get; set; }
         public DateTimeKind UnspecifiedDateTimeKindReplacement { get; set; } = DefaultUnspecifiedDateTimeKindReplacement;
 
-        public Action<DatePromptResult> OnAction { get; set; }
+        public Action<DialogResult<DateTime>> OnAction { get; set; }
         public bool IsCancellable { get; set; } = true;
 
         public DateTime? MinimumDate { get; set; }

@@ -16,7 +16,7 @@ namespace Acr.UserDialogs
         public bool? Use24HourClock { get; set; } = DefaultUse24HourClock;
         public TimeSpan? SelectedTime { get; set; }
 
-        public Action<TimePromptResult> OnAction { get; set; }
+        public Action<DialogResult<TimeSpan>> OnAction { get; set; }
         public bool IsCancellable { get; set; } = true;
 
         /// <summary>

@@ -4,21 +4,38 @@
 namespace Acr.UserDialogs
 {
 
-    public class AlertConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
+    public class AlertConfig : IAndroidStyleDialogConfig
     {
-        public static string DefaultOkText { get; set; } = "Ok";
+        public static string DefaultPositiveText { get; set; } = "Ok";
+        public static string DefaultNeutralText { get; set; } = "Cancel";
+        public static string DefaultNegativeText { get; set; } = "Remove";
         public static int? DefaultAndroidStyleId { get; set; }
 
-        public string OkText { get; set; } = DefaultOkText;
+        public string PositiveText { get; set; } = DefaultPositiveText;
+        public string NeutralText { get; set; } = DefaultNeutralText;
+        public string NegativeText { get; set; } = DefaultNegativeText;
         public string Title { get; set; }
         public string Message { get; set; }
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
-        public Action OnAction { get; set; }
+        public Action<DialogChoice> OnAction { get; set; }
 
 
-        public AlertConfig SetOkText(string text)
+        public AlertConfig SetText(DialogChoice choice, string text)
         {
-            this.OkText = text;
+            switch (choice)
+            {
+                case DialogChoice.Negative:
+                    this.NegativeText = text;
+                    break;
+
+                case DialogChoice.Neutral:
+                    this.NeutralText = text;
+                    break;
+
+                case DialogChoice.Positive:
+                    this.PositiveText = text;
+                    break;
+            }
             return this;
         }
 
@@ -37,7 +54,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public AlertConfig SetAction(Action action)
+        public AlertConfig SetAction(Action<DialogChoice> action)
         {
             this.OnAction = action;
             return this;

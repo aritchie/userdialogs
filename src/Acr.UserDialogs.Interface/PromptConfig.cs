@@ -3,23 +3,24 @@
 
 namespace Acr.UserDialogs
 {
-
-    public class PromptConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
+    public class PromptConfig : IAndroidStyleDialogConfig
     {
-        public static string DefaultOkText { get; set; } = "Ok";
-        public static string DefaultCancelText { get; set; } = "Cancel";
+        public static string DefaultPositiveText { get; set; } = "Ok";
+        public static string DefaultNeutralText { get; set; } = "Cancel";
+        public static string DefaultNegativeText { get; set; } = "Remove";
         public static int? DefaultAndroidStyleId { get; set; }
         public static int? DefaultMaxLength { get; set; }
 
         public string Title { get; set; }
         public string Message { get; set; }
-        public Action<PromptResult> OnAction { get; set; }
+        public Action<DialogResult<string>> OnAction { get; set; }
 
         public bool IsCancellable { get; set; } = true;
         public string Text { get; set; }
 
-        public string OkText { get; set; } = DefaultOkText;
-        public string CancelText { get; set; } = DefaultCancelText;
+        public string PositiveText { get; set; } = DefaultPositiveText;
+        public string NeutralText { get; set; } = DefaultNeutralText;
+        public string NegativeText { get; set; } = DefaultNegativeText;
         public string Placeholder { get; set; }
         public int? MaxLength { get; set; } = DefaultMaxLength;
         public int? AndroidStyleId { get; set; }
@@ -48,9 +49,22 @@ namespace Acr.UserDialogs
         }
 
 
-        public PromptConfig SetOkText(string text)
+        public PromptConfig SetText(DialogChoice choice, string text)
         {
-            this.OkText = text;
+            switch (choice)
+            {
+                case DialogChoice.Negative:
+                    this.NegativeText = text;
+                    break;
+
+                case DialogChoice.Neutral:
+                    this.NeutralText = text;
+                    break;
+
+                case DialogChoice.Positive:
+                    this.PositiveText = text;
+                    break;
+            }
             return this;
         }
 
@@ -65,14 +79,6 @@ namespace Acr.UserDialogs
         public PromptConfig SetText(string text)
         {
             this.Text = text;
-            return this;
-        }
-
-
-        public PromptConfig SetCancelText(string cancelText)
-        {
-            this.IsCancellable = true;
-            this.CancelText = cancelText;
             return this;
         }
 
