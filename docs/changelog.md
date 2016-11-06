@@ -5,7 +5,7 @@
 * [feature] [all] PromptConfig.OnTextChanged action adds the ability to disable positive button as well as change current textbox value (great for formatting)
 * [internal] refactoring internal android logic for dialog management
 
-## 6.2.## 6
+## 6.2.6
 * [fix] [all] cancellation token memory leak (thanks to @smstuebe)
 * [update] allow updates to google libs
 
