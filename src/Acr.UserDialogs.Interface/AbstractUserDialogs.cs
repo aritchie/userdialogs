@@ -148,7 +148,7 @@ namespace Acr.UserDialogs
             {
                 Message = message,
                 Title = title,
-                OnAction = x = onAction(x == DialogChoice.Positive),
+                OnAction = x => onAction(x == DialogChoice.Positive),
                 NeutralText = cancelText ?? AlertConfig.DefaultNeutralText,
                 PositiveText = okText ?? AlertConfig.DefaultPositiveText
             });

@@ -1,5 +1,10 @@
 ﻿# CHANGELOG
 
+## 7.0.0
+* [feature] Ok/Cancel is gone, welcome Postive, Neutral, and Negative buttons for alert, login, and prompt
+* [breaking] Confirm is now just a wrapper signature around alert
+* [fix][droid] ActionSheetAsync is fixed for dismiss
+
 ## 6.3.0
 * [fix][ios] prompt maxlength was preventing character deletion
 * [feature] [all] PromptConfig.OnTextChanged action adds the ability to disable positive button as well as change current textbox value (great for formatting)
