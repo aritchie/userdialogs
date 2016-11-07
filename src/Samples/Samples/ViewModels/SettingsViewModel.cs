@@ -13,15 +13,13 @@ namespace Samples.ViewModels
             this.StandardSettings = new Command(() =>
             {
                 // CANCEL
-                ActionSheetConfig.DefaultCancelText = ConfirmConfig.DefaultCancelText = LoginConfig.DefaultCancelText = PromptConfig.DefaultCancelText = ProgressDialogConfig.DefaultCancelText = "Cancel";
+                ActionSheetConfig.DefaultCancelText = LoginConfig.DefaultNeutralText = PromptConfig.DefaultNeutralText = ProgressDialogConfig.DefaultCancelText = "Cancel";
 
                 // OK
-                AlertConfig.DefaultOkText = ConfirmConfig.DefaultOkText = LoginConfig.DefaultOkText = PromptConfig.DefaultOkText = "Ok";
+                AlertConfig.DefaultPositiveText = LoginConfig.DefaultPositiveText = PromptConfig.DefaultPositiveText = "Ok";
 
                 // CUSTOM
                 ActionSheetConfig.DefaultDestructiveText = "Remove";
-                ConfirmConfig.DefaultYes = "Yes";
-                ConfirmConfig.DefaultNo = "No";
                 DatePromptConfig.DefaultCancelText = "Cancel";
                 DatePromptConfig.DefaultOkText = "Ok";
                 TimePromptConfig.DefaultMinuteInterval = 1;
@@ -39,15 +37,13 @@ namespace Samples.ViewModels
 
             this.LoadAbnormalSettings = new Command(() =>
             {
-                ActionSheetConfig.DefaultCancelText = ConfirmConfig.DefaultCancelText = LoginConfig.DefaultCancelText = PromptConfig.DefaultCancelText = ProgressDialogConfig.DefaultCancelText = "NO WAY";
+                ActionSheetConfig.DefaultCancelText = LoginConfig.DefaultNeutralText = PromptConfig.DefaultNeutralText = ProgressDialogConfig.DefaultCancelText = "NO WAY";
 
                 // OK
-                AlertConfig.DefaultOkText = ConfirmConfig.DefaultOkText = LoginConfig.DefaultOkText = PromptConfig.DefaultOkText = "Sure";
+                AlertConfig.DefaultPositiveText = LoginConfig.DefaultPositiveText = PromptConfig.DefaultPositiveText = "Sure";
 
                 // CUSTOM
                 ActionSheetConfig.DefaultDestructiveText = "BOOM!";
-                ConfirmConfig.DefaultYes = "SIGN LIFE AWAY";
-                ConfirmConfig.DefaultNo = "NO WAY";
 
                 DatePromptConfig.DefaultCancelText = "BYE";
                 DatePromptConfig.DefaultOkText = "Do Something";
@@ -62,12 +58,6 @@ namespace Samples.ViewModels
 
                 // TOAST
                 ToastConfig.DefaultDuration = TimeSpan.FromSeconds(5);
-
-                //ToastConfig.InfoBackgroundColor = System.Drawing.Color.Aqua;
-                //ToastConfig.SuccessTextColor = System.Drawing.Color.Blue;
-                //ToastConfig.SuccessBackgroundColor = System.Drawing.Color.BurlyWood;
-                //ToastConfig.WarnBackgroundColor = System.Drawing.Color.BlueViolet;
-                //ToastConfig.ErrorBackgroundColor = System.Drawing.Color.DeepPink;
 
                 this.Result("Abnormal Settings Loaded - Now run samples");
             });

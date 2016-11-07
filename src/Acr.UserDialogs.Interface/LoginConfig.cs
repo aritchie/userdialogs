@@ -40,16 +40,22 @@ namespace Acr.UserDialogs
         }
 
 
-        public LoginConfig SetOkText(string ok)
+        public LoginConfig SetText(DialogChoice choice, string text)
         {
-            this.OkText = ok;
-            return this;
-        }
+            switch (choice)
+            {
+                case DialogChoice.Negative:
+                    this.NegativeText = text;
+                    break;
 
+                case DialogChoice.Neutral:
+                    this.NeutralText = text;
+                    break;
 
-        public LoginConfig SetCancelText(string cancel)
-        {
-            this.CancelText = cancel;
+                case DialogChoice.Positive:
+                    this.PositiveText = text;
+                    break;
+            }
             return this;
         }
 
