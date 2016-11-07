@@ -7,7 +7,7 @@ namespace Acr.UserDialogs
     {
         public static string DefaultPositiveText { get; set; } = "Ok";
         public static string DefaultNeutralText { get; set; } = "Cancel";
-        public static string DefaultNegativeText { get; set; } = "Remove";
+        public static string DefaultNegativeText { get; set; }
         public static int? DefaultAndroidStyleId { get; set; }
         public static int? DefaultMaxLength { get; set; }
 
