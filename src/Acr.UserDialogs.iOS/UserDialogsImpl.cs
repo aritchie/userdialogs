@@ -32,13 +32,16 @@ namespace Acr.UserDialogs
             return this.Present(() =>
             {
                 var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                if (config.NegativeText != null)
-                    alert.AddAction(UIAlertAction.Create(config.NegativeText, UIAlertActionStyle.Destructive, x => config.OnAction?.Invoke(DialogChoice.Negative)));
+                if (config.BackgroundColor != null)
+                    alert.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
 
-                if (config.NeutralText != null)
-                    alert.AddAction(UIAlertAction.Create(config.NeutralText, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(DialogChoice.Neutral)));
+                if (config.Negative.IsVisible)
+                    alert.AddAction(UIAlertAction.Create(config.Negative.Text, UIAlertActionStyle.Destructive, x => config.OnAction?.Invoke(DialogChoice.Negative)));
 
-                alert.AddAction(UIAlertAction.Create(config.PositiveText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(DialogChoice.Positive)));
+                if (config.Neutral.IsVisible)
+                    alert.AddAction(UIAlertAction.Create(config.Neutral.Text, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(DialogChoice.Neutral)));
+
+                alert.AddAction(UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(DialogChoice.Positive)));
                 return alert;
             });
         }
@@ -56,8 +59,9 @@ namespace Acr.UserDialogs
             {
                 Mode = UIDatePickerMode.Date,
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
-                OkText = config.OkText,
-                CancelText = config.CancelText,
+                // TODO
+                //OkText = config.OkText,
+                //CancelText = config.CancelText,
                 Ok = x => config.OnAction?.Invoke(new DialogResult<DateTime>(DialogChoice.Positive, x.SelectedDateTime)),
                 Cancel = x => config.OnAction?.Invoke(new DialogResult<DateTime>(DialogChoice.Neutral , x.SelectedDateTime)),
             };
@@ -78,8 +82,9 @@ namespace Acr.UserDialogs
                 Mode = UIDatePickerMode.Time,
 				SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add ((TimeSpan)config.SelectedTime) : DateTime.Now,
                 MinuteInterval = config.MinuteInterval,
-                OkText = config.OkText,
-                CancelText = config.CancelText,
+                // TODO
+                //OkText = config.OkText,
+                //CancelText = config.CancelText,
                 Ok = x => config.OnAction?.Invoke(new DialogResult<TimeSpan>(DialogChoice.Positive, x.SelectedDateTime.TimeOfDay)),
                 Cancel = x => config.OnAction?.Invoke(new DialogResult<TimeSpan>(DialogChoice.Neutral, x.SelectedDateTime.TimeOfDay)),
                 Use24HourClock = config.Use24HourClock
@@ -96,10 +101,14 @@ namespace Acr.UserDialogs
                 UITextField txtPass = null;
 
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                if (config.NegativeText != null)
+                if (config.BackgroundColor != null)
+                {
+                    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
+                }
+                if (config.Negative.IsVisible)
                 {
                     dlg.AddAction(UIAlertAction.Create(
-                        config.NegativeText,
+                        config.Negative.Text,
                         UIAlertActionStyle.Destructive,
                         x => config.OnAction?.Invoke(new DialogResult<Credentials>(
                             DialogChoice.Negative,
@@ -107,10 +116,10 @@ namespace Acr.UserDialogs
                         ))
                     ));
                 }
-                if (config.NeutralText != null)
+                if (config.Neutral.IsVisible)
                 {
                     dlg.AddAction(UIAlertAction.Create(
-                        config.NeutralText,
+                        config.Neutral.Text,
                         UIAlertActionStyle.Cancel,
                         x => config.OnAction?.Invoke(new DialogResult<Credentials>(
                             DialogChoice.Neutral,
@@ -119,7 +128,7 @@ namespace Acr.UserDialogs
                     ));
                 }
                 dlg.AddAction(UIAlertAction.Create(
-                    config.PositiveText,
+                    config.Positive.Text,
                     UIAlertActionStyle.Default,
                     x => config.OnAction?.Invoke(new DialogResult<Credentials>(
                         DialogChoice.Positive,
@@ -150,19 +159,23 @@ namespace Acr.UserDialogs
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
                 UITextField txt = null;
 
-                if (config.NegativeText != null)
+                if (config.BackgroundColor != null)
                 {
-                    dlg.AddAction(UIAlertAction.Create(config.NegativeText, UIAlertActionStyle.Destructive, x =>
+                    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
+                }
+                if (config.Negative.IsVisible)
+                {
+                    dlg.AddAction(UIAlertAction.Create(config.Negative.Text, UIAlertActionStyle.Destructive, x =>
                         config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Negative, txt.Text.Trim())
                     )));
                 }
-                if (config.NeutralText != null)
+                if (config.Neutral.IsVisible)
                 {
-                    dlg.AddAction(UIAlertAction.Create(config.NeutralText, UIAlertActionStyle.Cancel, x =>
+                    dlg.AddAction(UIAlertAction.Create(config.Neutral.Text, UIAlertActionStyle.Cancel, x =>
                         config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Neutral, txt.Text.Trim())
                     )));
                 }
-                var btnOk = UIAlertAction.Create(config.PositiveText, UIAlertActionStyle.Default, x =>
+                var btnOk = UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x =>
                     config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim())
                 ));
                 dlg.AddAction(btnOk);
@@ -287,6 +300,7 @@ namespace Acr.UserDialogs
 
             return sheet;
         }
+
 
         protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
         {

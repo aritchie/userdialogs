@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Acr.UserDialogs.Shared\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="AbstractUserDialogs.cs" />
     <Compile Include="ActionSheetConfig.cs" />
     <Compile Include="ActionSheetOption.cs" />
@@ -59,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToastAction.cs" />
     <Compile Include="ToastConfig.cs" />
+    <Compile Include="DialogButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">

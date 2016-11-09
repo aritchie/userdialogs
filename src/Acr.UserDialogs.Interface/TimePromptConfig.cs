@@ -5,19 +5,21 @@ namespace Acr.UserDialogs
 {
     public class TimePromptConfig
     {
-        public static string DefaultOkText { get; set; } = "Ok";
-        public static string DefaultCancelText { get; set; } = "Cancel";
+        public static DialogButton DefaultPositive { get; } = new DialogButton(DialogChoice.Positive, "Ok", null, true);
+        public static DialogButton DefaultNeutral { get; } = new DialogButton(DialogChoice.Neutral, "Cancel", null, true);
+        //public static DialogButton DefaultNegative { get; } = new DialogButton(DialogChoice.Negative, "Remove", null, false);
         public static int DefaultMinuteInterval { get; set; } = 1;
         public static bool? DefaultUse24HourClock { get; set; }
 
         public string Title { get; set; }
-        public string OkText { get; set; } = DefaultOkText;
-        public string CancelText { get; set; } = DefaultCancelText;
         public bool? Use24HourClock { get; set; } = DefaultUse24HourClock;
         public TimeSpan? SelectedTime { get; set; }
+        public DialogButton Positive { get; }  = new DialogButton(DialogChoice.Negative, DefaultPositive.Text, DefaultPositive.TextColor, DefaultPositive.IsVisible);
+        public DialogButton Neutral { get; } = new DialogButton(DialogChoice.Neutral, DefaultNeutral.Text, DefaultNeutral.TextColor, DefaultNeutral.IsVisible);
+        //public DialogButton Negative { get; } = new DialogButton(DialogChoice.Negative, DefaultNegative.Text, DefaultNegative.TextColor, DefaultNegative.IsVisible);
+
 
         public Action<DialogResult<TimeSpan>> OnAction { get; set; }
-        public bool IsCancellable { get; set; } = true;
 
         /// <summary>
         /// Only valid on iOS

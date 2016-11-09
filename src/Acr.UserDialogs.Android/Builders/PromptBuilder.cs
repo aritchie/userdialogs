@@ -10,7 +10,7 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public class PromptBuilder : IAlertDialogBuilder<PromptConfig>
+    public class PromptBuilder
     {
         public Dialog Build(Activity activity, PromptConfig config)
         {
@@ -32,14 +32,20 @@ namespace Acr.UserDialogs.Builders
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
                 .SetView(txt)
-                .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnAction(new PromptResult(true, txt.Text.Trim()))
+                .SetPositiveButton(config.Positive.Text, (s, a) =>
+                    config.OnAction(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim()))
                 );
 
-            if (config.IsCancellable)
+            if (config.Neutral.IsVisible)
             {
-                builder.SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnAction(new PromptResult(false, txt.Text.Trim()))
+                builder.SetNeutralButton(config.Neutral.Text, (s, a) =>
+                    config.OnAction(new DialogResult<string>(DialogChoice.Neutral, txt.Text.Trim()))
+                );
+            }
+            if (config.Negative.IsVisible)
+            {
+                builder.SetNegativeButton(config.Negative.Text, (s, a) =>
+                    config.OnAction(new DialogResult<string>(DialogChoice.Negative, txt.Text.Trim()))
                 );
             }
             var dialog = builder.Create();
@@ -66,14 +72,20 @@ namespace Acr.UserDialogs.Builders
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
                 .SetView(txt)
-                .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnAction(new PromptResult(true, txt.Text.Trim()))
+                .SetPositiveButton(config.Positive.Text, (s, a) =>
+                    config.OnAction(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim()))
                 );
 
-            if (config.IsCancellable)
+            if (config.Neutral.IsVisible)
             {
-                builder.SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnAction(new PromptResult(false, txt.Text.Trim()))
+                builder.SetNeutralButton(config.Neutral.Text, (s, a) =>
+                    config.OnAction(new DialogResult<string>(DialogChoice.Neutral, txt.Text.Trim()))
+                );
+            }
+            if (config.Negative.IsVisible)
+            {
+                builder.SetNegativeButton(config.Negative.Text, (s, a) =>
+                    config.OnAction(new DialogResult<string>(DialogChoice.Negative, txt.Text.Trim()))
                 );
             }
             var dialog = builder.Create();
@@ -110,6 +122,35 @@ namespace Acr.UserDialogs.Builders
                 }
             };
         }
+
+
+        //protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
+        //{
+        //    base.OnKeyPress(sender, args);
+        //    args.Handled = false;
+
+        //    switch (args.KeyCode)
+        //    {
+        //        case Keycode.Back:
+        //            args.Handled = true;
+        //            if (this.Config.IsCancellable)
+        //                this.SetAction(false);
+        //        break;
+
+        //        case Keycode.Enter:
+        //            args.Handled = true;
+        //            this.SetAction(true);
+        //        break;
+        //    }
+        //}
+
+
+        //protected virtual void SetAction(bool ok)
+        //{
+        //    var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
+        //    this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
+        //    this.Dismiss();
+        //}
 
 
         public static void SetInputType(TextView txt, InputType inputType)

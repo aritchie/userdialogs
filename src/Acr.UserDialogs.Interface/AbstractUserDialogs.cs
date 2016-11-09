@@ -50,12 +50,11 @@ namespace Acr.UserDialogs
 
         public virtual IDisposable Alert(string message, string title, string okText)
         {
-            return this.Alert(new AlertConfig
-            {
-                Message = message,
-                Title = title,
-                PositiveText = okText ?? AlertConfig.DefaultPositiveText
-            });
+            return this.Alert(new AlertConfig()
+                .SetMessage(message)
+                .SetTitle(title)
+                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+            );
         }
 
 
@@ -133,37 +132,32 @@ namespace Acr.UserDialogs
 
         public virtual Task<DialogChoice> AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
         {
-            return this.AlertAsync(new AlertConfig
-            {
-                Message = message,
-                Title = title,
-                PositiveText = okText ?? AlertConfig.DefaultPositiveText
-            }, cancelToken);
+            return this.AlertAsync(new AlertConfig()
+                .SetMessage(message)
+                .SetTitle(title)
+                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text),
+                cancelToken
+            );
         }
 
 
         public virtual IDisposable Confirm(string message, Action<bool> onAction, string title, string okText, string cancelText)
         {
-            return this.Alert(new AlertConfig
-            {
-                Message = message,
-                Title = title,
-                OnAction = x => onAction(x == DialogChoice.Positive),
-                NeutralText = cancelText ?? AlertConfig.DefaultNeutralText,
-                PositiveText = okText ?? AlertConfig.DefaultPositiveText
-            });
+            return this.Alert(new AlertConfig()
+                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+                .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text)
+                .SetAction(x => onAction(x == DialogChoice.Positive))
+             );
         }
 
 
         public virtual async Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
         {
-            var result = await this.AlertAsync(new AlertConfig
-            {
-                Message = message,
-                Title = title,
-                NeutralText = cancelText ?? AlertConfig.DefaultNeutralText,
-                PositiveText = okText ?? AlertConfig.DefaultPositiveText
-            }, cancelToken);
+            var result = await this.AlertAsync(new AlertConfig()
+               .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+               .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text), 
+               cancelToken
+            );
 
             return result == DialogChoice.Positive;
         }
@@ -271,15 +265,15 @@ namespace Acr.UserDialogs
 
         public virtual Task<DialogResult<string>> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType, CancellationToken? cancelToken = null)
         {
-            return this.PromptAsync(new PromptConfig
-            {
-                Message = message,
-                Title = title,
-                NeutralText = cancelText ?? PromptConfig.DefaultNeutralText,
-                PositiveText = okText ?? PromptConfig.DefaultPositiveText,
-                Placeholder = placeholder,
-                InputType = inputType
-            }, cancelToken);
+            return this.PromptAsync(new PromptConfig()
+                .SetMessage(message)
+                .SetTitle(title)
+                .SetText(DialogChoice.Neutral, cancelText ?? PromptConfig.DefaultNeutral.Text)
+                .SetText(DialogChoice.Positive, okText ?? PromptConfig.DefaultPositive.Text)
+                .SetPlaceholder(placeholder)
+                .SetInputType(inputType),
+                cancelToken
+            );
         }
 
 
