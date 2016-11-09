@@ -83,9 +83,9 @@ namespace Samples.ViewModels
                         {
                             //LoginValue = "LastUserName",
                             Message = "DANGER",
-                            PositiveText = "DO IT",
-                            NeutralText = "STOP",
-                            NegativeText = "OH HELL NO",
+                            //PositiveText = "DO IT",
+                            //NeutralText = "STOP",
+                            //NegativeText = "OH HELL NO",
                             LoginPlaceholder = "Username Placeholder",
                             PasswordPlaceholder = "Password Placeholder"
                         }, token);
@@ -131,8 +131,7 @@ namespace Samples.ViewModels
                         var result = await this.Dialogs.PromptAsync(new PromptConfig
                         {
                             Title = "PromptWithTextAndNoCancel",
-                            Text = "Existing Text",
-                            IsCancellable = false
+                            Text = "Existing Text"
                         }, token);
                         this.Result($"Result - {result.Choice} - {result.Value}");
                     })
@@ -172,7 +171,6 @@ namespace Samples.ViewModels
                     {
                         var result = await this.Dialogs.DatePromptAsync(new DatePromptConfig
                         {
-                            IsCancellable = true,
                             MinimumDate = DateTime.Now.AddDays(-3),
                             MaximumDate = DateTime.Now.AddDays(1)
                         }, token);
@@ -184,10 +182,7 @@ namespace Samples.ViewModels
                     Text = "Time",
                     Command = this.Create(async token =>
                     {
-                        var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig
-                        {
-                            IsCancellable = true
-                        }, token);
+                        var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig(), token);
                         this.Result($"Time Prompt: {result.Choice} - Value: {result.Value}");
                     })
                 },
@@ -196,7 +191,6 @@ namespace Samples.ViewModels
                     Text = "Time (24 hour clock)",
                     Command = this.Create (async token => {
                         var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig {
-                            IsCancellable = true,
                             Use24HourClock = true
                         }, token);
                         this.Result ($"Time Prompt: {result.Choice} - Value: {result.Value}");

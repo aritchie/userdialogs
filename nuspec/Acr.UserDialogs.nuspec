@@ -57,6 +57,7 @@ Supported Platforms
         </dependencies>
         <releaseNotes>
 7.0.0
+[feature] STYLING!!
 [feature] Ok/Cancel is gone, welcome Postive, Neutral, and Negative buttons for alert, login, and prompt
 [breaking] Confirm is now just a wrapper signature around alert
 [fix][droid] ActionSheetAsync is fixed for dismiss

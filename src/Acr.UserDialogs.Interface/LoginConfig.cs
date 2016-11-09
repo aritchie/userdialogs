@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 
 namespace Acr.UserDialogs
@@ -7,23 +8,48 @@ namespace Acr.UserDialogs
     public class LoginConfig : IAndroidStyleDialogConfig
     {
         public static string DefaultTitle { get; set; } = "Login";
-        public static string DefaultPositiveText { get; set; } = "Ok";
-        public static string DefaultNeutralText { get; set; } = "Cancel";
-        public static string DefaultNegativeText { get; set; }
+        public static DialogButton DefaultPositive { get; } = new DialogButton(DialogChoice.Positive, "Ok", null, true);
+        public static DialogButton DefaultNeutral { get; } = new DialogButton(DialogChoice.Neutral, "Cancel", null, false);
+        public static DialogButton DefaultNegative { get; } = new DialogButton(DialogChoice.Negative, "Remove", null, true);
         public static string DefaultLoginPlaceholder { get; set; } = "User Name";
         public static string DefaultPasswordPlaceholder { get; set; } = "Password";
+        public static Color? DefaultBackgroundColor { get; set; }
         public static int? DefaultAndroidStyleId { get; set; }
 
+        public Color? BackgroundColor { get; set; }
         public string Title { get; set; } = DefaultTitle;
         public string Message { get; set; }
-        public string PositiveText { get; set; } = DefaultPositiveText;
-        public string NeutralText { get; set; } = DefaultNeutralText;
-        public string NegativeText { get; set; } = DefaultNegativeText;
+        public DialogButton Positive { get; } = new DialogButton(DialogChoice.Positive, DefaultPositive.Text, DefaultPositive.TextColor, DefaultPositive.IsVisible);
+        public DialogButton Neutral { get; } = new DialogButton(DialogChoice.Neutral, DefaultNeutral.Text, DefaultNeutral.TextColor, DefaultNeutral.IsVisible);
+        public DialogButton Negative { get; } = new DialogButton(DialogChoice.Negative, DefaultNegative.Text, DefaultNegative.TextColor, DefaultNegative.IsVisible);
         public string LoginValue { get; set; }
         public string LoginPlaceholder { get; set; } = DefaultLoginPlaceholder;
         public string PasswordPlaceholder { get; set; } = DefaultPasswordPlaceholder;
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
         public Action<DialogResult<Credentials>> OnAction { get; set; }
+
+
+        public LoginConfig SetText(DialogChoice choice, string text = null)
+        {
+            switch (choice)
+            {
+                case DialogChoice.Negative:
+                    this.Negative.Text = text;
+                    this.Negative.IsVisible = true;
+                    break;
+
+                case DialogChoice.Neutral:
+                    this.Neutral.Text = text;
+                    this.Neutral.IsVisible = true;
+                    break;
+
+                case DialogChoice.Positive:
+                    this.Neutral.Text = text;
+                    this.Neutral.IsVisible = true;
+                    break;
+            }
+            return this;            
+        }
 
 
         public LoginConfig SetTitle(string title)
@@ -36,26 +62,6 @@ namespace Acr.UserDialogs
         public LoginConfig SetMessage(string msg)
         {
             this.Message = msg;
-            return this;
-        }
-
-
-        public LoginConfig SetText(DialogChoice choice, string text)
-        {
-            switch (choice)
-            {
-                case DialogChoice.Negative:
-                    this.NegativeText = text;
-                    break;
-
-                case DialogChoice.Neutral:
-                    this.NeutralText = text;
-                    break;
-
-                case DialogChoice.Positive:
-                    this.PositiveText = text;
-                    break;
-            }
             return this;
         }
 

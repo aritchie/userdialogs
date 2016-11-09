@@ -1,6 +1,5 @@
 using System;
 using Android.App;
-using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.Design.Widget;
@@ -15,33 +14,33 @@ namespace Acr.UserDialogs.Fragments
 {
     public class BottomSheetDialogFragment : AbstractAppCompatDialogFragment<ActionSheetConfig>
     {
-        protected override void SetDialogDefaults(Dialog dialog)
-        {
-            dialog.KeyPress += this.OnKeyPress;
-            if (this.Config.Cancel == null)
-            {
-                dialog.SetCancelable(false);
-                dialog.SetCanceledOnTouchOutside(false);
-            }
-            else
-            {
-                dialog.SetCancelable(true);
-                dialog.SetCanceledOnTouchOutside(true);
-                dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
-            }
-        }
+        //protected override void SetDialogDefaults(Dialog dialog)
+        //{
+        //    dialog.KeyPress += this.OnKeyPress;
+        //    if (this.Config.Cancel == null)
+        //    {
+        //        dialog.SetCancelable(false);
+        //        dialog.SetCanceledOnTouchOutside(false);
+        //    }
+        //    else
+        //    {
+        //        dialog.SetCancelable(true);
+        //        dialog.SetCanceledOnTouchOutside(true);
+        //        dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
+        //    }
+        //}
 
 
-        protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
-        {
-            if (args.KeyCode != Keycode.Back)
-                return;
+        //protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
+        //{
+        //    if (args.KeyCode != Keycode.Back)
+        //        return;
 
-            args.Handled = true;
-            this.Config?.Cancel?.Action?.Invoke();
-            this.Dismiss();
-            base.OnKeyPress(sender, args);
-        }
+        //    args.Handled = true;
+        //    this.Config?.Cancel?.Action?.Invoke();
+        //    this.Dismiss();
+        //    base.OnKeyPress(sender, args);
+        //}
 
 
         protected override Dialog CreateDialog(ActionSheetConfig config)
