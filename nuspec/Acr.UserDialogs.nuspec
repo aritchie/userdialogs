@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.3.1</version>
+        <version>7.0.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -56,6 +56,12 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+7.0.0
+[feature] STYLING!!
+[feature] Ok/Cancel is gone, welcome Postive, Neutral, and Negative buttons for alert, login, and prompt
+[breaking] Confirm is now just a wrapper signature around alert
+[fix][droid] ActionSheetAsync is fixed for dismiss
+
 6.3.1
 [fix][droid] NRE on OnTextChanged
 

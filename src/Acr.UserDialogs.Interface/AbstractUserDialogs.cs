@@ -13,7 +13,6 @@ namespace Acr.UserDialogs
 
         public abstract IDisposable Alert(AlertConfig config);
         public abstract IDisposable ActionSheet(ActionSheetConfig config);
-        public abstract IDisposable Confirm(ConfirmConfig config);
         public abstract IDisposable DatePrompt(DatePromptConfig config);
         public abstract IDisposable TimePrompt(TimePromptConfig config);
         public abstract IDisposable Login(LoginConfig config);
@@ -42,7 +41,7 @@ namespace Acr.UserDialogs
                 cfg.Add(btn, () => tcs.TrySetResult(btn));
 
             var disp = this.ActionSheet(cfg);
-            using (cancelToken?.Register(disp.Dispose))
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
             {
                 return await tcs.Task;
             }
@@ -51,12 +50,11 @@ namespace Acr.UserDialogs
 
         public virtual IDisposable Alert(string message, string title, string okText)
         {
-            return this.Alert(new AlertConfig
-            {
-                Message = message,
-                Title = title,
-                OkText = okText ?? AlertConfig.DefaultOkText
-            });
+            return this.Alert(new AlertConfig()
+                .SetMessage(message)
+                .SetTitle(title)
+                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+            );
         }
 
 
@@ -117,66 +115,60 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual async Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<DialogChoice> AlertAsync(AlertConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
 
-            var tcs = new TaskCompletionSource<object>();
-            config.OnAction = () => tcs.TrySetResult(null);
-
-            var disp = this.Alert(config);
-            using (cancelToken?.Register(() => Cancel(disp, tcs)))
-            {
-                await tcs.Task;
-            } 
-        }
-        
-        public virtual Task AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
-        {
-            return this.AlertAsync(new AlertConfig
-            {
-                Message = message,
-                Title = title,
-                OkText = okText ?? AlertConfig.DefaultOkText
-            }, cancelToken);
-        }
-
-
-        public virtual async Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null)
-        {
-            if (config.OnAction != null)
-                throw new ArgumentException(NO_ONACTION);
-
-            var tcs = new TaskCompletionSource<bool>();
+            var tcs = new TaskCompletionSource<DialogChoice>();
             config.OnAction = x => tcs.TrySetResult(x);
 
-            var disp = this.Confirm(config);
+            var disp = this.Alert(config);
             using (cancelToken?.Register(() => Cancel(disp, tcs)))
             {
                 return await tcs.Task;
             }
         }
 
-
-        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
+        public virtual Task<DialogChoice> AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
         {
-            return this.ConfirmAsync(new ConfirmConfig
-            {
-                Message = message,
-                Title = title,
-                CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
-                OkText = okText ?? ConfirmConfig.DefaultOkText
-            }, cancelToken);
+            return this.AlertAsync(new AlertConfig()
+                .SetMessage(message)
+                .SetTitle(title)
+                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text),
+                cancelToken
+            );
         }
 
 
-        public virtual async Task<DatePromptResult> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
+        public virtual IDisposable Confirm(string message, Action<bool> onAction, string title, string okText, string cancelText)
+        {
+            return this.Alert(new AlertConfig()
+                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+                .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text)
+                .SetAction(x => onAction(x == DialogChoice.Positive))
+             );
+        }
+
+
+        public virtual async Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
+        {
+            var result = await this.AlertAsync(new AlertConfig()
+               .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+               .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text), 
+               cancelToken
+            );
+
+            return result == DialogChoice.Positive;
+        }
+
+
+        public virtual async Task<DialogResult<DateTime>> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
 
-            var tcs = new TaskCompletionSource<DatePromptResult>();
+            var tcs = new TaskCompletionSource<DialogResult<DateTime>>();
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.DatePrompt(config);
@@ -187,7 +179,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<DatePromptResult> DatePromptAsync(string title, DateTime? selectedDate, CancellationToken? cancelToken = null)
+        public virtual Task<DialogResult<DateTime>> DatePromptAsync(string title, DateTime? selectedDate, CancellationToken? cancelToken = null)
         {
             return this.DatePromptAsync(
                 new DatePromptConfig
@@ -200,12 +192,12 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual async Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<DialogResult<TimeSpan>> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
 
-            var tcs = new TaskCompletionSource<TimePromptResult>();
+            var tcs = new TaskCompletionSource<DialogResult<TimeSpan>>();
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.TimePrompt(config);
@@ -216,7 +208,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<TimePromptResult> TimePromptAsync(string title, TimeSpan? selectedTime, CancellationToken? cancelToken = null)
+        public virtual Task<DialogResult<TimeSpan>> TimePromptAsync(string title, TimeSpan? selectedTime, CancellationToken? cancelToken = null)
         {
             return this.TimePromptAsync(
                 new TimePromptConfig
@@ -229,12 +221,12 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual async Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<DialogResult<Credentials>> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
 
-            var tcs = new TaskCompletionSource<LoginResult>();
+            var tcs = new TaskCompletionSource<DialogResult<Credentials>>();
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.Login(config);
@@ -245,7 +237,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<LoginResult> LoginAsync(string title, string message, CancellationToken? cancelToken = null)
+        public virtual Task<DialogResult<Credentials>> LoginAsync(string title, string message, CancellationToken? cancelToken = null)
         {
             return this.LoginAsync(new LoginConfig
             {
@@ -255,12 +247,12 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual async Task<PromptResult> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
+        public virtual async Task<DialogResult<string>> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
 
-            var tcs = new TaskCompletionSource<PromptResult>();
+            var tcs = new TaskCompletionSource<DialogResult<string>>();
             config.OnAction = x => tcs.TrySetResult(x);
 
             var disp = this.Prompt(config);
@@ -271,17 +263,17 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<PromptResult> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType, CancellationToken? cancelToken = null)
+        public virtual Task<DialogResult<string>> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType, CancellationToken? cancelToken = null)
         {
-            return this.PromptAsync(new PromptConfig
-            {
-                Message = message,
-                Title = title,
-                CancelText = cancelText ?? PromptConfig.DefaultCancelText,
-                OkText = okText ?? PromptConfig.DefaultOkText,
-                Placeholder = placeholder,
-                InputType = inputType
-            }, cancelToken);
+            return this.PromptAsync(new PromptConfig()
+                .SetMessage(message)
+                .SetTitle(title)
+                .SetText(DialogChoice.Neutral, cancelText ?? PromptConfig.DefaultNeutral.Text)
+                .SetText(DialogChoice.Positive, okText ?? PromptConfig.DefaultPositive.Text)
+                .SetPlaceholder(placeholder)
+                .SetInputType(inputType),
+                cancelToken
+            );
         }
 
 
@@ -294,7 +286,7 @@ namespace Acr.UserDialogs
         }
 
 
-        private static void Cancel<TResult>(IDisposable disp, TaskCompletionSource<TResult> tcs)
+        static void Cancel<TResult>(IDisposable disp, TaskCompletionSource<TResult> tcs)
         {
             disp.Dispose();
             tcs.TrySetCanceled();
