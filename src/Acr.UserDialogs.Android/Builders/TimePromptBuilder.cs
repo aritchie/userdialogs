@@ -27,47 +27,27 @@ namespace Acr.UserDialogs.Builders
             var is24Hour = config.Use24HourClock ?? DateFormat.Is24HourFormat (activity);
             picker.SetIs24HourView(new Java.Lang.Boolean(is24Hour));
 
-            if (config.Neutral.IsVisible)
+            if (config.IsCancellable)
             {
                 builder.SetNegativeButton(
-                    config.Neutral.Text,
+                    config.CancelText,
                     (sender, args) =>
                     {
                         var ts = new TimeSpan(0, picker.CurrentHour.IntValue(), picker.CurrentMinute.IntValue(), 0);
-                        config.OnAction?.Invoke(new DialogResult<TimeSpan>(DialogChoice.Neutral, ts));
+                        config.OnAction?.Invoke(new TimePromptResult(false, ts));
                     }
                 );
             }
             builder.SetPositiveButton(
-                config.Positive.Text,
+                config.OkText,
                 (sender, args) =>
                 {
                     var ts = new TimeSpan(0, picker.CurrentHour.IntValue(), picker.CurrentMinute.IntValue(), 0);
-                    config.OnAction?.Invoke(new DialogResult<TimeSpan>(DialogChoice.Positive, ts));
+                    config.OnAction?.Invoke(new TimePromptResult(true, ts));
                 }
             );
 
             return builder.Show();
         }
-
-
-        /*dialog.SetCancelable(false);
-            dialog.SetCanceledOnTouchOutside(false);
-            dialog.KeyPress += this.OnKeyPress;
-         * dialog.Window.SetSoftInputMode(SoftInput.StateHidden);
-        protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
-        {
-            base.OnKeyPress(sender, args);
-            if (args.KeyCode != Keycode.Back)
-                return;
-
-            args.Handled = true;
-            if (this.Config.IsCancellable)
-            {
-                this.Config?.OnAction?.Invoke(new TimePromptResult(false, TimeSpan.MinValue));
-                this.Dismiss();
-            }
-        }
-        */
     }
 }

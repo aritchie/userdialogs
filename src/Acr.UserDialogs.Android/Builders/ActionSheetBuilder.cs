@@ -1,16 +1,14 @@
 using System;
 using System.Linq;
 using Android.App;
-using Android.Content;
 using Android.Support.V7.App;
-using Android.Views;
 using AlertDialog = Android.App.AlertDialog;
 using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 
 namespace Acr.UserDialogs.Builders
 {
-    public class ActionSheetBuilder
+    public class ActionSheetBuilder : IAlertDialogBuilder<ActionSheetConfig>
     {
         public Dialog Build(Activity activity, ActionSheetConfig config)
         {
@@ -43,7 +41,7 @@ namespace Acr.UserDialogs.Builders
             if (config.Cancel != null)
                 dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
 
-            return this.SetDialogDefaults(dlg.Create(), config);
+            return dlg.Create();
         }
 
 
@@ -78,33 +76,9 @@ namespace Acr.UserDialogs.Builders
             if (config.Cancel != null)
                 dlg.SetNeutralButton(config.Cancel.Text, (s, a) => config.Cancel.Action?.Invoke());
 
-            return this.SetDialogDefaults(dlg.Create(), config);
+            return dlg.Create();
         }
 
-
-        protected virtual Dialog SetDialogDefaults(Dialog dialog, ActionSheetConfig config) 
-        {            
-            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-            dialog.SetCancelable(config.Cancel != null);
-            dialog.SetCanceledOnTouchOutside(config.Cancel != null);
-
-            dialog.CancelEvent += (sender, args) => config.Cancel.Action.Invoke();
-            dialog.DismissEvent += (sender, args) => config.Cancel.Action.Invoke();
-            dialog.KeyPress += this.OnKeyPress;
-
-            return dialog;
-        }
-
-
-        protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
-        {
-            if (args.KeyCode != Keycode.Back)
-                return;
-
-            args.Handled = true;
-            //this.Config?.Cancel?.Action?.Invoke();
-            //this.Dismiss();
-        }
 
         //protected virtual View GetCustomTitle(Activity activity, ActionSheetConfig config)
         //{

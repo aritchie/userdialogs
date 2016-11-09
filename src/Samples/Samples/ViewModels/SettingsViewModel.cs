@@ -13,18 +13,20 @@ namespace Samples.ViewModels
             this.StandardSettings = new Command(() =>
             {
                 // CANCEL
-                //ActionSheetConfig.DefaultCancelText = LoginConfig.DefaultNeutralText = PromptConfig.DefaultNeutralText = ProgressDialogConfig.DefaultCancelText = "Cancel";
+                ActionSheetConfig.DefaultCancelText = ConfirmConfig.DefaultCancelText = LoginConfig.DefaultCancelText = PromptConfig.DefaultCancelText = ProgressDialogConfig.DefaultCancelText = "Cancel";
 
                 // OK
-                //AlertConfig.DefaultPositiveText = LoginConfig.DefaultPositiveText = PromptConfig.DefaultPositiveText = "Ok";
+                AlertConfig.DefaultOkText = ConfirmConfig.DefaultOkText = LoginConfig.DefaultOkText = PromptConfig.DefaultOkText = "Ok";
 
                 // CUSTOM
                 ActionSheetConfig.DefaultDestructiveText = "Remove";
-                DatePromptConfig.DefaultNeutral.Text = "Cancel";
-                DatePromptConfig.DefaultPositive.Text = "Ok";
+                ConfirmConfig.DefaultYes = "Yes";
+                ConfirmConfig.DefaultNo = "No";
+                DatePromptConfig.DefaultCancelText = "Cancel";
+                DatePromptConfig.DefaultOkText = "Ok";
                 TimePromptConfig.DefaultMinuteInterval = 1;
-                TimePromptConfig.DefaultNeutral.Text = "Cancel";
-                TimePromptConfig.DefaultPositive.Text = "Ok";
+                TimePromptConfig.DefaultCancelText = "Cancel";
+                TimePromptConfig.DefaultOkText = "Ok";
                 LoginConfig.DefaultTitle = "Login";
                 LoginConfig.DefaultLoginPlaceholder = "User Name";
                 LoginConfig.DefaultPasswordPlaceholder = "Password";
@@ -37,27 +39,35 @@ namespace Samples.ViewModels
 
             this.LoadAbnormalSettings = new Command(() =>
             {
-                //ActionSheetConfig.DefaultCancelText = LoginConfig.DefaultNeutralText = PromptConfig.DefaultNeutralText = ProgressDialogConfig.DefaultCancelText = "NO WAY";
+                ActionSheetConfig.DefaultCancelText = ConfirmConfig.DefaultCancelText = LoginConfig.DefaultCancelText = PromptConfig.DefaultCancelText = ProgressDialogConfig.DefaultCancelText = "NO WAY";
 
-                //// OK
-                //AlertConfig.DefaultPositiveText = LoginConfig.DefaultPositiveText = PromptConfig.DefaultPositiveText = "Sure";
+                // OK
+                AlertConfig.DefaultOkText = ConfirmConfig.DefaultOkText = LoginConfig.DefaultOkText = PromptConfig.DefaultOkText = "Sure";
 
-                //// CUSTOM
-                //ActionSheetConfig.DefaultDestructiveText = "BOOM!";
+                // CUSTOM
+                ActionSheetConfig.DefaultDestructiveText = "BOOM!";
+                ConfirmConfig.DefaultYes = "SIGN LIFE AWAY";
+                ConfirmConfig.DefaultNo = "NO WAY";
 
-                //DatePromptConfig.DefaultCancelText = "BYE";
-                //DatePromptConfig.DefaultOkText = "Do Something";
+                DatePromptConfig.DefaultCancelText = "BYE";
+                DatePromptConfig.DefaultOkText = "Do Something";
 
-                //TimePromptConfig.DefaultMinuteInterval = 15;
-                //TimePromptConfig.DefaultCancelText = "BYE";
-                //TimePromptConfig.DefaultOkText = "Do Something";
-                //LoginConfig.DefaultTitle = "HIGH SECURITY";
-                //LoginConfig.DefaultLoginPlaceholder = "WHO ARE YOU?";
-                //LoginConfig.DefaultPasswordPlaceholder = "SUPER SECRET PASSWORD";
-                //ProgressDialogConfig.DefaultTitle = "WAIT A MINUTE";
+                TimePromptConfig.DefaultMinuteInterval = 15;
+                TimePromptConfig.DefaultCancelText = "BYE";
+                TimePromptConfig.DefaultOkText = "Do Something";
+                LoginConfig.DefaultTitle = "HIGH SECURITY";
+                LoginConfig.DefaultLoginPlaceholder = "WHO ARE YOU?";
+                LoginConfig.DefaultPasswordPlaceholder = "SUPER SECRET PASSWORD";
+                ProgressDialogConfig.DefaultTitle = "WAIT A MINUTE";
 
                 // TOAST
                 ToastConfig.DefaultDuration = TimeSpan.FromSeconds(5);
+
+                //ToastConfig.InfoBackgroundColor = System.Drawing.Color.Aqua;
+                //ToastConfig.SuccessTextColor = System.Drawing.Color.Blue;
+                //ToastConfig.SuccessBackgroundColor = System.Drawing.Color.BurlyWood;
+                //ToastConfig.WarnBackgroundColor = System.Drawing.Color.BlueViolet;
+                //ToastConfig.ErrorBackgroundColor = System.Drawing.Color.DeepPink;
 
                 this.Result("Abnormal Settings Loaded - Now run samples");
             });
