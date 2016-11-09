@@ -1,11 +1,11 @@
 using System;
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
+using Android.Views;
 
 
-// TODO: fix for immersive mode - http://stackoverflow.com/questions/22794049/how-to-maintain-the-immersive-mode-in-dialogs/23207365#23207365
-//dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 namespace Acr.UserDialogs.Fragments
 {
     public abstract class AbstractAppCompatDialogFragment<T> : AppCompatDialogFragment where T : class
@@ -25,16 +25,34 @@ namespace Acr.UserDialogs.Fragments
             if (this.Config == null)
                 this.Config = ConfigStore.Instance.Pop<T>(bundle);
 
-            return this.CreateDialog(this.Config);
+            var dialog = this.CreateDialog(this.Config);
+            this.SetDialogDefaults(dialog);
+            return dialog;
         }
 
 
-        //public override void OnDetach()
-        //{
-        //    base.OnDetach();
-        //    if (this.Dialog != null)
-        //        this.Dialog.KeyPress -= this.OnKeyPress;
-        //}
+        protected virtual void SetDialogDefaults(Dialog dialog)
+        {
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            dialog.SetCancelable(false);
+            dialog.SetCanceledOnTouchOutside(false);
+            dialog.KeyPress += this.OnKeyPress;
+            // TODO: fix for immersive mode - http://stackoverflow.com/questions/22794049/how-to-maintain-the-immersive-mode-in-dialogs/23207365#23207365
+            //dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }
+
+
+        public override void OnDetach()
+        {
+            base.OnDetach();
+            if (this.Dialog != null)
+                this.Dialog.KeyPress -= this.OnKeyPress;
+        }
+
+
+        protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
+        {
+        }
 
 
         protected abstract Dialog CreateDialog(T config);
@@ -59,16 +77,33 @@ namespace Acr.UserDialogs.Fragments
             if (this.Config == null)
                 this.Config = ConfigStore.Instance.Pop<T>(bundle);
 
-            return this.CreateDialog(this.Config);
+            var dialog = this.CreateDialog(this.Config);
+            this.SetDialogDefaults(dialog);
+
+            return dialog;
         }
 
 
-        //public override void OnDetach()
-        //{
-        //    base.OnDetach();
-        //    if (this.Dialog != null)
-        //        this.Dialog.KeyPress -= this.OnKeyPress;
-        //}
+        public override void OnDetach()
+        {
+            base.OnDetach();
+            if (this.Dialog != null)
+                this.Dialog.KeyPress -= this.OnKeyPress;
+        }
+
+
+        protected virtual void SetDialogDefaults(Dialog dialog)
+        {
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            dialog.SetCancelable(false);
+            dialog.SetCanceledOnTouchOutside(false);
+            dialog.KeyPress += this.OnKeyPress;
+        }
+
+
+        protected virtual void OnKeyPress(object sender, DialogKeyEventArgs args)
+        {
+        }
 
 
         protected abstract Dialog CreateDialog(T config);

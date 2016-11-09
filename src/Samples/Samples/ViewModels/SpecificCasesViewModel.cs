@@ -33,14 +33,14 @@ namespace Samples.ViewModels
                     Command = new Command(async () =>
                     {
                         var v1 = await this.Dialogs.DatePromptAsync("Date 1 (Past -1 Day)", DateTime.Now.AddDays(-1));
-                        if (v1.Choice != DialogChoice.Positive)
+                        if (!v1.Ok)
                             return;
 
                         var v2 = await this.Dialogs.DatePromptAsync("Date 2 (Future +1 Day)", DateTime.Now.AddDays(1));
-                        if (v2.Choice != DialogChoice.Positive)
+                        if (!v2.Ok)
                             return;
 
-                        this.Dialogs.Alert($"Date 1: {v1.Value} - Date 2: {v2.Value}");
+                        this.Dialogs.Alert($"Date 1: {v1.SelectedDate} - Date 2: {v2.SelectedDate}");
                     })
                 },
                 new CommandViewModel
@@ -64,7 +64,7 @@ namespace Samples.ViewModels
                         {
                             await this.Dialogs.AlertAsync(new AlertConfig
                             {
-                                OnAction = x => { }
+                                OnAction = () => { }
                             });
                         }
                         catch

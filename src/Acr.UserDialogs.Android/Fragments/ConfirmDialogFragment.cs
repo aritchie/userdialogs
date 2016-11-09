@@ -7,47 +7,44 @@ using Android.Views;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public class LoginDialogFragment : AbstractDialogFragment<LoginConfig>
+    public class ConfirmDialogFragment : AbstractDialogFragment<ConfirmConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
             base.OnKeyPress(sender, args);
             if (args.KeyCode != Keycode.Back)
-            {
-                args.Handled = true;
                 return;
-            }
-            this.Config?.OnAction(new LoginResult(false, null, null));
+
+            args.Handled = true;
+            this.Config?.OnAction?.Invoke(false);
             this.Dismiss();
         }
 
 
-        protected override Dialog CreateDialog(LoginConfig config)
+        protected override Dialog CreateDialog(ConfirmConfig config)
         {
-            return new LoginBuilder().Build(this.Activity, config);
+            return new ConfirmBuilder().Build(this.Activity, config);
         }
     }
 
 
-    public class LoginAppCompatDialogFragment : AbstractAppCompatDialogFragment<LoginConfig>
+    public class ConfirmAppCompatDialogFragment : AbstractAppCompatDialogFragment<ConfirmConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
             base.OnKeyPress(sender, args);
             if (args.KeyCode != Keycode.Back)
-            {
-                args.Handled = false;
                 return;
-            }
+
             args.Handled = true;
-            this.Config?.OnAction(new LoginResult(false, null, null));
+            this.Config?.OnAction?.Invoke(false);
             this.Dismiss();
         }
 
 
-        protected override Dialog CreateDialog(LoginConfig config)
+        protected override Dialog CreateDialog(ConfirmConfig config)
         {
-            return new LoginBuilder().Build(this.Activity, config);
+            return new ConfirmBuilder().Build(this.Activity, config);
         }
     }
 }

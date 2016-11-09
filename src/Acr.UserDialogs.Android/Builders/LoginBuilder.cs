@@ -10,7 +10,7 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public class LoginBuilder
+    public class LoginBuilder : IAlertDialogBuilder<LoginConfig>
     {
         public Dialog Build(Activity activity, LoginConfig config)
         {
@@ -37,30 +37,18 @@ namespace Acr.UserDialogs.Builders
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            var builder = new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
+            return new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetTitle(config.Title)
                 .SetMessage(config.Message)
                 .SetView(layout)
-                .SetPositiveButton(config.Positive.Text, (s, a) =>
-                    config.OnAction(new DialogResult<Credentials>(DialogChoice.Positive, new Credentials(txtUser.Text, txtPass.Text)))
-                );
-
-            if (config.Neutral.IsVisible)
-            {
-                builder.SetNeutralButton(config.Neutral.Text, (s, a) =>
-                    config.OnAction(new DialogResult<Credentials>(DialogChoice.Neutral, new Credentials(txtUser.Text, txtPass.Text)))
-                );
-            }
-            
-            if (config.Negative.IsVisible)
-            {
-                builder.SetNegativeButton(config.Negative.Text, (s, a) =>
-                    config.OnAction(new DialogResult<Credentials>(DialogChoice.Negative, new Credentials(txtUser.Text, txtPass.Text)))
-                );
-            }
-                
-            return builder.Create();
+                .SetPositiveButton(config.OkText, (s, a) =>
+                    config.OnAction(new LoginResult(true, txtUser.Text, txtPass.Text))
+                )
+                .SetNegativeButton(config.CancelText, (s, a) =>
+                    config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))
+                )
+                .Create();
         }
 
 
@@ -89,43 +77,18 @@ namespace Acr.UserDialogs.Builders
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtPass, ViewGroup.LayoutParams.MatchParent);
 
-            var builder = new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
+            return new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetTitle(config.Title)
                 .SetMessage(config.Message)
                 .SetView(layout)
-                .SetPositiveButton(config.Positive.Text, (s, a) =>
-                    config.OnAction(new DialogResult<Credentials>(DialogChoice.Positive, new Credentials(txtUser.Text, txtPass.Text)))
-                );
-
-            if (config.Neutral.IsVisible)
-            {
-                builder.SetNeutralButton(config.Neutral.Text, (s, a) =>
-                    config.OnAction(new DialogResult<Credentials>(DialogChoice.Neutral, new Credentials(txtUser.Text, txtPass.Text)))
-                );
-            }
-
-            if (config.Negative.IsVisible)
-            {
-                builder.SetNegativeButton(config.Negative.Text, (s, a) =>
-                    config.OnAction(new DialogResult<Credentials>(DialogChoice.Negative, new Credentials(txtUser.Text, txtPass.Text)))
-                );
-            }
-
-            return builder.Create();
+                .SetPositiveButton(config.OkText, (s, a) =>
+                    config.OnAction(new LoginResult(true, txtUser.Text, txtPass.Text))
+                )
+                .SetNegativeButton(config.CancelText, (s, a) =>
+                    config.OnAction(new LoginResult(false, txtUser.Text, txtPass.Text))
+                )
+                .Create();
         }
-
-
-        //protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
-        //{
-        //    base.OnKeyPress(sender, args);
-        //    if (args.KeyCode != Keycode.Back)
-        //    {
-        //        args.Handled = true;
-        //        return;
-        //    }
-        //    this.Config?.OnAction(new LoginResult(false, null, null));
-        //    this.Dismiss();
-        //}
     }
 }

@@ -2,7 +2,6 @@ using System;
 using Android.App;
 using Android.Content;
 using Android.Text;
-using Android.Views;
 
 
 namespace Acr.UserDialogs.Builders
@@ -30,61 +29,31 @@ namespace Acr.UserDialogs.Builders
             if (config.MaximumDate != null)
                 dialog.DatePicker.MaxDate = config.MaximumDate.Value.ToUnixTimestamp();
 
-            //if (config.Negative.IsVisible)
-            //{
-            //    dialog.SetButton(
-            //        (int) DialogButtonType.Negative,
-            //        new SpannableString(config.Negative.Text),
-            //        (sender, args) => config
-            //        .OnAction?
-            //        .Invoke(new DialogResult<DateTime>(
-            //            DialogChoice.Negative,
-            //            dialog.DatePicker.DateTime.Date
-            //        ))
-            //    );
-            //}
-            if (config.Neutral.IsVisible)
+            if (config.IsCancellable)
             {
                 dialog.SetButton(
-                    (int) DialogButtonType.Neutral,
-                    new SpannableString(config.Neutral.Text),
+                    (int) DialogButtonType.Negative,
+                    new SpannableString(config.CancelText),
                     (sender, args) => config
                         .OnAction?
-                        .Invoke(new DialogResult<DateTime>(
-                            DialogChoice.Neutral,
+                        .Invoke(new DatePromptResult(
+                            false,
                             dialog.DatePicker.DateTime.Date
                         ))
                 );
             }
             dialog.SetButton(
                 (int)DialogButtonType.Positive,
-                new SpannableString(config.Positive.Text),
+                new SpannableString(config.OkText),
                 (sender, args) => config
                     .OnAction?
-                    .Invoke(new DialogResult<DateTime>(
-                    DialogChoice.Positive,
+                    .Invoke(new DatePromptResult(
+                        true,
                         dialog.DatePicker.DateTime.Date
                     ))
             );
-            dialog.Window.SetSoftInputMode(SoftInput.StateHidden);
-
             return dialog;
         }
-
-
-        //protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
-        //{
-        //    base.OnKeyPress(sender, args);
-        //    if (args.KeyCode != Keycode.Back)
-        //        return;
-
-        //    args.Handled = true;
-        //    if (this.Config.IsCancellable)
-        //    {
-        //        this.Config?.OnAction?.Invoke(new DatePromptResult(false, DateTime.MinValue));
-        //        this.Dismiss();
-        //    }
-        //}
 
 
         static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);

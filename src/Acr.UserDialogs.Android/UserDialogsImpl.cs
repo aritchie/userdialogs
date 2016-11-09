@@ -58,6 +58,19 @@ namespace Acr.UserDialogs
         }
 
 
+        public override IDisposable Confirm(ConfirmConfig config)
+        {
+            var activity = this.TopActivityFunc();
+            if (activity is AppCompatActivity)
+                return this.ShowDialog<ConfirmAppCompatDialogFragment, ConfirmConfig>((AppCompatActivity)activity, config);
+
+            if (activity is FragmentActivity)
+                return this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
+
+            return this.Show(activity, () => new ConfirmBuilder().Build(activity, config));
+        }
+
+
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
             var activity = this.TopActivityFunc();
@@ -205,7 +218,8 @@ namespace Acr.UserDialogs
 
         protected virtual void TrySetToastTextColor(Snackbar snackBar, ToastConfig cfg)
         {
-            if (cfg.MessageTextColor == null)
+            var textColor = cfg.MessageTextColor ?? ToastConfig.DefaultMessageTextColor;
+            if (textColor == null)
                 return;
 
             var viewGroup = snackBar.View as ViewGroup;
@@ -217,7 +231,7 @@ namespace Acr.UserDialogs
                     var textView = child as TextView;
                     if (textView != null)
                     {
-                        textView.SetTextColor(cfg.MessageTextColor.Value.ToNative());
+                        textView.SetTextColor(textColor.Value.ToNative());
                         break;
                     }
                 }
