@@ -139,6 +139,7 @@ namespace Acr.UserDialogs
                     config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim())
                 ));
                 dlg.AddAction(btnOk);
+
                 dlg.AddTextField(x =>
                 {
                     txt = x;
@@ -155,14 +156,9 @@ namespace Acr.UserDialogs
 
                     if (config.OnTextChanged != null)
                     {
-                        txt.Ended += (sender, e) =>
-                        {
-                            var args = new PromptTextChangedArgs { Value = txt.Text };
-                            config.OnTextChanged(args);
-                            btnOk.Enabled = args.IsValid;
-                            if (!txt.Text.Equals(args.Value))
-                                txt.Text = args.Value;
-                        };
+                        //txt.ValueChanged += (sender, e) => ValidatePrompt(txt, btnOk, config);
+                        txt.AddTarget((sender, e) => ValidatePrompt(txt, btnOk, config), UIControlEvent.EditingChanged);
+                        ValidatePrompt(txt, btnOk, config);
                     }
                     this.SetInputType(txt, config.InputType);
                     txt.Placeholder = config.Placeholder ?? String.Empty;
@@ -171,6 +167,16 @@ namespace Acr.UserDialogs
                 });
                 return dlg;
             });
+        }
+
+
+        static void ValidatePrompt(UITextField txt, UIAlertAction btn, PromptConfig config)
+        {
+            var args = new PromptTextChangedArgs { Value = txt.Text };
+            config.OnTextChanged(args);
+            btn.Enabled = args.IsValid;
+            if (!txt.Text.Equals(args.Value))
+                txt.Text = args.Value;            
         }
 
 

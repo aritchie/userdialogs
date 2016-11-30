@@ -1,5 +1,11 @@
 ﻿# CHANGELOG
 
+## 6.3.2
+* [fix][ios] OnTextChanged event hooks were not working properly
+
+## 6.3.1
+* [fix][droid] NRE on OnTextChanged
+
 ## 6.3.0
 * [fix][ios] prompt maxlength was preventing character deletion
 * [feature] [all] PromptConfig.OnTextChanged action adds the ability to disable positive button as well as change current textbox value (great for formatting)
