@@ -65,6 +65,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToastAction.cs" />
     <Compile Include="ToastConfig.cs" />
+    <Compile Include="PromptInput.cs" />
+    <Compile Include="PromptResultMultiInput.cs" />
+    <Compile Include="PromptConfigMultiInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
