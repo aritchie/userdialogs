@@ -21,6 +21,10 @@ _Docs are a work in progress of Nov 1, 2016_
 * [Toasts](docs/toasts.md)
 * [Time](docs/time.md)
 
+* [Source Code](https://github.com/aritchie/userdialogs/tree/master/src/Samples/Samples)
+* [FAQ](docs/faq.md)
+
+
 ## Support Platforms
 
 * iOS 8+
@@ -55,9 +59,6 @@ To use, simply reference the nuget package in each of your platform projects.
     // from your PCL app.cs (remember to Init on android platform project)
     Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
-## Other Docs
-* [Source Code](https://github.com/aritchie/userdialogs/tree/master/src/Samples/Samples)
-* [FAQ](docs/faq.md)
 
 ## Powered By:
 

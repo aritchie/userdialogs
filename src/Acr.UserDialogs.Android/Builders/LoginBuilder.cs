@@ -20,10 +20,14 @@ namespace Acr.UserDialogs.Builders
                 InputType = InputTypes.TextVariationVisiblePassword,
                 Text = config.LoginValue ?? String.Empty
             };
+            txtUser.SetSingleLine(true);
+
             var txtPass = new EditText(activity)
             {
                 Hint = config.PasswordPlaceholder ?? "*"
             };
+            txtPass.SetSingleLine(true);
+
             PromptBuilder.SetInputType(txtPass, InputType.Password);
 
             var layout = new LinearLayout(activity)
@@ -60,6 +64,8 @@ namespace Acr.UserDialogs.Builders
                 InputType = InputTypes.TextVariationVisiblePassword,
                 Text = config.LoginValue ?? String.Empty
             };
+            txtUser.SetSingleLine(true);
+
             var txtPass = new EditText(activity)
             {
                 Hint = config.PasswordPlaceholder ?? "*"

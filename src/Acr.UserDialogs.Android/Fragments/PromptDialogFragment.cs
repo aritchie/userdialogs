@@ -39,9 +39,21 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual void SetAction(bool ok)
         {
-            var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
-            this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
-            this.Dismiss();
+            try
+            {
+                var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
+                if (txt == null)
+                {
+                    txt = this.Dialog.CurrentFocus as TextView;
+                    if (txt == null)
+                    {
+                        txt = this.Activity.FindViewById<TextView>(Int32.MaxValue);
+                    }
+                }
+                this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
+                this.Dismiss();
+            }
+            catch {} // swallow
         }
     }
 
@@ -76,9 +88,21 @@ namespace Acr.UserDialogs.Fragments
 
         protected virtual void SetAction(bool ok)
         {
-            var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
-            this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
-            this.Dismiss();
+            try
+            {
+                var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
+                if (txt == null)
+                {
+                    txt = this.Dialog.CurrentFocus as TextView;
+                    if (txt == null)
+                    {
+                        txt = this.Activity.FindViewById<TextView>(Int32.MaxValue);
+                    }
+                }
+                this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
+                this.Dismiss();
+            }
+            catch {} // swallow
         }
     }
 }

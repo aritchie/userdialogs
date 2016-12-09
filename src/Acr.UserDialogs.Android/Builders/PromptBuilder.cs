@@ -114,6 +114,7 @@ namespace Acr.UserDialogs.Builders
 
         public static void SetInputType(TextView txt, InputType inputType)
         {
+            txt.SetSingleLine(true);
             switch (inputType)
             {
                 case InputType.DecimalNumber:
