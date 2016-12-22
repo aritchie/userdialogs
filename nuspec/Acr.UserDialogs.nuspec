@@ -31,8 +31,8 @@ Supported Platforms
         <owners>Allan Ritchie</owners>
         <!--
         <iconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</iconUrl>
-        <licenseUrl>https://github.com/aritchie/userdialogs/LICENSE.md</licenseUrl>
         -->
+        <licenseUrl>https://github.com/aritchie/userdialogs/LICENSE.md</licenseUrl>
         <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>windows xamarin xam.pcl dialogs plugin</tags>
