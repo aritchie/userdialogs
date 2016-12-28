@@ -1,7 +1,10 @@
 using System;
+using Android;
 using Android.App;
 using Android.Content;
+using Android.OS;
 using Android.Text;
+using Android.Views;
 
 
 namespace Acr.UserDialogs.Builders
@@ -12,12 +15,14 @@ namespace Acr.UserDialogs.Builders
         {
             var dateTime = config.SelectedDate ?? DateTime.Now;
             var dialog = new DatePickerDialog(
-                activity,
+                IsBrokenSamsungDevice()
+                    ? new ContextThemeWrapper(activity, Resource.Style.ThemeHoloLightDialog)
+                    : activity,
                 (sender, args) => { },
                 dateTime.Year,
                 dateTime.Month - 1,
                 dateTime.Day
-            );
+                );
             dialog.SetCancelable(false);
 
             if (!String.IsNullOrWhiteSpace(config.Title))
@@ -63,6 +68,13 @@ namespace Acr.UserDialogs.Builders
             var utc = dateTime.ToUniversalTime();
             var ms = utc.Subtract(Epoch).TotalMilliseconds;
             return Convert.ToInt64(ms);
+        }
+
+        private static bool IsBrokenSamsungDevice()
+        {
+            return Android.OS.Build.Manufacturer.Equals("samsung", StringComparison.OrdinalIgnoreCase) &&
+                   Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop &&
+                   Android.OS.Build.VERSION.SdkInt <= BuildVersionCodes.Lollipop;
         }
     }
 }
