@@ -13,6 +13,7 @@ namespace Acr.UserDialogs.Builders
             var dateTime = config.SelectedDate ?? DateTime.Now;
             var dialog = new DatePickerDialog(
                 activity,
+                // TODO: config.AndroidStyleId ?? 0,
                 (sender, args) => { },
                 dateTime.Year,
                 dateTime.Month - 1,

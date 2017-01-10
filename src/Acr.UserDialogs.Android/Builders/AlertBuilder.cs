@@ -17,8 +17,7 @@ namespace Acr.UserDialogs.Builders
             //};
             //var txt = new TextView(context);
 
-            return new AlertDialog
-                .Builder(activity)
+            return new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
