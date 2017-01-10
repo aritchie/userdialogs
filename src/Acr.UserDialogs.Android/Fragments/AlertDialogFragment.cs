@@ -2,6 +2,7 @@ using System;
 using Acr.UserDialogs.Builders;
 using Android.App;
 using Android.Content;
+using Android.Support.V7.App;
 using Android.Views;
 
 
@@ -44,7 +45,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected override Dialog CreateDialog(AlertConfig config)
         {
-            return new AlertBuilder().Build(this.Activity, config);
+            return new AlertBuilder().Build(this.AppCompatActivity, config);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected override Dialog CreateDialog(LoginConfig config)
         {
-            return new LoginBuilder().Build(this.Activity, config);
+            return new LoginBuilder().Build(this.AppCompatActivity, config);
         }
     }
 }

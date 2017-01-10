@@ -65,7 +65,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected override Dialog CreateDialog(DatePromptConfig config)
         {
-            return DatePromptBuilder.Build(this.Activity, config);
+            return DatePromptBuilder.Build(this.AppCompatActivity, config);
         }
     }
 }

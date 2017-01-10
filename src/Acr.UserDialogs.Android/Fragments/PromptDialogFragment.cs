@@ -82,7 +82,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected override Dialog CreateDialog(PromptConfig config)
         {
-            return new PromptBuilder().Build(this.Activity, config);
+            return new PromptBuilder().Build(this.AppCompatActivity, config);
         }
 
 

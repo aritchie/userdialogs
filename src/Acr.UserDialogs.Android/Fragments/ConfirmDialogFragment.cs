@@ -44,7 +44,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected override Dialog CreateDialog(ConfirmConfig config)
         {
-            return new ConfirmBuilder().Build(this.Activity, config);
+            return new ConfirmBuilder().Build(this.AppCompatActivity, config);
         }
     }
 }

@@ -1,5 +1,12 @@
 ﻿# CHANGELOG
 
+## 6.3.4
+* [fix][android] make sure to use appcompat activity dialog rendering in all cases
+
+## 6.3.3
+* [fix][droid] Fix NRE on droid 4.2.2 with soft keyboard dismiss on prompts
+* [fix][droid] Remove soft keyboard dismiss for login, it had bugs anyhow
+
 ## 6.3.2
 * [fix][ios] OnTextChanged event hooks were not working properly
 

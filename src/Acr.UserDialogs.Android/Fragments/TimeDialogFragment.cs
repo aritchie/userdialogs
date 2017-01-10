@@ -65,7 +65,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected override Dialog CreateDialog(TimePromptConfig config)
         {
-            return TimePromptBuilder.Build(this.Activity, config);
+            return TimePromptBuilder.Build(this.AppCompatActivity, config);
         }
     }
 }

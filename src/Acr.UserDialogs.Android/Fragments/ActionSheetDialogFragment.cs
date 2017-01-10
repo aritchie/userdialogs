@@ -93,7 +93,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected override Dialog CreateDialog(ActionSheetConfig config)
         {
-            return new ActionSheetBuilder().Build(this.Activity, config);
+            return new ActionSheetBuilder().Build(this.AppCompatActivity, config);
         }
     }
 }
