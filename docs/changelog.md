@@ -1,5 +1,9 @@
 ﻿# CHANGELOG
 
+## 6.3.5
+* [fix][android] PromptConfig and ConfirmConfig should use DefaultAndroidStyleId
+* [feature][android] TimeConfig and DateConfig can use (Default)AndroidStyleId now
+
 ## 6.3.4
 * [fix][android] make sure to use appcompat activity dialog rendering in all cases
 * [fix][android] alert dialog was not using android styleID

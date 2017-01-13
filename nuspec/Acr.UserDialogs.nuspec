@@ -25,7 +25,6 @@ Supported Platforms
 - Android
 - Universal Windows Platform (Win10/UWP)
 - Portable Class Libraries (Profile 259)
-- WP8/81 is here but UNSUPPORTED!
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
