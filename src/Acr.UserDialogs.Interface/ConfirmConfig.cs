@@ -15,7 +15,7 @@ namespace Acr.UserDialogs
 
         public string Title { get; set; }
         public string Message { get; set; }
-        public int? AndroidStyleId { get; set; }
+        public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
         public Action<bool> OnAction { get; set; }
 
         public string OkText { get; set; } = DefaultOkText;

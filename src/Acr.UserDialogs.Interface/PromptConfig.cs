@@ -22,7 +22,7 @@ namespace Acr.UserDialogs
         public string CancelText { get; set; } = DefaultCancelText;
         public string Placeholder { get; set; }
         public int? MaxLength { get; set; } = DefaultMaxLength;
-        public int? AndroidStyleId { get; set; }
+        public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
         public InputType InputType { get; set; } = InputType.Default;
         public Action<PromptTextChangedArgs> OnTextChanged { get; set; }
 
