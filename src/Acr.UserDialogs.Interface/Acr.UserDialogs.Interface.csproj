@@ -45,7 +45,6 @@
     <Compile Include="ConfirmConfig.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="DisposableAction.cs" />
-    <Compile Include="FontAttributes.cs" />
     <Compile Include="IAndroidThemeDialog.cs" />
     <Compile Include="IStandardDialogConfig.cs" />
     <Compile Include="IStandardDialogResult.cs" />

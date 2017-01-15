@@ -94,14 +94,14 @@ namespace Acr.UserDialogs.Builders
             dialog.ShowEvent += (sender, args) =>
             {
                 onChange(promptArgs);
-                ((AlertDialog)dialog).GetButton(buttonId).Enabled = promptArgs.IsValid;
+                this.GetButton(dialog, buttonId).Enabled = promptArgs.IsValid;
             };
             txt.AfterTextChanged += (sender, args) =>
             {
                 promptArgs.IsValid = true;
                 promptArgs.Value = txt.Text;
                 onChange(promptArgs);
-                ((AlertDialog)dialog).GetButton(buttonId).Enabled = promptArgs.IsValid;
+                this.GetButton(dialog, buttonId).Enabled = promptArgs.IsValid;
 
                 if (!txt.Text.Equals(promptArgs.Value))
                 {
@@ -112,6 +112,18 @@ namespace Acr.UserDialogs.Builders
         }
 
 
+        protected virtual Button GetButton(Dialog dialog, int buttonId)
+        {
+            var ac = dialog as AppCompatAlertDialog;
+            if (ac != null)
+                return ac.GetButton(buttonId);
+
+            var old = dialog as AlertDialog;
+            if (old != null)
+                old.GetButton(buttonId);
+
+            return null;
+        }
         public static void SetInputType(TextView txt, InputType inputType)
         {
             txt.SetSingleLine(true);

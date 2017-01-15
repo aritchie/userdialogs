@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.3.5</version>
+        <version>6.3.6</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -55,6 +55,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.3.6
+[fix][android] Prompt fix for appcompat textchanged event
+
 6.3.5
 [fix][android] PromptConfig and ConfirmConfig should use DefaultAndroidStyleId
 [feature][android] TimeConfig and DateConfig can use (Default)AndroidStyleId now

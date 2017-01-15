@@ -1,5 +1,8 @@
 ﻿# CHANGELOG
 
+## 6.3.6
+* [fix][android] Prompt fix for appcompat textchanged event
+
 ## 6.3.5
 * [fix][android] PromptConfig and ConfirmConfig should use DefaultAndroidStyleId
 * [feature][android] TimeConfig and DateConfig can use (Default)AndroidStyleId now
