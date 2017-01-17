@@ -120,7 +120,7 @@ namespace Acr.UserDialogs.Builders
 
             var old = dialog as AlertDialog;
             if (old != null)
-                old.GetButton(buttonId);
+                return old.GetButton(buttonId);
 
             return null;
         }
