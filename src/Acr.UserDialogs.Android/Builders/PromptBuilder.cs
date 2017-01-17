@@ -122,7 +122,7 @@ namespace Acr.UserDialogs.Builders
             if (old != null)
                 return old.GetButton(buttonId);
 
-            return null;
+            throw new ArgumentException("Invalid dialog type.  This exception should never be seen. " + dialog.GetType());
         }
 
 
