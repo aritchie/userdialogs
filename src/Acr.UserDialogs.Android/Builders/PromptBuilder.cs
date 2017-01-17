@@ -124,6 +124,8 @@ namespace Acr.UserDialogs.Builders
 
             return null;
         }
+
+
         public static void SetInputType(TextView txt, InputType inputType)
         {
             txt.SetSingleLine(true);
