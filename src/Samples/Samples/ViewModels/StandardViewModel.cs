@@ -118,6 +118,7 @@ namespace Samples.ViewModels
 
                             .SetTitle("Max Length Prompt")
                             .SetPlaceholder("Maximum Text Length (10)")
+                            .SetInputMode(InputType.Name)
                             .SetMaxLength(10), token);
 
                         this.Result($"Result - {result.Ok} - {result.Text}");
