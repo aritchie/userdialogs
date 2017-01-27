@@ -1,5 +1,11 @@
 ﻿# CHANGELOG
 
+## 6.3.8
+* [fix][all] Prompt.OnTextChanged should contain incoming value set from config for first pass validation
+
+## 6.3.7
+* [fix][android] Prompt maxlength in appcompat not working
+
 ## 6.3.6
 * [fix][android] Prompt fix for appcompat textchanged event
 

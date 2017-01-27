@@ -143,6 +143,10 @@ namespace Acr.UserDialogs
                 dlg.AddTextField(x =>
                 {
                     txt = x;
+                    this.SetInputType(txt, config.InputType);
+                    txt.Placeholder = config.Placeholder ?? String.Empty;
+                    txt.Text = config.Text ?? String.Empty;
+
                     if (config.MaxLength != null)
                     {
                         txt.ShouldChangeCharacters = (field, replacePosition, replacement) =>
@@ -160,10 +164,6 @@ namespace Acr.UserDialogs
                         txt.AddTarget((sender, e) => ValidatePrompt(txt, btnOk, config), UIControlEvent.EditingChanged);
                         ValidatePrompt(txt, btnOk, config);
                     }
-                    this.SetInputType(txt, config.InputType);
-                    txt.Placeholder = config.Placeholder ?? String.Empty;
-                    if (config.Text != null)
-                        txt.Text = config.Text;
                 });
                 return dlg;
             });
@@ -176,7 +176,7 @@ namespace Acr.UserDialogs
             config.OnTextChanged(args);
             btn.Enabled = args.IsValid;
             if (!txt.Text.Equals(args.Value))
-                txt.Text = args.Value;            
+                txt.Text = args.Value;
         }
 
 

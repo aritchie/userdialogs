@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.3.7</version>
+        <version>6.3.8</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -55,6 +55,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.3.8
+[fix][all] Prompt.OnTextChanged should contain incoming value set from config for first pass validation
+
 6.3.7
 [fix][android] Prompt maxlength in appcompat not working
 

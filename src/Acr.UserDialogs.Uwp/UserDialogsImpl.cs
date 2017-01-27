@@ -339,7 +339,7 @@ namespace Acr.UserDialogs
             if (config.OnTextChanged == null)
                 return;
 
-            var args = new PromptTextChangedArgs { Value = String.Empty };
+            var args = new PromptTextChangedArgs { Value = txt.Password };
             config.OnTextChanged(args);
             dialog.IsPrimaryButtonEnabled = args.IsValid;
 
@@ -379,7 +379,7 @@ namespace Acr.UserDialogs
             if (config.OnTextChanged == null)
                 return;
 
-            var args = new PromptTextChangedArgs { Value = String.Empty };
+            var args = new PromptTextChangedArgs { Value = txt.Text };
             config.OnTextChanged(args);
             dialog.IsPrimaryButtonEnabled = args.IsValid;
 

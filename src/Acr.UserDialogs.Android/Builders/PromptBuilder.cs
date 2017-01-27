@@ -54,10 +54,9 @@ namespace Acr.UserDialogs.Builders
             var txt = new EditText(activity)
             {
                 Id = Int32.MaxValue,
-                Hint = config.Placeholder
+                Hint = config.Placeholder,
+                Text = config.Text ?? String.Empty
             };
-            if (config.Text != null)
-                txt.Text = config.Text;
 
             if (config.MaxLength != null)
                 txt.SetFilters(new[] { new InputFilterLengthFilter(config.MaxLength.Value) });
