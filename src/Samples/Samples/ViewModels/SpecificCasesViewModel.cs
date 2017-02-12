@@ -123,6 +123,28 @@ namespace Samples.ViewModels
                 {
                     Text = "Toast (no action)",
                     Command = new Command(() => this.Dialogs.Toast("TEST"))
+                },
+                new CommandViewModel
+                {
+                    Text = "Prompt OnTextChanged with Initial Value",
+                    Command = new Command(async () =>
+                    {
+                        await this.Dialogs.PromptAsync(new PromptConfig()
+                            .SetMessage("GOOD = ENABLED")
+                            .SetText("GOOD")
+                            .SetOnTextChanged(args =>
+                                args.IsValid = args.Value.Equals("GOOD")
+                            )
+                        );
+                        await this.Dialogs.PromptAsync(new PromptConfig()
+                            .SetMessage("GOOD = ENABLED")
+                            .SetText("BAD")
+                            .SetOnTextChanged(args =>
+                                args.IsValid = args.Value.Equals("GOOD")
+                            )
+                        );
+                        // TODO
+                    })
                 }
             };
         }

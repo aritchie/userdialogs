@@ -47,7 +47,7 @@ Supported Platforms
                 <dependency id="AndHUD" version="[1.2.0, 2)" />
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
-                <dependency id="Xamarin.Android.Support.Design" version="[23.3, 25)" />
+                <dependency id="Xamarin.Android.Support.Design" version="[23.3, 26)" />
             </group>
             <group targetFramework="uap10.0">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
@@ -57,6 +57,7 @@ Supported Platforms
         <releaseNotes>
 6.3.8
 [fix][all] Prompt.OnTextChanged should contain incoming value set from config for first pass validation
+[update] bump android support lib version
 
 6.3.7
 [fix][android] Prompt maxlength in appcompat not working

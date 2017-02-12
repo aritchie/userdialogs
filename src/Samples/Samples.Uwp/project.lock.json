@@ -1965,6 +1965,9 @@
           "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
           "lib/uap10.0/Xamarin.Forms.Xaml.dll": {}
+        },
+        "build": {
+          "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.targets": {}
         }
       },
       "Acr.UserDialogs/1.0.0": {
@@ -3832,6 +3835,9 @@
           "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
           "lib/uap10.0/Xamarin.Forms.Xaml.dll": {}
+        },
+        "build": {
+          "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.targets": {}
         }
       },
       "Acr.UserDialogs/1.0.0": {
@@ -5656,6 +5662,9 @@
           "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
           "lib/uap10.0/Xamarin.Forms.Xaml.dll": {}
+        },
+        "build": {
+          "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.targets": {}
         }
       },
       "Acr.UserDialogs/1.0.0": {
@@ -7532,6 +7541,9 @@
           "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
           "lib/uap10.0/Xamarin.Forms.Xaml.dll": {}
+        },
+        "build": {
+          "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.targets": {}
         }
       },
       "Acr.UserDialogs/1.0.0": {
@@ -9356,6 +9368,9 @@
           "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
           "lib/uap10.0/Xamarin.Forms.Xaml.dll": {}
+        },
+        "build": {
+          "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.targets": {}
         }
       },
       "Acr.UserDialogs/1.0.0": {
@@ -11232,6 +11247,9 @@
           "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
           "lib/uap10.0/Xamarin.Forms.Xaml.dll": {}
+        },
+        "build": {
+          "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.targets": {}
         }
       },
       "Acr.UserDialogs/1.0.0": {
@@ -13056,6 +13074,9 @@
           "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
           "lib/uap10.0/Xamarin.Forms.Xaml.dll": {}
+        },
+        "build": {
+          "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.targets": {}
         }
       },
       "Acr.UserDialogs/1.0.0": {
@@ -16798,10 +16819,12 @@
     },
     "Acr.UserDialogs/1.0.0": {
       "type": "project",
+      "path": "../../Acr.UserDialogs/Acr.UserDialogs.csproj",
       "msbuildProject": "../../Acr.UserDialogs/Acr.UserDialogs.csproj"
     },
     "Acr.UserDialogs.Interface/1.0.0": {
       "type": "project",
+      "path": "../../Acr.UserDialogs.Interface/Acr.UserDialogs.Interface.csproj",
       "msbuildProject": "../../Acr.UserDialogs.Interface/Acr.UserDialogs.Interface.csproj"
     },
     "Acr.UserDialogs.Uwp/1.0.0": {
@@ -16811,10 +16834,12 @@
     },
     "Samples/1.0.0": {
       "type": "project",
+      "path": "../Samples/Samples.csproj",
       "msbuildProject": "../Samples/Samples.csproj"
     },
     "Samples.UI.XamarinForms/1.0.0": {
       "type": "project",
+      "path": "../Samples.UI.XamarinForms/Samples.UI.XamarinForms.csproj",
       "msbuildProject": "../Samples.UI.XamarinForms/Samples.UI.XamarinForms.csproj"
     }
   },
@@ -16839,7 +16864,7 @@
       "projectName": "Samples.Uwp",
       "projectPath": "C:\\dev\\acr\\userdialogs\\src\\Samples\\Samples.Uwp\\Samples.Uwp.csproj",
       "projectJsonPath": "C:\\dev\\acr\\userdialogs\\src\\Samples\\Samples.Uwp\\project.json",
-      "outputType": "UAP",
+      "projectStyle": "ProjectJson",
       "frameworks": {
         "uap10.0": {
           "projectReferences": {
