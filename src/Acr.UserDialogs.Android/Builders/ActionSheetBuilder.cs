@@ -67,7 +67,11 @@ namespace Acr.UserDialogs.Builders
                     .Select(x => x.Text)
                     .ToArray();
 
-                dlg.SetItems(array, (s, args) => config.Options[args.Which].Action?.Invoke());
+                dlg.SetSingleChoiceItems(array, config.SelectedIndex, (s, args) =>
+                {
+                    config.Options[args.Which].Action?.Invoke();
+                    (s as AppCompatAlertDialog).Dismiss();
+                });
             }
 
             if (config.Destructive != null)

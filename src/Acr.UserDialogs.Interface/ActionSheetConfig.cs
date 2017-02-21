@@ -16,6 +16,7 @@ namespace Acr.UserDialogs
         public static IBitmap DefaultItemIcon { get; set; }
 
 
+        public int SelectedIndex { get; set; }
         public string Title { get; set; }
         public string Message { get; set; }
         public ActionSheetOption Cancel { get; set; }
