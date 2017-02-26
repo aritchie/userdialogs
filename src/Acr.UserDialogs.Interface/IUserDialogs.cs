@@ -18,7 +18,7 @@ namespace Acr.UserDialogs
         Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons);
 
         IDisposable Confirm(ConfirmConfig config);
-        Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null, CancellationToken? cancelToken = null);
+        Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string notOkText = null, CancellationToken? cancelToken = null);
         Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null);
 
         IDisposable DatePrompt(DatePromptConfig config);
