@@ -177,26 +177,26 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
+        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string notOkayText, CancellationToken? cancelToken = null)
         {
             return this.ConfirmAsync(new ConfirmConfig
             {
                 Message = message,
                 Title = title,
-                CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
+                NotOkText = notOkayText ?? ConfirmConfig.DefaultNotOkText,
                 OkText = okText ?? ConfirmConfig.DefaultOkText
             }, cancelToken);
         }
 
 
-        public virtual Task<bool?> ConfirmAsync(bool cancelable, string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
+        public virtual Task<bool?> ConfirmAsync(bool cancelable, string message, string title, string okText, string notOkayText, CancellationToken? cancelToken = null)
         {
             return this.ConfirmAsync(new ConfirmConfig
             {
                 IsCancelable = cancelable,
                 Message = message,
                 Title = title,
-                CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
+                NotOkText = notOkayText ?? ConfirmConfig.DefaultNotOkText,
                 OkText = okText ?? ConfirmConfig.DefaultOkText
             }, cancelToken, cancelable);
         }
