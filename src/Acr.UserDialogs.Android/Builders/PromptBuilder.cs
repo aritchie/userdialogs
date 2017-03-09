@@ -1,8 +1,10 @@
 using System;
 using Android.App;
+using Android.Content;
 using Android.Support.V7.App;
 using Android.Text;
 using Android.Text.Method;
+using Android.Views.InputMethods;
 using Android.Widget;
 using AlertDialog = Android.App.AlertDialog;
 using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
@@ -20,7 +22,10 @@ namespace Acr.UserDialogs.Builders
                 Hint = config.Placeholder
             };
             if (config.Text != null)
+            {
                 txt.Text = config.Text;
+                txt.SetSelection(config.Text.Length);
+            }
 
             if (config.MaxLength != null)
                 txt.SetFilters(new [] { new InputFilterLengthFilter(config.MaxLength.Value) });
@@ -54,10 +59,13 @@ namespace Acr.UserDialogs.Builders
             var txt = new EditText(activity)
             {
                 Id = Int32.MaxValue,
-                Hint = config.Placeholder,
-                Text = config.Text ?? String.Empty
+                Hint = config.Placeholder
             };
-
+            if (config.Text != null)
+            {
+                txt.Text = config.Text;
+                txt.SetSelection(config.Text.Length);
+            }
             if (config.MaxLength != null)
                 txt.SetFilters(new[] { new InputFilterLengthFilter(config.MaxLength.Value) });
 
@@ -90,13 +98,14 @@ namespace Acr.UserDialogs.Builders
             if (onChange == null)
                 return;
 
-            var buttonId = (int) Android.Content.DialogButtonType.Positive;
+            var buttonId = (int)DialogButtonType.Positive;
             var promptArgs = new PromptTextChangedArgs { Value = String.Empty };
 
             dialog.ShowEvent += (sender, args) =>
             {
                 onChange(promptArgs);
                 this.GetButton(dialog, buttonId).Enabled = promptArgs.IsValid;
+                this.ChangeImeOption(txt, promptArgs.IsValid);
             };
             txt.AfterTextChanged += (sender, args) =>
             {
@@ -104,6 +113,7 @@ namespace Acr.UserDialogs.Builders
                 promptArgs.Value = txt.Text;
                 onChange(promptArgs);
                 this.GetButton(dialog, buttonId).Enabled = promptArgs.IsValid;
+                this.ChangeImeOption(txt, promptArgs.IsValid);
 
                 if (!txt.Text.Equals(promptArgs.Value))
                 {
@@ -111,6 +121,18 @@ namespace Acr.UserDialogs.Builders
                     txt.SetSelection(txt.Text.Length);
                 }
             };
+        }
+
+
+        protected virtual void ChangeImeOption(EditText txt, bool enable)
+        {
+            var action = enable ? ImeAction.Done : ImeAction.None;
+            if (txt.ImeOptions == action)
+                return;
+
+            txt.ImeOptions = action;
+            var input = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
+            input.RestartInput(txt);
         }
 
 
