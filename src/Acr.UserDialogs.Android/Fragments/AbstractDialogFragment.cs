@@ -20,13 +20,21 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
+
         public override Dialog OnCreateDialog(Bundle bundle)
         {
-            if (this.Config == null)
-                this.Config = ConfigStore.Instance.Pop<T>(bundle);
-
-            var dialog = this.CreateDialog(this.Config);
-            this.SetDialogDefaults(dialog);
+            Dialog dialog = null;
+            if (this.Config == null && !ConfigStore.Instance.Contains(bundle))
+            {
+                this.ShowsDialog = false;
+                this.Dismiss();
+            }
+            else
+            {
+                this.Config = this.Config ?? ConfigStore.Instance.Pop<T>(bundle);
+                dialog = this.CreateDialog(this.Config);
+                this.SetDialogDefaults(dialog);
+            }
             return dialog;
         }
 
@@ -72,10 +80,28 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
+        public override void OnViewStateRestored(Bundle bundle)
+        {
+            base.OnViewStateRestored(bundle);
+            if (ConfigStore.Instance.Contains(bundle))
+            {
+                this.Config = ConfigStore.Instance.Pop<T>(bundle);
+            }
+            else
+            {
+                this.Dismiss();
+            }
+        }
+
+
         public override Dialog OnCreateDialog(Bundle bundle)
         {
-            if (this.Config == null)
-                this.Config = ConfigStore.Instance.Pop<T>(bundle);
+            //if (this.Config == null && ConfigStore.Instance.Contains(bundle))
+            //{
+            //    this.Config = ConfigStore.Instance.Pop<T>(bundle);
+            //}
+            //if (this.Config == null)
+            //    return null;
 
             var dialog = this.CreateDialog(this.Config);
             this.SetDialogDefaults(dialog);
