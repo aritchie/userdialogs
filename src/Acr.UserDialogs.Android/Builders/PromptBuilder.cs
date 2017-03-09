@@ -19,8 +19,12 @@ namespace Acr.UserDialogs.Builders
                 Id = Int32.MaxValue,
                 Hint = config.Placeholder
             };
+
             if (config.Text != null)
+            {
                 txt.Text = config.Text;
+                txt.SetSelection(txt.Text.Length);
+            }            
 
             if (config.MaxLength != null)
                 txt.SetFilters(new [] { new InputFilterLengthFilter(config.MaxLength.Value) });
@@ -54,9 +58,14 @@ namespace Acr.UserDialogs.Builders
             var txt = new EditText(activity)
             {
                 Id = Int32.MaxValue,
-                Hint = config.Placeholder,
-                Text = config.Text ?? String.Empty
+                Hint = config.Placeholder
             };
+
+            if (config.Text != null)
+            {
+                txt.Text = config.Text;
+                txt.SetSelection(txt.Text.Length);
+            }
 
             if (config.MaxLength != null)
                 txt.SetFilters(new[] { new InputFilterLengthFilter(config.MaxLength.Value) });
