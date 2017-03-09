@@ -161,10 +161,10 @@ namespace Acr.UserDialogs
             var activity = this.TopActivityFunc();
             var compat = activity as AppCompatActivity;
 
-            if (compat == null)
+            //if (compat == null)
                 return this.ToastFallback(activity, cfg);
 
-            return this.ToastAppCompat(compat, cfg);
+            //return this.ToastAppCompat(compat, cfg);
         }
 
 

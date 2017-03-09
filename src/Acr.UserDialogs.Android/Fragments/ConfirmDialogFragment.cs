@@ -41,10 +41,28 @@ namespace Acr.UserDialogs.Fragments
             this.Dismiss();
         }
 
-
+        
         protected override Dialog CreateDialog(ConfirmConfig config)
         {
             return new ConfirmBuilder().Build(this.AppCompatActivity, config);
+        }
+
+
+        public override void OnCancel(IDialogInterface dialog)
+        {
+            this.Config?.OnCancel?.Invoke();
+            base.OnCancel(dialog);
+        }
+
+
+        protected override void SetDialogDefaults(Dialog dialog)
+        {
+            base.SetDialogDefaults(dialog);
+            if (this.Config?.IsCancelable ?? false)
+            {
+                dialog.SetCancelable(true);
+                dialog.SetCanceledOnTouchOutside(true);
+            }
         }
     }
 }

@@ -76,6 +76,21 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Cancelable Confirm",
+                    Command = this.Create(async token =>
+                    {
+                        bool? r = await this.Dialogs.ConfirmAsync(true, "Pick a choice", "Pick Title", cancelToken: token);
+                        if (r.HasValue)
+                        {
+                            var text = r.Value ? "Yes" : "No";
+                            this.Result($"Confirmation Choice: {text}");
+                        }
+                        else
+                            this.Result($"Confirmation canceled");
+                    })
+                },
+                new CommandViewModel
+                {
                     Text = "Login",
                     Command = this.Create(async token =>
                     {

@@ -160,15 +160,45 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
+        public virtual async Task<bool?> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null, bool cancelable = false)
+        {
+            if (config.OnAction != null)
+                throw new ArgumentException(NO_ONACTION);
+
+            var tcs = new TaskCompletionSource<bool?>();
+            config.OnAction = x => tcs.TrySetResult(x);
+            config.OnCancel = () => tcs.TrySetResult(null);
+
+            var disp = this.Confirm(config);
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
+            {
+                return await tcs.Task;
+            }
+        }
+
+
+        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string notOkayText, CancellationToken? cancelToken = null)
         {
             return this.ConfirmAsync(new ConfirmConfig
             {
                 Message = message,
                 Title = title,
-                CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
+                NotOkText = notOkayText ?? ConfirmConfig.DefaultNotOkText,
                 OkText = okText ?? ConfirmConfig.DefaultOkText
             }, cancelToken);
+        }
+
+
+        public virtual Task<bool?> ConfirmAsync(bool cancelable, string message, string title, string okText, string notOkayText, CancellationToken? cancelToken = null)
+        {
+            return this.ConfirmAsync(new ConfirmConfig
+            {
+                IsCancelable = cancelable,
+                Message = message,
+                Title = title,
+                NotOkText = notOkayText ?? ConfirmConfig.DefaultNotOkText,
+                OkText = okText ?? ConfirmConfig.DefaultOkText
+            }, cancelToken, cancelable);
         }
 
 
