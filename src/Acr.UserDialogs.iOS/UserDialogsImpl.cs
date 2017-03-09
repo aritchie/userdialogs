@@ -131,12 +131,12 @@ namespace Acr.UserDialogs
                 if (config.IsCancellable)
                 {
                     dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
-                        config.OnAction?.Invoke(new PromptResult(false, txt.Text.Trim())
+                        config.OnAction?.Invoke(new PromptResult(false, txt.Text)
                     )));
                 }
 
                 var btnOk = UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
-                    config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim())
+                    config.OnAction?.Invoke(new PromptResult(true, txt.Text)
                 ));
                 dlg.AddAction(btnOk);
 
@@ -160,7 +160,6 @@ namespace Acr.UserDialogs
 
                     if (config.OnTextChanged != null)
                     {
-                        //txt.ValueChanged += (sender, e) => ValidatePrompt(txt, btnOk, config);
                         txt.AddTarget((sender, e) => ValidatePrompt(txt, btnOk, config), UIControlEvent.EditingChanged);
                         ValidatePrompt(txt, btnOk, config);
                     }
