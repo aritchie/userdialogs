@@ -27,6 +27,13 @@ namespace Acr.UserDialogs
         public Action<PromptTextChangedArgs> OnTextChanged { get; set; }
 
 
+        public PromptConfig SetAction(Action<PromptResult> action)
+        {
+            this.OnAction = action;
+            return this;
+        }
+
+
         public PromptConfig SetTitle(string title)
         {
             this.Title = title;
