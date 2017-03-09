@@ -25141,10 +25141,7 @@
       "Coding4Fun.Toolkit.Controls": "2.1.8",
       "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
       "Splat": "1.6.2",
-      "Xamarin.Forms": {
-        "target": "Package",
-        "version": "[2.3.3.193, )"
-      }
+      "Xamarin.Forms": "2.3.3.193"
     },
     "frameworks": {
       "uap10.0": {}
