@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.3.8</version>
+        <version>6.3.9</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -55,77 +55,11 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
-6.3.8
-[fix][all] Prompt.OnTextChanged should contain incoming value set from config for first pass validation
-[update] bump android support lib version
-
-6.3.7
-[fix][android] Prompt maxlength in appcompat not working
-
-6.3.6
-[fix][android] Prompt fix for appcompat textchanged event
-
-6.3.5
-[fix][android] PromptConfig and ConfirmConfig should use DefaultAndroidStyleId
-[feature][android] TimeConfig and DateConfig can use (Default)AndroidStyleId now
-
-6.3.4
-[fix][android] make sure to use appcompat activity dialog rendering in all cases
-[fix][android] alert dialog was not using android styleID
-
-6.3.3
-[fix][droid] Fix NRE on droid 4.2.2 with soft keyboard dismiss on prompts
-[fix][droid] Remove soft keyboard dismiss for login, it had bugs anyhow
-
-6.3.2
-[fix][ios] OnTextChanged event hooks were not working properly
-
-6.3.1
-[fix][droid] NRE on OnTextChanged
-
-6.3.0
-[fix][ios] prompt maxlength was preventing character deletion
-[feature][all] PromptConfig.OnTextChanged action adds the ability to disable positive button as well as change current textbox value (great for formatting)
-[internal] refactoring internal android logic for dialog management
-
-6.2.6
-[fix][all] cancellation token memory leak (thanks to @smstuebe)
-[update] allow updates to google libs
-
-6.2.5
-[fix][all] default toast colours were not being used
-
-6.2.4
-[feature][ios][uwp] You can now add a message to actionsheet (android coming soon)
-[fix][droid] allow negatives for decimal input type on prompt
-[fix][droid] backspace key not working on login dialog with appcompat mode
-[fix][uwp] Text wrapping on prompt window
-[fix][uwp] Text wrapping on toasts
-[fix][uwp] Make loading work better with themes
-
-6.2.3
-[fix][droid] NRE on fallback toast click (when not in use)
-[fix][uwp] deterministic progress dialog min and max set properly
-
-6.2.2
-[fix][uwp] progress indicator was not bound properly
-
-6.2.1
-[fix][ios] NRE on maxlength prompt
-[fix][uwp] NRE on progress
-[fix][uwp] NRE on prompt placeholder
-[fix][uwp] prompt no longer requires Message property be set in the config
-
-6.2.0
-[feature] maxlength for prompt dialog
-[feature] showloading can be called even when stoploading was not called
-[feature] onaction/async cannot be set together.  plugin will now throw error
-[feature][droid] actionsheet is now dismissable by touching outside of the dialog
-[fix][droid] date/time dialogs should not show keyboard
-[fix][ios] alert dialogs and toasts all marshall back to main thread now
-[fix][ios] time dialog is not using selected time
-[fix][uwp] progress dialog showing percent even when indeterministic
-[fix][uwp] fix toast from background thread
+6.3.9
+[fix] PromptConfig was missing SetAction fluent method
+[fix][android] crash would occur when state configuration could not be restored in appcompat
+[fix][android] Soft keyboard "Done" is now disabled when the "OK" button is disabled in prompt
+[fix][android] When text is predefined in promptconfig, selection is set to the end
         </releaseNotes>
     </metadata>
     <files>

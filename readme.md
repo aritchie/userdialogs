@@ -5,7 +5,7 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
 
-[Change Log - Jan 27, 2017](docs/changelog.md)
+[Change Log - Mar 9, 2017](docs/changelog.md)
 
 ### Features
 

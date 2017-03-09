@@ -1,5 +1,11 @@
 ﻿# CHANGELOG
 
+## 6.3.9
+* [fix] PromptConfig was missing SetAction fluent method
+* [fix][android] crash would occur when state configuration could not be restored in appcompat
+* [fix][android] Soft keyboard "Done" is now disabled when the "OK" button is disabled in prompt
+* [fix][android] When text is predefined in promptconfig, selection is set to the end
+
 ## 6.3.8
 * [fix][all] Prompt.OnTextChanged should contain incoming value set from config for first pass validation
 
