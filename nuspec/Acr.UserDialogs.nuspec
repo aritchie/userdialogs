@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.3.9</version>
+        <version>6.3.10</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -55,6 +55,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.3.10
+[fix][android] Prompt completing when keyboard input is restarted during validation phase.  For now, the edittext done button has been disabled.  This is the cost of using validation for now.  Enter on a hardware keyboard still defeats this.
+
 6.3.9
 [fix] PromptConfig was missing SetAction fluent method
 [fix][android] crash would occur when state configuration could not be restored in appcompat

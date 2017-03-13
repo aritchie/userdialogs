@@ -1,5 +1,8 @@
 ﻿# CHANGELOG
 
+## 6.3.10
+* [fix][android] Prompt completing when keyboard input is restarted during validation phase
+
 ## 6.3.9
 * [fix] PromptConfig was missing SetAction fluent method
 * [fix][android] crash would occur when state configuration could not be restored in appcompat
