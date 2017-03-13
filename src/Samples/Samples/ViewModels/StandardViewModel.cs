@@ -141,15 +141,22 @@ namespace Samples.ViewModels
                 new CommandViewModel
                 {
                     Text = "Prompt Text Validate",
-                    Command = new Command(async () =>
+                    Command = new Command(() =>
                     {
-                        var result = await this.Dialogs.PromptAsync(new PromptConfig
+                        this.Dialogs.Prompt(new PromptConfig
                         {
                             Title = "Prompt Text Validate",
                             Message = "You must type the word \"yes\" to enable OK button",
-                            OnTextChanged = args => args.IsValid = args.Value.Equals("yes", StringComparison.CurrentCultureIgnoreCase)
+                            OnTextChanged = args =>
+                            {
+                                args.IsValid = args.Value.Equals("yes", StringComparison.CurrentCultureIgnoreCase);
+                            },
+                            OnAction = (result) =>
+                            {
+                                this.Result($"Result - {result.Ok} - {result.Text}");
+                            }
                         });
-                        this.Result($"Result - {result.Ok} - {result.Text}");
+
                     })
                 },
                 new CommandViewModel

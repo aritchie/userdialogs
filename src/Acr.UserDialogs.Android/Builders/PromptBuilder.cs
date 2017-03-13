@@ -48,7 +48,7 @@ namespace Acr.UserDialogs.Builders
                 );
             }
             var dialog = builder.Create();
-            this.HookTextChanged(dialog, txt, config.OnTextChanged);
+            this.HookTextChanged(dialog, txt, config);
 
             return dialog;
         }
@@ -87,33 +87,36 @@ namespace Acr.UserDialogs.Builders
                 );
             }
             var dialog = builder.Create();
-            this.HookTextChanged(dialog, txt, config.OnTextChanged);
+            this.HookTextChanged(dialog, txt, config);
 
             return dialog;
         }
 
 
-        protected virtual void HookTextChanged(Dialog dialog, EditText txt, Action<PromptTextChangedArgs> onChange)
+        protected virtual void HookTextChanged(Dialog dialog, EditText txt, PromptConfig config)
         {
-            if (onChange == null)
+            if (config.OnTextChanged == null)
                 return;
 
+            // HACK: this is a temporary fix to deal with restarting input and causing the result action to fire
+            // this will at least block completion of your prompt via the soft keyboard
+            txt.ImeOptions = ImeAction.None;
             var buttonId = (int)DialogButtonType.Positive;
             var promptArgs = new PromptTextChangedArgs { Value = String.Empty };
 
             dialog.ShowEvent += (sender, args) =>
             {
-                onChange(promptArgs);
+                config.OnTextChanged(promptArgs);
                 this.GetButton(dialog, buttonId).Enabled = promptArgs.IsValid;
-                this.ChangeImeOption(txt, promptArgs.IsValid);
+                //this.ChangeImeOption(config, txt, promptArgs.IsValid);
             };
             txt.AfterTextChanged += (sender, args) =>
             {
                 promptArgs.IsValid = true;
                 promptArgs.Value = txt.Text;
-                onChange(promptArgs);
+                config.OnTextChanged(promptArgs);
                 this.GetButton(dialog, buttonId).Enabled = promptArgs.IsValid;
-                this.ChangeImeOption(txt, promptArgs.IsValid);
+                //this.ChangeImeOption(config, txt, promptArgs.IsValid);
 
                 if (!txt.Text.Equals(promptArgs.Value))
                 {
@@ -124,16 +127,16 @@ namespace Acr.UserDialogs.Builders
         }
 
 
-        protected virtual void ChangeImeOption(EditText txt, bool enable)
-        {
-            var action = enable ? ImeAction.Done : ImeAction.None;
-            if (txt.ImeOptions == action)
-                return;
+        //protected virtual void ChangeImeOption(PromptConfig config, EditText txt, bool enable)
+        //{
+            //var action = enable ? ImeAction.Done : ImeAction.None;
+            //if (txt.ImeOptions == action)
+            //    return;
 
-            txt.ImeOptions = action;
-            var input = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
-            input.RestartInput(txt);
-        }
+            //txt.ImeOptions = action;
+            //var input = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
+            //input.RestartInput(txt);
+        //}
 
 
         protected virtual Button GetButton(Dialog dialog, int buttonId)
