@@ -269,7 +269,7 @@ namespace TTG
 				heightConstraint = NSLayoutConstraint.Create(
 					this,
 					NSLayoutAttribute.Height,
-					NSLayoutRelation.Equal,
+					NSLayoutRelation.GreaterThanOrEqual,
 					null,
 					NSLayoutAttribute.NoAttribute,
 					1,
