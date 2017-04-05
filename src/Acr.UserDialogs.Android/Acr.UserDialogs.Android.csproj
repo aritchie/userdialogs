@@ -16,6 +16,7 @@
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AndroidTlsProvider></AndroidTlsProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -104,6 +105,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressDialog.cs" />
     <Compile Include="UserDialogsImpl.cs" />
+    <Compile Include="Fragments\MultiPickerDialogFragment.cs" />
+    <Compile Include="Builders\MultiPickerBuilder.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
