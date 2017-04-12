@@ -102,7 +102,7 @@ namespace Acr.UserDialogs.Builders
             // this will at least block completion of your prompt via the soft keyboard
             txt.ImeOptions = ImeAction.None;
             var buttonId = (int)DialogButtonType.Positive;
-            var promptArgs = new PromptTextChangedArgs { Value = String.Empty };
+            var promptArgs = new PromptTextChangedArgs { Value = txt.Text };
 
             dialog.ShowEvent += (sender, args) =>
             {
