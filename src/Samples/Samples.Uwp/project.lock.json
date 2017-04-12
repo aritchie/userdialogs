@@ -18794,7 +18794,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/1.0.2": {
-      "sha512": "ktyK3wZxnXxEIcjIQW4FHU4/VF3jXfWkujsxaVJNUYvjnIBG9Zcz02H4WCL60DXqKQIIT8zuA7Mr5/EmSM1wMA==",
+      "sha512": "fRHBvQs9Z/ZSUAqaSotK1UPol/lwybTgdeTXR4eVw3rVDgzUnWGTUsK0A418oR7NrimNL1TQu/IM0RDa26s0qg==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.0.2",
       "files": [
