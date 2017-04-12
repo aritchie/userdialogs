@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Android.App;
 using Android.Content;
 using Android.Support.V7.App;
@@ -161,6 +162,7 @@ namespace Acr.UserDialogs.Builders
                 case InputType.DecimalNumber:
                     txt.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal | InputTypes.NumberFlagSigned;
                     txt.SetSingleLine(true);
+                    txt.KeyListener = DigitsKeyListener.GetInstance(String.Format("1234567890{0}", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator));
                     break;
 
                 case InputType.Email:
