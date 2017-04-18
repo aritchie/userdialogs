@@ -162,7 +162,7 @@ namespace Acr.UserDialogs.Builders
                 case InputType.DecimalNumber:
                     txt.InputType = InputTypes.ClassNumber | InputTypes.NumberFlagDecimal | InputTypes.NumberFlagSigned;
                     txt.SetSingleLine(true);
-                    txt.KeyListener = DigitsKeyListener.GetInstance(String.Format("1234567890{0}", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator));
+                    txt.KeyListener = DigitsKeyListener.GetInstance("1234567890" + CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
                     break;
 
                 case InputType.Email:
@@ -181,8 +181,8 @@ namespace Acr.UserDialogs.Builders
                     break;
 
                 case InputType.NumericPassword:
-                    txt.InputType = InputTypes.ClassNumber;
                     txt.TransformationMethod = PasswordTransformationMethod.Instance;
+                    txt.InputType = InputTypes.ClassNumber;
                     break;
 
                 case InputType.Password:
