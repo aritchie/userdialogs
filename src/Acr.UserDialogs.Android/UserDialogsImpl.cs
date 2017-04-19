@@ -180,8 +180,9 @@ namespace Acr.UserDialogs
                     (int) cfg.Duration.TotalMilliseconds
                 );
                 this.TrySetToastTextColor(snackBar, cfg);
-                if (cfg.BackgroundColor != null)
-                    snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
+                var backgroundColor = cfg.BackgroundColor ?? ToastConfig.DefaultBackgroundColor;
+                if (backgroundColor != null)
+                    snackBar.View.SetBackgroundColor(backgroundColor.Value.ToNative());
 
                 if (cfg.Action != null)
                 {
