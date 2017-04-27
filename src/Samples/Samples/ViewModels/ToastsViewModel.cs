@@ -13,17 +13,20 @@ namespace Samples.ViewModels
             this.SecondsDuration = 3;
 
             this.ActionText = "Ok";
-            this.ActionTextColor = Color.White.ToString();
             this.Message = "This is a test of the emergency toast system";
-            this.MessageTextColor = Color.White.ToString ();
+
+            this.ActionTextColor = ToHex(Color.White);
+            this.MessageTextColor = ToHex(Color.White);
+            this.BackgroundColor = ToHex(Color.Blue);
 
             this.Open = new Command(() => dialogs
                 .Toast(new ToastConfig(this.Message)
-                    //.SetMessageTextColor(System.Drawing.Color.FromHex(this.MessageTextColor))
+                    .SetBackgroundColor(FromHex(this.BackgroundColor))
+                    .SetMessageTextColor(FromHex(this.MessageTextColor))
                     .SetDuration(TimeSpan.FromSeconds(this.SecondsDuration))
                     .SetAction(x => x
                         .SetText(this.ActionText)
-                        //.SetTextColor(new System.Drawing.Color.FromHex(this.ActionTextColor))
+                        .SetTextColor(FromHex(this.ActionTextColor))
                         .SetAction(() => dialogs.Alert("You clicked the primary button"))
                     )
                 )
@@ -31,8 +34,41 @@ namespace Samples.ViewModels
         }
 
 
+        static System.Drawing.Color FromHex(string hex)
+        {
+            var c = Color.FromHex(hex);
+            return System.Drawing.Color.FromArgb((int)c.A, (int)c.R, (int)c.G, (int)c.B);
+        }
+
+
+        static string ToHex(Color color)
+        {
+            var red = (int) (color.R * 255);
+            var green = (int) (color.G * 255);
+            var blue = (int) (color.B * 255);
+            //var alpha = (int)(color.A * 255);
+            //var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}{alpha:X2}");
+            var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}");
+            return hex;
+        }
+
+
         public ICommand Open { get; }
 
+
+        string backgroundColor;
+        public string BackgroundColor
+        {
+            get { return this.backgroundColor; }
+            set
+            {
+                if (this.backgroundColor == value)
+                    return;
+
+                this.backgroundColor = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         int secondsDuration;
         public int SecondsDuration
