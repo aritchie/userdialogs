@@ -11,14 +11,13 @@ namespace Acr.UserDialogs
 {
     public class ProgressDialog : IProgressDialog, INotifyPropertyChanged
     {
-        readonly ProgressContentDialog dialog;
         readonly ProgressDialogConfig config;
+        ProgressContentDialog dialog;
 
 
         public ProgressDialog(ProgressDialogConfig config)
         {
             this.config = config;
-            this.dialog = new ProgressContentDialog { DataContext = this };
             this.Cancel = new Command(() => config.OnCancel?.Invoke());
         }
 
@@ -82,7 +81,13 @@ namespace Acr.UserDialogs
                 return;
 
             this.IsShowing = true;
-            this.Dispatch(() => this.dialog.ShowAsync());
+            this.Dispatch(() =>
+            {
+                if (this.dialog == null)
+                    this.dialog = new ProgressContentDialog { DataContext = this };
+
+                this.dialog.ShowAsync();
+            });
         }
 
 
