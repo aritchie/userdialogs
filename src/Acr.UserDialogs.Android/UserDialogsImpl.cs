@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Support.Design.Widget;
+using Android.Text.Style;
 using AndroidHUD;
 using Splat;
 
@@ -174,12 +175,13 @@ namespace Acr.UserDialogs
             activity.RunOnUiThread(() =>
             {
                 var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
+                var msg = this.GetSnackbarText(cfg);
+
                 snackBar = Snackbar.Make(
                     view,
-                    Html.FromHtml(cfg.Message),
+                    msg,
                     (int) cfg.Duration.TotalMilliseconds
                 );
-                this.TrySetToastTextColor(snackBar, cfg);
                 if (cfg.BackgroundColor != null)
                     snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
 
@@ -190,7 +192,7 @@ namespace Acr.UserDialogs
                         cfg.Action?.Action?.Invoke();
                         snackBar.Dismiss();
                     });
-                    var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                    var color = cfg.Action.TextColor;
                     if (color != null)
                         snackBar.SetActionTextColor(color.Value.ToNative());
                 }
@@ -216,26 +218,32 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void TrySetToastTextColor(Snackbar snackBar, ToastConfig cfg)
+        protected virtual ISpanned GetSnackbarText(ToastConfig cfg)
         {
-            var textColor = cfg.MessageTextColor ?? ToastConfig.DefaultMessageTextColor;
-            if (textColor == null)
-                return;
-
-            var viewGroup = snackBar.View as ViewGroup;
-            if (viewGroup != null)
+            var sb = new SpannableStringBuilder();
+            sb.Append(cfg.Message);
+            if (cfg.MessageTextColor != null)
             {
-                for (var i = 0; i < viewGroup.ChildCount; i++)
-                {
-                    var child = viewGroup.GetChildAt(i);
-                    var textView = child as TextView;
-                    if (textView != null)
-                    {
-                        textView.SetTextColor(textColor.Value.ToNative());
-                        break;
-                    }
-                }
+                sb.SetSpan(
+                    new ForegroundColorSpan(cfg.MessageTextColor.Value.ToNative()),
+                    0,
+                    cfg.Message.Length,
+                    SpanTypes.ExclusiveExclusive
+                );
             }
+            return sb;
+        }
+
+
+        protected virtual string ToHex(System.Drawing.Color color)
+        {
+            var red = (int) (color.R * 255);
+            var green = (int) (color.G * 255);
+            var blue = (int) (color.B * 255);
+            //var alpha = (int)(color.A * 255);
+            //var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}{alpha:X2}");
+            var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}");
+            return hex;
         }
 
 
