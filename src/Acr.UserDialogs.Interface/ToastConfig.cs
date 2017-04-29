@@ -39,7 +39,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public ToastConfig SetBackgroundColor (Color color)
+        public ToastConfig SetBackgroundColor(Color color)
         {
             this.BackgroundColor = color;
             return this;
