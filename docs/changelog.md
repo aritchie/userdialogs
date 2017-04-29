@@ -1,5 +1,14 @@
 ﻿# CHANGELOG
 
+## 6.3.11
+* [fix][android] fix initial validation with prompt (default value and validation)
+* [fix][android] login password box does not allow numbers
+* [fix][android] allow proper decimal separator
+* [fix][android] message text color on toasts was not being set properly with the latest version of the android support library
+* [fix][android] backspace and numbers not working in password edittext on login (included prompt as well)
+* [fix][uwp] progress dialog creation needs to be done on main thread
+* [fix][ios] toast will now span multiple lines
+
 ## 6.3.10
 * [fix][android] Prompt completing when keyboard input is restarted during validation phase
 
