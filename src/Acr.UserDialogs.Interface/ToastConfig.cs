@@ -82,5 +82,11 @@ namespace Acr.UserDialogs
             this.MessageTextColor = color;
             return this;
         }
+
+        public ToastConfig SetIcon(IBitmap icon)
+        {
+            this.Icon = icon;
+            return this;
+        }
     }
 }

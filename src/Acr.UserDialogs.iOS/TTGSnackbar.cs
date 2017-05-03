@@ -101,7 +101,7 @@ namespace TTG
             set
             {
                 _icon = value;
-                iconImageView.Image = _icon;
+                IconImageView.Image = _icon;
             }
         }
 
@@ -112,7 +112,7 @@ namespace TTG
             set
             {
                 _iconContentMode = value;
-                iconImageView.ContentMode = _iconContentMode;
+                IconImageView.ContentMode = _iconContentMode;
             }
         }
 
@@ -155,6 +155,15 @@ namespace TTG
             };
 
             this.AddSubview(this.MessageLabel);
+
+            IconImageView = new UIImageView()
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                BackgroundColor = UIColor.Clear,
+                ContentMode = IconContentMode
+            };
+
+            this.AddSubview(IconImageView);
 
             this.ActionButton = new UIButton
             {
@@ -221,7 +230,7 @@ namespace TTG
             );
 
             var vConstraintsForIconImageView = NSLayoutConstraint.FromVisualFormat(
-             "V:|-2-[iconImageView]-2-|", 0, new NSDictionary(), NSDictionary.FromObjectsAndKeys(new NSObject[] { iconImageView }, new NSObject[] { new NSString("iconImageView") })
+             "V:|-2-[iconImageView]-2-|", 0, new NSDictionary(), NSDictionary.FromObjectsAndKeys(new NSObject[] { IconImageView }, new NSObject[] { new NSString("iconImageView") })
             );
 
             var vConstraintsForMessageLabel = NSLayoutConstraint.FromVisualFormat(
@@ -276,11 +285,9 @@ namespace TTG
             //this.AddConstraints(hConstraintsForActivityIndicatorView);
         }
 
-
-
-        /**
-Show the snackbar.
-*/
+        /// <summary>
+        /// Show the snackbar
+        /// </summary>
         public void Show()
         {
             if (this.Superview != null)
