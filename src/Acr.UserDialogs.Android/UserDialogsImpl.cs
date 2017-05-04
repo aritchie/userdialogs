@@ -45,7 +45,8 @@ namespace Acr.UserDialogs
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var activity = this.TopActivityFunc();
-            if (activity is AppCompatActivity) {
+            if (activity is AppCompatActivity)
+            {
                 if (config.UseBottomSheet)
                     return this.ShowDialog<Fragments.BottomSheetDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
 
@@ -180,10 +181,11 @@ namespace Acr.UserDialogs
                 snackBar = Snackbar.Make(
                     view,
                     msg,
-                    (int) cfg.Duration.TotalMilliseconds
+                    (int)cfg.Duration.TotalMilliseconds
                 );
                 if (cfg.BackgroundColor != null)
                     snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
+
 
                 if (cfg.Action != null)
                 {
@@ -231,15 +233,19 @@ namespace Acr.UserDialogs
                     SpanTypes.ExclusiveExclusive
                 );
             }
+            if (cfg.Icon != null)
+            {
+                sb.SetSpan(new ImageSpan(cfg.Icon.ToNative()), sb.Length() - 1, sb.Length(), 0);
+            }
             return sb;
         }
 
 
         protected virtual string ToHex(System.Drawing.Color color)
         {
-            var red = (int) (color.R * 255);
-            var green = (int) (color.G * 255);
-            var blue = (int) (color.B * 255);
+            var red = (int)(color.R * 255);
+            var green = (int)(color.G * 255);
+            var blue = (int)(color.B * 255);
             //var alpha = (int)(color.A * 255);
             //var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}{alpha:X2}");
             var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}");
