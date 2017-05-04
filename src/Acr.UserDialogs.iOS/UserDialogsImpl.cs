@@ -216,7 +216,7 @@ namespace Acr.UserDialogs
                     Message = cfg.Message,
                     Duration = cfg.Duration,
                     AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut,
-                    Icon = UIImage.FromBundle("emoji_cool_small")
+                    Icon = cfg.Icon.ToNative()
                 };
                 if (cfg.BackgroundColor != null)
                     snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
