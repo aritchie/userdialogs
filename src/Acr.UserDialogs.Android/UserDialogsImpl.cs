@@ -186,7 +186,6 @@ namespace Acr.UserDialogs
                 if (cfg.BackgroundColor != null)
                     snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
 
-
                 if (cfg.Action != null)
                 {
                     snackBar.SetAction(cfg.Action.Text, x =>
@@ -198,6 +197,7 @@ namespace Acr.UserDialogs
                     if (color != null)
                         snackBar.SetActionTextColor(color.Value.ToNative());
                 }
+
                 snackBar.Show();
             });
             return new DisposableAction(() =>
@@ -223,9 +223,14 @@ namespace Acr.UserDialogs
         protected virtual ISpanned GetSnackbarText(ToastConfig cfg)
         {
             var sb = new SpannableStringBuilder();
-            sb.Append(cfg.Message);
 
+            string message = cfg.Message;
             var hasIcon = (cfg.Icon != null);
+            if (hasIcon)
+                message = "\u2002\u2002" + message; // add 2 spaces, 1 for the image the next for spacing between text and image
+
+            sb.Append(message);
+
             if (hasIcon)
             {
                 var drawable = cfg.Icon.ToNative();
@@ -233,14 +238,13 @@ namespace Acr.UserDialogs
 
                 sb.SetSpan(new ImageSpan(drawable, SpanAlign.Bottom), 0, 1, SpanTypes.ExclusiveExclusive);
             }
+
             if (cfg.MessageTextColor != null)
             {
-                var start = hasIcon ? 1 : 0;
-
                 sb.SetSpan(
                     new ForegroundColorSpan(cfg.MessageTextColor.Value.ToNative()),
-                    start,
-                    cfg.Message.Length,
+                    0,
+                    sb.Length(),
                     SpanTypes.ExclusiveExclusive
                 );
             }
