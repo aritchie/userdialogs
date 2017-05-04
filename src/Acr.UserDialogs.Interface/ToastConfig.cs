@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-
+using Splat;
 
 namespace Acr.UserDialogs
 {
@@ -31,7 +31,7 @@ namespace Acr.UserDialogs
         public Color? BackgroundColor { get; set; } = DefaultBackgroundColor;
         public TimeSpan Duration { get; set; } = DefaultDuration;
         public ToastAction Action { get; set; }
-
+        public IBitmap Icon { get; set; }
 
         public ToastConfig(string message)
         {
@@ -63,7 +63,7 @@ namespace Acr.UserDialogs
         {
             var cfg = new ToastAction();
             action(cfg);
-            return this.SetAction (cfg);
+            return this.SetAction(cfg);
         }
 
 
@@ -77,9 +77,15 @@ namespace Acr.UserDialogs
         }
 
 
-        public ToastConfig SetMessageTextColor (Color color)
+        public ToastConfig SetMessageTextColor(Color color)
         {
             this.MessageTextColor = color;
+            return this;
+        }
+
+        public ToastConfig SetIcon(IBitmap icon)
+        {
+            this.Icon = icon;
             return this;
         }
     }

@@ -45,7 +45,8 @@ namespace Acr.UserDialogs
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var activity = this.TopActivityFunc();
-            if (activity is AppCompatActivity) {
+            if (activity is AppCompatActivity)
+            {
                 if (config.UseBottomSheet)
                     return this.ShowDialog<Fragments.BottomSheetDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
 
@@ -180,7 +181,7 @@ namespace Acr.UserDialogs
                 snackBar = Snackbar.Make(
                     view,
                     msg,
-                    (int) cfg.Duration.TotalMilliseconds
+                    (int)cfg.Duration.TotalMilliseconds
                 );
                 if (cfg.BackgroundColor != null)
                     snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
@@ -196,6 +197,7 @@ namespace Acr.UserDialogs
                     if (color != null)
                         snackBar.SetActionTextColor(color.Value.ToNative());
                 }
+
                 snackBar.Show();
             });
             return new DisposableAction(() =>
@@ -221,13 +223,28 @@ namespace Acr.UserDialogs
         protected virtual ISpanned GetSnackbarText(ToastConfig cfg)
         {
             var sb = new SpannableStringBuilder();
-            sb.Append(cfg.Message);
+
+            string message = cfg.Message;
+            var hasIcon = (cfg.Icon != null);
+            if (hasIcon)
+                message = "\u2002\u2002" + message; // add 2 spaces, 1 for the image the next for spacing between text and image
+
+            sb.Append(message);
+
+            if (hasIcon)
+            {
+                var drawable = cfg.Icon.ToNative();
+                drawable.SetBounds(0, 0, drawable.IntrinsicWidth, drawable.IntrinsicHeight);
+
+                sb.SetSpan(new ImageSpan(drawable, SpanAlign.Bottom), 0, 1, SpanTypes.ExclusiveExclusive);
+            }
+
             if (cfg.MessageTextColor != null)
             {
                 sb.SetSpan(
                     new ForegroundColorSpan(cfg.MessageTextColor.Value.ToNative()),
                     0,
-                    cfg.Message.Length,
+                    sb.Length(),
                     SpanTypes.ExclusiveExclusive
                 );
             }
@@ -237,9 +254,9 @@ namespace Acr.UserDialogs
 
         protected virtual string ToHex(System.Drawing.Color color)
         {
-            var red = (int) (color.R * 255);
-            var green = (int) (color.G * 255);
-            var blue = (int) (color.B * 255);
+            var red = (int)(color.R * 255);
+            var green = (int)(color.G * 255);
+            var blue = (int)(color.B * 255);
             //var alpha = (int)(color.A * 255);
             //var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}{alpha:X2}");
             var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}");

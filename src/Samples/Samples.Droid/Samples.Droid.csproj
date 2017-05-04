@@ -150,6 +150,7 @@
     <None Include="packages.config" />
     <AndroidResource Include="Resources\layout\toolbar.axml" />
     <AndroidResource Include="Resources\layout\tabs.axml" />
+    <AndroidResource Include="Resources\drawable\emoji_cool_small.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

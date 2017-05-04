@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using Splat;
 using Xamarin.Forms;
 
 
@@ -118,6 +119,15 @@ namespace Samples.ViewModels
                         this.Dialogs.Toast(
                             "This is a really long message to test text wrapping and other such things that are painful for toast dialogs to render fully in two line labels")
                     )
+                },
+                new CommandViewModel
+                {
+                    Text = "Toast with image",
+                    Command = new Command(async () =>{
+
+                        var icon = await BitmapLoader.Current.LoadFromResource("emoji_cool_small.png", null, null);
+                        this.Dialogs.Toast(new ToastConfig("Wow what a cool guy").SetIcon(icon));
+                    })
                 },
                 new CommandViewModel
                 {
