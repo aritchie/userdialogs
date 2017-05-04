@@ -224,18 +224,25 @@ namespace Acr.UserDialogs
         {
             var sb = new SpannableStringBuilder();
             sb.Append(cfg.Message);
+
+            var hasIcon = (cfg.Icon != null);
+            if (hasIcon)
+            {
+                var drawable = cfg.Icon.ToNative();
+                drawable.SetBounds(0, 0, drawable.IntrinsicWidth, drawable.IntrinsicHeight);
+
+                sb.SetSpan(new ImageSpan(drawable, SpanAlign.Bottom), 0, 1, SpanTypes.ExclusiveExclusive);
+            }
             if (cfg.MessageTextColor != null)
             {
+                var start = hasIcon ? 1 : 0;
+
                 sb.SetSpan(
                     new ForegroundColorSpan(cfg.MessageTextColor.Value.ToNative()),
-                    0,
+                    start,
                     cfg.Message.Length,
                     SpanTypes.ExclusiveExclusive
                 );
-            }
-            if (cfg.Icon != null)
-            {
-                sb.SetSpan(new ImageSpan(cfg.Icon.ToNative()), sb.Length() - 1, sb.Length(), 0);
             }
             return sb;
         }

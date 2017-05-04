@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using Splat;
 using Xamarin.Forms;
 
 
@@ -19,8 +20,12 @@ namespace Samples.ViewModels
             this.MessageTextColor = ToHex(Color.White);
             this.BackgroundColor = ToHex(Color.Blue);
 
-            this.Open = new Command(() =>
+
+
+            this.Open = new Command(async () =>
             {
+                var icon = await BitmapLoader.Current.LoadFromResource("emoji_cool_small.png", 20, 20);
+
                 ToastConfig.DefaultBackgroundColor = System.Drawing.Color.AliceBlue;
                 ToastConfig.DefaultMessageTextColor = System.Drawing.Color.Red;
                 ToastConfig.DefaultActionTextColor = System.Drawing.Color.DarkRed;
@@ -32,6 +37,7 @@ namespace Samples.ViewModels
                     //.SetBackgroundColor(bgColor)
                     //.SetMessageTextColor(msgColor)
                     .SetDuration(TimeSpan.FromSeconds(this.SecondsDuration))
+                    .SetIcon(icon)
                     .SetAction(x => x
                         .SetText(this.ActionText)
                         //.SetTextColor(actionColor)
