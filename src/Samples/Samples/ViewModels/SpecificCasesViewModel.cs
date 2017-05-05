@@ -123,9 +123,11 @@ namespace Samples.ViewModels
                 new CommandViewModel
                 {
                     Text = "Toast with image",
-                    Command = new Command(async () =>{
+                    Command = new Command(async () =>
+                    {
+                        var img = Device.RuntimePlatform == Device.UWP ? "ms-appx:///Assets/emoji_cool_small.png" : "emoji_cool_small.png";
 
-                        var icon = await BitmapLoader.Current.LoadFromResource("emoji_cool_small.png", null, null);
+                        var icon = await BitmapLoader.Current.LoadFromResource(img, null, null);
                         this.Dialogs.Toast(new ToastConfig("Wow what a cool guy").SetIcon(icon));
                     })
                 },

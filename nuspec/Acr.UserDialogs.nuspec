@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.3.12</version>
+        <version>6.4.0</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -53,6 +53,9 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
+6.4.0
+[feature] Toasts now support icons with a special thanks to @MarcBruins
+
 6.3.12
 force update to latest android support libraries
 
