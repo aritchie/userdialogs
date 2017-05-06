@@ -1,5 +1,11 @@
 ﻿# CHANGELOG
 
+## 6.4.1
+* [fix][ios] NRE with toast image
+
+## 6.4.0
+* [feature] Toasts now support icons with a special thanks to @MarcBruins
+
 ## 6.3.11
 * [fix][android] fix initial validation with prompt (default value and validation)
 * [fix][android] login password box does not allow numbers

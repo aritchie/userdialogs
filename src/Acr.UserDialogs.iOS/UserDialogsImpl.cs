@@ -215,9 +215,11 @@ namespace Acr.UserDialogs
                 {
                     Message = cfg.Message,
                     Duration = cfg.Duration,
-                    AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut,
-                    Icon = cfg.Icon.ToNative()
+                    AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
                 };
+                if (cfg.Icon != null)
+                    snackbar.Icon = cfg.Icon.ToNative();
+
                 if (cfg.BackgroundColor != null)
                     snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
 
