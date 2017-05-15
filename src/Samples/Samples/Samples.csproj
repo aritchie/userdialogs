@@ -43,6 +43,7 @@
     <Compile Include="ViewModels\SpecificCasesViewModel.cs" />
     <Compile Include="ViewModels\StandardViewModel.cs" />
     <Compile Include="ViewModels\ToastsViewModel.cs" />
+    <Compile Include="ViewModels\InteractiveAlertViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">

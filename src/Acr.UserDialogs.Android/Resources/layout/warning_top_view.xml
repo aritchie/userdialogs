@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/warning_top_frame"
+    android:layout_width="@dimen/top_image_size"
+    android:layout_height="@dimen/top_image_size"
+    android:layout_marginTop="@dimen/top_image_margin">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/warning_circle" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/warning_sigh" />
+</FrameLayout>

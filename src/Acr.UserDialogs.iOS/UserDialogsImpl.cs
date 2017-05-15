@@ -63,7 +63,7 @@ namespace Acr.UserDialogs
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
-                Ok = x => config.OnAction?.Invoke(new DatePromptResult (true, x.SelectedDateTime)),
+                Ok = x => config.OnAction?.Invoke(new DatePromptResult(true, x.SelectedDateTime)),
                 Cancel = x => config.OnAction?.Invoke(new DatePromptResult(false, x.SelectedDateTime)),
             };
             if (config.MaximumDate != null)
@@ -81,7 +81,7 @@ namespace Acr.UserDialogs
             var picker = new AI.AIDatePickerController
             {
                 Mode = UIDatePickerMode.Time,
-				SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add ((TimeSpan)config.SelectedTime) : DateTime.Now,
+                SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add((TimeSpan)config.SelectedTime) : DateTime.Now,
                 MinuteInterval = config.MinuteInterval,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
@@ -142,11 +142,11 @@ namespace Acr.UserDialogs
                     txt = x;
                     if (config.MaxLength != null)
                     {
-                        txt.ShouldChangeCharacters =  (tf, replace, range) =>
-                        {
-                            var len = txt.Text.Length + replace.Length - range.Length;
-                            return len <= config.MaxLength.Value;
-                        };
+                        txt.ShouldChangeCharacters = (tf, replace, range) =>
+                       {
+                           var len = txt.Text.Length + replace.Length - range.Length;
+                           return len <= config.MaxLength.Value;
+                       };
                     }
                     this.SetInputType(txt, config.InputType);
                     txt.Placeholder = config.Placeholder ?? String.Empty;
@@ -349,6 +349,24 @@ namespace Acr.UserDialogs
                     txt.KeyboardType = UIKeyboardType.Url;
                     break;
             }
+        }
+
+        public override IDisposable InteractiveAlert(InteractiveAlertConfig config)
+        {
+            var appearance = new InteractiveAlertView.SCLAppearance();
+            appearance.ShowCloseButton = config.Done != null;
+            appearance.DisableTapGesture = !config.IsCancellable;
+            appearance.HideWhenBackgroundViewIsTapped = config.IsCancellable;
+            var alertView = new InteractiveAlertView(appearance);
+            alertView.SetDismissBlock(config.Done?.Action);
+            if (config.CustomButton != null)
+            {
+                alertView.AddButton(config.CustomButton.Title, config.CustomButton.Action);
+            }
+
+            alertView.ShowAlert(config.Style, config.Title, config.Message, config.Done?.Title);
+
+            return new DisposableAction(alertView.HideView);
         }
 
         #endregion

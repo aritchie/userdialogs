@@ -44,7 +44,8 @@ namespace Acr.UserDialogs
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
             var activity = this.TopActivityFunc();
-            if (activity is AppCompatActivity) {
+            if (activity is AppCompatActivity)
+            {
                 if (config.UseBottomSheet)
                     return this.ShowDialog<Fragments.BottomSheetDialogFragment, ActionSheetConfig>((AppCompatActivity)activity, config);
 
@@ -177,7 +178,7 @@ namespace Acr.UserDialogs
                 snackBar = Snackbar.Make(
                     view,
                     Html.FromHtml(cfg.Message),
-                    (int) cfg.Duration.TotalMilliseconds
+                    (int)cfg.Duration.TotalMilliseconds
                 );
                 this.TrySetToastTextColor(snackBar, cfg);
                 if (cfg.BackgroundColor != null)
@@ -343,6 +344,19 @@ namespace Acr.UserDialogs
             return new DisposableAction(() =>
                 activity.RunOnUiThread(frag.Dismiss)
             );
+        }
+
+        public override IDisposable InteractiveAlert(InteractiveAlertConfig config)
+        {
+            var activity = this.TopActivityFunc();
+            var dialogAlert = InteractiveDialogFragment.NewInstance<InteractiveDialogFragment>(config);
+            if (activity is AppCompatActivity)
+            {
+                dialogAlert.Show(((AppCompatActivity)activity).SupportFragmentManager, "Interactive Alert");
+                return new DisposableAction(() => activity.RunOnUiThread(dialogAlert.Dismiss));
+            }
+
+            throw new NotSupportedException("Interactive alert support only AppCompatActivity");
         }
 
         #endregion

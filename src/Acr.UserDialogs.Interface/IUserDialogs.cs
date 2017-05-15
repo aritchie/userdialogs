@@ -25,6 +25,8 @@ namespace Acr.UserDialogs
         Task<DatePromptResult> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null);
         Task<DatePromptResult> DatePromptAsync(string title = null, DateTime? selectedDate = null, CancellationToken? cancelToken = null);
 
+        IDisposable InteractiveAlert(InteractiveAlertConfig config);
+
         IDisposable TimePrompt(TimePromptConfig config);
         Task<TimePromptResult> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null);
         Task<TimePromptResult> TimePromptAsync(string title = null, TimeSpan? selectedTime = null, CancellationToken? cancelToken = null);

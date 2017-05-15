@@ -41,6 +41,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="InteractiveAlertPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
@@ -62,6 +65,9 @@
     </Compile>
     <Compile Include="ToastsPage.xaml.cs">
       <DependentUpon>ToastsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InteractiveAlertPage.xaml.cs">
+      <DependentUpon>InteractiveAlertPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
