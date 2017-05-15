@@ -23,7 +23,21 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
-        public T Pop<T>(Bundle bundle)
+        public bool Contains(Bundle bundle) => bundle?.ContainsKey(this.BundleKey) ?? false;
+
+
+        //public bool TryPop<T>(Bundle bundle, out T config) where T : class
+        //{
+        //    config = null;
+        //    if (!this.Contains(bundle))
+        //        return false;
+
+        //    config = this.Pop<T>(bundle);
+        //    return true;
+        //}
+
+
+        public T Pop<T>(Bundle bundle) where T : class
         {
             var id = bundle.GetLong(this.BundleKey);
             var cfg = (T)this.configStore[id];

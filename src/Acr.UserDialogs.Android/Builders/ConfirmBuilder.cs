@@ -7,29 +7,29 @@ using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace Acr.UserDialogs.Builders
 {
-    public class ConfirmBuilder : AbstractAlertDialogBuilder<ConfirmConfig>
+    public class ConfirmBuilder : IAlertDialogBuilder<ConfirmConfig>
     {
-        public override AlertDialog.Builder Build(Activity activity, ConfirmConfig config)
+        public Dialog Build(Activity activity, ConfirmConfig config)
         {
-            return this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            return new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
                 .SetPositiveButton(config.OkText, (s, a) => config.OnAction(true))
-                .SetNegativeButton(config.CancelText, (s, a) => config.OnAction(false));
+                .SetNegativeButton(config.CancelText, (s, a) => config.OnAction(false))
+                .Create();
         }
 
 
-        public override AppCompatAlertDialog.Builder Build(AppCompatActivity activity, ConfirmConfig config)
+        public Dialog Build(AppCompatActivity activity, ConfirmConfig config)
         {
-            return this
-                .CreateBaseBuilder(activity, config.AndroidStyleId)
+            return new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
                 .SetPositiveButton(config.OkText, (s, a) => config.OnAction(true))
-                .SetNegativeButton(config.CancelText, (s, a) => config.OnAction(false));
+                .SetNegativeButton(config.CancelText, (s, a) => config.OnAction(false))
+                .Create();
         }
     }
 }

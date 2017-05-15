@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using Splat;
 using Xamarin.Forms;
 
 
@@ -121,8 +122,41 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Toast with image",
+                    Command = new Command(async () =>
+                    {
+                        var img = Device.RuntimePlatform == Device.UWP ? "ms-appx:///Assets/emoji_cool_small.png" : "emoji_cool_small.png";
+
+                        var icon = await BitmapLoader.Current.LoadFromResource(img, null, null);
+                        this.Dialogs.Toast(new ToastConfig("Wow what a cool guy").SetIcon(icon));
+                    })
+                },
+                new CommandViewModel
+                {
                     Text = "Toast (no action)",
                     Command = new Command(() => this.Dialogs.Toast("TEST"))
+                },
+                new CommandViewModel
+                {
+                    Text = "Prompt OnTextChanged with Initial Value",
+                    Command = new Command(async () =>
+                    {
+                        await this.Dialogs.PromptAsync(new PromptConfig()
+                            .SetMessage("GOOD = ENABLED")
+                            .SetText("GOOD")
+                            .SetOnTextChanged(args =>
+                                args.IsValid = args.Value.Equals("GOOD")
+                            )
+                        );
+                        await this.Dialogs.PromptAsync(new PromptConfig()
+                            .SetMessage("GOOD = ENABLED")
+                            .SetText("BAD")
+                            .SetOnTextChanged(args =>
+                                args.IsValid = args.Value.Equals("GOOD")
+                            )
+                        );
+                        // TODO
+                    })
                 }
             };
         }

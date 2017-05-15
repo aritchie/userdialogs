@@ -237,3 +237,4 @@ src/Acr.UserDialogs.userprefs
 /src/.vs/Acr.UserDialogs.Android/Acr.UserDialogs.Android.scgdat
 /tools/XamarinComponent/tools
 src/Samples/Samples.Uwp/project.lock.json
+/src/Samples.Droid.Classic/Samples.Droid.Classic.csproj.bak

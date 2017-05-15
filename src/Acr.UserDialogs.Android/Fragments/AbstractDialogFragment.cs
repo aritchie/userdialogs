@@ -8,7 +8,7 @@ using Android.Views;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public abstract class AbstractAppCompatDialogFragment<T> : Android.Support.V7.App.AppCompatDialogFragment where T : class
+    public abstract class AbstractAppCompatDialogFragment<T> : AppCompatDialogFragment where T : class
     {
         public T Config { get; set; }
 
@@ -20,13 +20,21 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
+
         public override Dialog OnCreateDialog(Bundle bundle)
         {
-            if (this.Config == null)
-                this.Config = ConfigStore.Instance.Pop<T>(bundle);
-
-            var dialog = this.CreateDialog(this.Config);
-            this.SetDialogDefaults(dialog);
+            Dialog dialog = null;
+            if (this.Config == null && !ConfigStore.Instance.Contains(bundle))
+            {
+                this.ShowsDialog = false;
+                this.Dismiss();
+            }
+            else
+            {
+                this.Config = this.Config ?? ConfigStore.Instance.Pop<T>(bundle);
+                dialog = this.CreateDialog(this.Config);
+                this.SetDialogDefaults(dialog);
+            }
             return dialog;
         }
 
@@ -74,12 +82,18 @@ namespace Acr.UserDialogs.Fragments
 
         public override Dialog OnCreateDialog(Bundle bundle)
         {
-            if (this.Config == null)
-                this.Config = ConfigStore.Instance.Pop<T>(bundle);
-
-            var dialog = this.CreateDialog(this.Config);
-            this.SetDialogDefaults(dialog);
-
+            Dialog dialog = null;
+            if (this.Config == null && !ConfigStore.Instance.Contains(bundle))
+            {
+                this.ShowsDialog = false;
+                this.Dismiss();
+            }
+            else
+            {
+                this.Config = this.Config ?? ConfigStore.Instance.Pop<T>(bundle);
+                dialog = this.CreateDialog(this.Config);
+                this.SetDialogDefaults(dialog);
+            }
             return dialog;
         }
 

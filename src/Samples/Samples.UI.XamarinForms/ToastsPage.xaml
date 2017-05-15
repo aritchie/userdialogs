@@ -6,9 +6,16 @@
     <ContentPage.Content>
         <TableView>
             <TableRoot>
+                <TableSection Title="Message">
+                    <EntryCell Label="Value" Text="{Binding Message}" />
+                    <EntryCell Label="Text Color" Text="{Binding MessageTextColor}" />
+                </TableSection>
+                <TableSection Title="Action Color">
+                    <EntryCell Label="Value" Text="{Binding ActionText}" />
+                    <EntryCell Label="Text Color" Text="{Binding ActionTextColor}" />
+                </TableSection>
                 <TableSection>
-                    <EntryCell Label="Message" Text="{Binding Message}" />
-                    <EntryCell Label="Action Text" Text="{Binding ActionText}" />
+                    <EntryCell Label="Background Color" Text="{Binding BackgroundColor}" />
                     <EntryCell Label="Duration (sec)" Text="{Binding SecondsDuration}" Keyboard="Numeric" />
                     <TextCell Text="Open Toast" Command="{Binding Open}" />
                 </TableSection>

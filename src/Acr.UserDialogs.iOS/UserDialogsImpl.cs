@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 using UIKit;
 using CoreGraphics;
 using Foundation;
@@ -95,7 +96,6 @@ namespace Acr.UserDialogs
 
         public override IDisposable Login(LoginConfig config)
         {
-
             return this.Present(() =>
             {
                 UITextField txtUser = null;
@@ -131,30 +131,51 @@ namespace Acr.UserDialogs
                 if (config.IsCancellable)
                 {
                     dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x =>
-                        config.OnAction?.Invoke(new PromptResult(false, txt.Text.Trim())
+                        config.OnAction?.Invoke(new PromptResult(false, txt.Text)
                     )));
                 }
-                dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
-                    config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim())
-                )));
+
+                var btnOk = UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x =>
+                    config.OnAction?.Invoke(new PromptResult(true, txt.Text)
+                ));
+                dlg.AddAction(btnOk);
+
                 dlg.AddTextField(x =>
                 {
                     txt = x;
-                    if (config.MaxLength != null)
-                    {
-                        txt.ShouldChangeCharacters = (tf, replace, range) =>
-                       {
-                           var len = txt.Text.Length + replace.Length - range.Length;
-                           return len <= config.MaxLength.Value;
-                       };
-                    }
                     this.SetInputType(txt, config.InputType);
                     txt.Placeholder = config.Placeholder ?? String.Empty;
-                    if (config.Text != null)
-                        txt.Text = config.Text;
+                    txt.Text = config.Text ?? String.Empty;
+
+                    if (config.MaxLength != null)
+                    {
+                        txt.ShouldChangeCharacters = (field, replacePosition, replacement) =>
+                        {
+                            var updatedText = new StringBuilder(field.Text);
+                            updatedText.Remove((int)replacePosition.Location, (int)replacePosition.Length);
+                            updatedText.Insert((int)replacePosition.Location, replacement);
+                            return updatedText.ToString().Length <= config.MaxLength.Value;
+                        };
+                    }
+
+                    if (config.OnTextChanged != null)
+                    {
+                        txt.AddTarget((sender, e) => ValidatePrompt(txt, btnOk, config), UIControlEvent.EditingChanged);
+                        ValidatePrompt(txt, btnOk, config);
+                    }
                 });
                 return dlg;
             });
+        }
+
+
+        static void ValidatePrompt(UITextField txt, UIAlertAction btn, PromptConfig config)
+        {
+            var args = new PromptTextChangedArgs { Value = txt.Text };
+            config.OnTextChanged(args);
+            btn.Enabled = args.IsValid;
+            if (!txt.Text.Equals(args.Value))
+                txt.Text = args.Value;
         }
 
 
@@ -196,6 +217,9 @@ namespace Acr.UserDialogs
                     Duration = cfg.Duration,
                     AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
                 };
+                if (cfg.Icon != null)
+                    snackbar.Icon = cfg.Icon.ToNative();
+
                 if (cfg.BackgroundColor != null)
                     snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
 

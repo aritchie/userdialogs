@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.2.6</version>
+        <version>6.4.1</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -21,18 +21,15 @@ Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code
 On android, be sure to call UserDialogs.Init() before using!
 
 Supported Platforms
-- iOS 7+
+- iOS 8+
 - Android
 - Universal Windows Platform (Win10/UWP)
 - Portable Class Libraries (Profile 259)
-- WP8/81 is here but UNSUPPORTED!
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
-        <!--
-        <iconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</iconUrl>
-        <licenseUrl>https://github.com/aritchie/userdialogs/LICENSE.md</licenseUrl>
-        -->
+        <!--<iconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</iconUrl>-->
+        <licenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</licenseUrl>
         <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>windows xamarin xam.pcl dialogs plugin</tags>
@@ -48,7 +45,7 @@ Supported Platforms
                 <dependency id="AndHUD" version="[1.2.0, 2)" />
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
-                <dependency id="Xamarin.Android.Support.Design" version="[23.3, 25)" />
+                <dependency id="Xamarin.Android.Support.Design" version="[25.3.1,)" />
             </group>
             <group targetFramework="uap10.0">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
@@ -56,65 +53,43 @@ Supported Platforms
             </group>
         </dependencies>
         <releaseNotes>
-6.2.6
-[fix][all] cancellation token memory leak (thanks to @smstuebe)
-[update] allow updates to google libs
+6.4.1
+[fix][ios] NRE with toast image
 
-6.2.5
-[fix][all] default toast colours were not being used
+6.4.0
+[feature] Toasts now support icons with a special thanks to @MarcBruins
 
-6.2.4
-[feature][ios][uwp] You can now add a message to actionsheet (android coming soon)
-[fix][droid] allow negatives for decimal input type on prompt
-[fix][droid] backspace key not working on login dialog with appcompat mode
-[fix][uwp] Text wrapping on prompt window
-[fix][uwp] Text wrapping on toasts
-[fix][uwp] Make loading work better with themes
+6.3.12
+force update to latest android support libraries
 
-6.2.3
-[fix][droid] NRE on fallback toast click (when not in use)
-[fix][uwp] deterministic progress dialog min and max set properly
+6.3.11
+[fix][android] fix initial validation with prompt (default value and validation)
+[fix][android] login password box does not allow numbers
+[fix][android] allow proper decimal separator
+[fix][android] message text color on toasts was not being set properly with the latest version of the android support library
+[fix][android] backspace and numbers not working in password edittext on login (included prompt as well)
+[fix][uwp] progress dialog creation needs to be done on main thread
+[fix][ios] toast will now span multiple lines
 
-6.2.2
-[fix][uwp] progress indicator was not bound properly
+6.3.10
+[fix][android] Prompt completing when keyboard input is restarted during validation phase.  For now, the edittext done button has been disabled.  This is the cost of using validation for now.  Enter on a hardware keyboard still defeats this.
 
-6.2.1
-[fix][ios] NRE on maxlength prompt
-[fix][uwp] NRE on progress
-[fix][uwp] NRE on prompt placeholder
-[fix][uwp] prompt no longer requires Message property be set in the config
-
-6.2.0
-[feature] maxlength for prompt dialog
-[feature] showloading can be called even when stoploading was not called
-[feature] onaction/async cannot be set together.  plugin will now throw error
-[feature][droid] actionsheet is now dismissable by touching outside of the dialog
-[fix][droid] date/time dialogs should not show keyboard
-[fix][ios] alert dialogs and toasts all marshall back to main thread now
-[fix][ios] time dialog is not using selected time
-[fix][uwp] progress dialog showing percent even when indeterministic
-[fix][uwp] fix toast from background thread
+6.3.9
+[fix] PromptConfig was missing SetAction fluent method
+[fix][android] crash would occur when state configuration could not be restored in appcompat
+[fix][android] Soft keyboard "Done" is now disabled when the "OK" button is disabled in prompt
+[fix][android] When text is predefined in promptconfig, selection is set to the end
         </releaseNotes>
     </metadata>
     <files>
         <!-- PCL -->
-        <file src="..\src\Acr.UserDialogs\bin\Release\Acr.UserDialogs.*" target="lib\portable-win+net45+wp8+win8+wpa81" />
+        <file src="..\src\Acr.UserDialogs\bin\Release\Acr.UserDialogs.*" target="lib\portable-net45+wp8+win8+wpa81" />
 
         <!-- android -->
         <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.*" target="lib\MonoAndroid10" />
 
         <!-- ios -->
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS10" />
-
-        <!-- wp8 -->
-        <!--<file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />-->
-
-        <!-- wpa81 -->
-        <!--<file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.pdb" target="lib\wpa81" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs\*.*" target="lib\wpa81\Acr.UserDialogs" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wpa81" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\wpa81" />-->
 
         <!-- uwp -->
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0" />
@@ -124,11 +99,5 @@ Supported Platforms
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs\*.*" target="lib\uap10.0\Acr.UserDialogs" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\uap10.0" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\uap10.0" />
-
-        <!-- WPF -->
-        <!--<file src="..\src\Acr.UserDialogs.Wpf\bin\Release\Acr.UserDialogs.*" target="lib\net45" />-->
-
-        <!-- tvOS -->
-        <!--<file src="..\src\Acr.UserDialogs.tvOS\bin\Release\Acr.UserDialogs.*" target="lib\Xamarin.tvOS10" />-->
     </files>
 </package>

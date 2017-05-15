@@ -1,5 +1,6 @@
 using System;
 using Acr.UserDialogs.Builders;
+using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
@@ -7,7 +8,7 @@ using Android.Widget;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public class PromptDialogFragment : AbstractBuilderDialogFragment<PromptConfig, PromptBuilder>
+    public class PromptDialogFragment : AbstractDialogFragment<PromptConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
@@ -30,16 +31,34 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
+        protected override Dialog CreateDialog(PromptConfig config)
+        {
+            return new PromptBuilder().Build(this.Activity, config);
+        }
+
+
         protected virtual void SetAction(bool ok)
         {
-            var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
-            this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
-            this.Dismiss();
+            try
+            {
+                var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
+                if (txt == null)
+                {
+                    txt = this.Dialog.CurrentFocus as TextView;
+                    if (txt == null)
+                    {
+                        txt = this.Activity.FindViewById<TextView>(Int32.MaxValue);
+                    }
+                }
+                this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
+                this.Dismiss();
+            }
+            catch {} // swallow
         }
     }
 
 
-    public class PromptAppCompatDialogFragment : AbstractBuilderAppCompatDialogFragment<PromptConfig, PromptBuilder>
+    public class PromptAppCompatDialogFragment : AbstractAppCompatDialogFragment<PromptConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
@@ -61,12 +80,29 @@ namespace Acr.UserDialogs.Fragments
             }
         }
 
+        protected override Dialog CreateDialog(PromptConfig config)
+        {
+            return new PromptBuilder().Build(this.AppCompatActivity, config);
+        }
+
 
         protected virtual void SetAction(bool ok)
         {
-            var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
-            this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
-            this.Dismiss();
+            try
+            {
+                var txt = this.Dialog.FindViewById<TextView>(Int32.MaxValue);
+                if (txt == null)
+                {
+                    txt = this.Dialog.CurrentFocus as TextView;
+                    if (txt == null)
+                    {
+                        txt = this.Activity.FindViewById<TextView>(Int32.MaxValue);
+                    }
+                }
+                this.Config?.OnAction(new PromptResult(ok, txt.Text.Trim()));
+                this.Dismiss();
+            }
+            catch {} // swallow
         }
     }
 }

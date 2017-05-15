@@ -1,13 +1,27 @@
-Winphone 8 is not supported
-Please refrain from +1's, nuget library update requests (this is not an issue with the library), and requesting timelines for something.  Please also make sure you have read the FAQ section on the README
+# IF YOU DO NOT USE THIS TEMPLATE - YOUR ISSUE WILL BE CLOSED.  PLEASE READ THE FAQ AND THE CODE OF CONDUCT BELOW!
 
-1) Please check all of the platforms you are having the issue on
- 
+## Please check all of the platforms you are having the issue on (if platform is not listed, it is not supported)
+
  - [] iOS
  - [] Android
  - [] UWP
  - [] PCL
 
-2) Please state the issue to the best of your ability below
+## Version of OS(s) listed above with issue
 
-3) Please copy and paste the exception details below.  If you are having a crash and this detail is missing, your issue will be closed without warning.
+
+## Version of ACR UserDialogs Library
+
+
+## Expected Behaviour
+
+
+## Actual Behavior
+_If applicable, please include entire exception - type, message, stacktrace_
+
+
+## Code of Conduct
+* No Library Update Requests
+* No Timeline Requests
+* Please read through the documentation and FAQs
+* Please be respectful of my time. I put a lot of effort into my libraries.  I try to support the issue requests within a day.  I'm not psychic, so please take the time to fill out the above form as complete as possible

@@ -91,9 +91,6 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-#if WINDOWS_PHONE_APP
-            throw new NotImplementedException();
-#else
             var picker = new DatePickerControl();
             if (config.MinimumDate != null)
                 picker.DatePicker.MinDate = config.MinimumDate.Value;
@@ -131,15 +128,11 @@ namespace Acr.UserDialogs
                 () => popup.IsOpen = true,
                 () => popup.IsOpen = false
             );
-#endif
         }
 
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-#if WINDOWS_PHONE_APP
-            throw new NotImplementedException();
-#else
             var picker = new TimePickerControl();
             picker.TimePicker.MinuteIncrement = config.MinuteInterval;
 
@@ -173,7 +166,6 @@ namespace Acr.UserDialogs
                 () => popup.IsOpen = true,
                 () => popup.IsOpen = false
             );
-#endif
         }
 
 
@@ -280,6 +272,9 @@ namespace Acr.UserDialogs
                     TextWrapping = TextWrapping.Wrap,
                     MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
                 };
+                if (config.Icon != null)
+                    toast.ImageSource = config.Icon.ToNative();
+
                 if (config.MessageTextColor != null)
                     toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
 
@@ -317,7 +312,6 @@ namespace Acr.UserDialogs
                 : DateTime.MinValue;
         }
 
-
         #endif
 
         protected virtual void SetPasswordPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
@@ -336,6 +330,25 @@ namespace Acr.UserDialogs
                 config.OnAction?.Invoke(new PromptResult(true, txt.Password));
                 dialog.Hide();
             });
+            if (config.OnTextChanged == null)
+                return;
+
+            var args = new PromptTextChangedArgs { Value = txt.Password };
+            config.OnTextChanged(args);
+            dialog.IsPrimaryButtonEnabled = args.IsValid;
+
+            txt.PasswordChanged += (sender, e) =>
+            {
+                args.IsValid = true; // reset
+                args.Value = txt.Password;
+                config.OnTextChanged(args);
+
+                dialog.IsPrimaryButtonEnabled = args.IsValid;
+                if (!args.Value.Equals(txt.Password))
+                {
+                    txt.Password = args.Value;
+                }
+            };
         }
 
 
@@ -356,6 +369,28 @@ namespace Acr.UserDialogs
                 config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim()));
                 dialog.Hide();
             });
+
+            if (config.OnTextChanged == null)
+                return;
+
+            var args = new PromptTextChangedArgs { Value = txt.Text };
+            config.OnTextChanged(args);
+            dialog.IsPrimaryButtonEnabled = args.IsValid;
+
+            txt.TextChanged += (sender, e) =>
+            {
+                args.IsValid = true; // reset
+                args.Value = txt.Text;
+                config.OnTextChanged(args);
+                dialog.IsPrimaryButtonEnabled = args.IsValid;
+
+                if (!args.Value.Equals(txt.Text))
+                {
+                    txt.Text = args.Value;
+                    txt.SelectionStart = Math.Max(0, txt.Text.Length);
+                    txt.SelectionLength = 0;
+                }
+            };
         }
 
 

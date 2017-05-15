@@ -133,6 +133,7 @@ namespace Acr.UserDialogs
             }
         }
 
+
         public virtual Task AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
         {
             return this.AlertAsync(new AlertConfig
@@ -295,7 +296,7 @@ namespace Acr.UserDialogs
         }
 
 
-        private static void Cancel<TResult>(IDisposable disp, TaskCompletionSource<TResult> tcs)
+        static void Cancel<TResult>(IDisposable disp, TaskCompletionSource<TResult> tcs)
         {
             disp.Dispose();
             tcs.TrySetCanceled();

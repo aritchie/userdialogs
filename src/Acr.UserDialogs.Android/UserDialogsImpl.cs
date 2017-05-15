@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Support.Design.Widget;
+using Android.Text.Style;
 using AndroidHUD;
 using Splat;
 
@@ -37,7 +38,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<AlertDialogFragment, AlertConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new AlertBuilder().Build(activity, config));
+            return this.Show(activity, () => new AlertBuilder().Build(activity, config));
         }
 
 
@@ -55,7 +56,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ActionSheetDialogFragment, ActionSheetConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new ActionSheetBuilder().Build(activity, config));
+            return this.Show(activity, () => new ActionSheetBuilder().Build(activity, config));
         }
 
 
@@ -68,7 +69,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<ConfirmDialogFragment, ConfirmConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new ConfirmBuilder().Build(activity, config));
+            return this.Show(activity, () => new ConfirmBuilder().Build(activity, config));
         }
 
 
@@ -94,7 +95,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<LoginDialogFragment, LoginConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new LoginBuilder().Build(activity, config));
+            return this.Show(activity, () => new LoginBuilder().Build(activity, config));
         }
 
 
@@ -107,7 +108,7 @@ namespace Acr.UserDialogs
             if (activity is FragmentActivity)
                 return this.ShowDialog<PromptDialogFragment, PromptConfig>((FragmentActivity)activity, config);
 
-            return this.Show(activity, new PromptBuilder().Build(activity, config));
+            return this.Show(activity, () => new PromptBuilder().Build(activity, config));
         }
 
 
@@ -175,12 +176,13 @@ namespace Acr.UserDialogs
             activity.RunOnUiThread(() =>
             {
                 var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
+                var msg = this.GetSnackbarText(cfg);
+
                 snackBar = Snackbar.Make(
                     view,
-                    Html.FromHtml(cfg.Message),
+                    msg,
                     (int)cfg.Duration.TotalMilliseconds
                 );
-                this.TrySetToastTextColor(snackBar, cfg);
                 if (cfg.BackgroundColor != null)
                     snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
 
@@ -191,10 +193,11 @@ namespace Acr.UserDialogs
                         cfg.Action?.Action?.Invoke();
                         snackBar.Dismiss();
                     });
-                    var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                    var color = cfg.Action.TextColor;
                     if (color != null)
                         snackBar.SetActionTextColor(color.Value.ToNative());
                 }
+
                 snackBar.Show();
             });
             return new DisposableAction(() =>
@@ -217,26 +220,47 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void TrySetToastTextColor(Snackbar snackBar, ToastConfig cfg)
+        protected virtual ISpanned GetSnackbarText(ToastConfig cfg)
         {
-            var textColor = cfg.MessageTextColor ?? ToastConfig.DefaultMessageTextColor;
-            if (textColor == null)
-                return;
+            var sb = new SpannableStringBuilder();
 
-            var viewGroup = snackBar.View as ViewGroup;
-            if (viewGroup != null)
+            string message = cfg.Message;
+            var hasIcon = (cfg.Icon != null);
+            if (hasIcon)
+                message = "\u2002\u2002" + message; // add 2 spaces, 1 for the image the next for spacing between text and image
+
+            sb.Append(message);
+
+            if (hasIcon)
             {
-                for (var i = 0; i < viewGroup.ChildCount; i++)
-                {
-                    var child = viewGroup.GetChildAt(i);
-                    var textView = child as TextView;
-                    if (textView != null)
-                    {
-                        textView.SetTextColor(textColor.Value.ToNative());
-                        break;
-                    }
-                }
+                var drawable = cfg.Icon.ToNative();
+                drawable.SetBounds(0, 0, drawable.IntrinsicWidth, drawable.IntrinsicHeight);
+
+                sb.SetSpan(new ImageSpan(drawable, SpanAlign.Bottom), 0, 1, SpanTypes.ExclusiveExclusive);
             }
+
+            if (cfg.MessageTextColor != null)
+            {
+                sb.SetSpan(
+                    new ForegroundColorSpan(cfg.MessageTextColor.Value.ToNative()),
+                    0,
+                    sb.Length(),
+                    SpanTypes.ExclusiveExclusive
+                );
+            }
+            return sb;
+        }
+
+
+        protected virtual string ToHex(System.Drawing.Color color)
+        {
+            var red = (int)(color.R * 255);
+            var green = (int)(color.G * 255);
+            var blue = (int)(color.B * 255);
+            //var alpha = (int)(color.A * 255);
+            //var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}{alpha:X2}");
+            var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}");
+            return hex;
         }
 
 
@@ -298,23 +322,6 @@ namespace Acr.UserDialogs
                 dialog = dialogBuilder();
                 dialog.Show();
             });
-            return new DisposableAction(() =>
-                activity.RunOnUiThread(dialog.Dismiss)
-            );
-        }
-
-
-        protected virtual IDisposable Show(Activity activity, Android.App.AlertDialog.Builder builder)
-        {
-            // you must create the dialog on the same thread as you show it
-            Android.App.AlertDialog dialog = null;
-            activity.RunOnUiThread(() =>
-            {
-                dialog = builder.Create();
-                dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
-                dialog.Show();
-            });
-
             return new DisposableAction(() =>
                 activity.RunOnUiThread(dialog.Dismiss)
             );

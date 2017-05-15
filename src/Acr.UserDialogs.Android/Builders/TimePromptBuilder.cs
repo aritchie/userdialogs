@@ -12,8 +12,7 @@ namespace Acr.UserDialogs.Builders
         public static Dialog Build(Activity activity, TimePromptConfig config)
         {
             var picker = new TimePicker(activity);
-            var builder = new AlertDialog
-                .Builder(activity)
+            var builder = new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetTitle(config.Title)
                 .SetView(picker);

@@ -1,12 +1,13 @@
 using System;
 using Acr.UserDialogs.Builders;
+using Android.App;
 using Android.Content;
 using Android.Views;
 
 
 namespace Acr.UserDialogs.Fragments
 {
-    public class ConfirmDialogFragment : AbstractBuilderDialogFragment<ConfirmConfig, ConfirmBuilder>
+    public class ConfirmDialogFragment : AbstractDialogFragment<ConfirmConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
@@ -18,10 +19,16 @@ namespace Acr.UserDialogs.Fragments
             this.Config?.OnAction?.Invoke(false);
             this.Dismiss();
         }
+
+
+        protected override Dialog CreateDialog(ConfirmConfig config)
+        {
+            return new ConfirmBuilder().Build(this.Activity, config);
+        }
     }
 
 
-    public class ConfirmAppCompatDialogFragment : AbstractBuilderAppCompatDialogFragment<ConfirmConfig, ConfirmBuilder>
+    public class ConfirmAppCompatDialogFragment : AbstractAppCompatDialogFragment<ConfirmConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
         {
@@ -32,6 +39,12 @@ namespace Acr.UserDialogs.Fragments
             args.Handled = true;
             this.Config?.OnAction?.Invoke(false);
             this.Dismiss();
+        }
+
+
+        protected override Dialog CreateDialog(ConfirmConfig config)
+        {
+            return new ConfirmBuilder().Build(this.AppCompatActivity, config);
         }
     }
 }

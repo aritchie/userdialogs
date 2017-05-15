@@ -118,6 +118,7 @@ namespace Samples.ViewModels
 
                             .SetTitle("Max Length Prompt")
                             .SetPlaceholder("Maximum Text Length (10)")
+                            .SetInputMode(InputType.Name)
                             .SetMaxLength(10), token);
 
                         this.Result($"Result - {result.Ok} - {result.Text}");
@@ -134,6 +135,41 @@ namespace Samples.ViewModels
                             Text = "Existing Text",
                             IsCancellable = false
                         }, token);
+                        this.Result($"Result - {result.Ok} - {result.Text}");
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Prompt Text Validate",
+                    Command = new Command(() =>
+                    {
+                        this.Dialogs.Prompt(new PromptConfig
+                        {
+                            Title = "Prompt Text Validate",
+                            Message = "You must type the word \"yes\" to enable OK button",
+                            OnTextChanged = args =>
+                            {
+                                args.IsValid = args.Value.Equals("yes", StringComparison.CurrentCultureIgnoreCase);
+                            },
+                            OnAction = (result) =>
+                            {
+                                this.Result($"Result - {result.Ok} - {result.Text}");
+                            }
+                        });
+
+                    })
+                },
+                new CommandViewModel
+                {
+                    Text = "Prompt Text Format",
+                    Command = new Command(async () =>
+                    {
+                        var result = await this.Dialogs.PromptAsync(new PromptConfig
+                        {
+                            Title = "Prompt Text Format",
+                            Message = "Type in lower case and it will convert to upper case",
+                            OnTextChanged = args => args.Value = args.Value.ToUpper()
+                        });
                         this.Result($"Result - {result.Ok} - {result.Text}");
                     })
                 },

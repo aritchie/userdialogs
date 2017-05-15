@@ -3,11 +3,12 @@
 
 namespace Acr.UserDialogs
 {
-    public class DatePromptConfig
+    public class DatePromptConfig : IAndroidStyleDialogConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static DateTimeKind DefaultUnspecifiedDateTimeKindReplacement { get; set; } = DateTimeKind.Local;
+        public static int? DefaultAndroidStyleId { get; set; }
 
 
         public string Title { get; set; }
@@ -21,5 +22,6 @@ namespace Acr.UserDialogs
 
         public DateTime? MinimumDate { get; set; }
         public DateTime? MaximumDate { get; set; }
+        public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
     }
 }
