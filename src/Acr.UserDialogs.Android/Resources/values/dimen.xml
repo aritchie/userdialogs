@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="common_circle_width">3dp</dimen>
+    <dimen name="progress_circle_radius">34dp</dimen>
+    <dimen name="top_image_size">54dp</dimen>
+    <dimen name="top_image_margin">6dp</dimen>
+    <dimen name="base_margin">16dp</dimen>
+    <dimen name="base_margin_half">8dp</dimen>
+    <dimen name="base_margin_quarter">4dp</dimen>
+</resources>

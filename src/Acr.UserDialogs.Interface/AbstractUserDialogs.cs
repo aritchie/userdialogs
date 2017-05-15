@@ -14,6 +14,7 @@ namespace Acr.UserDialogs
         public abstract IDisposable Alert(AlertConfig config);
         public abstract IDisposable ActionSheet(ActionSheetConfig config);
         public abstract IDisposable Confirm(ConfirmConfig config);
+        public abstract IDisposable InteractiveAlert(InteractiveAlertConfig config);
         public abstract IDisposable DatePrompt(DatePromptConfig config);
         public abstract IDisposable TimePrompt(TimePromptConfig config);
         public abstract IDisposable Login(LoginConfig config);

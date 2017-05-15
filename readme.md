@@ -1,4 +1,4 @@
-﻿# ACR User Dialogs for Xamarin and Windows
+﻿﻿# ACR User Dialogs for Xamarin and Windows
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
 Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
@@ -13,6 +13,7 @@ _Docs are a work in progress (looking for help!)
 
 * [Action Sheet](docs/actionsheets.md)
 * [Alert](docs/alerts.md)
+* [Interactive Alert](docs/interactive_alert_readme.md)
 * [Confirm](docs/confirm.md)
 * [Date](docs/date.md)
 * [Loading/Progress](docs/progress.md)
@@ -23,7 +24,6 @@ _Docs are a work in progress (looking for help!)
 
 * [Source Code](https://github.com/aritchie/userdialogs/tree/master/src/Samples/Samples)
 * [FAQ](docs/faq.md)
-
 
 ## Support Platforms
 

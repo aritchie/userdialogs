@@ -50,5 +50,7 @@
 	<string>1</string>
 	<key>CFBundleDisplayName</key>
 	<string>User Dialogs</string>
+	<key>CFBundleName</key>
+	<string>User Dialogs</string>
 </dict>
 </plist>

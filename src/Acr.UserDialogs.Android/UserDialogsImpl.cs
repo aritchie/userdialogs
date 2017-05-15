@@ -353,6 +353,19 @@ namespace Acr.UserDialogs
             );
         }
 
+        public override IDisposable InteractiveAlert(InteractiveAlertConfig config)
+        {
+            var activity = this.TopActivityFunc();
+            var dialogAlert = InteractiveDialogFragment.NewInstance<InteractiveDialogFragment>(config);
+            if (activity is AppCompatActivity)
+            {
+                dialogAlert.Show(((AppCompatActivity)activity).SupportFragmentManager, "Interactive Alert");
+                return new DisposableAction(() => activity.RunOnUiThread(dialogAlert.Dismiss));
+            }
+
+            throw new NotSupportedException("Interactive alert support only AppCompatActivity");
+        }
+
         #endregion
     }
 }

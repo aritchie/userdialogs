@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/success_top_frame"
+    android:layout_width="@dimen/top_image_size"
+    android:layout_height="@dimen/top_image_size">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/success_bow" />
+
+    <View
+        android:id="@+id/success_top_mask_right"
+        android:layout_width="35dp"
+        android:layout_height="80dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="-13dp"
+        android:background="@android:color/white" />
+
+    <View
+        android:id="@+id/success_top_mask_left"
+        android:layout_width="21dp"
+        android:layout_height="60dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="-3dp"
+        android:background="@android:color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/success_circle" />
+
+    <scl.alertview.SuccessTickView
+        android:id="@+id/success_top_tick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

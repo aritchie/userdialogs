@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:samples="clr-namespace:Samples;assembly=Samples.UI.XamarinForms"
@@ -28,6 +28,11 @@
         <NavigationPage Title="Specific Cases">
             <x:Arguments>
                 <samples:SpecificCasesPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Interactive Alerts">
+            <x:Arguments>
+                <samples:InteractiveAlertPage />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

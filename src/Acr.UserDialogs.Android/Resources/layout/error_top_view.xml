@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/error_top_frame"
+    android:layout_width="@dimen/top_image_size"
+    android:layout_height="@dimen/top_image_size">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/error_circle" />
+    <ImageView
+        android:id="@+id/error_top_x"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/error_center_x" />
+</FrameLayout>
