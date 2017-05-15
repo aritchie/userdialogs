@@ -34,3 +34,8 @@ Warning alert:
 Wait alert:
 
 ![Android Wait](https://github.com/kvandake/userdialogs/blob/master/docs/screenshots/android-wait.png)
+
+## Powered by
+
+* iOS - https://github.com/vikmeup/SCLAlertView-Swift
+* Android - https://github.com/pedant/sweet-alert-dialog
