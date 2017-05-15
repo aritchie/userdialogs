@@ -9,6 +9,7 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 * Action Sheet (multiple choice menu)
 * Alert
+* [Interactive Alert](https://github.com/kvandake/userdialogs/blob/master/docs/interactive_alert_readme.md)
 * Confirm
 * Date
 * Loading
