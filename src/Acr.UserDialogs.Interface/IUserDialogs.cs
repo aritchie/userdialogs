@@ -45,7 +45,11 @@ namespace Acr.UserDialogs
         void HideLoading();
 
         void ShowImage(IBitmap image, string message, int timeoutMillis = 2000);
+
+        [Obsolete("This method will be removed in a future version.  Use ShowImage and supply your own image")]
         void ShowSuccess(string message, int timeoutMillis = 2000);
+
+        [Obsolete("This method will be removed in a future version.  Use ShowImage and supply your own image")]
         void ShowError(string message, int timeoutMillis = 2000);
 
         IDisposable Toast(string title, TimeSpan? dismissTimer = null);
