@@ -26,12 +26,16 @@ namespace Acr.UserDialogs
         /// </summary>
         public static Color? DefaultBackgroundColor { get; set; }
 
+        public static ToastPosition? DefaultPosition { get; set; }
+
         public string Message { get; set; }
         public Color? MessageTextColor { get; set; } = DefaultMessageTextColor;
         public Color? BackgroundColor { get; set; } = DefaultBackgroundColor;
+        public ToastPosition? Position { get; set; } = DefaultPosition;
         public TimeSpan Duration { get; set; } = DefaultDuration;
         public ToastAction Action { get; set; }
         public IBitmap Icon { get; set; }
+
 
         public ToastConfig(string message)
         {
@@ -46,10 +50,14 @@ namespace Acr.UserDialogs
         }
 
 
-        public ToastConfig SetDuration(int millis)
+        public ToastConfig SetPosition(ToastPosition position)
         {
-            return this.SetDuration(TimeSpan.FromMilliseconds(millis));
+            this.Position = position;
+            return this;
         }
+
+
+        public ToastConfig SetDuration(int millis) => this.SetDuration(TimeSpan.FromMilliseconds(millis));
 
 
         public ToastConfig SetDuration(TimeSpan? duration = null)
