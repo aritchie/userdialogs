@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.UserDialogs</id>
-        <version>6.4.1</version>
+        <version>6.4.2</version>
         <title>ACR User Dialogs Plugin for Xamarin and Windows</title>
         <summary>Allows for messagebox style dialogs to be called from your shared/PCL/MVVM code</summary>
         <description>
@@ -30,6 +30,7 @@ Supported Platforms
         <owners>Allan Ritchie</owners>
         <!--<iconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</iconUrl>-->
         <licenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</licenseUrl>
+        <releaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</releaseNotes>
         <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>windows xamarin xam.pcl dialogs plugin</tags>
@@ -40,6 +41,7 @@ Supported Platforms
             <group targetFramework="Xamarin.iOS10">
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
+                <dependency id="TTGSnackbar" version="[1.3.1, 2)" />
             </group>
             <group targetFramework="MonoAndroid10">
                 <dependency id="AndHUD" version="[1.2.0, 2)" />
@@ -52,34 +54,6 @@ Supported Platforms
                 <dependency id="Coding4Fun.Toolkit.Controls" version="[2.1.8, 3.0)" />
             </group>
         </dependencies>
-        <releaseNotes>
-6.4.1
-[fix][ios] NRE with toast image
-
-6.4.0
-[feature] Toasts now support icons with a special thanks to @MarcBruins
-
-6.3.12
-force update to latest android support libraries
-
-6.3.11
-[fix][android] fix initial validation with prompt (default value and validation)
-[fix][android] login password box does not allow numbers
-[fix][android] allow proper decimal separator
-[fix][android] message text color on toasts was not being set properly with the latest version of the android support library
-[fix][android] backspace and numbers not working in password edittext on login (included prompt as well)
-[fix][uwp] progress dialog creation needs to be done on main thread
-[fix][ios] toast will now span multiple lines
-
-6.3.10
-[fix][android] Prompt completing when keyboard input is restarted during validation phase.  For now, the edittext done button has been disabled.  This is the cost of using validation for now.  Enter on a hardware keyboard still defeats this.
-
-6.3.9
-[fix] PromptConfig was missing SetAction fluent method
-[fix][android] crash would occur when state configuration could not be restored in appcompat
-[fix][android] Soft keyboard "Done" is now disabled when the "OK" button is disabled in prompt
-[fix][android] When text is predefined in promptconfig, selection is set to the end
-        </releaseNotes>
     </metadata>
     <files>
         <!-- PCL -->

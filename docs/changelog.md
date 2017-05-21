@@ -1,5 +1,9 @@
 ﻿# CHANGELOG
 
+## 6.4.2
+* [feature] Toast position can now be set to the top on all platforms
+* [obsolete] methods ShowSuccess and ShowError are obsolete.  Use ShowImage and supply your own image
+
 ## 6.4.1
 * [fix][ios] NRE with toast image
 
