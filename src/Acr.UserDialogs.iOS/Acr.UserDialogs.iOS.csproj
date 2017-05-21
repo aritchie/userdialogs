@@ -38,7 +38,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressDialog.cs" />
     <Compile Include="UserDialogsImpl.cs" />
-    <Compile Include="TTGSnackbar.cs" />
     <Compile Include="AIDatePickerController.cs" />
     <Compile Include="BTProgressHUD.cs" />
     <Compile Include="NSObjectExtensions.cs" />
@@ -54,6 +53,9 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="TTGSnackbar">
+      <HintPath>..\packages\TTGSnackbar.1.3\TTGSnackbar.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Splat.1.6.2\lib\Xamarin.iOS10\Splat.dll</HintPath>

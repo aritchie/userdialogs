@@ -7,6 +7,7 @@ using Foundation;
 using Acr.Support.iOS;
 using BigTed;
 using Splat;
+using TTGSnackBar;
 
 
 namespace Acr.UserDialogs
@@ -180,27 +181,15 @@ namespace Acr.UserDialogs
 
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
-        {
-            BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis);
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis));
-        }
+            => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis);
 
 
         public override void ShowError(string message, int timeoutMillis)
-        {
-            BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis);
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis));
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(UIImage.FromBundle("icon-error"), message, timeoutMillis));
-        }
+            => BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis);
 
 
         public override void ShowSuccess(string message, int timeoutMillis)
-        {
-
-            BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis);
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis));
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(UIImage.FromBundle("icon-success"), message, timeoutMillis));
-        }
+            => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis);
 
 
         IDisposable currentToast;
@@ -211,11 +200,10 @@ namespace Acr.UserDialogs
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(() =>
             {
-                var snackbar = new TTG.TTGSnackbar
+                var snackbar = new TTGSnackbar(cfg.Message)
                 {
-                    Message = cfg.Message,
                     Duration = cfg.Duration,
-                    AnimationType = TTG.TTGSnackbarAnimationType.FadeInFadeOut
+                    AnimationType = TTGSnackbarAnimationType.FadeInFadeOut
                 };
                 if (cfg.Icon != null)
                     snackbar.Icon = cfg.Icon.ToNative();
@@ -224,13 +212,18 @@ namespace Acr.UserDialogs
                     snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
 
                 if (cfg.MessageTextColor != null)
-                    snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
+                    snackbar.MessageTextColor = cfg.MessageTextColor.Value.ToNative();
+
+                if (cfg.Position != null)
+                    snackbar.LocationType = cfg.Position == ToastPosition.Top
+                        ? TTGSnackbarLocation.Top
+                        : TTGSnackbarLocation.Bottom;
 
                 if (cfg.Action != null)
                 {
                     var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
                     if (color != null)
-                        snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
+                        snackbar.ActionTextColor = color.Value.ToNative();
 
                     snackbar.ActionText = cfg.Action.Text;
                     snackbar.ActionBlock = x =>
