@@ -289,8 +289,6 @@ namespace Acr.UserDialogs
 
         #region Internals
 
-        #if WINDOWS_UWP
-
         protected virtual Popup CreatePopup(UIElement element)
         {
             var popup = new Popup
@@ -312,7 +310,6 @@ namespace Acr.UserDialogs
                 : DateTime.MinValue;
         }
 
-        #endif
 
         protected virtual void SetPasswordPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
         {
