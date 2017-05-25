@@ -20,7 +20,7 @@ namespace Samples.ViewModels
             this.MessageTextColor = ToHex(Color.White);
             this.BackgroundColor = ToHex(Color.Blue);
 
-            this.Open = new Command(async () =>
+            this.Open = new Command(() =>
             {
                 // var icon = await BitmapLoader.Current.LoadFromResource("emoji_cool_small.png", null, null);
 
@@ -35,11 +35,12 @@ namespace Samples.ViewModels
                     //.SetBackgroundColor(bgColor)
                     //.SetMessageTextColor(msgColor)
                     .SetDuration(TimeSpan.FromSeconds(this.SecondsDuration))
+                    .SetPosition(this.ShowOnTop ? ToastPosition.Top : ToastPosition.Bottom)
                     //.SetIcon(icon)
                     .SetAction(x => x
                         .SetText(this.ActionText)
                         //.SetTextColor(actionColor)
-                        .SetAction(() => dialogs.Alert("You clicked the primary button"))
+                        .SetAction(() => dialogs.Alert("You clicked the primary toast button"))
                     )
                 );
             });
@@ -93,6 +94,21 @@ namespace Samples.ViewModels
                     return;
 
                 this.secondsDuration = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+
+        bool showOnTop;
+        public bool ShowOnTop 
+        {
+            get => this.showOnTop;
+            set 
+            {
+                if (this.showOnTop == value)
+                    return;
+
+                this.showOnTop = true;
                 this.OnPropertyChanged();
             }
         }
