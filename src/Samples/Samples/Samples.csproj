@@ -26,16 +26,17 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Splat" Version="2.0.0" />
         <PackageReference Include="Xamarin.Forms" Version="2.3.5.239-pre3" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
-        <ProjectReference Include="..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
+      <Folder Include="Properties\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Properties\" />
+      <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
+      <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
     </ItemGroup>
 
     <ItemGroup>

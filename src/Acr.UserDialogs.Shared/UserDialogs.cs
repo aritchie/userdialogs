@@ -57,7 +57,7 @@ namespace Acr.UserDialogs {
         {
             get
             {
-#if PCL
+#if BAIT
                 if (currentInstance == null)
                     throw new ArgumentException("[Acr.UserDialogs] This is the bait library, not the platform library.  You must install the nuget package in your main executable/application project");
 #elif __ANDROID__
