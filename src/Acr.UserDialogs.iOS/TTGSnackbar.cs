@@ -32,7 +32,7 @@ namespace TTG
         public Action<TTGSnackbar> SecondActionBlock { get; set; }
 
 
-        public nfloat TopMargin { get; set; } = 4;
+        public nfloat TopMargin { get; set; } = 8;
         /// <summary>
         /// Snackbar display duration. Default is 3 seconds.
         /// </summary>
