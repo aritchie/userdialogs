@@ -7,11 +7,7 @@ using Foundation;
 using Acr.Support.iOS;
 using BigTed;
 using Splat;
-<<<<<<< Updated upstream
 using TTG;
-using TTGSnackBar;
-=======
->>>>>>> Stashed changes
 
 
 namespace Acr.UserDialogs
@@ -216,7 +212,7 @@ namespace Acr.UserDialogs
                 {
                     var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
                     if (color != null)
-                        snackbar.ActionTextColor = color.Value.ToNative();
+                        snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
 
                     snackbar.ActionText = cfg.Action.Text;
                     snackbar.ActionBlock = x =>

@@ -35,11 +35,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
-      <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Update="Pages\MainPage.xaml.cs">
         <DependentUpon>MainPage.xaml</DependentUpon>
       </Compile>
@@ -60,4 +55,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
+      <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
+    </ItemGroup>
 </Project>

@@ -7,9 +7,11 @@ using Android.App;
 using Acr.Support.Android;
 #endif
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs 
+{
 
-    public static class UserDialogs {
+    public static class UserDialogs 
+    {
 
 #if __ANDROID__
 
