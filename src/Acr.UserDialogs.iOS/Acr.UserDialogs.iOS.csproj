@@ -40,16 +40,15 @@
     <Compile Include="TTGSnackbar.cs" />
     <Compile Include="UserDialogsImpl.cs" />
     <Compile Include="AIDatePickerController.cs" />
-    <Compile Include="BTProgressHUD.cs" />
-    <Compile Include="NSObjectExtensions.cs" />
-    <Compile Include="ProgressHUD.cs" />
-    <Compile Include="Ring.cs" />
     <Compile Include="XHUD.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Acr.Support.2.1.0\lib\Xamarin.iOS10\Acr.Support.iOS.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="BTProgressHUD, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BTProgressHUD.1.2.0.5\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
     </Reference>
     <Reference Include="Splat, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Splat.2.0.0\lib\Xamarin.iOS10\Splat.dll</HintPath>
@@ -72,16 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="error_7.png" />
-    <BundleResource Include="error_7%402x.png" />
-    <BundleResource Include="error.png" />
-    <BundleResource Include="error%402x.png" />
-    <BundleResource Include="success_7.png" />
-    <BundleResource Include="success_7%402x.png" />
-    <BundleResource Include="success.png" />
-    <BundleResource Include="success%402x.png" />
   </ItemGroup>
   <Import Project="..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems" Label="Shared" Condition="Exists('..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
