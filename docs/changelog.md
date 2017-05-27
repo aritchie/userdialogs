@@ -1,6 +1,7 @@
 ﻿# CHANGELOG
 
-## 6.4.2
+## 6.5.0
+* [semi-breaking] NET Standard is here!
 * [feature] Toast position can now be set to the top on all platforms
 * [obsolete] methods ShowSuccess and ShowError are obsolete.  Use ShowImage and supply your own image
 

@@ -5,7 +5,7 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
 
-[Change Log - May 5, 2017](docs/changelog.md)
+[Change Log - May 27, 2017](docs/changelog.md)
 
 ### Features
 
@@ -30,13 +30,10 @@ _Docs are a work in progress (looking for help!)
 * iOS 8+
 * Android
 * Universal Windows Platform (Win10/UWP)
-* Portable Class Libraries (Profile 259)
+* NET Standard 1.1
 
-## Experimental Platforms (no support)
-* tvOS
-* WPF/NET45
-* Windows Phone 8/8.1
-* MacOS - coming soon
+* macOS & tvOS - coming soon
+
 
 ## Setup
 
