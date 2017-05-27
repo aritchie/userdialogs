@@ -14,13 +14,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Splat" Version="2.0.0" />
+      <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
-    </ItemGroup>
-
-    <Import Project="..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems" Label="Shared" />
-
 </Project>
