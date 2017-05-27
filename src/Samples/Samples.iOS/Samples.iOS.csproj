@@ -109,6 +109,10 @@
       <Name>Samples</Name>
       <Project>{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
+      <Project>{6A0AE941-711D-4C36-A311-960B65534B22}</Project>
+      <Name>Acr.UserDialogs.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
