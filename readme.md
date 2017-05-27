@@ -1,5 +1,7 @@
 ﻿# ACR User Dialogs for Xamarin and Windows
 
+## AS OF v6.5 - USER DIALOGS IS NETSTANDARD - https://docs.microsoft.com/en-us/dotnet/standard/library 
+
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
 Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
