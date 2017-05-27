@@ -33,7 +33,7 @@ Supported Platforms
         <releaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</releaseNotes>
         <projectUrl>https://github.com/aritchie/userdialogs</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <tags>windows xamarin xam.pcl dialogs plugin</tags>
+        <tags>windows ios android xamarin xam.pcl dialogs plugin</tags>
         <dependencies>
             <group>
                 <dependency id="Splat" version="[2, 3)" />
@@ -57,7 +57,7 @@ Supported Platforms
     </metadata>
     <files>
         <!-- PCL -->
-        <file src="..\src\Acr.UserDialogs\bin\Release\netstandard1.1\Acr.UserDialogs.*" target="lib\netstandard1.0" />
+        <file src="..\src\Acr.UserDialogs\bin\Release\netstandard1.1\Acr.UserDialogs.*" target="lib\netstandard1.1" />
 
         <!-- android -->
         <file src="..\src\Acr.UserDialogs.Android\bin\Release\Acr.UserDialogs.*" target="lib\MonoAndroid10" />
