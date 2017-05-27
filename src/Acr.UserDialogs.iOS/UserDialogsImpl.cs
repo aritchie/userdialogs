@@ -7,6 +7,7 @@ using Foundation;
 using Acr.Support.iOS;
 using BigTed;
 using Splat;
+using TTG;
 using TTGSnackBar;
 
 
@@ -200,10 +201,13 @@ namespace Acr.UserDialogs
             var app = UIApplication.SharedApplication;
             app.InvokeOnMainThread(() =>
             {
-                var snackbar = new TTGSnackbar(cfg.Message)
+                //var snackbar = new TTGSnackbar(cfg.Message)
+                var snackbar = new TTGSnackbar
                 {
+                    Message = cfg.Message,
                     Duration = cfg.Duration,
-                    AnimationType = TTGSnackbarAnimationType.FadeInFadeOut
+                    AnimationType = TTGSnackbarAnimationType.FadeInFadeOut,
+                    ShowOnTop = cfg.Position == ToastPosition.Top
                 };
                 if (cfg.Icon != null)
                     snackbar.Icon = cfg.Icon.ToNative();
@@ -212,12 +216,13 @@ namespace Acr.UserDialogs
                     snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
 
                 if (cfg.MessageTextColor != null)
-                    snackbar.MessageTextColor = cfg.MessageTextColor.Value.ToNative();
+                    snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
+                    //snackbar.MessageTextColor = cfg.MessageTextColor.Value.ToNative();
 
-                if (cfg.Position != null)
-                    snackbar.LocationType = cfg.Position == ToastPosition.Top
-                        ? TTGSnackbarLocation.Top
-                        : TTGSnackbarLocation.Bottom;
+                //if (cfg.Position != null)
+                //    snackbar.LocationType = cfg.Position == ToastPosition.Top
+                //        ? TTGSnackbarLocation.Top
+                //        : TTGSnackbarLocation.Bottom;
 
                 if (cfg.Action != null)
                 {

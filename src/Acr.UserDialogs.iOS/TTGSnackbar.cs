@@ -492,6 +492,7 @@ namespace TTG
             };
 
             // Final state
+            topMarginConstraint.Constant = TopMargin;
             bottomMarginConstraint.Constant = -BottomMargin;
             leftMarginConstraint.Constant = LeftMargin;
             rightMarginConstraint.Constant = -RightMargin;
