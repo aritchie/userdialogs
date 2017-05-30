@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard1.1</TargetFramework>
-        <RootNamespace>Acr.UserDialogs.Interface</RootNamespace>
+        <RootNamespace>Acr.UserDialogs</RootNamespace>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 

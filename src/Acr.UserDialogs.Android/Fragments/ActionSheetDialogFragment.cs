@@ -13,17 +13,18 @@ namespace Acr.UserDialogs.Fragments
         {
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.KeyPress += this.OnKeyPress;
-            if (this.Config.Cancel == null)
-            {
-                dialog.SetCancelable(false);
-                dialog.SetCanceledOnTouchOutside(false);
-            }
-            else
-            {
-                dialog.SetCancelable(true);
-                dialog.SetCanceledOnTouchOutside(true);
-                dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
-            }
+            dialog.CancelEvent += (sender, args) => this.Config?.Cancel?.Action?.Invoke();
+
+            var cancellable = this.Config.Cancel != null;
+            dialog.SetCancelable(cancellable);
+            dialog.SetCanceledOnTouchOutside(cancellable);
+        }
+
+
+        public override void OnCancel(IDialogInterface dialog)
+        {
+            base.OnCancel(dialog);
+            this.Config?.Cancel?.Action?.Invoke();
         }
 
 
@@ -41,14 +42,11 @@ namespace Acr.UserDialogs.Fragments
                 return;
 
             args.Handled = true;
-            this.Config?.Cancel?.Action?.Invoke();
             this.Dismiss();
         }
 
-        protected override Dialog CreateDialog(ActionSheetConfig config)
-        {
-            return new ActionSheetBuilder().Build(this.Activity, config);
-        }
+
+        protected override Dialog CreateDialog(ActionSheetConfig config) => new ActionSheetBuilder().Build(this.Activity, config);
     }
 
 
@@ -58,17 +56,18 @@ namespace Acr.UserDialogs.Fragments
         {
             dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
             dialog.KeyPress += this.OnKeyPress;
-            if (this.Config.Cancel == null)
-            {
-                dialog.SetCancelable(false);
-                dialog.SetCanceledOnTouchOutside(false);
-            }
-            else
-            {
-                dialog.SetCancelable(true);
-                dialog.SetCanceledOnTouchOutside(true);
-                dialog.CancelEvent += (sender, args) => this.Config.Cancel.Action.Invoke();
-            }
+            dialog.CancelEvent += (sender, args) => this.Config?.Cancel?.Action?.Invoke();
+
+            var cancellable = this.Config.Cancel != null;
+            dialog.SetCancelable(cancellable);
+            dialog.SetCanceledOnTouchOutside(cancellable);
+        }
+
+
+        public override void OnCancel(IDialogInterface dialog)
+        {
+            base.OnCancel(dialog);
+            this.Config?.Cancel?.Action?.Invoke();
         }
 
 
@@ -86,14 +85,10 @@ namespace Acr.UserDialogs.Fragments
                 return;
 
             args.Handled = true;
-            this.Config?.Cancel?.Action?.Invoke();
             this.Dismiss();
         }
 
 
-        protected override Dialog CreateDialog(ActionSheetConfig config)
-        {
-            return new ActionSheetBuilder().Build(this.AppCompatActivity, config);
-        }
+        protected override Dialog CreateDialog(ActionSheetConfig config) => new ActionSheetBuilder().Build(this.AppCompatActivity, config);
     }
 }
