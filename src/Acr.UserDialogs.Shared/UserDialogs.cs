@@ -7,20 +7,11 @@ using Android.App;
 using Acr.Support.Android;
 #endif
 
-namespace Acr.UserDialogs {
+namespace Acr.UserDialogs 
+{
 
-    public static class UserDialogs {
-
-        static readonly Lazy<IUserDialogs> instance = new Lazy<IUserDialogs>(() =>
-        {
-#if PCL
-            throw new ArgumentException("This is the PCL library, not the platform library.  You must install the nuget package in your main executable/application project");
-#elif __ANDROID__
-            throw new ArgumentException("In android, you must call UserDialogs.Init(Activity) from your first activity OR UserDialogs.Init(App) from your custom application OR provide a factory function to get the current top activity via UserDialogs.Init(() => supply top activity)");
-#else
-            return new UserDialogsImpl();
-#endif
-        });
+    public static class UserDialogs 
+    {
 
 #if __ANDROID__
 
@@ -63,11 +54,23 @@ namespace Acr.UserDialogs {
 
 #endif
 
-        static IUserDialogs customInstance;
+        static IUserDialogs currentInstance;
         public static IUserDialogs Instance
         {
-            get { return customInstance ?? instance.Value; }
-            set { customInstance = value; }
+            get
+            {
+#if BAIT
+                if (currentInstance == null)
+                    throw new ArgumentException("[Acr.UserDialogs] This is the bait library, not the platform library.  You must install the nuget package in your main executable/application project");
+#elif __ANDROID__
+                if (currentInstance == null)
+                    throw new ArgumentException("[Acr.UserDialogs] In android, you must call UserDialogs.Init(Activity) from your first activity OR UserDialogs.Init(App) from your custom application OR provide a factory function to get the current top activity via UserDialogs.Init(() => supply top activity)");
+#else
+                currentInstance = currentInstance ?? new UserDialogsImpl();
+#endif
+                return currentInstance;
+            }
+            set => currentInstance = value;
         }
     }
 }

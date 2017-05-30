@@ -84,6 +84,22 @@ namespace Samples.ViewModels
             }
         }
 
+
+		bool showOnTop;
+		public bool ShowOnTop
+		{
+			get => this.showOnTop;
+			set
+			{
+				if (this.showOnTop == value)
+					return;
+
+				this.showOnTop = value;
+				this.OnPropertyChanged();
+			}
+		}
+
+
         int secondsDuration;
         public int SecondsDuration
         {

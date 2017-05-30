@@ -88,12 +88,14 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -141,14 +143,18 @@
       <Project>{e7273c26-d3e3-4161-b464-69cd6fe606b1}</Project>
       <Name>Acr.UserDialogs.Uwp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Samples.UI.XamarinForms\Samples.UI.XamarinForms.csproj">
-      <Project>{2c87761b-7cce-468f-9a2a-020af0c857af}</Project>
-      <Name>Samples.UI.XamarinForms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
       <Project>{74cee6c1-4ce8-4279-82af-d5a5ddd76d18}</Project>
       <Name>Samples</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="Splat">
+      <Version>2.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

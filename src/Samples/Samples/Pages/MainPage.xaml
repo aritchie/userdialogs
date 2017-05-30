@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:samples="clr-namespace:Samples;"
+             x:Class="Samples.MainPage"
+             Title="ACR UserDialogs">
+    <TabbedPage.Children>
+        <NavigationPage Title="Standard">
+            <x:Arguments>
+                <samples:StandardPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Progress">
+            <x:Arguments>
+                <samples:ProgressPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Toasts">
+            <x:Arguments>
+                <samples:ToastsPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Settings/Themes">
+            <x:Arguments>
+                <samples:SettingsPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Specific Cases">
+            <x:Arguments>
+                <samples:SpecificCasesPage />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+</TabbedPage>
