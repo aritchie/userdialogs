@@ -38,6 +38,9 @@ Supported Platforms
             <group>
                 <dependency id="Splat" version="[2, 3)" />
             </group>
+            <group targetFramework="Xamarin.Mac20">
+                <dependency id="Splat" version="[2, 3)" />
+            </group>
             <group targetFramework="Xamarin.iOS10">
                 <dependency id="Splat" version="[2, 3)" />
                 <dependency id="BTProgressHUD" version="[1.2.0.5, 2)" />
@@ -56,7 +59,7 @@ Supported Platforms
         </dependencies>
     </metadata>
     <files>
-        <!-- PCL -->
+        <!-- netstandard -->
         <file src="..\src\Acr.UserDialogs\bin\Release\netstandard1.1\Acr.UserDialogs.*" target="lib\netstandard1.1" />
 
         <!-- android -->
@@ -64,6 +67,9 @@ Supported Platforms
 
         <!-- ios -->
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS10" />
+
+        <!-- macos -->
+        <file src="..\src\Acr.UserDialogs.macOS\bin\Release\Acr.UserDialogs.*" target="lib\Xamarin.Mac20" />
 
         <!-- uwp -->
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0" />
