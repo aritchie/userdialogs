@@ -1,10 +1,12 @@
 using System;
 using System.Globalization;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Support.V7.App;
 using Android.Text;
 using Android.Text.Method;
+using Android.Util;
 using Android.Views.InputMethods;
 using Android.Widget;
 using AlertDialog = Android.App.AlertDialog;
@@ -37,7 +39,6 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetView(txt)
                 .SetPositiveButton(config.OkText, (s, a) =>
                     config.OnAction(new PromptResult(true, txt.Text.Trim()))
                 );
@@ -49,6 +50,12 @@ namespace Acr.UserDialogs.Builders
                 );
             }
             var dialog = builder.Create();
+            
+            var typedValue = new TypedValue();
+            activity.Theme.ResolveAttribute(Resource.Attribute.DialogPreferredPadding, typedValue, true);
+            var dialogPreferedPadding = typedValue.GetDimension(activity.Resources.DisplayMetrics);
+
+            dialog.SetView(txt, (int) dialogPreferedPadding, 0, (int)dialogPreferedPadding, 0);
             this.HookTextChanged(dialog, txt, config);
 
             return dialog;
@@ -76,7 +83,6 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetView(txt)
                 .SetPositiveButton(config.OkText, (s, a) =>
                     config.OnAction(new PromptResult(true, txt.Text.Trim()))
                 );
@@ -88,6 +94,12 @@ namespace Acr.UserDialogs.Builders
                 );
             }
             var dialog = builder.Create();
+
+            var typedValue = new TypedValue();
+            activity.Theme.ResolveAttribute(Resource.Attribute.DialogPreferredPadding, typedValue, true);
+            var dialogPreferedPadding = typedValue.GetDimension(activity.Resources.DisplayMetrics);
+
+			dialog.SetView(txt, (int) dialogPreferedPadding, 0, (int)dialogPreferedPadding, 0);
             this.HookTextChanged(dialog, txt, config);
 
             return dialog;
