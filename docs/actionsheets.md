@@ -1,7 +1,7 @@
 ﻿# ActionSheets
 | iOS | Android |
 | :-: | :-: |
-| <img src="http://i.imgur.com/uy770tw.gif" width="370" height="644"/> | <img src="http://i.imgur.com/5feffQq.gif" width="370" height="636"/> |
+| ![](http://i.imgur.com/uy770tw.gif) | ![](http://i.imgur.com/5feffQq.gif) |
 
 Image icons made by [Chanut is Industries](http://www.flaticon.com/authors/chanut-is-industries)
 
