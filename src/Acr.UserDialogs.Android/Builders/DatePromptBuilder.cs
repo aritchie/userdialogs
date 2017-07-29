@@ -11,18 +11,16 @@ namespace Acr.UserDialogs.Builders
         public static DatePickerDialog Build(Activity activity, DatePromptConfig config)
         {
             var dateTime = config.SelectedDate ?? DateTime.Now;
-            var dialog = new DatePickerDialog(
+            var dialog = new AcrDatePickerDialog(
                 activity,
                 config.AndroidStyleId ?? 0,
                 (sender, args) => { },
                 dateTime.Year,
                 dateTime.Month - 1,
-                dateTime.Day
+                dateTime.Day,
+                config.Title
             );
             dialog.SetCancelable(false);
-
-            if (!String.IsNullOrWhiteSpace(config.Title))
-                dialog.SetTitle(config.Title);
 
             if (config.MinimumDate != null)
                 dialog.DatePicker.MinDate = config.MinimumDate.Value.ToUnixTimestamp();
