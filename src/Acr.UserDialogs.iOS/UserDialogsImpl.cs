@@ -354,6 +354,69 @@ namespace Acr.UserDialogs
             }
         }
 
+        public override IDisposable NumberPrompt(NumberPromptConfig config)
+        {
+          /*  //picker
+            UIPickerView pickerView = new UIPickerView(
+                            new CGRect(
+                                UIScreen.MainScreen.Bounds.X - UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height - 230,
+                                UIScreen.MainScreen.Bounds.Width,
+                                180));
+
+            NumberModelPicker model = new NumberModelPicker(config);
+            pickerView.Model = model;
+
+            model.ValueChanged += (sender, e) => {
+                config.SelectedNumber = model.SelectedItem;
+            };
+
+            //toolbar
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.BarStyle = UIBarStyle.Default;
+            toolbar.Translucent = true;
+            toolbar.SizeToFit();
+
+            UIBarButtonItem doneButton = new UIBarButtonItem(config.OkText,
+                                                             UIBarButtonItemStyle.Done,
+                                                             (s, e) => config.OnAction?.Invoke(new NumberPromptResult(true, config.SelectedNumber.Value)));
+            
+            toolbar.SetItems(new UIBarButtonItem[] { doneButton }, true);
+
+            pickerView.AddSubview(toolbar);
+
+            //controller
+            var controller = new UIViewController();
+
+            controller.Add(pickerView);
+            controller.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+            controller.View.BackgroundColor = UIColor.Clear;*/
+            var picker = new AI.AINumberPickerController
+            {
+                OkText = config.OkText,
+                CancelText = config.CancelText,
+                Ok = x => config.OnAction?.Invoke(new NumberPromptResult(true, x.SelectedNumber)),
+                Cancel = x => config.OnAction?.Invoke(new NumberPromptResult(false, x.SelectedNumber)),
+            };
+
+            if (config.MinNumber!=null){
+                picker.MinNumber = config.MinNumber.Value;
+            }
+
+            if (config.MaxNumber != null)
+            {
+                picker.MaxNumber = config.MaxNumber.Value;
+            }
+
+            if(config.SelectedNumber != null)
+            {
+                picker.SelectedNumber = config.SelectedNumber.Value;
+            }
+
+
+            return this.Present(picker);
+
+        }
+
         #endregion
     }
 }

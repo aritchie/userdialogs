@@ -364,6 +364,18 @@ namespace Acr.UserDialogs
             );
         }
 
+        public override IDisposable NumberPrompt(NumberPromptConfig config)
+        {
+            var activity = this.TopActivityFunc();
+            if (activity is AppCompatActivity)
+                return this.ShowDialog<NumberAppCompatDialogFragment, NumberPromptConfig>((AppCompatActivity)activity, config);
+
+            if (activity is FragmentActivity)
+                return this.ShowDialog<NumberDialogFragment, NumberPromptConfig>((FragmentActivity)activity, config);
+
+            return this.Show(activity, () => new NumberPromptBuilder().Build(activity, config));
+        }
+
         #endregion
     }
 }

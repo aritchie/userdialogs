@@ -189,6 +189,21 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Number Picker",
+                    Command = new Command(async () =>
+                    {
+                        var result = await this.Dialogs.NumberPromptAsync(new NumberPromptConfig(){
+                            MinNumber=5,
+                            MaxNumber = 20,
+                            SelectedNumber=7,
+                            OkText="Accept",
+                            CancelText="Closed"
+                        });
+                        this.Result($"Number Promt: {result.Ok} - Value: {result.Value.ToString()}");
+                    })
+                },
+                new CommandViewModel
+                {
                     Text = "Time",
                     Command = this.Create(async token =>
                     {

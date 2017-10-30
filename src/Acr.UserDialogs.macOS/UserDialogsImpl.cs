@@ -133,5 +133,10 @@ namespace Acr.UserDialogs
         {
             throw new NotImplementedException();
         }
+
+        public override IDisposable NumberPrompt(NumberPromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

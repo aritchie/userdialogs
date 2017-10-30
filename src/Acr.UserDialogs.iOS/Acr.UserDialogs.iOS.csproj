@@ -41,6 +41,8 @@
     <Compile Include="UserDialogsImpl.cs" />
     <Compile Include="AIDatePickerController.cs" />
     <Compile Include="XHUD.cs" />
+    <Compile Include="NumberModelPicker.cs" />
+    <Compile Include="AINumberPickerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
