@@ -46,6 +46,8 @@ namespace AI
             NumberModelPicker model = new NumberModelPicker(MinNumber.Value, MaxNumber.Value, SelectedNumber);
             pickerView.Model = model;
 
+            pickerView.Select(model.SelectedIndex, 0, true);
+
             dimmedView = new UIView(this.View.Bounds)
             {
                 AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,

@@ -16,6 +16,10 @@ namespace Acr.UserDialogs
             get { return Items[_selectedIndex]; }
         }
 
+        public int SelectedIndex
+        {
+            get { return _selectedIndex; }
+        }
 
         #endregion
 
@@ -27,6 +31,7 @@ namespace Acr.UserDialogs
         {
             Items = GetItems(minNumber, maxNumber);
             _selectedIndex = Items.IndexOf(selectedNumber);
+
 
         }
         #endregion
