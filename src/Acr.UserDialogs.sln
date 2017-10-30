@@ -7,7 +7,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Acr.UserDialogs.Shared", "A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{3CD90FF5-6727-451C-8C90-6D9C752F89D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acr.UserDialogs", "Acr.UserDialogs\Acr.UserDialogs.csproj", "{AD34AA53-F275-4F18-A51C-9809C4E1F3BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.UserDialogs", "Acr.UserDialogs\Acr.UserDialogs.csproj", "{AD34AA53-F275-4F18-A51C-9809C4E1F3BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.UserDialogs.iOS", "Acr.UserDialogs.iOS\Acr.UserDialogs.iOS.csproj", "{DFA982A2-F6F7-4FFD-9F86-A1AF11F7C4A1}"
 EndProject
@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\nuspec\push.cmd = ..\nuspec\push.cmd
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "Samples\Samples\Samples.csproj", "{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples\Samples.csproj", "{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.iOS", "Samples\Samples.iOS\Samples.iOS.csproj", "{E65BABF2-F96E-4256-A169-4ECB8136FBB3}"
 EndProject
@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid", "Samples\Sa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{48F9B619-4D7C-482C-9C09-56BD8D78D0FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acr.UserDialogs.Interface", "Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj", "{6A0AE941-711D-4C36-A311-960B65534B22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.UserDialogs.Interface", "Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj", "{6A0AE941-711D-4C36-A311-960B65534B22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.UserDialogs.Uwp", "Acr.UserDialogs.Uwp\Acr.UserDialogs.Uwp.csproj", "{E7273C26-D3E3-4161-B464-69CD6FE606B1}"
 EndProject

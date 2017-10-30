@@ -23,7 +23,7 @@ namespace Acr.UserDialogs
         public abstract void ShowSuccess(string message, int timeoutMillis);
         public abstract IDisposable Toast(ToastConfig config);
         protected abstract IProgressDialog CreateDialogInstance(ProgressDialogConfig config);
-
+        public abstract IDisposable NumberPrompt(NumberPromptConfig config);
 
         public virtual async Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
         {
@@ -301,6 +301,21 @@ namespace Acr.UserDialogs
         {
             disp.Dispose();
             tcs.TrySetCanceled();
+        }
+
+        public virtual async Task<NumberPromptResult> NumberPromptAsync(NumberPromptConfig config, CancellationToken? cancelToken = null)
+        {
+            if (config.OnAction != null)
+                throw new ArgumentException(NO_ONACTION);
+
+            var tcs = new TaskCompletionSource<NumberPromptResult>();
+            config.OnAction = x => tcs.TrySetResult(x);
+
+            var disp = this.NumberPrompt(config);
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
+            {
+                return await tcs.Task;
+            }
         }
     }
 }

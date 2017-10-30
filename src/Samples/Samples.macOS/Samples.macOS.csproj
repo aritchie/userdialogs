@@ -117,7 +117,7 @@
       <IsAppExtension>false</IsAppExtension>
     </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
-      <Project>{AF0917DD-079A-49CB-9115-BA08340E4ED8}</Project>
+      <Project>{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}</Project>
       <Name>Samples</Name>
     </ProjectReference>
   </ItemGroup>

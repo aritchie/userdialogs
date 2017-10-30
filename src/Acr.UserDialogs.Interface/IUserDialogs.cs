@@ -54,5 +54,9 @@ namespace Acr.UserDialogs
 
         IDisposable Toast(string title, TimeSpan? dismissTimer = null);
         IDisposable Toast(ToastConfig cfg);
+
+        IDisposable NumberPrompt(NumberPromptConfig config);
+
+        Task<NumberPromptResult> NumberPromptAsync(NumberPromptConfig config, CancellationToken? cancelToken = null);
     }
 }

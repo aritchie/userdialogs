@@ -354,6 +354,11 @@ namespace Acr.UserDialogs
             }
         }
 
+        public override IDisposable NumberPrompt(NumberPromptConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
