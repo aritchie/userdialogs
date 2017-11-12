@@ -30,7 +30,7 @@ namespace Acr.UserDialogs.Builders
             }
 
             if (config.MaxLength != null)
-                txt.SetFilters(new[] { new InputFilterLengthFilter(config.MaxLength.Value) });
+                txt.SetFilters(new [] { new InputFilterLengthFilter(config.MaxLength.Value) });
 
             SetInputType(txt, config.InputType);
 
