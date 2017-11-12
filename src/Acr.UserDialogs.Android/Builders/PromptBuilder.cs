@@ -135,13 +135,13 @@ namespace Acr.UserDialogs.Builders
 
         //protected virtual void ChangeImeOption(PromptConfig config, EditText txt, bool enable)
         //{
-        //var action = enable ? ImeAction.Done : ImeAction.None;
-        //if (txt.ImeOptions == action)
-        //    return;
+            //var action = enable ? ImeAction.Done : ImeAction.None;
+            //if (txt.ImeOptions == action)
+            //    return;
 
-        //txt.ImeOptions = action;
-        //var input = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
-        //input.RestartInput(txt);
+            //txt.ImeOptions = action;
+            //var input = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
+            //input.RestartInput(txt);
         //}
 
 
