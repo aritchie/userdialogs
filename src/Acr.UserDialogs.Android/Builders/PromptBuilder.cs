@@ -5,6 +5,7 @@ using Android.Content;
 using Android.Support.V7.App;
 using Android.Text;
 using Android.Text.Method;
+using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
 using AlertDialog = Android.App.AlertDialog;
@@ -29,7 +30,7 @@ namespace Acr.UserDialogs.Builders
             }
 
             if (config.MaxLength != null)
-                txt.SetFilters(new [] { new InputFilterLengthFilter(config.MaxLength.Value) });
+                txt.SetFilters(new[] { new InputFilterLengthFilter(config.MaxLength.Value) });
 
             SetInputType(txt, config.InputType);
 
@@ -50,6 +51,8 @@ namespace Acr.UserDialogs.Builders
             }
             var dialog = builder.Create();
             this.HookTextChanged(dialog, txt, config);
+
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
 
             return dialog;
         }
@@ -89,6 +92,8 @@ namespace Acr.UserDialogs.Builders
             }
             var dialog = builder.Create();
             this.HookTextChanged(dialog, txt, config);
+
+            dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
 
             return dialog;
         }
@@ -130,13 +135,13 @@ namespace Acr.UserDialogs.Builders
 
         //protected virtual void ChangeImeOption(PromptConfig config, EditText txt, bool enable)
         //{
-            //var action = enable ? ImeAction.Done : ImeAction.None;
-            //if (txt.ImeOptions == action)
-            //    return;
+        //var action = enable ? ImeAction.Done : ImeAction.None;
+        //if (txt.ImeOptions == action)
+        //    return;
 
-            //txt.ImeOptions = action;
-            //var input = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
-            //input.RestartInput(txt);
+        //txt.ImeOptions = action;
+        //var input = (InputMethodManager)Application.Context.GetSystemService(Context.InputMethodService);
+        //input.RestartInput(txt);
         //}
 
 
