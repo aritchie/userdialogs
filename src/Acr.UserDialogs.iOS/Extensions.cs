@@ -1,12 +1,26 @@
 using System;
 using BigTed;
 using Foundation;
+using UIKit;
 
 
 namespace Acr.UserDialogs
 {
     public static class Extensions
     {
+        public static void SafeInvokeOnMainThread(this UIApplication app, Action action) => app.InvokeOnMainThread(() =>
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("", ex.ToString());
+            }
+        });
+
+
         public static ProgressHUD.MaskType ToNative(this MaskType maskType)
         {
             switch (maskType)

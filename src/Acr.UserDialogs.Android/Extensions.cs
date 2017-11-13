@@ -1,10 +1,24 @@
 using System;
+using Android.App;
 
 
 namespace Acr.UserDialogs
 {
     public static class Extensions
     {
+        public static void SafeRunOnUi(this Activity activity, Action action) => activity.RunOnUiThread(() =>
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("", ex.ToString());
+            }
+        });
+
+
         public static AndroidHUD.MaskType ToNative(this MaskType maskType)
         {
             switch (maskType)

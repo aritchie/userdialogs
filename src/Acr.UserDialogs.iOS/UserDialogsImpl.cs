@@ -183,7 +183,7 @@ namespace Acr.UserDialogs
             this.currentToast?.Dispose();
 
             var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
+            app.SafeInvokeOnMainThread(() =>
             {
                 //var snackbar = new TTGSnackbar(cfg.Message)
                 var snackbar = new TTGSnackbar
@@ -224,7 +224,7 @@ namespace Acr.UserDialogs
                 snackbar.Show();
 
                 this.currentToast = new DisposableAction(
-                    () => app.InvokeOnMainThread(() => snackbar.Dismiss())
+                    () => app.SafeInvokeOnMainThread(() => snackbar.Dismiss())
                 );
             });
             return this.currentToast;
@@ -272,7 +272,7 @@ namespace Acr.UserDialogs
         {
             UIAlertController alert = null;
             var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
+            app.SafeInvokeOnMainThread(() =>
             {
                 alert = alertFunc();
                 var top = this.viewControllerFunc();
@@ -288,14 +288,7 @@ namespace Acr.UserDialogs
                 }
                 top.PresentViewController(alert, true, null);
             });
-            return new DisposableAction(() =>
-            {
-                try
-                {
-                    app.InvokeOnMainThread(() => alert.DismissViewController(true, null));
-                }
-                catch { }
-            });
+            return new DisposableAction(() => app.SafeInvokeOnMainThread(() => alert.DismissViewController(true, null)));
         }
 
 
@@ -304,15 +297,8 @@ namespace Acr.UserDialogs
             var app = UIApplication.SharedApplication;
             var top = this.viewControllerFunc();
 
-            app.InvokeOnMainThread(() => top.PresentViewController(controller, true, null));
-            return new DisposableAction(() =>
-            {
-                try
-                {
-                    app.InvokeOnMainThread(() => controller.DismissViewController(true, null));
-                }
-                catch { }
-            });
+            app.SafeInvokeOnMainThread(() => top.PresentViewController(controller, true, null));
+            return new DisposableAction(() => app.SafeInvokeOnMainThread(() => controller.DismissViewController(true, null)));
         }
 
 
