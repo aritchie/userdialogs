@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard1.1</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
@@ -23,5 +23,8 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Update="NETStandard.Library" Version="2.0.1" />
     </ItemGroup>
 </Project>
