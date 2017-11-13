@@ -20,7 +20,6 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
-
         public override Dialog OnCreateDialog(Bundle bundle)
         {
             Dialog dialog = null;

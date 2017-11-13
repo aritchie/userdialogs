@@ -21,9 +21,6 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
-        protected override Dialog CreateDialog(AlertConfig config)
-        {
-            return new AlertBuilder().Build(this.AppCompatActivity, config);
-        }
+        protected override Dialog CreateDialog(AlertConfig config) => new AlertBuilder().Build(this.AppCompatActivity, config);
     }
 }
