@@ -177,7 +177,7 @@ namespace Acr.UserDialogs
 
             if (hasIcon)
             {
-                var drawable = cfg.Icon.ToNative();
+                var drawable = ImageLoader.Load(cfg.Icon);
                 drawable.SetBounds(0, 0, drawable.IntrinsicWidth, drawable.IntrinsicHeight);
 
                 sb.SetSpan(new ImageSpan(drawable, SpanAlign.Bottom), 0, 1, SpanTypes.ExclusiveExclusive);

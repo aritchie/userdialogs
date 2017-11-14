@@ -30,7 +30,7 @@ namespace Acr.UserDialogs
 
             textView.Text = item.Text;
             if (item.ItemIcon != null)
-                textView.SetCompoundDrawablesWithIntrinsicBounds(item.ItemIcon.ToNative(), null, null, null);
+                textView.SetCompoundDrawablesWithIntrinsicBounds(ImageLoader.Load(item.ItemIcon), null, null, null);
 
             if (this.AddMarginForImage)
             {

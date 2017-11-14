@@ -252,9 +252,9 @@ namespace Samples.ViewModels
                         "icon.png"
                     );
                 }
-                cfg.SetDestructive(null, () => this.Result("Destructive BOOM Selected"), testImage);
+                cfg.SetDestructive(null, () => this.Result("Destructive BOOM Selected"), "icon.png");
                 if (cancel)
-                    cfg.SetCancel(null, () => this.Result("Cancel Selected"), testImage);
+                    cfg.SetCancel(null, () => this.Result("Cancel Selected"), "icon.png");
 
                 var disp = this.Dialogs.ActionSheet(cfg);
                 if (this.AutoCancel)
