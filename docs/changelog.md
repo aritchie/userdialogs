@@ -1,10 +1,12 @@
 ﻿# CHANGELOG
 
-## 6.6.0
+## 7.0
 * Move to .NET Standard 2.0
+* [feature] Splat is gone
 * [feature] Now safeties the user from calling for a dialog when the app is in the background
 * [feature][android] update android support libraries
 * [fix][android] remove use of non-appcompat dialogs
+* [BREAKING] show error/success/image are gone
 
 ## 6.5.1
 * [fix][android] Cancel with tap on outside will now properly dismiss and call the Cancel action

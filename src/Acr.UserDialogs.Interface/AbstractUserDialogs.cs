@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Splat;
 
 
 namespace Acr.UserDialogs
@@ -18,9 +17,6 @@ namespace Acr.UserDialogs
         public abstract IDisposable TimePrompt(TimePromptConfig config);
         public abstract IDisposable Login(LoginConfig config);
         public abstract IDisposable Prompt(PromptConfig config);
-        public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
-        public abstract void ShowError(string message, int timeoutMillis);
-        public abstract void ShowSuccess(string message, int timeoutMillis);
         public abstract IDisposable Toast(ToastConfig config);
         protected abstract IProgressDialog CreateDialogInstance(ProgressDialogConfig config);
 
@@ -52,14 +48,12 @@ namespace Acr.UserDialogs
 
 
         public virtual IDisposable Alert(string message, string title, string okText)
-        {
-            return this.Alert(new AlertConfig
+            => this.Alert(new AlertConfig
             {
                 Message = message,
                 Title = title,
                 OkText = okText ?? AlertConfig.DefaultOkText
             });
-        }
 
 
         IProgressDialog loading;
@@ -80,8 +74,7 @@ namespace Acr.UserDialogs
 
 
         public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show, MaskType? maskType)
-        {
-            return this.Progress(new ProgressDialogConfig
+            => this.Progress(new ProgressDialogConfig
             {
                 Title = title ?? ProgressDialogConfig.DefaultTitle,
                 AutoShow = show,
@@ -90,12 +83,10 @@ namespace Acr.UserDialogs
                 IsDeterministic = false,
                 OnCancel = onCancel
             });
-        }
 
 
         public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show, MaskType? maskType)
-        {
-            return this.Progress(new ProgressDialogConfig
+            => this.Progress(new ProgressDialogConfig
             {
                 Title = title ?? ProgressDialogConfig.DefaultTitle,
                 AutoShow = show,
@@ -104,7 +95,6 @@ namespace Acr.UserDialogs
                 IsDeterministic = true,
                 OnCancel = onCancel
             });
-        }
 
 
         public virtual IProgressDialog Progress(ProgressDialogConfig config)
@@ -220,8 +210,7 @@ namespace Acr.UserDialogs
 
 
         public virtual Task<TimePromptResult> TimePromptAsync(string title, TimeSpan? selectedTime, CancellationToken? cancelToken = null)
-        {
-            return this.TimePromptAsync(
+            => this.TimePromptAsync(
                 new TimePromptConfig
                 {
                     Title = title,
@@ -229,7 +218,6 @@ namespace Acr.UserDialogs
                 },
                 cancelToken
             );
-        }
 
 
         public virtual async Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
@@ -275,8 +263,7 @@ namespace Acr.UserDialogs
 
 
         public virtual Task<PromptResult> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType, CancellationToken? cancelToken = null)
-        {
-            return this.PromptAsync(new PromptConfig
+            => this.PromptAsync(new PromptConfig
             {
                 Message = message,
                 Title = title,
@@ -285,16 +272,13 @@ namespace Acr.UserDialogs
                 Placeholder = placeholder,
                 InputType = inputType
             }, cancelToken);
-        }
 
 
         public virtual IDisposable Toast(string message, TimeSpan? dismissTimer)
-        {
-            return this.Toast(new ToastConfig(message)
+            => this.Toast(new ToastConfig(message)
             {
                 Duration = dismissTimer ?? ToastConfig.DefaultDuration
             });
-        }
 
 
         static void Cancel<TResult>(IDisposable disp, TaskCompletionSource<TResult> tcs)

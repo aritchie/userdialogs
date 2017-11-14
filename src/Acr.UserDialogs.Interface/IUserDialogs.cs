@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Splat;
 
 
 namespace Acr.UserDialogs
@@ -43,14 +42,6 @@ namespace Acr.UserDialogs
 
         void ShowLoading(string title = null, MaskType? maskType = null);
         void HideLoading();
-
-        void ShowImage(IBitmap image, string message, int timeoutMillis = 2000);
-
-        [Obsolete("This method will be removed in a future version.  Use ShowImage and supply your own image")]
-        void ShowSuccess(string message, int timeoutMillis = 2000);
-
-        [Obsolete("This method will be removed in a future version.  Use ShowImage and supply your own image")]
-        void ShowError(string message, int timeoutMillis = 2000);
 
         IDisposable Toast(string title, TimeSpan? dismissTimer = null);
         IDisposable Toast(ToastConfig cfg);
