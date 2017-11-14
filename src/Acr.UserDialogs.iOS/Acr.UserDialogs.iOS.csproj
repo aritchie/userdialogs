@@ -62,6 +62,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+      <ProjectReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.iOS\v1.0\Facades\netstandard.dll" />
     <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
       <Project>{6A0AE941-711D-4C36-A311-960B65534B22}</Project>
       <Name>Acr.UserDialogs.Interface</Name>
