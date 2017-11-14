@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using Splat;
 using Xamarin.Forms;
 
 
@@ -244,23 +243,13 @@ namespace Samples.ViewModels
                     .SetMessage(message)
                     .SetUseBottomSheet(useBottomSheet);
 
-                IBitmap testImage = null;
-                try
-                {
-                    testImage = BitmapLoader.Current.LoadFromResource("icon.png", null, null).Result;
-                }
-                catch
-                {
-                    Debug.WriteLine("Could not load image");
-                }
-
                 for (var i = 0; i < items; i++)
                 {
                     var display = i + 1;
                     cfg.Add(
                         "Option " + display,
                         () => this.Result($"Option {display} Selected"),
-                        testImage
+                        "icon.png"
                     );
                 }
                 cfg.SetDestructive(null, () => this.Result("Destructive BOOM Selected"), testImage);

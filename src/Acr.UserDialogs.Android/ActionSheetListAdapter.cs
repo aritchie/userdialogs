@@ -3,7 +3,6 @@ using System.Linq;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
-using Splat;
 
 
 namespace Acr.UserDialogs

@@ -119,6 +119,7 @@
     <Compile Include="ActionSheetOptionViewModel.cs" />
     <Compile Include="ActionSheetViewModel.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="TimePickerControl.xaml.cs">
       <DependentUpon>TimePickerControl.xaml</DependentUpon>
     </Compile>
