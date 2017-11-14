@@ -6,7 +6,6 @@ using CoreGraphics;
 using Foundation;
 using Acr.Support.iOS;
 using BigTed;
-using Splat;
 using TTG;
 
 
@@ -165,18 +164,6 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
-            => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis);
-
-
-        public override void ShowError(string message, int timeoutMillis)
-            => BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis);
-
-
-        public override void ShowSuccess(string message, int timeoutMillis)
-            => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis);
-
-
         IDisposable currentToast;
         public override IDisposable Toast(ToastConfig cfg)
         {
@@ -194,7 +181,7 @@ namespace Acr.UserDialogs
                     ShowOnTop = cfg.Position == ToastPosition.Top
                 };
                 if (cfg.Icon != null)
-                    snackbar.Icon = cfg.Icon.ToNative();
+                    snackbar.Icon = UIImage.FromBundle(cfg.Icon);
 
                 if (cfg.BackgroundColor != null)
                     snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
@@ -251,16 +238,18 @@ namespace Acr.UserDialogs
             return sheet;
         }
 
-        protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
+        protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, string imageName)
         {
             var alertAction = UIAlertAction.Create(opt.Text, style, x => opt.Action?.Invoke());
 
-            if (opt.ItemIcon == null && image != null)
-                opt.ItemIcon = image;
+            if (opt.ItemIcon == null && imageName != null)
+                opt.ItemIcon = imageName;
 
             if (opt.ItemIcon != null)
-                alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new NSString("image"));
-
+            {
+                var icon = UIImage.FromBundle(opt.ItemIcon);
+                alertAction.SetValueForKey(icon, new NSString("image"));
+            }
             controller.AddAction(alertAction);
         }
 

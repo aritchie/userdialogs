@@ -8,6 +8,10 @@ namespace Acr.UserDialogs
 {
     public static class Extensions
     {
+        public static UIColor ToNative(this System.Drawing.Color This)
+            => new UIColor((float)This.R / 255.0f, (float)This.G / 255.0f, This.B / 255.0f, This.A / 255.0f);
+
+
         public static void SafeInvokeOnMainThread(this UIApplication app, Action action) => app.InvokeOnMainThread(() =>
         {
             try

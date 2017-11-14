@@ -54,7 +54,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public ActionSheetConfig SetDestructive(string text = null, Action action = null, IBitmap icon = null)
+        public ActionSheetConfig SetDestructive(string text = null, Action action = null, string icon = null)
         {
             this.Destructive = new ActionSheetOption(text ?? DefaultDestructiveText, action, icon);
             return this;

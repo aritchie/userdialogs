@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
-using Splat;
 using Xamarin.Forms;
 
 
@@ -123,12 +122,10 @@ namespace Samples.ViewModels
                 new CommandViewModel
                 {
                     Text = "Toast with image",
-                    Command = new Command(async () =>
+                    Command = new Command(() =>
                     {
                         var img = Device.RuntimePlatform == Device.UWP ? "ms-appx:///Assets/emoji_cool_small.png" : "emoji_cool_small.png";
-
-                        var icon = await BitmapLoader.Current.LoadFromResource(img, null, null);
-                        this.Dialogs.Toast(new ToastConfig("Wow what a cool guy").SetIcon(icon));
+                        this.Dialogs.Toast(new ToastConfig("Wow what a cool guy").SetIcon(img));
                     })
                 },
                 new CommandViewModel

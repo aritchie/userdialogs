@@ -5,12 +5,10 @@ using Android.App;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Support.Design.Widget;
 using Android.Text.Style;
 using AndroidHUD;
-using Splat;
 
 
 namespace Acr.UserDialogs
@@ -105,47 +103,15 @@ namespace Acr.UserDialogs
 
         #endregion
 
-        #region Images
-
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
-        {
-            var activity = this.TopActivityFunc();
-            activity.SafeRunOnUi(() =>
-                AndHUD.Shared.ShowImage(activity, image.ToNative(), message, AndroidHUD.MaskType.Black, TimeSpan.FromMilliseconds(timeoutMillis))
-            );
-        }
-
-
-        public override void ShowSuccess(string message, int timeoutMillis)
-        {
-            var activity = this.TopActivityFunc();
-            activity.SafeRunOnUi(() =>
-                AndHUD.Shared.ShowSuccess(activity, message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
-            );
-        }
-
-
-        public override void ShowError(string message, int timeoutMillis)
-        {
-            var activity = this.TopActivityFunc();
-            activity.SafeRunOnUi(() =>
-                AndHUD.Shared.ShowError(activity, message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
-            );
-        }
-
-        #endregion
-
         #region Toasts
 
         public override IDisposable Toast(ToastConfig cfg)
         {
             var activity = this.TopActivityFunc();
-            var compat = activity as AppCompatActivity;
+            if (activity is AppCompatActivity compat)
+                return this.ToastAppCompat(compat, cfg);
 
-            if (compat == null)
-                return this.ToastFallback(activity, cfg);
-
-            return this.ToastAppCompat(compat, cfg);
+            return this.ToastFallback(activity, cfg);
         }
 
 
@@ -211,7 +177,7 @@ namespace Acr.UserDialogs
 
             if (hasIcon)
             {
-                var drawable = cfg.Icon.ToNative();
+                var drawable = ImageLoader.Load(cfg.Icon);
                 drawable.SetBounds(0, 0, drawable.IntrinsicWidth, drawable.IntrinsicHeight);
 
                 sb.SetSpan(new ImageSpan(drawable, SpanAlign.Bottom), 0, 1, SpanTypes.ExclusiveExclusive);

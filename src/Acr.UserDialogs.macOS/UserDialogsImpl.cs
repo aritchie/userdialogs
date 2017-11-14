@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Security.Cryptography;
 using AppKit;
 using CoreGraphics;
-using Splat;
 
 
 namespace Acr.UserDialogs
@@ -105,18 +103,6 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public override void ShowSuccess(string message, int timeoutMillis)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public override IDisposable Toast(ToastConfig config)
         {
             throw new NotImplementedException();
@@ -124,12 +110,6 @@ namespace Acr.UserDialogs
 
 
         protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public override void ShowError(string message, int timeoutMillis)
         {
             throw new NotImplementedException();
         }

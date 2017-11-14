@@ -1,18 +1,21 @@
 ﻿using System;
-using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Coding4Fun.Toolkit.Controls;
-using Splat;
 
 
 namespace Acr.UserDialogs
@@ -233,32 +236,6 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
-        {
-            throw new ArgumentException("This is not supported on UWP right now");
-            //this.Toast(new ToastConfig(message).SetDuration(TimeSpan.FromMilliseconds(timeoutMillis)));
-        }
-
-
-        public override void ShowError(string message, int timeoutMillis)
-        {
-            this.Toast(new ToastConfig(message)
-                .SetDuration(TimeSpan.FromMilliseconds(timeoutMillis))
-                .SetBackgroundColor(Color.Red)
-            );
-        }
-
-
-        public override void ShowSuccess(string message, int timeoutMillis)
-        {
-            this.Toast(new ToastConfig(message)
-                .SetDuration(TimeSpan.FromMilliseconds(timeoutMillis))
-                .SetBackgroundColor(Color.LawnGreen)
-                .SetMessageTextColor(Color.Black)
-            );
-        }
-
-
         public override IDisposable Toast(ToastConfig config)
         {
             ToastPrompt toast = null;
@@ -273,7 +250,7 @@ namespace Acr.UserDialogs
                     MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
                 };
                 if (config.Icon != null)
-                    toast.ImageSource = config.Icon.ToNative();
+                    toast.ImageSource = new BitmapImage(new Uri(config.Icon));
 
                 if (config.MessageTextColor != null)
                     toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
@@ -391,45 +368,7 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void Show(IBitmap image, string message, Color bgColor, int timeoutMillis)
-        {
-            var stack = new StackPanel
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Opacity = 0.7
-            };
-            if (image != null)
-            {
-                var source = image.ToNative();
-                stack.Children.Add(new Image { Source = source });
-            }
-            stack.Children.Add(new TextBlock
-            {
-                Text = message,
-                FontSize = 24f,
-                TextAlignment = TextAlignment.Center,
-                FontWeight = FontWeights.Bold
-            });
-
-            var cd = new ContentDialog
-            {
-                Background = new SolidColorBrush(bgColor.ToNative()),
-                BorderBrush = new SolidColorBrush(bgColor.ToNative()),
-                Content = stack
-            };
-            stack.Tapped += (sender, args) => cd.Hide();
-
-            this.Dispatch(() => cd.ShowAsync());
-            Task.Delay(TimeSpan.FromMilliseconds(timeoutMillis))
-                .ContinueWith(x => this.Dispatch(cd.Hide));
-        }
-
-
-        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
-        {
-            return new ProgressDialog(config);
-        }
+        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config);
 
 
         protected virtual void Dispatch(Action action)
