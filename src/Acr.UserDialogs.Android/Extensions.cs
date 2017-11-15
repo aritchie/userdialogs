@@ -11,6 +11,20 @@ namespace Acr.UserDialogs
         public static Color ToNative(this System.Drawing.Color This) => new Color(This.R, This.G, This.B, This.A);
 
 
+        //public static void RequestMainThread(Action action)
+        //{
+        //    if (Application.SynchronizationContext == SynchronizationContext.Current)
+        //        action();
+        //    else
+        //        Application.SynchronizationContext.Post(x => {
+        //            try
+        //            {
+        //                action();
+        //            }
+        //            catch { }
+        //        }, null);
+        //}
+
         //static readonly Dictionary<string, int> drawableList;
 
         //static PlatformBitmapLoader()
@@ -23,7 +37,7 @@ namespace Acr.UserDialogs
 
         //    drawableList = resources.GetNestedType("Drawable").GetFields()
         //        .Where(x => x.FieldType == typeof(int))
-                //.ToDictionary(k => k.Name, v => (int)v.GetRawConstantValue());
+        //.ToDictionary(k => k.Name, v => (int)v.GetRawConstantValue());
         public static Bitmap LoadBitmap(string resourceName)
         {
             //new DrawableBitmap(res.GetDrawable(id));
