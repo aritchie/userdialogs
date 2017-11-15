@@ -1,13 +1,14 @@
 ﻿# ACR User Dialogs for Xamarin and Windows
 
 ## AS OF v6.5 - USER DIALOGS IS NETSTANDARD - https://docs.microsoft.com/en-us/dotnet/standard/library 
+## AS OF v7.0 - USER DIALOGS IS NETSTANDARD 2.0 AND ANDROID SUPPORT LIBRARIES (v25.4.0.2, but not v26)
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
 Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
 
-[Change Log - May 27, 2017](docs/changelog.md)
+[Change Log - November 15, 2017](docs/changelog.md)
 
 ### Features
 
@@ -32,9 +33,7 @@ _Docs are a work in progress (looking for help!)
 * iOS 8+
 * Android
 * Universal Windows Platform (Win10/UWP)
-* NET Standard 1.1
-
-* macOS & tvOS - coming soon
+* NET Standard 2.x
 
 
 ## Setup
@@ -55,7 +54,7 @@ To use, simply reference the nuget package in each of your platform projects.
 
 ### MvvmCross
 
-    // from your PCL app.cs (remember to Init on android platform project)
+    // from your NetStandard app.cs (remember to Init on android platform project)
     Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
 
