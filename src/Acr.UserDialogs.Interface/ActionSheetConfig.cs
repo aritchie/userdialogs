@@ -24,6 +24,13 @@ namespace Acr.UserDialogs
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
 
         /// <summary>
+        /// iOS only: Gets or sets the popover anchor rectangle.
+        /// If null (default) option is not used.
+        /// </summary>
+        /// <value>The source object rect.</value>
+        public ActionSheetSourceRect SourceRect { get; set; } = null;
+
+        /// <summary>
         /// This only currently applies to android
         /// </summary>
         public bool UseBottomSheet { get; set; } = DefaultUseBottomSheet;
