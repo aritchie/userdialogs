@@ -236,6 +236,8 @@ namespace Acr.UserDialogs
         protected virtual UIAlertController CreateNativeActionSheet(ActionSheetConfig config)
         {
             var sheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
+            if (config.SourceRect != null && sheet.PopoverPresentationController != null)
+                sheet.PopoverPresentationController.SourceRect = new CGRect(config.SourceRect.X, config.SourceRect.Y, config.SourceRect.Width, config.SourceRect.Height);
 
             if (config.Destructive != null)
                 this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
