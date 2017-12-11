@@ -3,9 +3,9 @@
  - [] iOS
  - [] Android
  - [] UWP
- - [] NET Standard 1.1
+ - [] NET Standard 2.0
 
-## Version of OS(s) listed above with issue
+## Version of OS(s) listed above with issue (if android - please include version of Xamarin.Android.Support.* you are using)
 
 
 ## Version of ACR UserDialogs Library
@@ -19,7 +19,7 @@ _If applicable, please include entire exception - type, message, stacktrace_
 
 
 ## Code of Conduct
-* No Library Update Requests
+* No Library Update Requests - THIS ESPECIALLY MEANS ANDROID SUPPORT LIBRARIES
 * No Timeline Requests
 * Please read through the documentation and FAQs
 * Please be respectful of my time. I put a lot of effort into my libraries.  I try to support the issue requests within a day.  I'm not psychic, so please take the time to fill out the above form as complete as possible

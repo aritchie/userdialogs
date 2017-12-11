@@ -7,37 +7,6 @@ using Android.Views;
 
 namespace Acr.UserDialogs.Fragments
 {
-    public class DateDialogFragment : AbstractDialogFragment<DatePromptConfig>
-    {
-        protected override void OnKeyPress(object sender, DialogKeyEventArgs args)
-        {
-            base.OnKeyPress(sender, args);
-            if (args.KeyCode != Keycode.Back)
-                return;
-
-            args.Handled = true;
-            if (this.Config.IsCancellable)
-            {
-                this.Config?.OnAction?.Invoke(new DatePromptResult(false, DateTime.MinValue));
-                this.Dismiss();
-            }
-        }
-
-
-        protected override void SetDialogDefaults(Dialog dialog)
-        {
-            base.SetDialogDefaults(dialog);
-            dialog.Window.SetSoftInputMode(SoftInput.StateHidden);
-        }
-
-
-        protected override Dialog CreateDialog(DatePromptConfig config)
-        {
-            return DatePromptBuilder.Build(this.Activity, config);
-        }
-    }
-
-
     public class DateAppCompatDialogFragment : AbstractAppCompatDialogFragment<DatePromptConfig>
     {
         protected override void OnKeyPress(object sender, DialogKeyEventArgs args)

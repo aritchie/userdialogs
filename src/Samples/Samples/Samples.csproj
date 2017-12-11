@@ -1,62 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard1.1</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
+
     <ItemGroup>
-      <EmbeddedResource Include="Pages\MainPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Include="Pages\ProgressPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Include="Pages\SettingsPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Include="Pages\SpecificCasesPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Include="Pages\StandardPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Include="Pages\ToastsPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
+        <PackageReference Include="Xamarin.Forms" Version="2.4.0.74863" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Splat" Version="2.0.0" />
-        <PackageReference Include="Xamarin.Forms" Version="2.3.5.239-pre3" />
+        <Folder Include="Properties\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Properties\" />
+        <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
+        <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Pages\MainPage.xaml.cs">
-        <DependentUpon>MainPage.xaml</DependentUpon>
-      </Compile>
-      <Compile Update="Pages\ProgressPage.xaml.cs">
-        <DependentUpon>ProgressPage.xaml</DependentUpon>
-      </Compile>
-      <Compile Update="Pages\SettingsPage.xaml.cs">
-        <DependentUpon>SettingsPage.xaml</DependentUpon>
-      </Compile>
-      <Compile Update="Pages\SpecificCasesPage.xaml.cs">
-        <DependentUpon>SpecificCasesPage.xaml</DependentUpon>
-      </Compile>
-      <Compile Update="Pages\StandardPage.xaml.cs">
-        <DependentUpon>StandardPage.xaml</DependentUpon>
-      </Compile>
-      <Compile Update="Pages\ToastsPage.xaml.cs">
-        <DependentUpon>ToastsPage.xaml</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
-      <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
+        <PackageReference Update="NETStandard.Library" Version="2.0.1" />
     </ItemGroup>
 </Project>

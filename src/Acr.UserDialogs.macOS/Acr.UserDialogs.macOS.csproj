@@ -73,10 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library">
-      <Version>1.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="Splat">
-      <Version>2.0.0</Version>
+      <Version>2.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems" Label="Shared" />

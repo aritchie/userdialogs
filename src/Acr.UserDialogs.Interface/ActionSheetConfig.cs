@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Splat;
 
 
 namespace Acr.UserDialogs
@@ -13,7 +12,7 @@ namespace Acr.UserDialogs
 
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static string DefaultDestructiveText { get; set; } = "Remove";
-        public static IBitmap DefaultItemIcon { get; set; }
+        public static string DefaultItemIcon { get; set; }
 
 
         public string Title { get; set; }
@@ -31,7 +30,7 @@ namespace Acr.UserDialogs
         /// <summary>
         /// This icon is applied to the list items, not to destructive or cancel
         /// </summary>
-        public IBitmap ItemIcon { get; set; } = DefaultItemIcon;
+        public string ItemIcon { get; set; } = DefaultItemIcon;
 
 
         public ActionSheetConfig SetTitle(string title)
@@ -48,14 +47,14 @@ namespace Acr.UserDialogs
         }
 
 
-        public ActionSheetConfig SetCancel(string text = null, Action action = null, IBitmap icon = null)
+        public ActionSheetConfig SetCancel(string text = null, Action action = null, string icon = null)
         {
             this.Cancel = new ActionSheetOption(text ?? DefaultCancelText, action, icon);
             return this;
         }
 
 
-        public ActionSheetConfig SetDestructive(string text = null, Action action = null, IBitmap icon = null)
+        public ActionSheetConfig SetDestructive(string text = null, Action action = null, string icon = null)
         {
             this.Destructive = new ActionSheetOption(text ?? DefaultDestructiveText, action, icon);
             return this;
@@ -69,7 +68,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public ActionSheetConfig Add(string text, Action action = null, IBitmap icon = null)
+        public ActionSheetConfig Add(string text, Action action = null, string icon = null)
         {
             this.Options.Add(new ActionSheetOption(text, action, icon));
             return this;

@@ -4,7 +4,6 @@ using UIKit;
 #endif
 #if __ANDROID__
 using Android.App;
-using Acr.Support.Android;
 #endif
 
 namespace Acr.UserDialogs 

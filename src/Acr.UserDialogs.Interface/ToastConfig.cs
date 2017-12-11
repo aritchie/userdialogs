@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using Splat;
+
 
 namespace Acr.UserDialogs
 {
@@ -34,7 +34,7 @@ namespace Acr.UserDialogs
         public ToastPosition? Position { get; set; } = DefaultPosition;
         public TimeSpan Duration { get; set; } = DefaultDuration;
         public ToastAction Action { get; set; }
-        public IBitmap Icon { get; set; }
+        public string Icon { get; set; }
 
 
         public ToastConfig(string message)
@@ -91,7 +91,8 @@ namespace Acr.UserDialogs
             return this;
         }
 
-        public ToastConfig SetIcon(IBitmap icon)
+
+        public ToastConfig SetIcon(string icon)
         {
             this.Icon = icon;
             return this;

@@ -11,8 +11,8 @@
     <AssemblyName>Acr.UserDialogs</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -119,6 +119,7 @@
     <Compile Include="ActionSheetOptionViewModel.cs" />
     <Compile Include="ActionSheetViewModel.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="TimePickerControl.xaml.cs">
       <DependentUpon>TimePickerControl.xaml</DependentUpon>
     </Compile>
@@ -172,10 +173,7 @@
       <Version>2.1.8</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.3.3</Version>
-    </PackageReference>
-    <PackageReference Include="Splat">
-      <Version>2.0.0</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems" Label="Shared" />

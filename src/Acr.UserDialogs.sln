@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Acr.UserDialogs.Shared", "Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.shproj", "{46B432F2-8BD9-4347-91C3-C8B08938BE48}"
 EndProject
@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\nuspec\Acr.UserDialogs.nuspec = ..\nuspec\Acr.UserDialogs.nuspec
 		..\build.cake = ..\build.cake
 		..\build.cmd = ..\build.cmd
+		..\nuspec\nuget.exe = ..\nuspec\nuget.exe
 		..\nuspec\pack.cmd = ..\nuspec\pack.cmd
 		..\nuspec\Plugin.UserDialogs.nuspec = ..\nuspec\Plugin.UserDialogs.nuspec
 		..\nuspec\push.cmd = ..\nuspec\push.cmd
@@ -651,5 +652,8 @@ Global
 		{CCA8B1CA-C9C6-4441-BC45-B3A95EDB43FA} = {48F9B619-4D7C-482C-9C09-56BD8D78D0FF}
 		{8A0FC475-221D-4FE0-8308-3F703DC08F52} = {3CD90FF5-6727-451C-8C90-6D9C752F89D2}
 		{6DF84C8C-CBA6-4BC1-9FB8-1600B189705A} = {48F9B619-4D7C-482C-9C09-56BD8D78D0FF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B1F6ED4-0EBD-41B6-9D15-7FE46CF1021E}
 	EndGlobalSection
 EndGlobal

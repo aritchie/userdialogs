@@ -7,7 +7,6 @@ using Android.Support.Design.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Splat;
 using Orientation = Android.Widget.Orientation;
 
 
@@ -137,7 +136,7 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
-        protected virtual ImageView GetIcon(IBitmap icon)
+        protected virtual ImageView GetIcon(string icon)
         {
             var layout = new LinearLayout.LayoutParams(this.DpToPixels(24), this.DpToPixels(24))
             {
@@ -152,8 +151,9 @@ namespace Acr.UserDialogs.Fragments
             {
                 LayoutParameters = layout
             };
-            if (icon != null)
-                img.SetImageDrawable(icon.ToNative());
+            // TODO: icon load
+            //if (icon != null)
+            //    img.SetImageDrawable(icon.ToNative());
 
             return img;
         }

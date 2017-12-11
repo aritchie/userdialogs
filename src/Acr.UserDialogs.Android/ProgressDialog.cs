@@ -110,13 +110,16 @@ namespace Acr.UserDialogs
             if (this.config.OnCancel != null)
                 txt += "\n" + this.config.CancelText;
 
-            AndHUD.Shared.Show(
-                this.activity,
-                txt,
-                p,
-                this.config.MaskType.ToNative(),
-                null,
-                this.OnCancelClick
+            // I'll help out andhud here
+            this.activity.SafeRunOnUi(() =>
+                AndHUD.Shared.Show(
+                    this.activity,
+                    txt,
+                    p,
+                    this.config.MaskType.ToNative(),
+                    null,
+                    this.OnCancelClick
+                )
             );
         }
 

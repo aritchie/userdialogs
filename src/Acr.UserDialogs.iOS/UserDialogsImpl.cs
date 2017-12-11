@@ -4,9 +4,6 @@ using System.Text;
 using UIKit;
 using CoreGraphics;
 using Foundation;
-using Acr.Support.iOS;
-using BigTed;
-using Splat;
 using TTG;
 
 
@@ -165,25 +162,13 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void ShowImage(IBitmap image, string message, int timeoutMillis)
-            => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis);
-
-
-        public override void ShowError(string message, int timeoutMillis)
-            => BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis);
-
-
-        public override void ShowSuccess(string message, int timeoutMillis)
-            => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis);
-
-
         IDisposable currentToast;
         public override IDisposable Toast(ToastConfig cfg)
         {
             this.currentToast?.Dispose();
 
             var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
+            app.SafeInvokeOnMainThread(() =>
             {
                 //var snackbar = new TTGSnackbar(cfg.Message)
                 var snackbar = new TTGSnackbar
@@ -194,7 +179,7 @@ namespace Acr.UserDialogs
                     ShowOnTop = cfg.Position == ToastPosition.Top
                 };
                 if (cfg.Icon != null)
-                    snackbar.Icon = cfg.Icon.ToNative();
+                    snackbar.Icon = UIImage.FromBundle(cfg.Icon);
 
                 if (cfg.BackgroundColor != null)
                     snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
@@ -224,7 +209,7 @@ namespace Acr.UserDialogs
                 snackbar.Show();
 
                 this.currentToast = new DisposableAction(
-                    () => app.InvokeOnMainThread(() => snackbar.Dismiss())
+                    () => app.SafeInvokeOnMainThread(() => snackbar.Dismiss())
                 );
             });
             return this.currentToast;
@@ -238,7 +223,7 @@ namespace Acr.UserDialogs
             var sheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
 
             if (config.Destructive != null)
-                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
+                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive, config.ItemIcon);
 
             config
                 .Options
@@ -246,21 +231,23 @@ namespace Acr.UserDialogs
                 .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
 
             if (config.Cancel != null)
-                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
+                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel, config.ItemIcon);
 
             return sheet;
         }
 
-        protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
+        protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, string imageName)
         {
             var alertAction = UIAlertAction.Create(opt.Text, style, x => opt.Action?.Invoke());
 
-            if (opt.ItemIcon == null && image != null)
-                opt.ItemIcon = image;
+            if (opt.ItemIcon == null && imageName != null)
+                opt.ItemIcon = imageName;
 
             if (opt.ItemIcon != null)
-                alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new NSString("image"));
-
+            {
+                var icon = UIImage.FromBundle(opt.ItemIcon);
+                alertAction.SetValueForKey(icon, new NSString("image"));
+            }
             controller.AddAction(alertAction);
         }
 
@@ -272,7 +259,7 @@ namespace Acr.UserDialogs
         {
             UIAlertController alert = null;
             var app = UIApplication.SharedApplication;
-            app.InvokeOnMainThread(() =>
+            app.SafeInvokeOnMainThread(() =>
             {
                 alert = alertFunc();
                 var top = this.viewControllerFunc();
@@ -288,14 +275,7 @@ namespace Acr.UserDialogs
                 }
                 top.PresentViewController(alert, true, null);
             });
-            return new DisposableAction(() =>
-            {
-                try
-                {
-                    app.InvokeOnMainThread(() => alert.DismissViewController(true, null));
-                }
-                catch { }
-            });
+            return new DisposableAction(() => app.SafeInvokeOnMainThread(() => alert.DismissViewController(true, null)));
         }
 
 
@@ -304,15 +284,8 @@ namespace Acr.UserDialogs
             var app = UIApplication.SharedApplication;
             var top = this.viewControllerFunc();
 
-            app.InvokeOnMainThread(() => top.PresentViewController(controller, true, null));
-            return new DisposableAction(() =>
-            {
-                try
-                {
-                    app.InvokeOnMainThread(() => controller.DismissViewController(true, null));
-                }
-                catch { }
-            });
+            app.SafeInvokeOnMainThread(() => top.PresentViewController(controller, true, null));
+            return new DisposableAction(() => app.SafeInvokeOnMainThread(() => controller.DismissViewController(true, null)));
         }
 
 
