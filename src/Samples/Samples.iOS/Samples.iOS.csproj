@@ -104,18 +104,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Acr.UserDialogs.iOS\Acr.UserDialogs.iOS.csproj">
-      <Project>{DFA982A2-F6F7-4FFD-9F86-A1AF11F7C4A1}</Project>
-      <Name>Acr.UserDialogs.iOS</Name>
-      <IsAppExtension>False</IsAppExtension>
+    <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj">
+      <Project>{ad34aa53-f275-4f18-a51c-9809c4e1f3bc}</Project>
+      <Name>Acr.UserDialogs</Name>
     </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
       <Name>Samples</Name>
       <Project>{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
-      <Project>{6A0AE941-711D-4C36-A311-960B65534B22}</Project>
-      <Name>Acr.UserDialogs.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

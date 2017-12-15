@@ -1,30 +1,79 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0</TargetFrameworks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
+        <Authors>Allan Ritchie</Authors>
+        <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
+        <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
+        <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DefineConstants>TRACE;BAIT</DefineConstants>
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+        <DefineConstants>$(DefineConstants);NETSTANDARD;BAIT</DefineConstants>
+        <Product>Acr.UserDialogs - .NET Standard 2</Product>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <DefineConstants>TRACE;DEBUG;BAIT</DefineConstants>
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' OR  '$(TargetFramework)' == 'MonoAndroid80' ">
+        <!--<TargetFrameworkVersion>v8.0</TargetFrameworkVersion>-->
+        <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
+        <Product>Acr.UserDialogs - Android</Product>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+        <DefineConstants>$(DefineConstants);__IOS__</DefineConstants>
+        <Product>Acr.UserDialogs - iOS</Product>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+        <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+        <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+        <DefineConstants>$(DefineConstants);WINDOWS_UWP</DefineConstants>
+        <Product>Acr.UserDialogs - UWP</Product>
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Include="..\Acr.UserDialogs.Shared\AssemblyInfo.cs">
-        <Link>AssemblyInfo.cs</Link>
-      </Compile>
-      <Compile Include="..\Acr.UserDialogs.Shared\UserDialogs.cs">
-        <Link>UserDialogs.cs</Link>
-      </Compile>
+        <Compile Remove="Platforms\**\*.cs" />
+        <None Include="Platforms\**\*.cs" />
+        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="all" />
     </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'portable-net45+win8+wpa81+wp8' ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
     </ItemGroup>
-    <ItemGroup>
-      <PackageReference Update="NETStandard.Library" Version="2.0.1" />
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Android\**\*.cs" />
+        <PackageReference Include="AndHUD" Version="1.2.0" />
+        <PackageReference Include="Acr.Support" Version="2.1.0" />
+        <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
     </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid80' ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Android\**\*.cs" />
+        <PackageReference Include="AndHUD" Version="1.2.0" />
+        <PackageReference Include="Acr.Support" Version="2.1.0" />
+        <PackageReference Include="Xamarin.Android.Support.Design" Version="26.1.0.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\ios\**\*.cs" />
+        <PackageReference Include="Acr.Support" Version="2.1.0" />
+        <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Uwp\**\*.cs" />
+        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.5" />
+        <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
+    </ItemGroup>
+
+    <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
