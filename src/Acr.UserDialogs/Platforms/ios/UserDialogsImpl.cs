@@ -4,8 +4,6 @@ using System.Text;
 using UIKit;
 using CoreGraphics;
 using Foundation;
-using Acr.Support.iOS;
-using BigTed;
 using TTG;
 
 
@@ -225,7 +223,7 @@ namespace Acr.UserDialogs
             var sheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
 
             if (config.Destructive != null)
-                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
+                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive, config.ItemIcon);
 
             config
                 .Options
@@ -233,7 +231,7 @@ namespace Acr.UserDialogs
                 .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
 
             if (config.Cancel != null)
-                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
+                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel, config.ItemIcon);
 
             return sheet;
         }
