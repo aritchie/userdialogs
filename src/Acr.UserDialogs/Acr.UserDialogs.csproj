@@ -30,6 +30,7 @@
     <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
         <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
         <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+        <GenerateLibraryLayout>true</GenerateLibraryLayout>
         <DefineConstants>$(DefineConstants);WINDOWS_UWP</DefineConstants>
         <Product>Acr.UserDialogs - UWP</Product>
     </PropertyGroup>

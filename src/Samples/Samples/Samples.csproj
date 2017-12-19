@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
+      <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
     </ItemGroup>
 
     <ItemGroup>
