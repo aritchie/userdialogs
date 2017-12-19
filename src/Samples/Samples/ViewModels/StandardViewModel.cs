@@ -76,6 +76,17 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Confirm (Html text)",
+                    Command = this.Create(async token =>
+                    {
+                        string htmlMessage = "<i><font color='blue'><b>Lorem ipsum</b> dolor sit amet, ne ius civibus atomorum urbanitas, agam omnesque maiestatis in his, his impetus rationibus ut. </font></i>";
+                        var r = await this.Dialogs.ConfirmAsync(htmlMessage, "Pick Title", true, cancelToken: token);
+                        var text = r ? "Yes" : "No";
+                        this.Result($"Confirmation Choice: {text}");
+                    })
+                },
+                new CommandViewModel
+                {
                     Text = "Login",
                     Command = this.Create(async token =>
                     {

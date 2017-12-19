@@ -15,6 +15,7 @@ namespace Acr.UserDialogs
 
         public string Title { get; set; }
         public string Message { get; set; }
+        public bool IsHtmlText { get; set; }
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
         public Action<bool> OnAction { get; set; }
 
@@ -40,6 +41,12 @@ namespace Acr.UserDialogs
         public ConfirmConfig SetMessage(string message)
         {
             this.Message = message;
+            return this;
+        }
+
+        public ConfirmConfig SetIsHtmlText(bool isHtmlText)
+        {
+            this.IsHtmlText = isHtmlText;
             return this;
         }
 
