@@ -146,7 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.1</Version>
+      <Version>6.0.5</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>2.4.0.74863</Version>

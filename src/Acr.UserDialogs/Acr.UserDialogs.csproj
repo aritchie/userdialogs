@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299</TargetFrameworks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
@@ -27,7 +27,7 @@
         <Product>Acr.UserDialogs - iOS</Product>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
         <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
         <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
         <DefineConstants>$(DefineConstants);WINDOWS_UWP</DefineConstants>
@@ -47,30 +47,74 @@
     <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
+        <PackageReference Include="NETStandard.Library" Version="2.0.1" />
         <PackageReference Include="AndHUD" Version="1.2.0" />
-        <PackageReference Include="Acr.Support" Version="2.1.0" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid80' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
+        <PackageReference Include="NETStandard.Library" Version="2.0.1" />
         <PackageReference Include="AndHUD" Version="1.2.0" />
-        <PackageReference Include="Acr.Support" Version="2.1.0" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="26.1.0.1" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
-        <PackageReference Include="Acr.Support" Version="2.1.0" />
+        <Reference Include="OpenTK-1.0" />
+        <PackageReference Include="NETStandard.Library" Version="2.0.1" />
         <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+    <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Uwp\**\*.cs" />
+        <Compile Include="Platforms\Uwp\ActionSheetContentDialog.xaml.cs">
+            <DependentUpon>Platforms\Uwp\ActionSheetContentDialog.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Platforms\Uwp\ActionSheetOptionViewModel.cs" />
+        <Compile Include="Platforms\Uwp\ActionSheetViewModel.cs" />
+        <Compile Include="Platforms\Uwp\Command.cs" />
+        <Compile Include="Platforms\Uwp\Extensions.cs" />
+        <Compile Include="Platforms\Uwp\TimePickerControl.xaml.cs">
+            <DependentUpon>Platforms\Uwp\TimePickerControl.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Platforms\Uwp\DatePickerControl.xaml.cs">
+            <DependentUpon>Platforms\Uwp\DatePickerControl.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Platforms\Uwp\LoginContentDialog.xaml.cs">
+            <DependentUpon>Platforms\Uwp\LoginContentDialog.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Platforms\Uwp\LoginViewModel.cs" />
+        <Compile Include="Platforms\Uwp\ProgressContentDialog.xaml.cs">
+            <DependentUpon>Platforms\Uwp\ProgressContentDialog.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Platforms\Uwp\ProgressDialog.cs" />
+        <Compile Include="Platforms\Uwp\UserDialogsImpl.cs" />
         <EmbeddedResource Include="Platforms\Uwp\Acr.UserDialogs.rd.xml" />
+
+        <Page Include="Platforms\Uwp\ActionSheetContentDialog.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="Platforms\Uwp\TimePickerControl.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Include="Platforms\Uwp\DatePickerControl.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="Platforms\Uwp\LoginContentDialog.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Include="Platforms\Uwp\ProgressContentDialog.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <!--<PackageReference Include="NETStandard.Library" Version="2.0.1" />-->
         <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.5" />
         <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
     </ItemGroup>

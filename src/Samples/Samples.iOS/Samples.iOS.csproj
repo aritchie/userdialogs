@@ -133,6 +133,7 @@
     <BundleResource Include="Resources\emoji_cool_small%402x.png" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="OpenTK-1.0" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
