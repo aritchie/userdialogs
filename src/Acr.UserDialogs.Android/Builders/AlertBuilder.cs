@@ -1,4 +1,5 @@
 using System;
+using Acr.UserDialogs.Utils;
 using Android.App;
 using Android.Support.V7.App;
 using AlertDialog = Android.App.AlertDialog;
@@ -19,8 +20,7 @@ namespace Acr.UserDialogs.Builders
 
             return new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
-                .SetMessage(config.Message)
-                .SetTitle(config.Title)
+                .SetView(AlertDialogUtils.GetContentView(activity, config.Title, config.Message))
                 .SetPositiveButton(config.OkText, (o, e) => config.OnAction?.Invoke())
                 .Create();
         }
@@ -30,8 +30,7 @@ namespace Acr.UserDialogs.Builders
         {
             return new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
-                .SetMessage(config.Message)
-                .SetTitle(config.Title)
+                .SetView(AlertDialogUtils.GetContentView(activity, config.Title, config.Message))
                 .SetPositiveButton(config.OkText, (o, e) => config.OnAction?.Invoke())
                 .Create();
         }

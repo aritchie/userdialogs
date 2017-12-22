@@ -162,13 +162,12 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<bool> ConfirmAsync(string message, string title, bool isHtmlText, string okText, string cancelText, CancellationToken? cancelToken = null)
+        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
         {
             return this.ConfirmAsync(new ConfirmConfig
             {
                 Message = message,
                 Title = title,
-                IsHtmlText = isHtmlText,
                 CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
                 OkText = okText ?? ConfirmConfig.DefaultOkText
             }, cancelToken);

@@ -8,7 +8,7 @@ using Acr.Support.iOS;
 using BigTed;
 using Splat;
 using TTG;
-
+using Acr.UserDialogs.Utils;
 
 namespace Acr.UserDialogs
 {
@@ -16,6 +16,7 @@ namespace Acr.UserDialogs
     {
         readonly Func<UIViewController> viewControllerFunc;
 
+        readonly float AlertViewPadding = 20;
 
         public UserDialogsImpl() : this(() => UIApplication.SharedApplication.GetTopViewController())
         {
@@ -30,8 +31,17 @@ namespace Acr.UserDialogs
 
         public override IDisposable Alert(AlertConfig config) => this.Present(() =>
         {
-            var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+            var alert = UIAlertController.Create(null, null, UIAlertControllerStyle.Alert);
             alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke()));
+            try
+            {
+                alert.SetValueForKey(GetVCWitHLabel(config.Title, config.Message), (NSString)((string)"contentViewController"));
+            }
+            catch (MonoTouchException)
+            {
+                alert.Title = config.Title ?? String.Empty;
+                alert.Message = config.Message;
+            }
             return alert;
         });
 
@@ -41,12 +51,70 @@ namespace Acr.UserDialogs
 
         public override IDisposable Confirm(ConfirmConfig config) => this.Present(() =>
         {
-            var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+            var dlg = UIAlertController.Create(null, null, UIAlertControllerStyle.Alert);
             dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(false)));
             dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(true)));
+            try 
+            {
+                dlg.SetValueForKey(GetVCWitHLabel(config.Title, config.Message), (NSString)((string)"contentViewController"));
+            }
+            catch (MonoTouchException)
+            {
+                dlg.Title = config.Title ?? String.Empty;
+                dlg.Message = config.Message;
+            }
+
             return dlg;
         });
 
+        UIViewController GetVCWitHLabel(string title, string message)
+        {
+            nfloat maxWidth = AlertUtils.GetAlertWidth();        
+
+            UIViewController viewController = new UIViewController();
+
+            UILabel titleLabel = GetLabel($"<b>{title}</b>", UIFont.SystemFontOfSize(18), maxWidth, AlertViewPadding); 
+            UILabel messageLabel = GetLabel(message, UIFont.SystemFontOfSize(13), maxWidth, AlertViewPadding + titleLabel.Frame.Height); 
+
+            viewController.View.AddSubview(titleLabel);
+            viewController.View.AddSubview(messageLabel);
+
+            nfloat alertViewHeight = titleLabel.Frame.Height + messageLabel.Frame.Height + 2 * AlertViewPadding;
+
+            NSLayoutConstraint.Create(viewController.View, NSLayoutAttribute.Height, NSLayoutRelation.Equal, null, 
+                                      NSLayoutAttribute.NoAttribute, 1.0f, alertViewHeight).Active = true;
+
+            return viewController;
+        }
+
+        UILabel GetLabel(string text, UIFont font, nfloat maxWidth, nfloat posY)
+        {
+            UILabel label = new UILabel();
+
+            if (string.IsNullOrEmpty(text))
+            {
+                return label;
+            }
+
+            label.Font = font;
+
+            text = $"<style> body{{font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size:{label.Font.PointSize}; }}</style> {text}";
+
+            NSError error = null;
+            var attributedString = new NSAttributedString(text,
+                                   new NSAttributedStringDocumentAttributes { DocumentType = NSDocumentType.HTML },
+                                   ref error);
+
+            label.Lines = 0;
+            label.LineBreakMode = UILineBreakMode.WordWrap;
+            label.AttributedText = attributedString;
+            label.TextAlignment = UITextAlignment.Center;
+
+            CGSize labelSize = label.TextRectForBounds(new CGRect(new CGPoint(AlertViewPadding, 0), new CGSize(maxWidth - 2 * AlertViewPadding, float.MaxValue)), 0).Size;
+            label.Frame = new CGRect(new CGPoint(AlertViewPadding, posY), new CGSize(maxWidth - 2 * AlertViewPadding, labelSize.Height));
+
+            return label;
+        }
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
