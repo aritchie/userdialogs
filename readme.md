@@ -1,7 +1,4 @@
-﻿# ACR User Dialogs for Xamarin and Windows
-
-## AS OF v6.5 - USER DIALOGS IS NETSTANDARD - https://docs.microsoft.com/en-us/dotnet/standard/library 
-## AS OF v7.0 - USER DIALOGS IS NETSTANDARD 2.0 AND ANDROID SUPPORT LIBRARIES (v25.4.0.2, but not v26)
+﻿# <img src="icon.png" width="71" height="71"/> ACR User Dialogs for Xamarin and Windows
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
 Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
@@ -66,3 +63,7 @@ To use, simply reference the nuget package in each of your platform projects.
 * iOS - Date/Time Picker powered by AIDatePicker ported by @MarcBruins (https://github.com/MarcBruins/AIDatePickerController-Xamarin-iOS)
 * UWP - Coding4Fun Toolkit (http://coding4fun.codeplex.com)
 * Splat - Provides a nice layer of xplat stuff by @paulcbetts (https://github.com/paulcbetts) 
+
+## Contributors
+
+* **[Jelle Damen](https://twitter.com/JelleDamen)** for the wonderful icons
