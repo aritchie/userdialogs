@@ -3,7 +3,7 @@
 ## AS OF v6.5 - USER DIALOGS IS NETSTANDARD - https://docs.microsoft.com/en-us/dotnet/standard/library 
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
-Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
+Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
 
@@ -33,6 +33,7 @@ _Docs are a work in progress (looking for help!)
 * Android
 * Universal Windows Platform (Win10/UWP)
 * NET Standard 1.1
+* Tizen 4.0+
 
 * macOS & tvOS - coming soon
 
