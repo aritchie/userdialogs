@@ -33,15 +33,25 @@ namespace Acr.UserDialogs
         {
             var alert = UIAlertController.Create(null, null, UIAlertControllerStyle.Alert);
             alert.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke()));
-            try
+
+            if (config.IsHtmlFormat)
             {
-                alert.SetValueForKey(GetVCWitHLabel(config.Title, config.Message), (NSString)((string)"contentViewController"));
+                try
+                {
+                    alert.SetValueForKey(GetVCWitHLabel(config.Title, config.Message), (NSString)((string)"contentViewController"));
+                }
+                catch (MonoTouchException)
+                {
+                    alert.Title = config.Title ?? String.Empty;
+                    alert.Message = config.Message;
+                }
             }
-            catch (MonoTouchException)
+            else 
             {
                 alert.Title = config.Title ?? String.Empty;
                 alert.Message = config.Message;
             }
+
             return alert;
         });
 
@@ -54,11 +64,20 @@ namespace Acr.UserDialogs
             var dlg = UIAlertController.Create(null, null, UIAlertControllerStyle.Alert);
             dlg.AddAction(UIAlertAction.Create(config.CancelText, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(false)));
             dlg.AddAction(UIAlertAction.Create(config.OkText, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(true)));
-            try 
+
+            if (config.IsHtmlFormat)
             {
-                dlg.SetValueForKey(GetVCWitHLabel(config.Title, config.Message), (NSString)((string)"contentViewController"));
+                try
+                {
+                    dlg.SetValueForKey(GetVCWitHLabel(config.Title, config.Message), (NSString)((string)"contentViewController"));
+                }
+                catch (MonoTouchException)
+                {
+                    dlg.Title = config.Title ?? String.Empty;
+                    dlg.Message = config.Message;
+                }
             }
-            catch (MonoTouchException)
+            else
             {
                 dlg.Title = config.Title ?? String.Empty;
                 dlg.Message = config.Message;

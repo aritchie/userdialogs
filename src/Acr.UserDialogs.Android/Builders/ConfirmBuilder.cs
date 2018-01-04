@@ -20,7 +20,9 @@ namespace Acr.UserDialogs.Builders
         {
             return new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
-                .SetView(AlertDialogUtils.GetContentView(activity, config.Title, config.Message))
+                .SetTitle(!config.IsHtmlFormat ? config.Title : null)
+                .SetMessage(!config.IsHtmlFormat ? config.Message : null)
+                .SetView(config.IsHtmlFormat ? AlertDialogUtils.GetContentView(activity, config.Title, config.Message) : null)
                 .SetPositiveButton(config.OkText, (s, a) => config.OnAction(true))
                 .SetNegativeButton(config.CancelText, (s, a) => config.OnAction(false))
                 .Create();
@@ -31,7 +33,9 @@ namespace Acr.UserDialogs.Builders
         {
             return new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
-                .SetView(AlertDialogUtils.GetContentView(activity, config.Title, config.Message))
+                .SetTitle(!config.IsHtmlFormat ? config.Title : null)
+                .SetMessage(!config.IsHtmlFormat ? config.Message : null)
+                .SetView(config.IsHtmlFormat ? AlertDialogUtils.GetContentView(activity, config.Title, config.Message) : null)
                 .SetPositiveButton(config.OkText, (s, a) => config.OnAction(true))
                 .SetNegativeButton(config.CancelText, (s, a) => config.OnAction(false))
                 .Create();

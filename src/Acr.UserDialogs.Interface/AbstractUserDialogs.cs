@@ -51,13 +51,14 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual IDisposable Alert(string message, string title, string okText)
+        public virtual IDisposable Alert(string message, string title, string okText, bool isHtmlFormat)
         {
             return this.Alert(new AlertConfig
             {
                 Message = message,
                 Title = title,
-                OkText = okText ?? AlertConfig.DefaultOkText
+                OkText = okText ?? AlertConfig.DefaultOkText,
+                IsHtmlFormat = isHtmlFormat    
             });
         }
 
@@ -135,13 +136,14 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
+        public virtual Task AlertAsync(string message, string title, string okText, bool isHtmlFormat, CancellationToken? cancelToken = null)
         {
             return this.AlertAsync(new AlertConfig
             {
                 Message = message,
                 Title = title,
-                OkText = okText ?? AlertConfig.DefaultOkText
+                OkText = okText ?? AlertConfig.DefaultOkText,
+                IsHtmlFormat = isHtmlFormat
             }, cancelToken);
         }
 
@@ -162,14 +164,15 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
+        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, bool isHtmlFormat, CancellationToken? cancelToken = null)
         {
             return this.ConfirmAsync(new ConfirmConfig
             {
                 Message = message,
                 Title = title,
                 CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
-                OkText = okText ?? ConfirmConfig.DefaultOkText
+                OkText = okText ?? ConfirmConfig.DefaultOkText,
+                IsHtmlFormat = isHtmlFormat
             }, cancelToken);
         }
 

@@ -10,6 +10,7 @@ namespace Acr.UserDialogs
         public static string DefaultNo { get; set; } = "No";
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
+        public static bool DefaultIsHtmlFormat { get; set; } = false;
         public static int? DefaultAndroidStyleId { get; set; }
 
 
@@ -20,6 +21,7 @@ namespace Acr.UserDialogs
 
         public string OkText { get; set; } = DefaultOkText;
         public string CancelText { get; set; } = DefaultCancelText;
+        public bool IsHtmlFormat { get; set; } = DefaultIsHtmlFormat;
 
 
         public ConfirmConfig UseYesNo()
@@ -60,6 +62,12 @@ namespace Acr.UserDialogs
         public ConfirmConfig SetCancelText(string text)
         {
             this.CancelText = text;
+            return this;
+        }
+
+        public ConfirmConfig SetIsHtmlFormat(bool isHtmlFormat)
+        {
+            this.IsHtmlFormat = isHtmlFormat;
             return this;
         }
     }

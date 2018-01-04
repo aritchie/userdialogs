@@ -2,6 +2,7 @@
 using UIKit;
 namespace Acr.UserDialogs.Utils
 {
+    //TODO check if the values are correct
     public static class AlertUtils
     {
         readonly static nfloat DefaultSpacing = 105.0f;

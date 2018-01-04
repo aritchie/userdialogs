@@ -9,16 +9,16 @@ namespace Acr.UserDialogs
 
     public interface IUserDialogs
     {
-        IDisposable Alert(string message, string title = null, string okText = null);
+        IDisposable Alert(string message, string title = null, string okText = null, bool isHtmlFormat = false);
         IDisposable Alert(AlertConfig config);
-        Task AlertAsync(string message, string title = null, string okText = null, CancellationToken? cancelToken = null);
+        Task AlertAsync(string message, string title = null, string okText = null, bool isHtmlFormat = false, CancellationToken? cancelToken = null);
         Task AlertAsync(AlertConfig config, CancellationToken? cancelToken = null);
 
         IDisposable ActionSheet(ActionSheetConfig config);
         Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons);
 
         IDisposable Confirm(ConfirmConfig config);
-        Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null, CancellationToken? cancelToken = null);
+        Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null, bool isHtmlFormat = false, CancellationToken? cancelToken = null);
         Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null);
 
         IDisposable DatePrompt(DatePromptConfig config);

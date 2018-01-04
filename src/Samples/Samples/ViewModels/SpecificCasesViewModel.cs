@@ -103,9 +103,9 @@ namespace Samples.ViewModels
                         {
                             var cts = new CancellationTokenSource();
 
-                            await this.Dialogs.AlertAsync("Press ok and then wait", "Hi", null, cts.Token);
+                            await this.Dialogs.AlertAsync("Press ok and then wait", "Hi", null, false, cts.Token);
                             cts.CancelAfter(TimeSpan.FromSeconds(3));
-                            await this.Dialogs.AlertAsync("I'll close soon, just wait", "Hi", null, cts.Token);
+                            await this.Dialogs.AlertAsync("I'll close soon, just wait", "Hi", null, false, cts.Token);
                         }
                         catch(OperationCanceledException)
                         {
