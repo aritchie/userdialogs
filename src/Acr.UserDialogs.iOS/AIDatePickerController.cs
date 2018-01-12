@@ -8,6 +8,8 @@ namespace AI
     [Register ("AIDatePickerController")]
 	public class AIDatePickerController : UIViewController, IUIViewControllerAnimatedTransitioning, IUIViewControllerTransitioningDelegate
 	{
+        private UIEdgeInsets safeAreaInsets;
+
         public double AnimatedTransitionDuration { get; set; } = 0.4;
 		public UIDatePickerMode Mode { get; set; } = UIDatePickerMode.Date;
 	    public UIColor BackgroundColor { get; set; } = UIColor.White;
@@ -31,7 +33,9 @@ namespace AI
         {
             //this.ModalPresentationStyle = UIModalPresentationStyle.Custom;
             this.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-            this.TransitioningDelegate = this;            
+            this.TransitioningDelegate = this;        
+
+            SetupSafeAreaInsets();
         }
 
 
@@ -165,8 +169,20 @@ namespace AI
 			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|-5-[DatePickerContainerView]-5-|", 0, null, views));
 			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|-5-[ButtonContainerView]-5-|", 0, null, views));
 
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[DismissButton][DatePickerContainerView]-10-[ButtonContainerView(40)]-5-|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat($"V:|[DismissButton][DatePickerContainerView]-10-[ButtonContainerView(40)]-{5 + safeAreaInsets.Bottom}-|", 0, null, views));
 		}
+
+        private void SetupSafeAreaInsets()
+        {
+            if(UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+            {
+                safeAreaInsets = UIApplication.SharedApplication.KeyWindow.SafeAreaInsets;
+            }
+            else
+            {
+                safeAreaInsets = new UIEdgeInsets();
+            }
+        }
 
 		public double TransitionDuration(IUIViewControllerContextTransitioning transitionContext)
 		{
