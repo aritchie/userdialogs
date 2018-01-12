@@ -5,7 +5,7 @@ Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
 
-[Change Log - November 15, 2017](docs/changelog.md)
+[Change Log - January 15, 2017](docs/changelog.md)
 
 ### Features
 
@@ -30,7 +30,7 @@ _Docs are a work in progress (looking for help!)
 * iOS 8+
 * Android
 * Universal Windows Platform (Win10/UWP)
-* NET Standard 1.1
+* NET Standard 2.0
 * Tizen 4.0+
 
 
