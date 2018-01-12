@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acr.UserDialogs", "Acr.UserDialogs\Acr.UserDialogs.csproj", "{AD34AA53-F275-4F18-A51C-9809C4E1F3BC}"
 EndProject
@@ -383,6 +383,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2B1F6ED4-0EBD-41B6-9D15-7FE46CF1021E}
+		SolutionGuid = {17CCE1B1-75B2-4B32-8BCA-DF55666927A4}
 	EndGlobalSection
 EndGlobal

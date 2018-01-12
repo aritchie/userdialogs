@@ -1,7 +1,7 @@
 ﻿# <img src="icon.png" width="71" height="71"/> ACR User Dialogs for Xamarin and Windows
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
-Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
+Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
 
@@ -30,7 +30,8 @@ _Docs are a work in progress (looking for help!)
 * iOS 8+
 * Android
 * Universal Windows Platform (Win10/UWP)
-* NET Standard 2.x
+* NET Standard 1.1
+* Tizen 4.0+
 
 
 ## Setup
@@ -67,3 +68,4 @@ To use, simply reference the nuget package in each of your platform projects.
 ## Contributors
 
 * **[Jelle Damen](https://twitter.com/JelleDamen)** for the wonderful icons
+* **[Jong Heon Choi](https://github.com/JongHeonChoi)** for the Tizen implementation

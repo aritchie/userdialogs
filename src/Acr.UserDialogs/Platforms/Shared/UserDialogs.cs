@@ -5,6 +5,9 @@ using UIKit;
 #if __ANDROID__
 using Android.App;
 #endif
+#if __TIZEN__
+using ElmSharp;
+#endif
 
 namespace Acr.UserDialogs 
 {
@@ -50,7 +53,15 @@ namespace Acr.UserDialogs
         {
             Instance = new UserDialogsImpl(viewControllerFunc);
         }
-
+#elif __TIZEN__
+        /// <summary>
+        /// Initialize Tizen user dialogs
+        /// </summary>
+        /// <param name="window"></param>
+        public static void Init(Window window)
+        {
+            Instance = new UserDialogsImpl(window);
+        }
 #endif
 
         static IUserDialogs currentInstance;
@@ -64,6 +75,11 @@ namespace Acr.UserDialogs
 #elif __ANDROID__
                 if (currentInstance == null)
                     throw new ArgumentException("[Acr.UserDialogs] In android, you must call UserDialogs.Init(Activity) from your first activity OR UserDialogs.Init(App) from your custom application OR provide a factory function to get the current top activity via UserDialogs.Init(() => supply top activity)");
+#elif __TIZEN__
+                if (currentInstance == null)
+                {
+                    throw new ArgumentException("[Acr.UserDialogs] In Tizen, the window instance of your custom application must be passed by using UserDialogs.Init(Window).");
+                }
 #else
                 currentInstance = currentInstance ?? new UserDialogsImpl();
 #endif
