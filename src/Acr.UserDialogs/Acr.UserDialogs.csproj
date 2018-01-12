@@ -122,7 +122,6 @@
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
-        <!--<PackageReference Include="NETStandard.Library" Version="2.0.1" />-->
         <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.5" />
         <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
     </ItemGroup>
