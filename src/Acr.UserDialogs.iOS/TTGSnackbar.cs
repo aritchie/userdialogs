@@ -28,11 +28,11 @@ namespace TTG
         // Snackbar icon imageView default width
         private const float snackbarIconImageViewWidth = 32;
 
+        private UIEdgeInsets safeAreaInsets;
+
         public Action<TTGSnackbar> ActionBlock { get; set; }
         public Action<TTGSnackbar> SecondActionBlock { get; set; }
 
-
-        public nfloat TopMargin { get; set; } = 8;
         /// <summary>
         /// Snackbar display duration. Default is 3 seconds.
         /// </summary>
@@ -61,12 +61,55 @@ namespace TTG
             }
         }
 
-        public nfloat LeftMargin { get; set; } = 4;
-        public nfloat RightMargin { get; set; } = 4;
+        nfloat topMargin = 8;
+        public nfloat TopMargin
+        {
+            get
+            {
+                return topMargin + safeAreaInsets.Top;
+            }
+            set
+            {
+                topMargin = value;
+            }
+        }
 
+        nfloat leftMargin = 4;
+        public nfloat LeftMargin
+        {
+            get
+            {
+                return leftMargin + safeAreaInsets.Left;
+            }
+            set
+            {
+                leftMargin = value;
+            }
+        }
+
+        nfloat rightMargin = 4;
+        public nfloat RightMargin
+        {
+            get
+            {
+                return rightMargin + safeAreaInsets.Right;
+            }
+            set
+            {
+                rightMargin = value;
+            }
+        }
 
         /// Bottom margin. Default is 4
-        public nfloat BottomMargin { get; set; } = 4;
+        nfloat bottomMargin = 4;
+        public nfloat BottomMargin { 
+            get {
+                return bottomMargin + safeAreaInsets.Bottom;
+            } 
+            set {
+                bottomMargin = value;
+            } 
+        } 
         public nfloat Height { get; set; } = 44;
 
 
@@ -151,6 +194,8 @@ namespace TTG
             this.BackgroundColor = UIColor.DarkGray;
             this.Layer.CornerRadius = 4;
             this.Layer.MasksToBounds = true;
+
+            SetupSafeAreaInsets();
 
             this.MessageLabel = new UILabel
             {
@@ -294,6 +339,18 @@ namespace TTG
             //this.AddConstraints(hConstraintsForActivityIndicatorView);
         }
 
+        private void SetupSafeAreaInsets()
+        {
+            if(UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+            {
+                safeAreaInsets = UIApplication.SharedApplication.KeyWindow.SafeAreaInsets;
+            }
+            else
+            {
+                safeAreaInsets = new UIEdgeInsets();
+            }
+        }
+
         /// <summary>
         /// Show the snackbar
         /// </summary>
@@ -364,7 +421,7 @@ namespace TTG
                     localSuperView,
                     NSLayoutAttribute.Bottom,
                     1,
-                    -BottomMargin);
+                    -BottomMargin );
 
                 // Avoid the "UIView-Encapsulated-Layout-Height" constraint conflicts
                 // http://stackoverflow.com/questions/25059443/what-is-nslayoutconstraint-uiview-encapsulated-layout-height-and-how-should-i
