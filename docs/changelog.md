@@ -5,6 +5,8 @@
 * [feature] Splat is gone
 * [feature] Now safeties the user from calling for a dialog when the app is in the background
 * [feature][android] update android support libraries
+* [feature][TIZEN] thanks to PR from [Jong Heon Choi](https://github.com/JongHeonChoi)
+* [fix][ios] Safe area insets thanks to PR from [Thomas Dhaen](https://github.com/ThomasDhaen)
 * [fix][android] remove use of non-appcompat dialogs
 * [BREAKING] show error/success/image are gone
 
