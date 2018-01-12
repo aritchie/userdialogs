@@ -1,4 +1,4 @@
-﻿# <img src="icon.png" width="71" height="71"/> ACR User Dialogs for Xamarin and Windows
+﻿# <img src="icon.png" width="71" height="71"/> ACR User Dialogs
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
 Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen
