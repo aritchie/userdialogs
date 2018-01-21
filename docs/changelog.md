@@ -1,5 +1,8 @@
 ﻿# CHANGELOG
 
+## 7.0.1
+* [feature] Tizen!
+
 ## 7.0
 * Move to .NET Standard 2.0
 * [feature] Splat is gone

@@ -3,11 +3,11 @@ using System.Diagnostics;
 using Splat;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-
 using EWindow = ElmSharp.Window;
 using XButton = Xamarin.Forms.Button;
 using XLable = Xamarin.Forms.Label;
 using Tizen.Applications;
+
 
 namespace Acr.UserDialogs
 {
@@ -166,18 +166,19 @@ namespace Acr.UserDialogs
 				VerticalOptions = LayoutOptions.Center,
 				DateTime = config.SelectedTime != null ? DateTime.Today.Add((TimeSpan)config.SelectedTime) : DateTime.Now,
 			};
-			XButton positive = new XButton()
+			var positive = new XButton
 			{
 				Text = config.OkText
 			};
-			XButton negative = new XButton()
+			var negative = new XButton
 			{
 				Text = config.CancelText
 			};
 			var layout = new StackLayout
 			{
-				Children = {
-					time,
+				Children =
+				{
+					time
 				},
 				Padding = 30
 			};
@@ -219,15 +220,15 @@ namespace Acr.UserDialogs
 
 		public override IDisposable Prompt(PromptConfig config)
 		{
-			XButton positive = new XButton()
+			var positive = new XButton
 			{
 				Text = config.OkText
 			};
-			XButton negative = new XButton()
+			var negative = new XButton
 			{
 				Text = config.CancelText
 			};
-			Entry txt = new Entry()
+			var txt = new Entry()
 			{
 				Placeholder = config.Placeholder ?? String.Empty,
 				Text = config.Text ?? String.Empty,
@@ -316,10 +317,12 @@ namespace Acr.UserDialogs
 			return Show(dialog);
 		}
 
+
 		public override IDisposable ActionSheet(ActionSheetConfig config)
 		{
-			XButton positive = new XButton();
-			XButton negative = new XButton();
+			var positive = new XButton();
+			var negative = new XButton();
+
 			var template = new DataTemplate(typeof(TextCell));
 			template.SetBinding(TextCell.TextProperty, "Text");
 			template.SetBinding(ImageCell.ImageSourceProperty, "ItemIcon");
@@ -358,7 +361,7 @@ namespace Acr.UserDialogs
 			{
 				if (e.SelectedItem != null)
 				{
-					dialog.Hide();					
+					dialog.Hide();
 					config.Options[config.Options.IndexOf(e.SelectedItem)]?.Action?.Invoke();
 				}
 			};
@@ -404,11 +407,11 @@ namespace Acr.UserDialogs
 				},
 				Padding = 30
 			};
-			XButton positive = new XButton()
+			var positive = new XButton
 			{
 				Text = config.OkText
 			};
-			XButton negative = new XButton()
+			var negative = new XButton
 			{
 				Text = config.CancelText
 			};
@@ -439,6 +442,7 @@ namespace Acr.UserDialogs
 			return Show(dialog);
 		}
 
+
 		public override IDisposable Toast(ToastConfig config)
 		{
 			ToastMessage toast = new ToastMessage
@@ -449,25 +453,24 @@ namespace Acr.UserDialogs
 			return new DisposableAction(()=> { });
 		}
 
-		public override void ShowError(string message, int timeoutMillis)
-		{
-			this.Toast(new ToastConfig(message));
-		}
+		//public override void ShowError(string message, int timeoutMillis)
+		//{
+		//	this.Toast(new ToastConfig(message));
+		//}
 
-		public override void ShowSuccess(string message, int timeoutMillis)
-		{
-			this.Toast(new ToastConfig(message));
-		}
+		//public override void ShowSuccess(string message, int timeoutMillis)
+		//{
+		//	this.Toast(new ToastConfig(message));
+		//}
 
-		public override void ShowImage(IBitmap image, string message, int timeoutMillis)
-		{
-			this.Toast(new ToastConfig(message));
-		}
+		//public override void ShowImage(IBitmap image, string message, int timeoutMillis)
+		//{
+		//	this.Toast(new ToastConfig(message));
+		//}
 
 		protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
-		{
-			 return new ProgressDialog(config);
-		}
+			 => new ProgressDialog(config);
+
 
 		protected virtual IDisposable Show(Dialog dialog)
 		{
@@ -476,6 +479,7 @@ namespace Acr.UserDialogs
 				dialog.Hide()
 			);
 		}
+
 
 		protected virtual void SetInputType(Entry txt, InputType inputType)
 		{

@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299;</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;tizen40</TargetFrameworks>
+        <!--<TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299;tizen40</TargetFrameworks>-->
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
@@ -9,7 +10,7 @@
         <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen</Description>
         <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
         <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
-        <PackageVersion>7.0.0</PackageVersion>
+        <PackageVersion>7.0.1</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
     </PropertyGroup>
@@ -40,6 +41,7 @@
 
     <PropertyGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
         <DefineConstants>$(DefineConstants);__TIZEN__</DefineConstants>
+        <TizenCreateTpkOnBuild>false</TizenCreateTpkOnBuild>
         <Product>Acr.UserDialogs - Tizen</Product>
     </PropertyGroup>
 
@@ -56,7 +58,6 @@
     <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
-        <PackageReference Include="NETStandard.Library" Version="2.0.1" />
         <PackageReference Include="AndHUD" Version="1.2.0" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
     </ItemGroup>
@@ -64,7 +65,6 @@
     <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid80' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
-        <PackageReference Include="NETStandard.Library" Version="2.0.1" />
         <PackageReference Include="AndHUD" Version="1.2.0" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="26.1.0.1" />
     </ItemGroup>
@@ -73,11 +73,13 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <Reference Include="OpenTK-1.0" />
-        <PackageReference Include="NETStandard.Library" Version="2.0.1" />
         <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
+        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.5" />
+        <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
+
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Uwp\ActionSheetContentDialog.xaml.cs">
             <DependentUpon>Platforms\Uwp\ActionSheetContentDialog.xaml</DependentUpon>
@@ -123,8 +125,6 @@
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
-        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.5" />
-        <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
@@ -133,9 +133,7 @@
         <PackageReference Include="Tizen.NET" Version="4.0.0">
             <ExcludeAssets>Runtime</ExcludeAssets>
         </PackageReference>
-        <PackageReference Include="Tizen.NET.Sdk" Version="1.0.0" />
-        <PackageReference Include="Xamarin.Forms" Version="2.4.0.18342" />
-        <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.4.0.18342" />
+        <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.5.0.77107" />
     </ItemGroup>
 
     <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
