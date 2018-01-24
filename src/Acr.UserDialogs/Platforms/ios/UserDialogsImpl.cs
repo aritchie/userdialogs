@@ -5,6 +5,7 @@ using UIKit;
 using CoreGraphics;
 using Foundation;
 using TTG;
+using Acr.UserDialogs.Infrastructure;
 
 
 namespace Acr.UserDialogs

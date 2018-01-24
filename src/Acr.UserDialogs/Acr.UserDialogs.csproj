@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;tizen40</TargetFrameworks>
-        <!--<TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299;tizen40</TargetFrameworks>-->
+        <TargetFrameworks>netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299</TargetFrameworks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
@@ -81,13 +80,16 @@
         <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
 
         <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Uwp\ProgressDialog.cs" />
+        <Compile Include="Platforms\Uwp\ActionSheetViewModel.cs" />
+        <Compile Include="Platforms\Uwp\Infrastructure\**\*.cs" />
+        <Compile Include="Platforms\Uwp\Extensions.cs" />
+        <Compile Include="Platforms\Uwp\UserDialogsImpl.cs" />
         <Compile Include="Platforms\Uwp\ActionSheetContentDialog.xaml.cs">
             <DependentUpon>Platforms\Uwp\ActionSheetContentDialog.xaml</DependentUpon>
         </Compile>
         <Compile Include="Platforms\Uwp\ActionSheetOptionViewModel.cs" />
-        <Compile Include="Platforms\Uwp\ActionSheetViewModel.cs" />
-        <Compile Include="Platforms\Uwp\Command.cs" />
-        <Compile Include="Platforms\Uwp\Extensions.cs" />
+
         <Compile Include="Platforms\Uwp\TimePickerControl.xaml.cs">
             <DependentUpon>Platforms\Uwp\TimePickerControl.xaml</DependentUpon>
         </Compile>
@@ -101,8 +103,6 @@
         <Compile Include="Platforms\Uwp\ProgressContentDialog.xaml.cs">
             <DependentUpon>Platforms\Uwp\ProgressContentDialog.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Platforms\Uwp\ProgressDialog.cs" />
-        <Compile Include="Platforms\Uwp\UserDialogsImpl.cs" />
         <EmbeddedResource Include="Platforms\Uwp\Acr.UserDialogs.rd.xml" />
 
         <Page Include="Platforms\Uwp\ActionSheetContentDialog.xaml">
@@ -127,6 +127,8 @@
         </Page>
     </ItemGroup>
 
+    <!--
+    tizen libraries use netstandard moniker, not tizen40
     <ItemGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Tizen\**\*.cs" />
@@ -135,6 +137,7 @@
         </PackageReference>
         <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.5.0.77107" />
     </ItemGroup>
+    -->
 
     <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

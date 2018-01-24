@@ -1,6 +1,7 @@
 using System;
 using Acr.UserDialogs.Builders;
 using Acr.UserDialogs.Fragments;
+using Acr.UserDialogs.Infrastructure;
 using Android.App;
 using Android.Text;
 using Android.Views;

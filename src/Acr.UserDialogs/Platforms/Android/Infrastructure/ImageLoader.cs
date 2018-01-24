@@ -5,7 +5,7 @@ using Android.Support.V4.Content;
 using Android.Util;
 
 
-namespace Acr.UserDialogs
+namespace Acr.UserDialogs.Infrastructure
 {
     public static class ImageLoader
     {

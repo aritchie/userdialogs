@@ -1,4 +1,5 @@
 ﻿using System;
+using Acr.UserDialogs.Infrastructure;
 #if __IOS__
 using UIKit;
 #endif
@@ -9,10 +10,10 @@ using Android.App;
 using ElmSharp;
 #endif
 
-namespace Acr.UserDialogs 
+namespace Acr.UserDialogs
 {
 
-    public static class UserDialogs 
+    public static class UserDialogs
     {
 
 #if __ANDROID__

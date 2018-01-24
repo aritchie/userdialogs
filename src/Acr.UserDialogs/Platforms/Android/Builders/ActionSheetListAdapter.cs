@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
+using Acr.UserDialogs.Infrastructure;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
 
 
-namespace Acr.UserDialogs
+namespace Acr.UserDialogs.Builders
 {
-
     public class ActionSheetListAdapter : ArrayAdapter<ActionSheetOption>
     {
         readonly ActionSheetConfig config;

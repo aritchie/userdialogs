@@ -2,6 +2,7 @@ using System;
 using BigTed;
 using Foundation;
 using UIKit;
+using Acr.UserDialogs.Infrastructure;
 
 
 namespace Acr.UserDialogs

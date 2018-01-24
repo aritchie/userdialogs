@@ -2,9 +2,8 @@
 using System.Windows.Input;
 
 
-namespace Acr.UserDialogs
+namespace Acr.UserDialogs.Infrastructure
 {
-
     public class Command : ICommand
     {
         public event EventHandler CanExecuteChanged;

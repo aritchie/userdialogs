@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 
 
-namespace Acr.UserDialogs
+namespace Acr.UserDialogs.Infrastructure
 {
 
     public enum LogLevel

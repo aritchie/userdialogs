@@ -1,6 +1,7 @@
 using System;
 using Android.App;
 using Android.Graphics;
+using Acr.UserDialogs.Infrastructure;
 
 
 namespace Acr.UserDialogs

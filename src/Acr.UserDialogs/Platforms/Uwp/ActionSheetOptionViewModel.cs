@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Input;
 using Windows.UI.Xaml;
+using Acr.UserDialogs.Infrastructure;
 
 
 namespace Acr.UserDialogs
 {
-
     public class ActionSheetOptionViewModel
     {
         public ActionSheetOptionViewModel(bool visible, string text, Action action, string image = null)

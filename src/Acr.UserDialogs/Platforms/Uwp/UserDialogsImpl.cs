@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Coding4Fun.Toolkit.Controls;
+using Acr.UserDialogs.Infrastructure;
 
 
 namespace Acr.UserDialogs
