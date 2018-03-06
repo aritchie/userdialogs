@@ -14,11 +14,12 @@ namespace Acr.UserDialogs
     {
         readonly ProgressDialogConfig config;
         ProgressContentDialog dialog;
+        private readonly CoreDispatcher UiDispatcher;
 
-
-        public ProgressDialog(ProgressDialogConfig config)
+        public ProgressDialog(ProgressDialogConfig config, CoreDispatcher dispatcher)
         {
             this.config = config;
+            this.UiDispatcher = dispatcher;
             this.Cancel = new Command(() => config.OnCancel?.Invoke());
         }
 
@@ -109,7 +110,7 @@ namespace Acr.UserDialogs
 
         protected virtual void Dispatch(Action action)
         {
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
+            this.UiDispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
         }
     }
 }

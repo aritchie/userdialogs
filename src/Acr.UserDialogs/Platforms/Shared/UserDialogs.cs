@@ -1,5 +1,5 @@
-﻿using System;
-using Acr.UserDialogs.Infrastructure;
+﻿using Acr.UserDialogs.Infrastructure;
+using System;
 #if __IOS__
 using UIKit;
 #endif
@@ -63,6 +63,15 @@ namespace Acr.UserDialogs
         {
             Instance = new UserDialogsImpl(window);
         }
+#elif __WINDOWS_UWP__ || NETFX_CORE
+        /// <summary>
+        /// Initialize UWP user dialogs
+        /// </summary>
+        /// <param name="isAssignedAccess">Boolean value indicating if the UWP app is running as kiosk mode.</param>
+        public static void Init(bool isAssignedAccess)
+        {
+            Instance = new UserDialogsImpl(isAssignedAccess);
+        }
 #endif
 
         static IUserDialogs currentInstance;
@@ -81,7 +90,12 @@ namespace Acr.UserDialogs
                 {
                     throw new ArgumentException("[Acr.UserDialogs] In Tizen, the window instance of your custom application must be passed by using UserDialogs.Init(Window).");
                 }
-#else
+#elif __WINDOWS_UWP__ || NETFX_CORE
+                if (currentInstance == null)
+                {
+                    throw new ArgumentException("[Acr.UserDialogs] In UWP, the UserDialogs.Init(bool) method should be called first.");
+                }
+#else                
                 currentInstance = currentInstance ?? new UserDialogsImpl();
 #endif
                 return currentInstance;
