@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.LockScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Xamarin.Forms;
@@ -12,16 +14,29 @@ namespace Samples.Uwp
 {
     sealed partial class App : Application
     {
+        /// <summary>
+        /// Boolean used to store the assigned access mode value
+        /// </summary>
+        public static bool IsAssignedAccess { get; private set; }
+
         public App()
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
         }
 
-
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             var rootFrame = Window.Current.Content as Frame;
+
+            try
+            {
+                IsAssignedAccess = LockApplicationHost.GetForCurrentView() != null;
+            }
+            catch
+            {
+                IsAssignedAccess = false;
+            }
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -41,6 +56,9 @@ namespace Samples.Uwp
             {
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
+
+            UserDialogs.Init(IsAssignedAccess);
+
             Window.Current.Activate();
         }
 

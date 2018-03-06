@@ -23,6 +23,27 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
+        /// <summary>
+        /// The UI dispatcher to use.
+        /// </summary>
+        private readonly CoreDispatcher UiDispatcher;
+
+        /// <summary>
+        /// Initializes a new instance of the class <see cref="UserDialogsImpl"/>
+        /// </summary>
+        /// <param name="isAssignedAccess">Determine if the UWP ap is starter using the kiosk mode.</param>
+        public UserDialogsImpl(bool isAssignedAccess)
+        {
+            if (isAssignedAccess)
+            {
+                this.UiDispatcher = CoreApplication.GetCurrentView().Dispatcher;
+            }
+            else
+            {
+                this.UiDispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
+            }
+        }
+
         public override IDisposable Alert(AlertConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
@@ -369,13 +390,12 @@ namespace Acr.UserDialogs
         }
 
 
-        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config);
+        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config, UiDispatcher);
 
 
         protected virtual void Dispatch(Action action)
         {
-            //this.UiDispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
+            this.UiDispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
         }
 
 
