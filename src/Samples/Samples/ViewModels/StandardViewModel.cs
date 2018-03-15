@@ -96,6 +96,7 @@ namespace Samples.ViewModels
                     Text = "Prompt",
                     Command = new Command(() => this.Dialogs.ActionSheet(new ActionSheetConfig()
                         .SetTitle("Choose Type")
+                        .SetMessage("Please, choose type")
                         .Add("Default", () => this.PromptCommand(InputType.Default))
                         .Add("E-Mail", () => this.PromptCommand(InputType.Email))
                         .Add("Name", () => this.PromptCommand(InputType.Name))
