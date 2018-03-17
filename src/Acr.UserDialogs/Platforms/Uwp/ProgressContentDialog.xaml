@@ -9,7 +9,7 @@
     MinHeight="0">
 
     <ContentDialog.Content>
-        <StackPanel Margin="0">
+        <StackPanel Margin="0" VerticalAlignment="Center">
             <TextBlock Text="{Binding Title}" FontSize="17" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5" />
             <ProgressBar x:Name="ProgressBar" Value="{Binding PercentComplete}" HorizontalAlignment="Stretch" IsIndeterminate="{Binding IsIndeterministic}" Minimum="0" Maximum="100" />
             <TextBlock Text="{Binding PercentComplete}" HorizontalAlignment="Center" FontSize="17" Visibility="{Binding TextPercentVisibility}" Margin="0,0,0,5" />
