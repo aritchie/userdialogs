@@ -1,4 +1,5 @@
 using System;
+using Acr.UserDialogs.Infrastructure;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -151,9 +152,8 @@ namespace Acr.UserDialogs.Fragments
             {
                 LayoutParameters = layout
             };
-            // TODO: icon load
-            //if (icon != null)
-            //    img.SetImageDrawable(icon.ToNative());
+            if (icon != null)
+                img.SetImageDrawable(ImageLoader.Load(icon));
 
             return img;
         }
