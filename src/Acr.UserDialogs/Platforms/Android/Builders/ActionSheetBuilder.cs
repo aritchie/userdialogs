@@ -4,7 +4,7 @@ using Android.App;
 using Android.Support.V7.App;
 using AlertDialog = Android.App.AlertDialog;
 using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
-
+using Acr.UserDialogs.Infrastructure;
 
 namespace Acr.UserDialogs.Builders
 {
@@ -12,6 +12,8 @@ namespace Acr.UserDialogs.Builders
     {
         public Dialog Build(Activity activity, ActionSheetConfig config)
         {
+            ShowWarningsIfAny(config);
+
             var dlg = new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetTitle(config.Title)
                 .SetMessage(config.Message);
@@ -48,6 +50,8 @@ namespace Acr.UserDialogs.Builders
 
         public Dialog Build(AppCompatActivity activity, ActionSheetConfig config)
         {
+            ShowWarningsIfAny(config);
+
             var dlg = new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetTitle(config.Title)
                 .SetMessage(config.Message);
@@ -81,6 +85,18 @@ namespace Acr.UserDialogs.Builders
             return dlg.Create();
         }
 
+        void ShowWarningsIfAny(ActionSheetConfig config)
+        {
+            var hasMessage = !string.IsNullOrEmpty(config.Message);
+            var hasOptions = config.Options.Any() || config.ItemIcon != null;
+            if (hasMessage && hasOptions)
+            {
+                var warning = 
+@"ActionSheet doesn't not support using both Message and Items on Android.
+Use either one or another. Currently only Message is present.";
+                Log.Warn("", warning);
+            }
+        }
 
         //protected virtual View GetCustomTitle(Activity activity, ActionSheetConfig config)
         //{
