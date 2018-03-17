@@ -1,5 +1,10 @@
 ﻿# CHANGELOG
 
+## 7.0.2
+* [droid][fix] icon not appearing in bottom sheet dialog
+* [uwp][fix] vertically center progress dialog
+* [uwp][feature] ability to set custom dispatcher via Init(Action<Action> customUiDispatcher) - good for kiosk mode
+
 ## 7.0.1
 * [feature] Tizen!
 

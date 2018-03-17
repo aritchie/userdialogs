@@ -54,6 +54,31 @@ namespace Acr.UserDialogs
         {
             Instance = new UserDialogsImpl(viewControllerFunc);
         }
+#elif WINDOWS_UWP
+
+        public static Action<Action> Dispatch { get; set; } => new Action(() => {
+})
+        /// <summary>
+        /// Initialize UWP user dialogs
+        /// </summary>
+        public static void Init(Action customDispatcher = null)
+        {
+    /*
+            try
+            {
+                if (LockApplicationHost.GetForCurrentView() != null)
+                {
+                    CoreApplication.GetCurrentView().Dispatcher;
+                }
+            }
+            catch
+            {
+                CoreApplication.MainView.CoreWindow.Dispatcher;
+            }
+     */
+            Instance = new UserDialogsImpl();
+        }
+
 #elif __TIZEN__
         /// <summary>
         /// Initialize Tizen user dialogs
