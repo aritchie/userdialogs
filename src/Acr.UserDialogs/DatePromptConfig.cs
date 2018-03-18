@@ -3,7 +3,7 @@
 
 namespace Acr.UserDialogs
 {
-    public class DatePromptConfig : IAndroidStyleDialogConfig
+    public class DatePromptConfig : IAndroidStyleDialogConfig, IUwpKeyboardEvents
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
@@ -23,5 +23,7 @@ namespace Acr.UserDialogs
         public DateTime? MinimumDate { get; set; }
         public DateTime? MaximumDate { get; set; }
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
+        public bool UwpCancelOnEscKey { get; set; }
+        public bool UwpSubmitOnEnterKey { get; set; }
     }
 }
