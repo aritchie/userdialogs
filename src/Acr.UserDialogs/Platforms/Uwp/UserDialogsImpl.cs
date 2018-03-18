@@ -1,13 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.Graphics.Imaging;
-using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -23,6 +18,21 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
+        readonly Func<Action, Task> dispatcher;
+
+
+        public UserDialogsImpl(Func<Action, Task> dispatcher = null)
+        {
+            this.dispatcher = dispatcher ?? new Func<Action, Task>(x => CoreApplication
+                .MainView
+                .CoreWindow
+                .Dispatcher
+                .RunAsync(CoreDispatcherPriority.Normal, () => x())
+                .AsTask()
+            );
+        }
+
+
         public override IDisposable Alert(AlertConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
@@ -129,9 +139,24 @@ namespace Acr.UserDialogs
                 picker.DatePicker.SetDisplayDate(config.SelectedDate.Value);
             }
             return this.DispatchAndDispose(
-                () => popup.IsOpen = true,
-                () => popup.IsOpen = false
-            );
+                () =>
+                {
+                    if (config.UwpCancelOnEscKey)
+                    {
+
+                    }
+
+                    if (config.UwpSubmitOnEnterKey)
+                    {
+
+                    }
+                    popup.IsOpen = true;
+                },
+                () =>
+                {
+
+                    popup.IsOpen = false;
+                });
         }
 
 
@@ -196,12 +221,42 @@ namespace Acr.UserDialogs
                 DataContext = vm
             };
             return this.DispatchAndDispose(
-                () => dlg.ShowAsync(),
-                dlg.Hide
+                () =>
+                {
+                    dlg.ShowAsync();
+                },
+                () =>
+                {
+                    dlg.Hide();
+                }
             );
         }
 
 
+        //void onKeyDown(CoreWindow s, KeyEventArgs e)
+        //{
+        //    var keyboardKey = e.VirtualKey;
+        //    if (keyboardKey == VirtualKey.Enter)
+        //    {
+        //        vm.Login.Execute(null);
+        //    }
+        //    else if (keyboardKey == VirtualKey.Escape)
+        //    {
+        //        vm.Cancel.Execute(null);
+        //    }
+        //}
+    //    return this.DispatchAndDispose(
+    //        () =>
+    //    {
+    //        Window.Current.CoreWindow.KeyDown += onKeyDown;
+    //        dlg.ShowAsync();
+    //    },
+    //() =>
+    //{
+    //Window.Current.CoreWindow.KeyDown -= onKeyDown;
+    //dlg.Hide();
+    //}
+    //);
         public override IDisposable Prompt(PromptConfig config)
         {
             var stack = new StackPanel();
@@ -372,23 +427,19 @@ namespace Acr.UserDialogs
         protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config);
 
 
-        protected virtual void Dispatch(Action action)
-        {
-            //this.UiDispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
-        }
-
-
         protected virtual IDisposable DispatchAndDispose(Action dispatch, Action dispose)
         {
-            this.Dispatch(dispatch);
+            this.dispatcher.Invoke(dispatch);
             return new DisposableAction(() =>
             {
                 try
                 {
-                    this.Dispatch(dispose);
+                    this.dispatcher.Invoke(dispose);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Log.Error("Dismiss", "Error dismissing dialog - " + ex);
+                }
             });
         }
         #endregion
