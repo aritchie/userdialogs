@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -40,6 +41,8 @@ namespace Acr.UserDialogs
             IAsyncOperation<IUICommand> dialogTask = null;
 
             return this.DispatchAndDispose(
+                config.UwpSubmitOnEnterKey,
+                config.UwpCancelOnEscKey,
                 () => dialogTask = dialog.ShowAsync(),
                 () => dialogTask?.Cancel()
             );
@@ -80,6 +83,8 @@ namespace Acr.UserDialogs
             IAsyncOperation<ContentDialogResult> dialogTask = null;
 
             return this.DispatchAndDispose(
+                config.UwpSubmitOnEnterKey,
+                config.UwpCancelOnEscKey,
                 () => dialogTask = dlg.ShowAsync(),
                 () => dialogTask?.Cancel()
             );
@@ -97,6 +102,8 @@ namespace Acr.UserDialogs
 
             IAsyncOperation<IUICommand> dialogTask = null;
             return this.DispatchAndDispose(
+                config.UwpSubmitOnEnterKey,
+                config.UwpCancelOnEscKey,
                 () => dialogTask = dialog.ShowAsync(),
                 () => dialogTask?.Cancel()
             );
@@ -139,24 +146,11 @@ namespace Acr.UserDialogs
                 picker.DatePicker.SetDisplayDate(config.SelectedDate.Value);
             }
             return this.DispatchAndDispose(
-                () =>
-                {
-                    if (config.UwpCancelOnEscKey)
-                    {
-
-                    }
-
-                    if (config.UwpSubmitOnEnterKey)
-                    {
-
-                    }
-                    popup.IsOpen = true;
-                },
-                () =>
-                {
-
-                    popup.IsOpen = false;
-                });
+                config.UwpSubmitOnEnterKey,
+                config.UwpCancelOnEscKey,
+                () => popup.IsOpen = true,
+                () => popup.IsOpen = false
+            );
         }
 
 
@@ -192,6 +186,8 @@ namespace Acr.UserDialogs
                 picker.TimePicker.Time = config.SelectedTime.Value;
             }
             return this.DispatchAndDispose(
+                config.UwpSubmitOnEnterKey,
+                config.UwpCancelOnEscKey,
                 () => popup.IsOpen = true,
                 () => popup.IsOpen = false
             );
@@ -220,43 +216,16 @@ namespace Acr.UserDialogs
             {
                 DataContext = vm
             };
+
             return this.DispatchAndDispose(
-                () =>
-                {
-                    dlg.ShowAsync();
-                },
-                () =>
-                {
-                    dlg.Hide();
-                }
+                config.UwpSubmitOnEnterKey,
+                config.UwpCancelOnEscKey,
+                () => dlg.ShowAsync(),
+                dlg.Hide
             );
         }
 
 
-        //void onKeyDown(CoreWindow s, KeyEventArgs e)
-        //{
-        //    var keyboardKey = e.VirtualKey;
-        //    if (keyboardKey == VirtualKey.Enter)
-        //    {
-        //        vm.Login.Execute(null);
-        //    }
-        //    else if (keyboardKey == VirtualKey.Escape)
-        //    {
-        //        vm.Cancel.Execute(null);
-        //    }
-        //}
-    //    return this.DispatchAndDispose(
-    //        () =>
-    //    {
-    //        Window.Current.CoreWindow.KeyDown += onKeyDown;
-    //        dlg.ShowAsync();
-    //    },
-    //() =>
-    //{
-    //Window.Current.CoreWindow.KeyDown -= onKeyDown;
-    //dlg.Hide();
-    //}
-    //);
         public override IDisposable Prompt(PromptConfig config)
         {
             var stack = new StackPanel();
@@ -286,6 +255,8 @@ namespace Acr.UserDialogs
             }
 
             return this.DispatchAndDispose(
+                config.UwpSubmitOnEnterKey,
+                config.UwpCancelOnEscKey,
                 () => dialog.ShowAsync(),
                 dialog.Hide
             );
@@ -296,27 +267,31 @@ namespace Acr.UserDialogs
         {
             ToastPrompt toast = null;
 
-            return this.DispatchAndDispose(() =>
-            {
-                toast = new ToastPrompt
+            return this.DispatchAndDispose(
+                false,
+                false,
+                () =>
                 {
-                    Message = config.Message,
-                    //Stretch = Stretch.Fill,
-                    TextWrapping = TextWrapping.Wrap,
-                    MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
-                };
-                if (config.Icon != null)
-                    toast.ImageSource = new BitmapImage(new Uri(config.Icon));
+                    toast = new ToastPrompt
+                    {
+                        Message = config.Message,
+                        //Stretch = Stretch.Fill,
+                        TextWrapping = TextWrapping.Wrap,
+                        MillisecondsUntilHidden = Convert.ToInt32(config.Duration.TotalMilliseconds)
+                    };
+                    if (config.Icon != null)
+                        toast.ImageSource = new BitmapImage(new Uri(config.Icon));
 
-                if (config.MessageTextColor != null)
-                    toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
+                    if (config.MessageTextColor != null)
+                        toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
 
-                if (config.BackgroundColor != null)
-                    toast.Background = new SolidColorBrush(config.BackgroundColor.Value.ToNative());
+                    if (config.BackgroundColor != null)
+                        toast.Background = new SolidColorBrush(config.BackgroundColor.Value.ToNative());
 
-                toast.Show();
-            },
-            () => toast.Hide());
+                    toast.Show();
+                },
+                () => toast.Hide()
+            );
         }
 
 
@@ -427,10 +402,11 @@ namespace Acr.UserDialogs
         protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config);
 
 
-        protected virtual IDisposable DispatchAndDispose(Action dispatch, Action dispose)
+        protected virtual IDisposable DispatchAndDispose(bool enterKey, bool escKey, Action dispatch, Action dispose)
         {
-            this.dispatcher.Invoke(dispatch);
-            return new DisposableAction(() =>
+            TypedEventHandler<CoreWindow, KeyEventArgs> keyHandler = null;
+
+            var disposer = new DisposableAction(() =>
             {
                 try
                 {
@@ -440,7 +416,40 @@ namespace Acr.UserDialogs
                 {
                     Log.Error("Dismiss", "Error dismissing dialog - " + ex);
                 }
+                finally
+                {
+                    if (keyHandler != null)
+                        Window.Current.CoreWindow.KeyDown -= keyHandler;
+                }
             });
+
+            keyHandler = (sender, args) =>
+            {
+                switch (args.VirtualKey)
+                {
+                    case VirtualKey.Escape:
+                        //if (escKey && vm.Cancel.CanExecute(null))
+                        //{
+                        //    dlg.Hide();
+                        //    vm.Cancel.Execute(null);
+                        //}
+                        break;
+
+                    case VirtualKey.Enter:
+                        //if (enterKey && vm.Login.CanExecute(null))
+                        //{
+                        //    dlg.Hide();
+                        //    vm.Login.Execute(null);
+                        //}
+                        break;
+                }
+            };
+
+            if (enterKey || escKey)
+                Window.Current.CoreWindow.KeyDown += keyHandler;
+
+            this.dispatcher.Invoke(dispatch);
+            return disposer;
         }
         #endregion
     }
