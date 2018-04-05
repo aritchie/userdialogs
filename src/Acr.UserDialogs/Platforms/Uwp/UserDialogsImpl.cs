@@ -39,12 +39,15 @@ namespace Acr.UserDialogs
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
             dialog.Commands.Add(new UICommand(config.OkText, x => config.OnAction?.Invoke()));
             IAsyncOperation<IUICommand> dialogTask = null;
+            TypedEventHandler<CoreWindow, KeyEventArgs> keyboardHandler = CreateKeyboardEventHandler(
+                config, 
+                config.OnAction, 
+                null);
 
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
                 () => dialogTask = dialog.ShowAsync(),
-                () => dialogTask?.Cancel()
+                () => dialogTask?.Cancel(),
+                keyboardHandler
             );
         }
 
@@ -81,12 +84,15 @@ namespace Acr.UserDialogs
 
             dlg.DataContext = vm;
             IAsyncOperation<ContentDialogResult> dialogTask = null;
+            TypedEventHandler<CoreWindow, KeyEventArgs> keyboardHandler = CreateKeyboardEventHandler(
+                config, 
+                null, 
+                () => vm.Cancel.Action.Execute(null));
 
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
                 () => dialogTask = dlg.ShowAsync(),
-                () => dialogTask?.Cancel()
+                () => dialogTask?.Cancel(),
+                keyboardHandler
             );
         }
 
@@ -101,11 +107,15 @@ namespace Acr.UserDialogs
             dialog.CancelCommandIndex = 1;
 
             IAsyncOperation<IUICommand> dialogTask = null;
+            TypedEventHandler<CoreWindow, KeyEventArgs> keyboardHandler = CreateKeyboardEventHandler(
+                config, 
+                () => config.OnAction?.Invoke(true), 
+                () => config.OnAction?.Invoke(false));
+
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
                 () => dialogTask = dialog.ShowAsync(),
-                () => dialogTask?.Cancel()
+                () => dialogTask?.Cancel(),
+                keyboardHandler
             );
         }
 
@@ -120,36 +130,47 @@ namespace Acr.UserDialogs
                 picker.DatePicker.MaxDate = config.MaximumDate.Value;
 
             var popup = this.CreatePopup(picker);
+
+            var cancelAction = new Action(() =>
+            {
+                var result = new DatePromptResult(false, this.GetDateForCalendar(picker.DatePicker));
+                config.OnAction?.Invoke(result);
+                popup.IsOpen = false;
+            });
+
+            var okAction = new Action(() =>
+            {
+                var result = new DatePromptResult(true, this.GetDateForCalendar(picker.DatePicker));
+                config.OnAction?.Invoke(result);
+                popup.IsOpen = false;
+            });
+
             if (!config.IsCancellable)
                 picker.CancelButton.Visibility = Visibility.Collapsed;
             else
             {
                 picker.CancelButton.Content = config.CancelText;
-                picker.CancelButton.Click += (sender, args) =>
-                {
-                    var result = new DatePromptResult(false, this.GetDateForCalendar(picker.DatePicker));
-                    config.OnAction?.Invoke(result);
-                    popup.IsOpen = false;
-                };
+                picker.CancelButton.Click += (sender, args) => cancelAction();
             }
 
             picker.OkButton.Content = config.OkText;
-            picker.OkButton.Click += (sender, args) =>
-            {
-                var result = new DatePromptResult(true, this.GetDateForCalendar(picker.DatePicker));
-                config.OnAction?.Invoke(result);
-                popup.IsOpen = false;
-            };
+            picker.OkButton.Click += (sender, args) => okAction();
+
             if (config.SelectedDate != null)
             {
                 picker.DatePicker.SelectedDates.Add(config.SelectedDate.Value);
                 picker.DatePicker.SetDisplayDate(config.SelectedDate.Value);
             }
+
+            TypedEventHandler<CoreWindow, KeyEventArgs> keyboardHandler = CreateKeyboardEventHandler(
+                config,
+                okAction,
+                config.IsCancellable ? cancelAction : default(Action));
+
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
                 () => popup.IsOpen = true,
-                () => popup.IsOpen = false
+                () => popup.IsOpen = false,
+                keyboardHandler
             );
         }
 
@@ -161,35 +182,45 @@ namespace Acr.UserDialogs
 
             var popup = this.CreatePopup(picker);
 
+            var cancelAction = new Action(() =>
+            {
+                var result = new TimePromptResult(false, picker.TimePicker.Time);
+                config.OnAction?.Invoke(result);
+                popup.IsOpen = false;
+            });
+
+            var okAction = new Action(() =>
+            {
+                var result = new TimePromptResult(false, picker.TimePicker.Time);
+                config.OnAction?.Invoke(result);
+                popup.IsOpen = false;
+            });
+
             if (!config.IsCancellable)
                 picker.CancelButton.Visibility = Visibility.Collapsed;
             else
             {
                 picker.CancelButton.Content = config.CancelText;
-                picker.CancelButton.Click += (sender, args) =>
-                {
-                    var result = new TimePromptResult(false, picker.TimePicker.Time);
-                    config.OnAction?.Invoke(result);
-                    popup.IsOpen = false;
-                };
+                picker.CancelButton.Click += (sender, args) => cancelAction();
             }
 
             picker.OkButton.Content = config.OkText;
-            picker.OkButton.Click += (sender, args) =>
-            {
-                var result = new TimePromptResult(true, picker.TimePicker.Time);
-                config.OnAction?.Invoke(result);
-                popup.IsOpen = false;
-            };
+            picker.OkButton.Click += (sender, args) => okAction();
+
             if (config.SelectedTime != null)
             {
                 picker.TimePicker.Time = config.SelectedTime.Value;
             }
+
+            TypedEventHandler<CoreWindow, KeyEventArgs> keyboardHandler = CreateKeyboardEventHandler(
+                config,
+                okAction,
+                config.IsCancellable ? cancelAction : default(Action));
+
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
                 () => popup.IsOpen = true,
-                () => popup.IsOpen = false
+                () => popup.IsOpen = false,
+                keyboardHandler
             );
         }
 
@@ -217,11 +248,15 @@ namespace Acr.UserDialogs
                 DataContext = vm
             };
 
+            TypedEventHandler<CoreWindow, KeyEventArgs> keyboardHandler = CreateKeyboardEventHandler(
+                config,
+                () => vm.Login.Execute(null),
+                () => vm.Cancel.Execute(null));
+
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
                 () => dlg.ShowAsync(),
-                dlg.Hide
+                dlg.Hide,
+                keyboardHandler
             );
         }
 
@@ -254,11 +289,15 @@ namespace Acr.UserDialogs
                 });
             }
 
+            TypedEventHandler<CoreWindow, KeyEventArgs> keyboardHandler = CreateKeyboardEventHandler(
+                config,
+                () => dialog.PrimaryButtonCommand.Execute(null),
+                config.IsCancellable ? () => dialog.SecondaryButtonCommand.Execute(null) : default(Action));
+
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
                 () => dialog.ShowAsync(),
-                dialog.Hide
+                dialog.Hide,
+                keyboardHandler
             );
         }
 
@@ -268,8 +307,6 @@ namespace Acr.UserDialogs
             ToastPrompt toast = null;
 
             return this.DispatchAndDispose(
-                false,
-                false,
                 () =>
                 {
                     toast = new ToastPrompt
@@ -402,10 +439,8 @@ namespace Acr.UserDialogs
         protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config);
 
 
-        protected virtual IDisposable DispatchAndDispose(bool enterKey, bool escKey, Action dispatch, Action dispose)
+        protected virtual IDisposable DispatchAndDispose(Action dispatch, Action dispose, TypedEventHandler<CoreWindow, KeyEventArgs> keyboardHandler = null)
         {
-            TypedEventHandler<CoreWindow, KeyEventArgs> keyHandler = null;
-
             var disposer = new DisposableAction(() =>
             {
                 try
@@ -418,39 +453,51 @@ namespace Acr.UserDialogs
                 }
                 finally
                 {
-                    if (keyHandler != null)
-                        Window.Current.CoreWindow.KeyDown -= keyHandler;
+                    if (keyboardHandler != null)
+                        Window.Current.CoreWindow.KeyDown -= keyboardHandler;
                 }
             });
 
-            keyHandler = (sender, args) =>
-            {
-                switch (args.VirtualKey)
-                {
-                    case VirtualKey.Escape:
-                        //if (escKey && vm.Cancel.CanExecute(null))
-                        //{
-                        //    dlg.Hide();
-                        //    vm.Cancel.Execute(null);
-                        //}
-                        break;
-
-                    case VirtualKey.Enter:
-                        //if (enterKey && vm.Login.CanExecute(null))
-                        //{
-                        //    dlg.Hide();
-                        //    vm.Login.Execute(null);
-                        //}
-                        break;
-                }
-            };
-
-            if (enterKey || escKey)
-                Window.Current.CoreWindow.KeyDown += keyHandler;
+            if (keyboardHandler != null)
+                Window.Current.CoreWindow.KeyDown += keyboardHandler;
 
             this.dispatcher.Invoke(dispatch);
             return disposer;
         }
         #endregion
+
+        private static TypedEventHandler<CoreWindow, KeyEventArgs> CreateKeyboardEventHandler(
+            IUwpKeyboardEvents uwpKeyboardEvents, 
+            Action submitAction = null, 
+            Action cancelAction = null)
+        {
+            bool listenForEnterKey = uwpKeyboardEvents.UwpSubmitOnEnterKey && submitAction != null;
+            bool listenForEscKey = uwpKeyboardEvents.UwpCancelOnEscKey && cancelAction != null;
+
+            if (!listenForEnterKey && !listenForEscKey)
+            {
+                return null;
+            }
+
+            return (sender, args) =>
+            {
+                switch (args.VirtualKey)
+                {
+                    case VirtualKey.Escape:
+                        if (listenForEscKey)
+                        {
+                            cancelAction();
+                        }
+                        break;
+
+                    case VirtualKey.Enter:
+                        if (listenForEnterKey)
+                        {
+                            submitAction();
+                        }
+                        break;
+                }
+            };
+        }
     }
 }
