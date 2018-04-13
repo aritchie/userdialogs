@@ -2,7 +2,7 @@
 using UIKit;
 
 
-namespace Acr.UserDialogs.Platforms.ios
+namespace Acr.UserDialogs.Platforms
 {
     public static partial class UserDialogs
     {
