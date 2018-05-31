@@ -129,6 +129,10 @@
         </Page>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Platforms\WPF\" />
+    </ItemGroup>
+
     <!--
     tizen libraries use netstandard moniker, not tizen40
     <ItemGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
