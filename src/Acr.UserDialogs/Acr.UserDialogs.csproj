@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks></TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299;net471</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid81;Xamarin.iOS10;uap10.0.17134;net471</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid81;Xamarin.iOS10</TargetFrameworks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
@@ -11,7 +11,7 @@
         <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, Unified Windows Platform (UWP, UAP), WPF and Tizen</Description>
         <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
         <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
-        <PackageVersion>7.0.3</PackageVersion>
+        <PackageVersion>7.0.3-wpf</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
     </PropertyGroup>
@@ -22,7 +22,7 @@
         <Product>Acr.UserDialogs - .NET Standard 2</Product>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' OR  '$(TargetFramework)' == 'MonoAndroid80' ">
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
         <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
         <Product>Acr.UserDialogs - Android</Product>
     </PropertyGroup>
@@ -32,9 +32,9 @@
         <Product>Acr.UserDialogs - iOS</Product>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
-        <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
-        <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.17134' ">
+        <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
+        <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
         <GenerateLibraryLayout>true</GenerateLibraryLayout>
         <DefineConstants>$(DefineConstants);WINDOWS_UWP</DefineConstants>
         <Product>Acr.UserDialogs - UWP</Product>
@@ -61,18 +61,11 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' ">
+    <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="AndHUD" Version="1.2.0" />
-        <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid80' ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Android\**\*.cs" />
-        <PackageReference Include="AndHUD" Version="1.2.0" />
-        <PackageReference Include="Xamarin.Android.Support.Design" Version="26.1.0.1" />
+        <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
@@ -82,8 +75,8 @@
         <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
-        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.5" />
+    <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.17134' ">
+        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
         <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
 
         <Compile Include="Platforms\Shared\**\*.cs" />
