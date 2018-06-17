@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\Acr.UserDialogs",
+    "\\src\\Acr.UserDialogs\\Platforms",
+    "\\src\\Acr.UserDialogs\\Platforms\\Android",
+    "\\src\\Acr.UserDialogs\\Platforms\\ios",
+    "\\src\\Acr.UserDialogs\\Platforms\\macOS",
+    "\\src\\Acr.UserDialogs\\Platforms\\Shared",
+    "\\src\\Acr.UserDialogs\\Platforms\\Uwp",
+    "\\src\\Acr.UserDialogs\\Platforms\\WPF"
+  ],
+  "SelectedNode": "\\src\\Acr.UserDialogs\\Acr.UserDialogs.csproj",
+  "PreviewInSolutionExplorer": false
+}

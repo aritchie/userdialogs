@@ -6,7 +6,7 @@
 
 
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
+        <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
     </ItemGroup>
 
     <ItemGroup>
@@ -18,6 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Update="NETStandard.Library" Version="2.0.1" />
+        <PackageReference Update="NETStandard.Library" Version="2.0.3" />
     </ItemGroup>
 </Project>
