@@ -1,131 +1,78 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFrameworks></TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid81;Xamarin.iOS10;uap10.0.17134;net471</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid81;Xamarin.iOS10</TargetFrameworks>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
-        <Authors>Allan Ritchie</Authors>
-        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, Unified Windows Platform (UWP, UAP), WPF and Tizen</Description>
-        <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
-        <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
-        <PackageVersion>7.0.3-wpf</PackageVersion>
-        <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
-        <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks></TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid81;Xamarin.iOS10;Xamarin.Mac20;net471</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid81;Xamarin.iOS10;Xamarin.Mac20</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
+    <Authors>Allan Ritchie</Authors>
+    <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, Unified Windows Platform (UWP, UAP), WPF and Tizen</Description>
+    <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
+    <PackageVersion>7.0.3-wpf</PackageVersion>
+    <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
+    <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
-        <DefineConstants>$(DefineConstants);NETSTANDARD;BAIT</DefineConstants>
-        <Product>Acr.UserDialogs - .NET Standard 2</Product>
-    </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+    <DefineConstants>$(DefineConstants);NETSTANDARD;BAIT</DefineConstants>
+    <Product>Acr.UserDialogs - .NET Standard 2</Product>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
-        <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
-        <Product>Acr.UserDialogs - Android</Product>
-    </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
+    <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
+    <Product>Acr.UserDialogs - Android</Product>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
-        <DefineConstants>$(DefineConstants);__IOS__</DefineConstants>
-        <Product>Acr.UserDialogs - iOS</Product>
-    </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+    <DefineConstants>$(DefineConstants);__IOS__</DefineConstants>
+    <Product>Acr.UserDialogs - iOS</Product>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.17134' ">
-        <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
-        <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
-        <GenerateLibraryLayout>true</GenerateLibraryLayout>
-        <DefineConstants>$(DefineConstants);WINDOWS_UWP</DefineConstants>
-        <Product>Acr.UserDialogs - UWP</Product>
-    </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' ">
+    <DefineConstants>$(DefineConstants);__MACOS__</DefineConstants>
+    <Product>Acr.UserDialogs - MacOS</Product>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
-        <DefineConstants>$(DefineConstants);__TIZEN__</DefineConstants>
-        <TizenCreateTpkOnBuild>false</TizenCreateTpkOnBuild>
-        <Product>Acr.UserDialogs - Tizen</Product>
-    </PropertyGroup>
-  
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net471' ">
-        <DefineConstants>$(DefineConstants);__WPF__</DefineConstants>
-        <Product>Acr.UserDialogs - WPF</Product>
-    </PropertyGroup>
+    <DefineConstants>$(DefineConstants);__WPF__</DefineConstants>
+    <Product>Acr.UserDialogs - WPF</Product>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <Compile Remove="Platforms\**\*.cs" />
-        <None Include="Platforms\**\*.cs" />
-        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.5.4" PrivateAssets="all" />
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Platforms\**\*.cs" />
+    <None Include="Platforms\**\*.cs" />
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.5.4" PrivateAssets="all" />
+  </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-    </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <Compile Include="Platforms\Shared\**\*.cs" />
+  </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Android\**\*.cs" />
-        <PackageReference Include="AndHUD" Version="1.2.0" />
-        <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
-    </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
+    <Compile Include="Platforms\Shared\**\*.cs" />
+    <Compile Include="Platforms\Android\**\*.cs" />
+    <PackageReference Include="AndHUD" Version="1.2.0" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+  </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\ios\**\*.cs" />
-        <Reference Include="OpenTK-1.0" />
-        <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
-    </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+    <Compile Include="Platforms\Shared\**\*.cs" />
+    <Compile Include="Platforms\ios\**\*.cs" />
+    <Reference Include="OpenTK-1.0" />
+    <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
+  </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.17134' ">
-        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
-        <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' ">
+    <Compile Include="Platforms\Shared\**\*.cs" />
+    <Compile Include="Platforms\macOS\**\*.cs" />
 
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Uwp\ProgressDialog.cs" />
-        <Compile Include="Platforms\Uwp\ActionSheetViewModel.cs" />
-        <Compile Include="Platforms\Uwp\Infrastructure\**\*.cs" />
-        <Compile Include="Platforms\Uwp\Extensions.cs" />
-        <Compile Include="Platforms\Uwp\UserDialogsImpl.cs" />
-        <Compile Include="Platforms\Uwp\ActionSheetContentDialog.xaml.cs">
-            <DependentUpon>Platforms\Uwp\ActionSheetContentDialog.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Platforms\Uwp\ActionSheetOptionViewModel.cs" />
-
-        <Compile Include="Platforms\Uwp\TimePickerControl.xaml.cs">
-            <DependentUpon>Platforms\Uwp\TimePickerControl.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Platforms\Uwp\DatePickerControl.xaml.cs">
-            <DependentUpon>Platforms\Uwp\DatePickerControl.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Platforms\Uwp\LoginContentDialog.xaml.cs">
-            <DependentUpon>Platforms\Uwp\LoginContentDialog.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Platforms\Uwp\LoginViewModel.cs" />
-        <Compile Include="Platforms\Uwp\ProgressContentDialog.xaml.cs">
-            <DependentUpon>Platforms\Uwp\ProgressContentDialog.xaml</DependentUpon>
-        </Compile>
-        <EmbeddedResource Include="Platforms\Uwp\Acr.UserDialogs.rd.xml" />
-
-        <Page Include="Platforms\Uwp\ActionSheetContentDialog.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Platforms\Uwp\TimePickerControl.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </Page>
-        <Page Include="Platforms\Uwp\DatePickerControl.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Platforms\Uwp\LoginContentDialog.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Platforms\Uwp\ProgressContentDialog.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-    </ItemGroup>
+  </ItemGroup>
+  <!--<Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' " />-->
+  <!--<Target Name="_VerifyBuildSignature" Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' " />-->
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net471' ">
     <Compile Include="Platforms\Shared\**\*.cs" />
@@ -133,7 +80,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
 
-    <!--
+  <!--
     tizen libraries use netstandard moniker, not tizen40
     <ItemGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
@@ -144,6 +91,5 @@
         <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.5.0.77107" />
     </ItemGroup>
     -->
-
-    <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Drawing;
-
+#if __MACOS__
+using Color = AppKit.NSColor;
+#endif
 
 namespace Acr.UserDialogs
 {
     public class ToastAction
     {
         public string Text { get; set; }
-        public Color? TextColor { get; set; }
+        public Color TextColor { get; set; }
         public Action Action { get; set; }
 
 

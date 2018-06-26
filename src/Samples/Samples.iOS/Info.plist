@@ -21,7 +21,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>7.1</string>
+	<string>11.4</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.acrapps.userdialogs</string>
 	<key>CFBundleVersion</key>

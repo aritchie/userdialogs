@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
-
+#if __MACOS__
+using Color = AppKit.NSColor;
+#endif
 
 namespace Acr.UserDialogs
 {
@@ -14,23 +16,23 @@ namespace Acr.UserDialogs
         /// <summary>
         /// The default message text color to use.  If not set, defaults very depending on platform.
         /// </summary>
-        public static Color? DefaultMessageTextColor { get; set; }
+        public static Color DefaultMessageTextColor { get; set; }
 
         /// <summary>
         /// The default text color in the action button.  If not set, defaults very depending on platform.
         /// </summary>
-        public static Color? DefaultActionTextColor { get; set; }
+        public static Color DefaultActionTextColor { get; set; }
 
         /// <summary>
         /// The default toast background color.  If not set, defaults very depending on platform.
         /// </summary>
-        public static Color? DefaultBackgroundColor { get; set; }
+        public static Color DefaultBackgroundColor { get; set; }
 
         public static ToastPosition? DefaultPosition { get; set; }
 
         public string Message { get; set; }
-        public Color? MessageTextColor { get; set; } = DefaultMessageTextColor;
-        public Color? BackgroundColor { get; set; } = DefaultBackgroundColor;
+        public Color MessageTextColor { get; set; } = DefaultMessageTextColor;
+        public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
         public ToastPosition? Position { get; set; } = DefaultPosition;
         public TimeSpan Duration { get; set; } = DefaultDuration;
         public ToastAction Action { get; set; }
