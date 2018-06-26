@@ -230,17 +230,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-src/Acr.UserDialogs.userprefs
-/src/Samples/Sample.Uwp/project.lock.json
-/src/Acr.UserDialogs.Uwp/project.lock.json
-/src/.vs/config/applicationhost.config
-/src/.vs/Acr.UserDialogs.Android/Acr.UserDialogs.Android.scgdat
-/tools/XamarinComponent/tools
-src/Samples/Samples.Uwp/project.lock.json
-/src/Samples.Droid.Classic/Samples.Droid.Classic.csproj.bak
-src/Acr.UserDialogs.Android/Acr.UserDialogs.Android.csproj.bak
-src/Samples/Samples.Droid/Samples.Droid.csproj.bak
-src/.vs/Acr.UserDialogs/v15/Server/sqlite3/db.lock
-src/.vs/Acr.UserDialogs/v15/Server/sqlite3/storage.ide
-src/.vs/Acr.UserDialogs/v15/Server/sqlite3/storage.ide-shm
-src/.vs/Acr.UserDialogs/v15/Server/sqlite3/storage.ide-wal
+src/.vs/*
