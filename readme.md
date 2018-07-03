@@ -39,21 +39,26 @@ To use, simply reference the nuget package in each of your platform projects.
 
 #### iOS and Windows
 
-    Nothing is necessary any longer as of v4.x.  There is an Init function for iOS but it is OPTIONAL and only required if you want/need to control
-    the top level viewcontroller for things like iOS extensions.  Progress prompts will not use this factory function though!
+Nothing is necessary any longer as of v4.x.  There is an Init function for iOS but it is OPTIONAL and only required if you want/need to control the top level viewcontroller for things like iOS extensions.  Progress prompts will not use this factory function though!
 
 #### Android Initialization (In your main activity)
 
-    UserDialogs.Init(this);
-    OR UserDialogs.Init(() => provide your own top level activity provider)
-    OR MvvmCross - UserDialogs.Init(() => Mvx.Resolve<IMvxAndroidCurrentTopActivity>().Activity)
-    OR Xamarin.Forms - UserDialogs.Init(() => (Activity)Forms.Context)
+```cs
+UserDialogs.Init(this);
+//OR 
+UserDialogs.Init(() => provide your own top level activity provider)
+//OR
+MvvmCross - UserDialogs.Init(() => Mvx.Resolve<IMvxAndroidCurrentTopActivity>().Activity)
+//OR
+Xamarin.Forms - UserDialogs.Init(() => (Activity)Forms.Context)
+```
 
 ### MvvmCross
 
-    // from your NetStandard app.cs (remember to Init on android platform project)
-    Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
-
+```cs
+// from your NetStandard app.cs (remember to Init on android platform project)
+Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
+```
 
 ## Powered By:
 
