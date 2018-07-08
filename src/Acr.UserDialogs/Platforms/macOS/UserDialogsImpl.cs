@@ -7,10 +7,9 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
-
         readonly Func<NSViewController> viewControllerFunc;
-
-        public UserDialogsImpl() : this(() => NSApplication.SharedApplication.GetTopViewController())
+        
+        public UserDialogsImpl() : this(() => NSApplication.SharedApplication.MainWindow.ContentViewController)
         {
         }
         
@@ -41,8 +40,8 @@ namespace Acr.UserDialogs
             foreach (var opt in config.Options)
             {
                 var btn = alert.AddButton(opt.Text);
-                if (opt.ItemIcon != null)
-                    btn.Image = opt.ItemIcon.ToNative();
+                //if (opt.ItemIcon != null)
+                //    btn.Image = opt.ItemIcon.ToNative();
             }
             var actionIndex = alert.RunSheetModal(null); // TODO: get top NSWindow
             config.Options[(int)actionIndex].Action?.Invoke();
@@ -121,9 +120,7 @@ namespace Acr.UserDialogs
             {
                 MessageText = config.Message
             };
-            alert.AddButton(config.OkText);
             alert.RunModal();
-            config.OnAction?.Invoke();
             return alert;
         }
 
