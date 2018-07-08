@@ -56,7 +56,7 @@
     <ItemGroup>
         <Compile Remove="Platforms\**\*.cs" />
         <None Include="Platforms\**\*.cs" />
-        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.20-preview" PrivateAssets="all" />
+        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.5.4" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
