@@ -2,15 +2,15 @@
 
     <PropertyGroup>
         <TargetFrameworks></TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;Xamarin.Mac20;uap10.0.16299</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;Xamarin.Mac20;uap10.0.16299;net471</TargetFrameworks>
         <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;Xamarin.Mac20</TargetFrameworks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Authors>Allan Ritchie</Authors>
-        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, MacOS, Unified Windows Platform (UWP, UAP) and Tizen</Description>
+        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, MacOS, Net Framework, Unified Windows Platform (UWP, UAP) and Tizen</Description>
         <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
-        <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
+        <PackageTags>windows ios android xamarin xam.pcl dialogs plugin, net framework</PackageTags>
         <PackageVersion>7.0.3-Desktop</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
@@ -37,6 +37,11 @@
     <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' ">
         <DefineConstants>$(DefineConstants);__MACOS__</DefineConstants>
         <Product>Acr.UserDialogs - macOS</Product>
+    </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net471' ">
+        <DefineConstants>$(DefineConstants);__NET__</DefineConstants>
+        <Product>Acr.UserDialogs - netFramework</Product>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
@@ -87,6 +92,12 @@
     <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\macOS\**\*.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net471' ">
+      <Reference Include="PresentationFramework"/>
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\wpf\**\*.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
