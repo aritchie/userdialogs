@@ -130,7 +130,7 @@ namespace Acr.UserDialogs
                     (int)cfg.Duration.TotalMilliseconds
                 );
                 if (cfg.BackgroundColor != null)
-                    snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
+                    snackBar.View.SetBackgroundColor(cfg.BackgroundColor.ToNative());
 
                 if (cfg.Position == ToastPosition.Top)
                 {
@@ -152,7 +152,7 @@ namespace Acr.UserDialogs
                     });
                     var color = cfg.Action.TextColor;
                     if (color != null)
-                        snackBar.SetActionTextColor(color.Value.ToNative());
+                        snackBar.SetActionTextColor(color.ToNative());
                 }
 
                 snackBar.Show();
@@ -187,7 +187,7 @@ namespace Acr.UserDialogs
             if (cfg.MessageTextColor != null)
             {
                 sb.SetSpan(
-                    new ForegroundColorSpan(cfg.MessageTextColor.Value.ToNative()),
+                    new ForegroundColorSpan(cfg.MessageTextColor.ToNative()),
                     0,
                     sb.Length(),
                     SpanTypes.ExclusiveExclusive

@@ -183,10 +183,10 @@ namespace Acr.UserDialogs
                     snackbar.Icon = UIImage.FromBundle(cfg.Icon);
 
                 if (cfg.BackgroundColor != null)
-                    snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();
+                    snackbar.BackgroundColor = cfg.BackgroundColor.ToNative();
 
                 if (cfg.MessageTextColor != null)
-                    snackbar.MessageLabel.TextColor = cfg.MessageTextColor.Value.ToNative();
+                    snackbar.MessageLabel.TextColor = cfg.MessageTextColor.ToNative();
                     //snackbar.MessageTextColor = cfg.MessageTextColor.Value.ToNative();
 
                 //if (cfg.Position != null)
@@ -196,9 +196,9 @@ namespace Acr.UserDialogs
 
                 if (cfg.Action != null)
                 {
-                    var color = cfg.Action.TextColor ?? ToastConfig.DefaultActionTextColor;
+                    var color = cfg.Action.TextColor;
                     if (color != null)
-                        snackbar.ActionButton.SetTitleColor(color.Value.ToNative(), UIControlState.Normal);
+                        snackbar.ActionButton.SetTitleColor(color.ToNative(), UIControlState.Normal);
 
                     snackbar.ActionText = cfg.Action.Text;
                     snackbar.ActionBlock = x =>
