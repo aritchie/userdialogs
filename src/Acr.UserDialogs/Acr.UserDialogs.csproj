@@ -2,16 +2,16 @@
 
     <PropertyGroup>
         <TargetFrameworks></TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;Xamarin.Mac20;uap10.0.16299</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;Xamarin.Mac20</TargetFrameworks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Authors>Allan Ritchie</Authors>
-        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen</Description>
+        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, MacOS, Unified Windows Platform (UWP, UAP) and Tizen</Description>
         <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
         <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
-        <PackageVersion>7.0.2</PackageVersion>
+        <PackageVersion>7.0.3-Desktop</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
     </PropertyGroup>
@@ -32,6 +32,11 @@
         <Product>Acr.UserDialogs - iOS</Product>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' ">
+        <DefineConstants>$(DefineConstants);__MACOS__</DefineConstants>
+        <Product>Acr.UserDialogs - macOS</Product>
+    </PropertyGroup>
+
     <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
         <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
         <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
@@ -49,7 +54,7 @@
     <ItemGroup>
         <Compile Remove="Platforms\**\*.cs" />
         <None Include="Platforms\**\*.cs" />
-        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.2" PrivateAssets="all" />
+        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.20-preview" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
@@ -75,6 +80,11 @@
         <Compile Include="Platforms\ios\**\*.cs" />
         <Reference Include="OpenTK-1.0" />
         <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\macOS\**\*.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">

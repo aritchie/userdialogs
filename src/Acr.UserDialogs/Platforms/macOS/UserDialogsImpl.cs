@@ -7,6 +7,18 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
+
+        readonly Func<NSViewController> viewControllerFunc;
+
+        public UserDialogsImpl() : this(() => NSApplication.SharedApplication.GetTopViewController())
+        {
+        }
+        
+        public UserDialogsImpl(Func<NSViewController> viewControllerFunc)
+        {
+            this.viewControllerFunc = viewControllerFunc;
+        }
+
         public override IDisposable Alert(AlertConfig config)
         {
             var alert = new NSAlert
@@ -105,7 +117,14 @@ namespace Acr.UserDialogs
 
         public override IDisposable Toast(ToastConfig config)
         {
-            throw new NotImplementedException();
+            var alert = new NSAlert
+            {
+                MessageText = config.Message
+            };
+            alert.AddButton(config.OkText);
+            alert.RunModal();
+            config.OnAction?.Invoke();
+            return alert;
         }
 
 
