@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 
 namespace Acr.UserDialogs
 {
-    using System.Windows;
-    using System.Windows.Controls;
-
     public class UserDialogsImpl : AbstractUserDialogs
     {
 
         public override IDisposable Alert(AlertConfig config)
         {
-            var result = MessageBox.Show(config.Message, "", MessageBoxButton.OK);
+            var result = MessageBox.Show(config.Message, "", MessageBoxButtons.OK);
             config.OnAction?.Invoke();
             return null;
         }
@@ -19,7 +19,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
-            var result = MessageBox.Show(config.Message, "", MessageBoxButton.OK);
+            var result = MessageBox.Show(config.Message, "", MessageBoxButtons.OK);
 
             foreach (var opt in config.Options)
             {
@@ -35,8 +35,8 @@ namespace Acr.UserDialogs
 
         public override IDisposable Confirm(ConfirmConfig config)
         {
-            var result = MessageBox.Show(config.Message, "", MessageBoxButton.OKCancel);
-            config.OnAction?.Invoke(result == MessageBoxResult.OK);
+            var result = MessageBox.Show(config.Message, "", MessageBoxButtons.OKCancel);
+            config.OnAction?.Invoke(result == DialogResult.OK);
             return null;
         }
 
@@ -55,7 +55,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable Login(LoginConfig config)
         {
-            var txt = new TextBox();
+            //var txt = new TextBox();
             //var alert = new NSAlert
             //{
             //    AccessoryView = txt,
@@ -93,7 +93,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable Toast(ToastConfig config)
         {
-            var result = MessageBox.Show(config.Message, "", MessageBoxButton.OK);
+            var result = MessageBox.Show(config.Message, "", MessageBoxButtons.OK);
             return null;
         }
 

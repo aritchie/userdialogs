@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks></TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;Xamarin.Mac20;uap10.0.16299;net471</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;Xamarin.Mac20</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;MonoAndroid81;Xamarin.iOS10;Xamarin.Mac20;net471;uap10.0.16299</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;MonoAndroid81;Xamarin.iOS10;Xamarin.Mac20</TargetFrameworks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
@@ -24,7 +24,7 @@
         <Product>Acr.UserDialogs - .NET Standard 2</Product>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' OR  '$(TargetFramework)' == 'MonoAndroid80' ">
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' OR  '$(TargetFramework)' == 'MonoAndroid80' OR  '$(TargetFramework)' == 'MonoAndroid81' ">
         <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
         <Product>Acr.UserDialogs - Android</Product>
     </PropertyGroup>
@@ -81,6 +81,13 @@
         <PackageReference Include="AndHUD" Version="1.2.0" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="26.1.0.1" />
     </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
+    <Compile Include="Platforms\Shared\**\*.cs" />
+    <Compile Include="Platforms\Android\**\*.cs" />
+    <PackageReference Include="AndHUD" Version="1.2.0" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+  </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
@@ -95,9 +102,10 @@
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net471' ">
-      <Reference Include="PresentationFramework"/>
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\wpf\**\*.cs" />
+      <Compile Include="Platforms\Shared\**\*.cs" />
+      <Compile Include="Platforms\NetFramework\**\*.cs" />
+      <Reference Include="System.Windows.Forms" />
+      <Reference Include="PresentationFramework" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
