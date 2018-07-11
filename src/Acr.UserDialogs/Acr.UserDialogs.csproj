@@ -2,18 +2,20 @@
 
     <PropertyGroup>
         <TargetFrameworks></TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;MonoAndroid81;Xamarin.iOS10;Xamarin.Mac20;net471;uap10.0.16299</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;MonoAndroid81;Xamarin.iOS10;Xamarin.Mac20</TargetFrameworks>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Authors>Allan Ritchie</Authors>
-        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen</Description>
+        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, MacOS, Net Framework, Unified Windows Platform (UWP, UAP) and Tizen</Description>
         <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
-        <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
-        <PackageVersion>7.0.2</PackageVersion>
+        <PackageTags>windows ios android xamarin xam.pcl dialogs plugin, net framework</PackageTags>
+        <PackageVersion>7.0.3-Desktop</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
+        <PackOnBuild>true</PackOnBuild>
+        <PackageID>Acr.UserDialogs</PackageID>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
@@ -22,7 +24,7 @@
         <Product>Acr.UserDialogs - .NET Standard 2</Product>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' OR  '$(TargetFramework)' == 'MonoAndroid80' ">
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' OR  '$(TargetFramework)' == 'MonoAndroid80' OR  '$(TargetFramework)' == 'MonoAndroid81' ">
         <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
         <Product>Acr.UserDialogs - Android</Product>
     </PropertyGroup>
@@ -30,6 +32,16 @@
     <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
         <DefineConstants>$(DefineConstants);__IOS__</DefineConstants>
         <Product>Acr.UserDialogs - iOS</Product>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' ">
+        <DefineConstants>$(DefineConstants);__MACOS__</DefineConstants>
+        <Product>Acr.UserDialogs - macOS</Product>
+    </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net471' ">
+        <DefineConstants>$(DefineConstants);__NET__</DefineConstants>
+        <Product>Acr.UserDialogs - netFramework</Product>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
@@ -49,7 +61,7 @@
     <ItemGroup>
         <Compile Remove="Platforms\**\*.cs" />
         <None Include="Platforms\**\*.cs" />
-        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.2" PrivateAssets="all" />
+        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.5.4" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
@@ -69,12 +81,31 @@
         <PackageReference Include="AndHUD" Version="1.2.0" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="26.1.0.1" />
     </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
+    <Compile Include="Platforms\Shared\**\*.cs" />
+    <Compile Include="Platforms\Android\**\*.cs" />
+    <PackageReference Include="AndHUD" Version="1.2.0" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+  </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <Reference Include="OpenTK-1.0" />
         <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.Mac20' ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\macOS\**\*.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net471' ">
+      <Compile Include="Platforms\Shared\**\*.cs" />
+      <Compile Include="Platforms\NetFramework\**\*.cs" />
+      <Reference Include="System.Windows.Forms" />
+      <Reference Include="PresentationFramework" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">

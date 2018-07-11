@@ -283,10 +283,10 @@ namespace Acr.UserDialogs
                         toast.ImageSource = new BitmapImage(new Uri(config.Icon));
 
                     if (config.MessageTextColor != null)
-                        toast.Foreground = new SolidColorBrush(config.MessageTextColor.Value.ToNative());
+                        toast.Foreground = new SolidColorBrush(config.MessageTextColor.ToNative());
 
                     if (config.BackgroundColor != null)
-                        toast.Background = new SolidColorBrush(config.BackgroundColor.Value.ToNative());
+                        toast.Background = new SolidColorBrush(config.BackgroundColor.ToNative());
 
                     toast.Show();
                 },

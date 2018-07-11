@@ -7,6 +7,17 @@ namespace Acr.UserDialogs
 {
     public class UserDialogsImpl : AbstractUserDialogs
     {
+        readonly Func<NSViewController> viewControllerFunc;
+        
+        public UserDialogsImpl() : this(() => NSApplication.SharedApplication.MainWindow.ContentViewController)
+        {
+        }
+        
+        public UserDialogsImpl(Func<NSViewController> viewControllerFunc)
+        {
+            this.viewControllerFunc = viewControllerFunc;
+        }
+
         public override IDisposable Alert(AlertConfig config)
         {
             var alert = new NSAlert
@@ -29,8 +40,8 @@ namespace Acr.UserDialogs
             foreach (var opt in config.Options)
             {
                 var btn = alert.AddButton(opt.Text);
-                if (opt.ItemIcon != null)
-                    btn.Image = opt.ItemIcon.ToNative();
+                //if (opt.ItemIcon != null)
+                //    btn.Image = opt.ItemIcon.ToNative();
             }
             var actionIndex = alert.RunSheetModal(null); // TODO: get top NSWindow
             config.Options[(int)actionIndex].Action?.Invoke();
@@ -105,7 +116,12 @@ namespace Acr.UserDialogs
 
         public override IDisposable Toast(ToastConfig config)
         {
-            throw new NotImplementedException();
+            var alert = new NSAlert
+            {
+                MessageText = config.Message
+            };
+            alert.RunModal();
+            return alert;
         }
 
 
