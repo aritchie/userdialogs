@@ -61,7 +61,7 @@ namespace Samples.ViewModels
                 new CommandViewModel
                 {
                     Text = "Bottom Sheet (Android Only)",
-                    Command = this.CreateActionSheetCommand(true, true, 6)
+                    Command = this.CreateActionSheetCommand(true, true, 6, "This is an example of using a message in Acr.UserDialogs actionsheets.  I needed a long message here!")
                 },
                 new CommandViewModel
                 {
