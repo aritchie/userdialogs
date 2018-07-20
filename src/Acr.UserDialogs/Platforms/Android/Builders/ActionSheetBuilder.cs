@@ -13,6 +13,7 @@ namespace Acr.UserDialogs.Builders
         public Dialog Build(Activity activity, ActionSheetConfig config)
         {
             var dlg = new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
+                .SetMessage(config.Message)
                 .SetTitle(config.Title);
             //.SetCustomTitle(new TextView(activity) {
             //    Text = config.Title,
@@ -48,6 +49,7 @@ namespace Acr.UserDialogs.Builders
         public Dialog Build(AppCompatActivity activity, ActionSheetConfig config)
         {
             var dlg = new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
+                .SetMessage(config.Message)
                 .SetTitle(config.Title);
             //.SetCustomTitle(new TextView(activity) {
             //    Text = config.Title,
