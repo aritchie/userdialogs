@@ -56,7 +56,7 @@ namespace Acr.UserDialogs.Fragments
                 layout.AddView(this.GetHeaderText(config.Title));
 
             if (!String.IsNullOrWhiteSpace(config.Message))
-                layout.AddView(this.GetText(config.Message, true));
+                layout.AddView(this.GetText(config.Message, false));
 
             foreach (var action in config.Options)
                 layout.AddView(this.CreateRow(action, false));
