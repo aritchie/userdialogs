@@ -75,7 +75,10 @@ namespace Acr.UserDialogs
             {
                 AndHUD.Shared.Dismiss();
             }
-            catch { }
+            catch(Exception exc)
+            {
+                Infrastructure.Log.Error("Dismiss", $"Exception ({exc.GetType().FullName}) occured while dismissing dialog: {exc.Message}");
+            }
         }
 
         #endregion
