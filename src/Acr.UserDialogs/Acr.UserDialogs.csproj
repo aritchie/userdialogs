@@ -86,6 +86,7 @@
         <Compile Include="Platforms\Uwp\ActionSheetViewModel.cs" />
         <Compile Include="Platforms\Uwp\Infrastructure\**\*.cs" />
         <Compile Include="Platforms\Uwp\Extensions.cs" />
+        <Compile Include="Platforms\Uwp\UserDialogs.cs" />
         <Compile Include="Platforms\Uwp\UserDialogsImpl.cs" />
         <Compile Include="Platforms\Uwp\ActionSheetContentDialog.xaml.cs">
             <DependentUpon>Platforms\Uwp\ActionSheetContentDialog.xaml</DependentUpon>
