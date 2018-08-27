@@ -173,6 +173,8 @@ namespace Acr.UserDialogs
                     popup.IsOpen = false;
                 };
             }
+            
+            if(config.Use24HourClock == true) picker.TimePicker.ClockIdentifier = "24HourClock";
 
             picker.OkButton.Content = config.OkText;
             picker.OkButton.Click += (sender, args) =>
