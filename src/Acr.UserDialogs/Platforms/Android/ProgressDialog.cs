@@ -73,7 +73,7 @@ namespace Acr.UserDialogs
             this.IsShowing = false;
             try
             {
-                AndHUD.Shared.Dismiss();
+                AndHUD.Shared.Dismiss(activity);
             }
             catch(Exception exc)
             {
@@ -113,8 +113,6 @@ namespace Acr.UserDialogs
             if (this.config.OnCancel != null)
                 txt += "\n" + this.config.CancelText;
 
-            // I'll help out andhud here
-            this.activity.SafeRunOnUi(() =>
                 AndHUD.Shared.Show(
                     this.activity,
                     txt,
@@ -122,8 +120,7 @@ namespace Acr.UserDialogs
                     this.config.MaskType.ToNative(),
                     null,
                     this.OnCancelClick
-                )
-            );
+                );
         }
 
 
