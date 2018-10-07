@@ -60,6 +60,14 @@ Xamarin.Forms - UserDialogs.Init(() => (Activity)Forms.Context)
 Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 ```
 
+#### Basic usage
+
+Call every function from this singleton:
+
+```cs
+Acr.UserDialogs.UserDialogs.Instance
+```
+
 ## Powered By:
 
 * Android - Progress/Loading uses Redth's [AndHUD](https://github.com/Redth/AndHUD)
