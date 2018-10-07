@@ -1,8 +1,8 @@
 ﻿# Alerts
 
 ```cs
-Acr.UserDialogs.UserDialogs.Instance.Alert(
-  , "User dialog main message"
+Acr.UserDialogs.UserDialogs.Instance.Alert
+  ( "User dialog main message"
   , title: "title"
   , okText: "ok"
   );

@@ -1,5 +1,14 @@
 ﻿# Progress
 
+```cs
+Acr.UserDialogs.UserDialogs.Instance.ShowLoading
+  ( title: "Loading message"
+  );
+
+// Do some work
+
+Acr.UserDialogs.UserDialogs.Instance.HideLoading();
+```
 
 ## Config
      public static string DefaultCancelText { get; set; } = "Cancel";
