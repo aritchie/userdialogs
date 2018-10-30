@@ -2,7 +2,7 @@ using System;
 using Android.App;
 using Android.Graphics;
 using Acr.UserDialogs.Infrastructure;
-
+using Java.Util;
 
 namespace Acr.UserDialogs
 {
@@ -45,8 +45,16 @@ namespace Acr.UserDialogs
             return null;
         }
 
-        public static void SafeRunOnUi(this Activity activity, Action action) => activity.RunOnUiThread(() =>
-        {
+         public static void SetLocale(this Activity activity, Locale locale)
+         {
+            Locale.Default = locale;
+            var appConfig = activity.Resources.Configuration;
+            appConfig.Locale = locale;
+            activity.CreateConfigurationContext(appConfig);
+         }
+
+         public static void SafeRunOnUi(this Activity activity, Action action) => activity.RunOnUiThread(() =>
+         {
             try
             {
                 action();
@@ -56,7 +64,6 @@ namespace Acr.UserDialogs
                 Log.Error("", ex.ToString());
             }
         });
-
 
         public static AndroidHUD.MaskType ToNative(this MaskType maskType)
         {

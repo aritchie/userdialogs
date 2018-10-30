@@ -19,12 +19,10 @@ namespace Acr.UserDialogs
         public static string FragmentTag { get; set; } = "UserDialogs";
         protected internal Func<Activity> TopActivityFunc { get; set; }
 
-
         public UserDialogsImpl(Func<Activity> getTopActivity)
         {
             this.TopActivityFunc = getTopActivity;
         }
-
 
         #region Alert Dialogs
 

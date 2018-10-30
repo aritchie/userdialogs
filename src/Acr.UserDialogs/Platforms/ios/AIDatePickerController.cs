@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Acr.UserDialogs;
 using Foundation;
 using UIKit;
@@ -54,8 +55,10 @@ namespace AI
 			};
             if (Use24HourClock == true)
                 datePicker.Locale = NSLocale.FromLocaleIdentifier("NL");
+            else
+                datePicker.Locale = NSLocale.FromLocaleIdentifier(CultureInfo.DefaultThreadCurrentUICulture.TwoLetterISOLanguageName);
 
-		    if (MinimumDateTime != null)
+         if (MinimumDateTime != null)
 		        datePicker.MinimumDate = MinimumDateTime.Value.ToNSDate();
 
 		    if (MaximumDateTime != null)

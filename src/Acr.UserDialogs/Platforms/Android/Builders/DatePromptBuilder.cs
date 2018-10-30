@@ -1,8 +1,9 @@
 using System;
+using System.Globalization;
 using Android.App;
 using Android.Content;
 using Android.Text;
-
+using Java.Util;
 
 namespace Acr.UserDialogs.Builders
 {
@@ -10,6 +11,7 @@ namespace Acr.UserDialogs.Builders
     {
         public static DatePickerDialog Build(Activity activity, DatePromptConfig config)
         {
+            activity.SetLocale(new Locale(CultureInfo.DefaultThreadCurrentUICulture.TwoLetterISOLanguageName));
             var dateTime = config.SelectedDate ?? DateTime.Now;
             var dialog = new DatePickerDialog(
                 activity,
@@ -21,7 +23,7 @@ namespace Acr.UserDialogs.Builders
             );
             dialog.SetCancelable(false);
 
-            if (!String.IsNullOrWhiteSpace(config.Title))
+            if (!string.IsNullOrWhiteSpace(config.Title))
                 dialog.SetTitle(config.Title);
 
             if (config.MinimumDate != null)
@@ -55,7 +57,6 @@ namespace Acr.UserDialogs.Builders
             );
             return dialog;
         }
-
 
         static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
         public static long ToUnixTimestamp(this DateTime dateTime)
