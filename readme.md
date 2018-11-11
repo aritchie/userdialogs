@@ -52,7 +52,7 @@ To use, simply reference the nuget package in each of your platform projects.
 ### MvvmCross
 
     // from your NetStandard app.cs (remember to Init on android platform project)
-    Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
+    Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
 
 ## Powered By:
