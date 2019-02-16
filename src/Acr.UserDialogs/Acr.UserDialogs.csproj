@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.65">
 
     <PropertyGroup>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid81;MonoAndroid90;Xamarin.iOS10;tizen50;uap10.0.16299</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid81;MonoAndroid90;Xamarin.iOS10;uap10.0.16299</TargetFrameworks>
         <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid81;MonoAndroid90;Xamarin.iOS10</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -60,17 +60,17 @@
         <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.5.1.444934" />
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid8')) ">
+     <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="AndHUD" Version="1.4.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid8')) ">
         <PackageReference Include="Xamarin.Android.Support.Design" Version="27.1.0.1" />
     </ItemGroup>
 
       <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid9')) ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Android\**\*.cs" />
-        <PackageReference Include="AndHUD" Version="1.4.1" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     </ItemGroup>
 
@@ -132,6 +132,10 @@
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Properties\" />
     </ItemGroup>
 
 </Project>
