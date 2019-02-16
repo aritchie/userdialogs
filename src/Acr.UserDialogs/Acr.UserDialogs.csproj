@@ -1,12 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.65">
 
     <PropertyGroup>
-        <TargetFrameworks></TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10;uap10.0.16299</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid70;MonoAndroid80;Xamarin.iOS10</TargetFrameworks>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid81;MonoAndroid90;Xamarin.iOS10;tizen50;uap10.0.16299</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;MonoAndroid81;MonoAndroid90;Xamarin.iOS10</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
+        <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
         <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen</Description>
         <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
@@ -14,63 +12,76 @@
         <PackageVersion>7.0.2</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
+
+        <RepositoryUrl>https://github.com/aritchie/userdialogs</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <IncludeSymbols>True</IncludeSymbols>
+        <IncludeSource>True</IncludeSource>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
-        <DefineConstants>$(DefineConstants);NETSTANDARD;BAIT</DefineConstants>
-        <Product>Acr.UserDialogs - .NET Standard 2</Product>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'MonoAndroid70' OR  '$(TargetFramework)' == 'MonoAndroid80' ">
-        <DefineConstants>$(DefineConstants);__ANDROID__</DefineConstants>
-        <Product>Acr.UserDialogs - Android</Product>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>pdbonly</DebugType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
-        <DefineConstants>$(DefineConstants);__IOS__</DefineConstants>
-        <Product>Acr.UserDialogs - iOS</Product>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
+    <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
         <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
         <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
-        <GenerateLibraryLayout>true</GenerateLibraryLayout>
-        <DefineConstants>$(DefineConstants);WINDOWS_UWP</DefineConstants>
-        <Product>Acr.UserDialogs - UWP</Product>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
-        <DefineConstants>$(DefineConstants);__TIZEN__</DefineConstants>
-        <TizenCreateTpkOnBuild>false</TizenCreateTpkOnBuild>
-        <Product>Acr.UserDialogs - Tizen</Product>
-    </PropertyGroup>
+    <ItemGroup Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' ">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
+    </ItemGroup>
 
     <ItemGroup>
         <Compile Remove="Platforms\**\*.cs" />
         <None Include="Platforms\**\*.cs" />
-        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.2" PrivateAssets="all" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid81' ">
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Tizen\**\*.cs" />
+        <PackageReference Include="Tizen.NET" Version="5.0.0.14562">
+            <ExcludeAssets>Runtime</ExcludeAssets>
+        </PackageReference>
+        <PackageReference Include="Tizen.NET.Sdk" Version="1.0.1" />
+        <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.5.1.444934" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid8')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="AndHUD" Version="1.4.1" />
-        <PackageReference Include="Xamarin.Android.Support.Design" Version="26.1.0.1" />
+        <PackageReference Include="Xamarin.Android.Support.Design" Version="27.1.0.1" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+      <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid9')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Android\**\*.cs" />
+        <PackageReference Include="AndHUD" Version="1.4.1" />
+        <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS10')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <Reference Include="OpenTK-1.0" />
         <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
         <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.5" />
         <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
 
@@ -123,17 +134,4 @@
         </Page>
     </ItemGroup>
 
-    <!--
-    tizen libraries use netstandard moniker, not tizen40
-    <ItemGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Tizen\**\*.cs" />
-        <PackageReference Include="Tizen.NET" Version="4.0.0">
-            <ExcludeAssets>Runtime</ExcludeAssets>
-        </PackageReference>
-        <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.5.0.77107" />
-    </ItemGroup>
-    -->
-
-    <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
