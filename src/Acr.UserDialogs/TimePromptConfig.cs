@@ -3,7 +3,7 @@
 
 namespace Acr.UserDialogs
 {
-    public class TimePromptConfig : IAndroidStyleDialogConfig, IUwpKeyboardEvents
+    public class TimePromptConfig : IAndroidStyleDialogConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
@@ -16,8 +16,8 @@ namespace Acr.UserDialogs
         public string CancelText { get; set; } = DefaultCancelText;
         public bool? Use24HourClock { get; set; } = DefaultUse24HourClock;
         public TimeSpan? SelectedTime { get; set; }
-        public bool UwpCancelOnEscKey { get; set; }
-        public bool UwpSubmitOnEnterKey { get; set; }
+        //public bool UwpCancelOnEscKey { get; set; }
+        //public bool UwpSubmitOnEnterKey { get; set; }
 
         public Action<TimePromptResult> OnAction { get; set; }
         public bool IsCancellable { get; set; } = true;

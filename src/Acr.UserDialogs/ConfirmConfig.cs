@@ -4,7 +4,7 @@
 namespace Acr.UserDialogs
 {
 
-    public class ConfirmConfig : IStandardDialogConfig, IAndroidStyleDialogConfig, IUwpKeyboardEvents
+    public class ConfirmConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
         public static string DefaultYes { get; set; } = "Yes";
         public static string DefaultNo { get; set; } = "No";
@@ -17,8 +17,8 @@ namespace Acr.UserDialogs
         public string Message { get; set; }
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
         public Action<bool> OnAction { get; set; }
-        public bool UwpCancelOnEscKey { get; set; }
-        public bool UwpSubmitOnEnterKey { get; set; }
+        //public bool UwpCancelOnEscKey { get; set; }
+        //public bool UwpSubmitOnEnterKey { get; set; }
 
         public string OkText { get; set; } = DefaultOkText;
         public string CancelText { get; set; } = DefaultCancelText;

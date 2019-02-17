@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Acr.UserDialogs
 {
 
-    public class ActionSheetConfig : IAndroidStyleDialogConfig, IUwpKeyboardEvents
+    public class ActionSheetConfig : IAndroidStyleDialogConfig
     {
         public static int? DefaultAndroidStyleId { get; set; }
         public static bool DefaultUseBottomSheet { get; set; }
@@ -21,8 +21,8 @@ namespace Acr.UserDialogs
         public ActionSheetOption Destructive { get; set; }
         public IList<ActionSheetOption> Options { get; set; } = new List<ActionSheetOption>();
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
-        public bool UwpCancelOnEscKey { get; set; }
-        public bool UwpSubmitOnEnterKey { get; set; }
+        //public bool UwpCancelOnEscKey { get; set; }
+        //public bool UwpSubmitOnEnterKey { get; set; }
 
         /// <summary>
         /// This only currently applies to android

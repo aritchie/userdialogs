@@ -4,7 +4,7 @@
 namespace Acr.UserDialogs
 {
 
-    public class PromptConfig : IStandardDialogConfig, IAndroidStyleDialogConfig, IUwpKeyboardEvents
+    public class PromptConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
@@ -24,8 +24,8 @@ namespace Acr.UserDialogs
         public int? MaxLength { get; set; } = DefaultMaxLength;
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
         public InputType InputType { get; set; } = InputType.Default;
-        public bool UwpCancelOnEscKey { get; set; }
-        public bool UwpSubmitOnEnterKey { get; set; }
+        //public bool UwpCancelOnEscKey { get; set; }
+        //public bool UwpSubmitOnEnterKey { get; set; }
         public Action<PromptTextChangedArgs> OnTextChanged { get; set; }
 
 

@@ -4,7 +4,7 @@
 namespace Acr.UserDialogs
 {
 
-    public class LoginConfig : IStandardDialogConfig, IAndroidStyleDialogConfig, IUwpKeyboardEvents
+    public class LoginConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
         public static string DefaultTitle { get; set; } = "Login";
         public static string DefaultOkText { get; set; } = "Ok";
@@ -21,8 +21,8 @@ namespace Acr.UserDialogs
         public string LoginPlaceholder { get; set; } = DefaultLoginPlaceholder;
         public string PasswordPlaceholder { get; set; } = DefaultPasswordPlaceholder;
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
-        public bool UwpCancelOnEscKey { get; set; }
-        public bool UwpSubmitOnEnterKey { get; set; }
+        //public bool UwpCancelOnEscKey { get; set; }
+        //public bool UwpSubmitOnEnterKey { get; set; }
         public Action<LoginResult> OnAction { get; set; }
 
 

@@ -4,7 +4,7 @@
 namespace Acr.UserDialogs
 {
 
-    public class AlertConfig : IStandardDialogConfig, IAndroidStyleDialogConfig, IUwpKeyboardEvents
+    public class AlertConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static int? DefaultAndroidStyleId { get; set; }
@@ -14,8 +14,8 @@ namespace Acr.UserDialogs
         public string Message { get; set; }
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
         public Action OnAction { get; set; }
-        public bool UwpCancelOnEscKey { get; set; }
-        public bool UwpSubmitOnEnterKey { get; set; }
+        //public bool UwpCancelOnEscKey { get; set; }
+        //public bool UwpSubmitOnEnterKey { get; set; }
 
 
         public AlertConfig SetOkText(string text)

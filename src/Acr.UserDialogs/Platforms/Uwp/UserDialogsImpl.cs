@@ -41,8 +41,8 @@ namespace Acr.UserDialogs
             IAsyncOperation<IUICommand> dialogTask = null;
 
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
+                //config.UwpSubmitOnEnterKey,
+                //config.UwpCancelOnEscKey,
                 () => dialogTask = dialog.ShowAsync(),
                 () => dialogTask?.Cancel()
             );
@@ -83,8 +83,8 @@ namespace Acr.UserDialogs
             IAsyncOperation<ContentDialogResult> dialogTask = null;
 
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
+                //config.UwpSubmitOnEnterKey,
+                //config.UwpCancelOnEscKey,
                 () => dialogTask = dlg.ShowAsync(),
                 () => dialogTask?.Cancel()
             );
@@ -102,8 +102,8 @@ namespace Acr.UserDialogs
 
             IAsyncOperation<IUICommand> dialogTask = null;
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
+                //config.UwpSubmitOnEnterKey,
+                //config.UwpCancelOnEscKey,
                 () => dialogTask = dialog.ShowAsync(),
                 () => dialogTask?.Cancel()
             );
@@ -146,8 +146,8 @@ namespace Acr.UserDialogs
                 picker.DatePicker.SetDisplayDate(config.SelectedDate.Value);
             }
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
+                //config.UwpSubmitOnEnterKey,
+                //config.UwpCancelOnEscKey,
                 () => popup.IsOpen = true,
                 () => popup.IsOpen = false
             );
@@ -173,7 +173,7 @@ namespace Acr.UserDialogs
                     popup.IsOpen = false;
                 };
             }
-            
+
             if(config.Use24HourClock == true) picker.TimePicker.ClockIdentifier = "24HourClock";
 
             picker.OkButton.Content = config.OkText;
@@ -188,8 +188,8 @@ namespace Acr.UserDialogs
                 picker.TimePicker.Time = config.SelectedTime.Value;
             }
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
+                //config.UwpSubmitOnEnterKey,
+                //config.UwpCancelOnEscKey,
                 () => popup.IsOpen = true,
                 () => popup.IsOpen = false
             );
@@ -220,8 +220,8 @@ namespace Acr.UserDialogs
             };
 
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
+                //config.UwpSubmitOnEnterKey,
+                //config.UwpCancelOnEscKey,
                 () => dlg.ShowAsync(),
                 dlg.Hide
             );
@@ -257,8 +257,8 @@ namespace Acr.UserDialogs
             }
 
             return this.DispatchAndDispose(
-                config.UwpSubmitOnEnterKey,
-                config.UwpCancelOnEscKey,
+                //config.UwpSubmitOnEnterKey,
+                //config.UwpCancelOnEscKey,
                 () => dialog.ShowAsync(),
                 dialog.Hide
             );
@@ -270,8 +270,6 @@ namespace Acr.UserDialogs
             ToastPrompt toast = null;
 
             return this.DispatchAndDispose(
-                false,
-                false,
                 () =>
                 {
                     toast = new ToastPrompt
@@ -404,9 +402,9 @@ namespace Acr.UserDialogs
         protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config);
 
 
-        protected virtual IDisposable DispatchAndDispose(bool enterKey, bool escKey, Action dispatch, Action dispose)
+        protected virtual IDisposable DispatchAndDispose(Action dispatch, Action dispose)
         {
-            TypedEventHandler<CoreWindow, KeyEventArgs> keyHandler = null;
+            //TypedEventHandler<CoreWindow, KeyEventArgs> keyHandler = null;
 
             var disposer = new DisposableAction(() =>
             {
@@ -420,35 +418,35 @@ namespace Acr.UserDialogs
                 }
                 finally
                 {
-                    if (keyHandler != null)
-                        Window.Current.CoreWindow.KeyDown -= keyHandler;
+                    //if (keyHandler != null)
+                    //    Window.Current.CoreWindow.KeyDown -= keyHandler;
                 }
             });
 
-            keyHandler = (sender, args) =>
-            {
-                switch (args.VirtualKey)
-                {
-                    case VirtualKey.Escape:
-                        //if (escKey && vm.Cancel.CanExecute(null))
-                        //{
-                        //    dlg.Hide();
-                        //    vm.Cancel.Execute(null);
-                        //}
-                        break;
+            //keyHandler = (sender, args) =>
+            //{
+            //    switch (args.VirtualKey)
+            //    {
+            //        case VirtualKey.Escape:
+            //            //if (escKey && vm.Cancel.CanExecute(null))
+            //            //{
+            //            //    dlg.Hide();
+            //            //    vm.Cancel.Execute(null);
+            //            //}
+            //            break;
 
-                    case VirtualKey.Enter:
-                        //if (enterKey && vm.Login.CanExecute(null))
-                        //{
-                        //    dlg.Hide();
-                        //    vm.Login.Execute(null);
-                        //}
-                        break;
-                }
-            };
+            //        case VirtualKey.Enter:
+            //            //if (enterKey && vm.Login.CanExecute(null))
+            //            //{
+            //            //    dlg.Hide();
+            //            //    vm.Login.Execute(null);
+            //            //}
+            //            break;
+            //    }
+            //};
 
-            if (enterKey || escKey)
-                Window.Current.CoreWindow.KeyDown += keyHandler;
+            //if (enterKey || escKey)
+            //    Window.Current.CoreWindow.KeyDown += keyHandler;
 
             this.dispatcher.Invoke(dispatch);
             return disposer;
