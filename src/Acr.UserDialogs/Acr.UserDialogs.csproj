@@ -6,7 +6,7 @@
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
-        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, Unified Windows Platform (UWP, UAP) and Tizen</Description>
+        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, and UWP</Description>
         <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
         <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
         <PackageVersion>7.0.2</PackageVersion>
@@ -43,7 +43,9 @@
 
     <ItemGroup>
         <Compile Remove="Platforms\**\*.cs" />
+        <Page Remove="Platforms\**\*.xaml" />
         <None Include="Platforms\**\*.cs" />
+        <None Include="Platforms\**\*.xaml" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
@@ -82,60 +84,11 @@
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
-        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.5" />
         <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
 
         <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Uwp\ProgressDialog.cs" />
-        <Compile Include="Platforms\Uwp\ActionSheetViewModel.cs" />
-        <Compile Include="Platforms\Uwp\Infrastructure\**\*.cs" />
-        <Compile Include="Platforms\Uwp\Extensions.cs" />
-        <Compile Include="Platforms\Uwp\UserDialogs.cs" />
-        <Compile Include="Platforms\Uwp\UserDialogsImpl.cs" />
-        <Compile Include="Platforms\Uwp\ActionSheetContentDialog.xaml.cs">
-            <DependentUpon>Platforms\Uwp\ActionSheetContentDialog.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Platforms\Uwp\ActionSheetOptionViewModel.cs" />
-
-        <Compile Include="Platforms\Uwp\TimePickerControl.xaml.cs">
-            <DependentUpon>Platforms\Uwp\TimePickerControl.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Platforms\Uwp\DatePickerControl.xaml.cs">
-            <DependentUpon>Platforms\Uwp\DatePickerControl.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Platforms\Uwp\LoginContentDialog.xaml.cs">
-            <DependentUpon>Platforms\Uwp\LoginContentDialog.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Platforms\Uwp\LoginViewModel.cs" />
-        <Compile Include="Platforms\Uwp\ProgressContentDialog.xaml.cs">
-            <DependentUpon>Platforms\Uwp\ProgressContentDialog.xaml</DependentUpon>
-        </Compile>
-        <EmbeddedResource Include="Platforms\Uwp\Acr.UserDialogs.rd.xml" />
-
-        <Page Include="Platforms\Uwp\ActionSheetContentDialog.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Platforms\Uwp\TimePickerControl.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </Page>
-        <Page Include="Platforms\Uwp\DatePickerControl.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Platforms\Uwp\LoginContentDialog.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Include="Platforms\Uwp\ProgressContentDialog.xaml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Properties\" />
+        <Compile Include="Platforms\Uwp\**\*.cs" />
+        <Page Include="Platforms\Uwp\**\*.xaml" />
     </ItemGroup>
 
 </Project>
