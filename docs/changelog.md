@@ -1,13 +1,11 @@
 ﻿# CHANGELOG
 
 ## 7.0.2
+* [droid][fix] use latest android SDK versions
+* [droid][fix] update andhud to 1.4.1
 * [droid][fix] icon not appearing in bottom sheet dialog
 * [uwp][fix] vertically center progress dialog
 * [uwp][feature] ability to set custom dispatcher via Init(Action<Action> customUiDispatcher) - good for kiosk mode
-* [uwp][feature] ability to cancel dialogs with ESC key or submit via ENTER
-
-## 7.0.1
-* [feature] Tizen!
 
 ## 7.0
 * Move to .NET Standard 2.0
