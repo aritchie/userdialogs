@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.65">
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.61">
 
     <PropertyGroup>
         <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;MonoAndroid81;MonoAndroid90;Xamarin.iOS10;uap10.0.16299</TargetFrameworks>
@@ -42,10 +42,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="Platforms\**\*.cs" />
-        <Page Remove="Platforms\**\*.xaml" />
-        <None Include="Platforms\**\*.cs" />
-        <None Include="Platforms\**\*.xaml" />
+        <Compile Remove="Platforms\**\*.*" />
+        <None Include="Platforms\**\*.*" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
@@ -89,6 +87,17 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Uwp\**\*.cs" />
         <Page Include="Platforms\Uwp\**\*.xaml" />
+        <Content Include="Platforms\Uwp\**\*.xaml">
+            <Pack>true</Pack>
+            <PackagePath>lib\uap10.0.16299\Acr.UserDialogs\Platforms\Uwp\</PackagePath>
+        </Content>
     </ItemGroup>
+
+    <Target Name="AfterBuild" Condition=" $(TargetFramework.StartsWith('uap')) ">
+        <ItemGroup>
+            <_CopyItems Include="$(BuildOuput)\Platforms\Uwp\*.xbf" />
+        </ItemGroup>
+        <Copy SourceFiles="@(_CopyItems)" DestinationFolder="$(BuildOutput)\Acr.UserDialogs\Platforms\Uwp" />
+    </Target>
 
 </Project>
