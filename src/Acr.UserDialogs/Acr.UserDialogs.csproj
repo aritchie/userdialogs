@@ -87,15 +87,15 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Uwp\**\*.cs" />
         <Page Include="Platforms\Uwp\**\*.xaml" />
-        <Content Include="Platforms\Uwp\**\*.xaml">
+        <!--<Content Include="Platforms\Uwp\**\*.xaml">
             <Pack>true</Pack>
             <PackagePath>lib\uap10.0.16299\Acr.UserDialogs\Platforms\Uwp\</PackagePath>
-        </Content>
+        </Content>-->
     </ItemGroup>
 
     <Target Name="AfterBuild" Condition=" $(TargetFramework.StartsWith('uap')) ">
         <ItemGroup>
-            <_CopyItems Include="$(BuildOuput)\Platforms\Uwp\*.xbf" />
+            <_CopyItems Include="**\*.xbf" />
         </ItemGroup>
         <Copy SourceFiles="@(_CopyItems)" DestinationFolder="$(BuildOutput)\Acr.UserDialogs\Platforms\Uwp" />
     </Target>

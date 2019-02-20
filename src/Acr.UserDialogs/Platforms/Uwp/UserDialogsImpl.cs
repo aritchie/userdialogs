@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -312,11 +311,9 @@ namespace Acr.UserDialogs
 
 
         protected virtual DateTime GetDateForCalendar(CalendarView calendar)
-        {
-            return calendar.SelectedDates.Any()
+            => calendar.SelectedDates.Any()
                 ? calendar.SelectedDates.First().Date
                 : DateTime.MinValue;
-        }
 
 
         protected virtual void SetPasswordPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
