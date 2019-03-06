@@ -244,3 +244,4 @@ src/.vs/Acr.UserDialogs/v15/Server/sqlite3/db.lock
 src/.vs/Acr.UserDialogs/v15/Server/sqlite3/storage.ide
 src/.vs/Acr.UserDialogs/v15/Server/sqlite3/storage.ide-shm
 src/.vs/Acr.UserDialogs/v15/Server/sqlite3/storage.ide-wal
+/src/.vs/Acr.UserDialogs/v16/Server/sqlite3
