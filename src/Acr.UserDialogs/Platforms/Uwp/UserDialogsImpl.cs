@@ -303,12 +303,17 @@ namespace Acr.UserDialogs
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
+            // popup.LayoutUpdated += Popup_LayoutUpdated;
+            // TODO: This is a workaround because sender is null when subscribing to the event
+            popup.LayoutUpdated += (sender, e) =>
+            {
+                Popup_LayoutUpdated(popup, e);
+            };
             if (element != null)
                 popup.Child = element;
 
             return popup;
         }
-
 
         protected virtual DateTime GetDateForCalendar(CalendarView calendar)
             => calendar.SelectedDates.Any()
@@ -447,6 +452,25 @@ namespace Acr.UserDialogs
 
             this.dispatcher.Invoke(dispatch);
             return disposer;
+        }
+        #endregion
+
+        #region Privates
+
+        private static void Popup_LayoutUpdated(object sender, object e)
+        {
+            if (sender is Popup popup && popup.Child is Control control &&
+                control.ActualWidth != 0 && control.ActualHeight != 0)
+            {
+                var newHorizontalOffset = (int)(Window.Current.Bounds.Width - control.ActualWidth) / 2;
+                var newVerticalOffset = (int)(Window.Current.Bounds.Height - control.ActualHeight) / 2;
+
+                if (popup.HorizontalOffset != newHorizontalOffset || popup.VerticalOffset != newVerticalOffset)
+                {
+                    popup.HorizontalOffset = newHorizontalOffset;
+                    popup.VerticalOffset = newVerticalOffset;
+                }
+            }
         }
         #endregion
     }
