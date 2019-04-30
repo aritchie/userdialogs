@@ -29,7 +29,7 @@ _Docs are a work in progress (looking for help!)
 ## Support Platforms
 
 * iOS 8+
-* Android
+* Android 8.1+
 * Universal Windows Platform (Win10/UWP)
 * NET Standard 2.0
 
