@@ -262,7 +262,7 @@ namespace TTG
 
             // Add constraints
             var hConstraints = NSLayoutConstraint.FromVisualFormat(
-                "H:|-0-[iconImageView]-2-[messageLabel]-2-[seperateView(0.5)]-2-[actionButton(>=44@999)]-0-[secondActionButton(>=44@999)]-0-|",
+                "H:|-10-[iconImageView]-2-[messageLabel]-2-[seperateView(0.5)]-2-[actionButton(>=44@999)]-0-[secondActionButton(>=44@999)]-0-|",
                 0,
                 new NSDictionary(),
                 NSDictionary.FromObjectsAndKeys(
