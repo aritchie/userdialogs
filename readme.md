@@ -63,7 +63,7 @@ To use, simply reference the nuget package in each of your platform projects.
 * iOS - Toasts powered by TTGSnackBar ported by @MarcBruins (https://github.com/MarcBruins/TTGSnackbar-Xamarin-iOS)
 * iOS - Date/Time Picker powered by AIDatePicker ported by @MarcBruins (https://github.com/MarcBruins/AIDatePickerController-Xamarin-iOS)
 * UWP - Coding4Fun Toolkit (http://coding4fun.codeplex.com)
-* Splat - Provides a nice layer of xplat stuff by @paulcbetts (https://github.com/paulcbetts) 
+* Splat - Provides a nice layer of xplat stuff by @paulcbetts (https://github.com/anaisbetts) 
 
 ## Contributors
 
