@@ -6,7 +6,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Acr.UserDialogs.Infrastructure;
-
+using System.Threading.Tasks;
 
 namespace Acr.UserDialogs
 {
@@ -15,11 +15,20 @@ namespace Acr.UserDialogs
         readonly ProgressDialogConfig config;
         ProgressContentDialog dialog;
 
+        readonly Func<Action, Task> dispatcher;
 
-        public ProgressDialog(ProgressDialogConfig config)
+        public ProgressDialog(ProgressDialogConfig config, Func<Action, Task> dispatcher = null)
         {
             this.config = config;
             this.Cancel = new Command(() => config.OnCancel?.Invoke());
+
+            this.dispatcher = dispatcher ?? new Func<Action, Task>(x => CoreApplication
+                .MainView
+                .CoreWindow
+                .Dispatcher
+                .RunAsync(CoreDispatcherPriority.Normal, () => x())
+                .AsTask()
+            );
         }
 
 
@@ -109,7 +118,7 @@ namespace Acr.UserDialogs
 
         protected virtual void Dispatch(Action action)
         {
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
+            this.dispatcher.Invoke(action);
         }
     }
 }
