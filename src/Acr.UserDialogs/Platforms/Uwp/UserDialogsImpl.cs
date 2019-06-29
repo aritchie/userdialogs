@@ -401,7 +401,7 @@ namespace Acr.UserDialogs
         }
 
 
-        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config);
+        protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config) => new ProgressDialog(config, dispatcher);
 
 
         protected virtual IDisposable DispatchAndDispose(Action dispatch, Action dispose)
