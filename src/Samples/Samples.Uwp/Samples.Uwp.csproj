@@ -11,8 +11,8 @@
     <AssemblyName>Samples.Uwp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -92,12 +92,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -113,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\emoji_cool_small.png" />
+    <Content Include="Assets\icon.png">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="icon.png">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -135,13 +135,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj">
-      <Project>{6a0ae941-711d-4c36-a311-960b65534b22}</Project>
-      <Name>Acr.UserDialogs.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Acr.UserDialogs.Uwp\Acr.UserDialogs.Uwp.csproj">
-      <Project>{e7273c26-d3e3-4161-b464-69cd6fe606b1}</Project>
-      <Name>Acr.UserDialogs.Uwp</Name>
+    <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj">
+      <Project>{ad34aa53-f275-4f18-a51c-9809c4e1f3bc}</Project>
+      <Name>Acr.UserDialogs</Name>
     </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
       <Project>{74cee6c1-4ce8-4279-82af-d5a5ddd76d18}</Project>
@@ -150,10 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.3.3</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
-    <PackageReference Include="Splat">
-      <Version>2.0.0</Version>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>4.0.0.482894</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

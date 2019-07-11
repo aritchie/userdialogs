@@ -1,27 +1,95 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.24">
 
     <PropertyGroup>
-        <TargetFramework>netstandard1.1</TargetFramework>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <TargetFrameworks>netstandard2.0;MonoAndroid81;MonoAndroid90;Xamarin.iOS10</TargetFrameworks>
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
+        <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
+        <Product>$(AssemblyName) ($(TargetFramework))</Product>
+        <Authors>Allan Ritchie</Authors>
+        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, and UWP</Description>
+        <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
+        <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
+        <PackageVersion>7.0.5</PackageVersion>
+        <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
+        <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
+
+        <RepositoryUrl>https://github.com/aritchie/userdialogs</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <IncludeSymbols>True</IncludeSymbols>
+        <IncludeSource>True</IncludeSource>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DefineConstants>TRACE;BAIT</DefineConstants>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <DefineConstants>TRACE;DEBUG;BAIT</DefineConstants>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>portable</DebugType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
+
+    <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
+        <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+        <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    </PropertyGroup>
+
+    <ItemGroup Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' ">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
+    </ItemGroup>
 
     <ItemGroup>
-      <Compile Include="..\Acr.UserDialogs.Shared\AssemblyInfo.cs">
-        <Link>AssemblyInfo.cs</Link>
-      </Compile>
-      <Compile Include="..\Acr.UserDialogs.Shared\UserDialogs.cs">
-        <Link>UserDialogs.cs</Link>
-      </Compile>
+        <Compile Remove="Platforms\**\*.*" />
+        <None Include="Platforms\**\*.*" />
     </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\Acr.UserDialogs.Interface\Acr.UserDialogs.Interface.csproj" />
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
     </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Android\**\*.cs" />
+        <PackageReference Include="AndHUD" Version="1.4.1" />
+        <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\ios\**\*.cs" />
+        <Reference Include="OpenTK-1.0" />
+        <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
+        <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
+
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Uwp\**\*.cs" />
+        <Page Include="Platforms\uwp\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+        <None Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+        <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Tizen\**\*.cs" />
+        <PackageReference Include="Tizen.NET" Version="5.0.0.14562">
+            <ExcludeAssets>Runtime</ExcludeAssets>
+        </PackageReference>
+        <PackageReference Include="Tizen.NET.Sdk" Version="1.0.1" />
+        <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.5.1.444934" />
+    </ItemGroup>
+
+    <!--<Target Name="AfterBuild" Condition=" $(TargetFramework.StartsWith('uap')) ">
+        <ItemGroup>
+            <_CopyItems Include="**\*.xbf" />
+        </ItemGroup>
+        <Copy SourceFiles="@(_CopyItems)" DestinationFolder="$(BuildOutput)\Acr.UserDialogs\Platforms\Uwp" />
+    </Target>-->
+
 </Project>

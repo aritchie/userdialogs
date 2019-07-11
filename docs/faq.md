@@ -20,3 +20,17 @@
 
     in appdelegate or the starting activity
     UserDialogs.Instance = new MyCustomUserDialogs();
+
+5. Why don't you support the latest Android support libraries?
+
+    * Because Xamarin breaks these frequently, one way or another - every... single... major release.  Be patient and wait!
+
+6. Why don't you cancel a dialog when the app goes to the background (AND) why do I get an exception when I call for a dialog?
+
+    * USER DIALOGS DOES NOT SOLVE WORLD PEACE! Guess what - most android API version and iOS don't call this.  This library is not a window state manager, if you call for a dialog, 
+        it will try to present one.  If your app goes to the background and you call for a dialog, iOS & Android are tossing you the exception.  The library isn't here to save you from bad design choices.  
+        Call us an anti-pattern if you want, we present dialogs!
+
+7. Why does the library allow me to open multiple windows?
+
+    * Similar to #6 - the library does not manage windows.  It opens dialogs - SURPRISE

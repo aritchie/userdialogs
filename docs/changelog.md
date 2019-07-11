@@ -1,5 +1,21 @@
 ﻿# CHANGELOG
 
+## 7.0.2
+* [droid][fix] use latest android SDK versions
+* [droid][fix] update andhud to 1.4.1
+* [droid][fix] icon not appearing in bottom sheet dialog
+* [uwp][fix] vertically center progress dialog
+* [uwp][feature] ability to set custom dispatcher via Init(Action<Action> customUiDispatcher) - good for kiosk mode
+
+## 7.0
+* Move to .NET Standard 2.0
+* [feature] Splat is gone
+* [feature] Now safeties the user from calling for a dialog when the app is in the background
+* [feature][android] update android support libraries
+* [fix][ios] Safe area insets thanks to PR from [Thomas Dhaen](https://github.com/ThomasDhaen)
+* [fix][android] remove use of non-appcompat dialogs
+* [BREAKING] show error/success/image are gone
+
 ## 6.5.1
 * [fix][android] Cancel with tap on outside will now properly dismiss and call the Cancel action
 * [fix][android] ActionSheetAsync works with tap on outside cancelling
