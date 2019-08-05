@@ -37,10 +37,10 @@ namespace Acr.UserDialogs
         Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null);
 
         IProgressDialog Progress(ProgressDialogConfig config);
-        IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
-        IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
+        IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null, bool isImmersive = false);
+        IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null, bool isImmersive = false);
 
-        void ShowLoading(string title = null, MaskType? maskType = null);
+        void ShowLoading(string title = null, MaskType? maskType = null, bool isImmersive = false);
         void HideLoading();
 
         IDisposable Toast(string title, TimeSpan? dismissTimer = null);

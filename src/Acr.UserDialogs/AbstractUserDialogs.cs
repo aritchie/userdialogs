@@ -57,12 +57,12 @@ namespace Acr.UserDialogs
 
 
         IProgressDialog loading;
-        public virtual void ShowLoading(string title, MaskType? maskType)
+        public virtual void ShowLoading(string title, MaskType? maskType, bool isImmersive = false)
         {
             if (this.loading != null)
                 this.HideLoading();
 
-            this.loading = this.Loading(title, null, null, true, maskType);
+            this.loading = this.Loading(title, null, null, true, maskType, isImmersive);
         }
 
 
@@ -73,7 +73,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show, MaskType? maskType)
+        public virtual IProgressDialog Loading(string title, Action onCancel, string cancelText, bool show, MaskType? maskType, bool isImmersive = false)
             => this.Progress(new ProgressDialogConfig
             {
                 Title = title ?? ProgressDialogConfig.DefaultTitle,
@@ -81,11 +81,12 @@ namespace Acr.UserDialogs
                 CancelText = cancelText ?? ProgressDialogConfig.DefaultCancelText,
                 MaskType = maskType ?? ProgressDialogConfig.DefaultMaskType,
                 IsDeterministic = false,
-                OnCancel = onCancel
+                OnCancel = onCancel,
+                ShowsImmersive = isImmersive
             });
 
 
-        public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show, MaskType? maskType)
+        public virtual IProgressDialog Progress(string title, Action onCancel, string cancelText, bool show, MaskType? maskType, bool isImmersive = false)
             => this.Progress(new ProgressDialogConfig
             {
                 Title = title ?? ProgressDialogConfig.DefaultTitle,
@@ -93,7 +94,8 @@ namespace Acr.UserDialogs
                 CancelText = cancelText ?? ProgressDialogConfig.DefaultCancelText,
                 MaskType = maskType ?? ProgressDialogConfig.DefaultMaskType,
                 IsDeterministic = true,
-                OnCancel = onCancel
+                OnCancel = onCancel,
+                ShowsImmersive = isImmersive
             });
 
 

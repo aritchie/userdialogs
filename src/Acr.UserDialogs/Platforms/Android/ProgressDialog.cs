@@ -1,5 +1,6 @@
 using System;
 using Android.App;
+using Android.Views;
 using AndroidHUD;
 
 
@@ -119,10 +120,40 @@ namespace Acr.UserDialogs
                     p,
                     this.config.MaskType.ToNative(),
                     null,
-                    this.OnCancelClick
+                    this.OnCancelClick,
+                    true,
+                    null,
+                    this.BeforeShow,
+                    this.AfterShow
                 );
         }
 
+        private void BeforeShow(Dialog dialog)
+        {
+            if (dialog == null)
+                return;
+            dialog.Window.AddFlags(WindowManagerFlags.NotFocusable);
+        }
+
+        private void AfterShow(Dialog dialog)
+        {
+            if (dialog == null)
+                return;
+
+            //Maintain Immersive mode
+            if (this.config.ShowsImmersive)
+            {
+                dialog.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)(
+                                                        SystemUiFlags.ImmersiveSticky |
+                                                        SystemUiFlags.LayoutStable |
+                                                        SystemUiFlags.LayoutFullscreen |
+                                                        SystemUiFlags.LayoutHideNavigation |
+                                                        SystemUiFlags.HideNavigation |
+                                                        SystemUiFlags.Fullscreen);
+            }
+
+            dialog.Window.ClearFlags(WindowManagerFlags.NotFocusable);
+        }
 
         void OnCancelClick()
         {
