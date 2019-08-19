@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.24">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.31">
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;MonoAndroid81;MonoAndroid90;Xamarin.iOS10</TargetFrameworks>
@@ -32,10 +32,11 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
-
-    <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
-        <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
-        <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+  
+    <PropertyGroup Condition="$(TargetFramework.StartsWith('uap')) And '$(OS)' == 'Windows_NT'">
+      <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+      <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+      <GenerateLibraryLayout>true</GenerateLibraryLayout>
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' ">
@@ -51,18 +52,34 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="AndHUD" Version="1.4.1" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
+        <Compile Include="Platforms\Apple\**\*.cs" />
         <Reference Include="OpenTK-1.0" />
         <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
+      <Compile Include="Platforms\Apple\**\*.cs" />
+      <Compile Include="Platforms\Mac\**\*.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.tvos')) ">
+      <Compile Include="Platforms\Apple\**\*.cs" />
+      <Compile Include="Platforms\Tvos\**\*.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.watchos')) ">
+      <Compile Include="Platforms\Apple\**\*.cs" />
+      <Compile Include="Platforms\Watchos\**\*.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
@@ -82,7 +99,7 @@
             <ExcludeAssets>Runtime</ExcludeAssets>
         </PackageReference>
         <PackageReference Include="Tizen.NET.Sdk" Version="1.0.1" />
-        <PackageReference Include="Xamarin.Forms.Platform.Tizen" Version="2.5.1.444934" />
+        <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
     </ItemGroup>
 
     <!--<Target Name="AfterBuild" Condition=" $(TargetFramework.StartsWith('uap')) ">
