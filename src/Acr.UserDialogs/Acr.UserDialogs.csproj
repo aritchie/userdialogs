@@ -1,8 +1,9 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.31">
 
     <PropertyGroup>
-		    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;xamarin.ios10;monoandroid90;tizen40;uap10.0.16299</TargetFrameworks>
-		    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;xamarin.ios10;monoandroid90;tizen40</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid90</TargetFrameworks>
+        <!--<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.16299;tizen50;$(TargetFrameworks)</TargetFrameworks>-->
+        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.16299;$(TargetFrameworks)</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
@@ -12,10 +13,9 @@
         <PackageVersion>7.0.5</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
-
         <LangVersion>7.3</LangVersion>
         <NoWarn>$(NoWarn);1591;1701;1702;1705;VSX1000;NU1603</NoWarn>
-
+        <GenerateLibraryLayout Condition="$(TargetFramework.StartsWith('uap'))">true</GenerateLibraryLayout>
         <RepositoryUrl>https://github.com/aritchie/userdialogs</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>True</IncludeSymbols>
@@ -23,6 +23,7 @@
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <DesignTimeBuild>false</DesignTimeBuild>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -31,33 +32,19 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DebugType>portable</DebugType>
-        <DesignTimeBuild>false</DesignTimeBuild>
+        <DebugType Condition=" !$(TargetFramework.StartsWith('MonoAndroid')) ">portable</DebugType>
+        <DebugType Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">full</DebugType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
-    <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
-      <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
-      <AndroidResgenClass>Resource</AndroidResgenClass>
-      <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
-    </PropertyGroup>
-  
-    <PropertyGroup Condition="$(TargetFramework.StartsWith('uap')) And '$(OS)' == 'Windows_NT'">
-      <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
-      <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
-      <GenerateLibraryLayout>true</GenerateLibraryLayout>
-    </PropertyGroup>
-
     <ItemGroup Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' ">
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
         <Compile Remove="Platforms\**\*.*" />
         <None Include="Platforms\**\*.*" />
-        <None Include="Resources\*.cs" />
-        <Compile Remove="Resources\*.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
@@ -69,11 +56,10 @@
         <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="AndHUD" Version="1.4.1" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
-        <AndroidResource Include="Resources\**\*.xml" SubType="Designer" Generator="MSBuild:UpdateAndroidResources" />
         <PackageReference Include="Xamarin.Build.Download" Version="0.4.11" PrivateAssets="All" />
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarinios')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <Compile Include="Platforms\Apple\**\*.cs" />
@@ -82,18 +68,18 @@
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
-      <Compile Include="Platforms\Apple\**\*.cs" />
-      <Compile Include="Platforms\Mac\**\*.cs" />
+        <Compile Include="Platforms\Apple\**\*.cs" />
+        <Compile Include="Platforms\Mac\**\*.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.tvos')) ">
-      <Compile Include="Platforms\Apple\**\*.cs" />
-      <Compile Include="Platforms\Tvos\**\*.cs" />
+        <Compile Include="Platforms\Apple\**\*.cs" />
+        <Compile Include="Platforms\Tvos\**\*.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.watchos')) ">
-      <Compile Include="Platforms\Apple\**\*.cs" />
-      <Compile Include="Platforms\Watchos\**\*.cs" />
+        <Compile Include="Platforms\Apple\**\*.cs" />
+        <Compile Include="Platforms\Watchos\**\*.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
@@ -102,25 +88,20 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Uwp\**\*.cs" />
         <Page Include="Platforms\Uwp\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
-        <None Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
-        <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+        <!--<None Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+        <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />-->
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Tizen\**\*.cs" />
-        <PackageReference Include="Tizen.NET" Version="5.0.0.14562">
-            <ExcludeAssets>Runtime</ExcludeAssets>
-        </PackageReference>
-        <PackageReference Include="Tizen.NET.Sdk" Version="1.0.1" />
-        <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
+        <PackageReference Include="Xamarin.Forms" Version="4.1.0.673156" />
     </ItemGroup>
 
-    <!--<Target Name="AfterBuild" Condition=" $(TargetFramework.StartsWith('uap')) ">
+    <!--https://github.com/onovotny/MSBuildSdkExtras/issues/174-->
+    <Target Name="_RemoveNonExistingResgenFile" BeforeTargets="CoreCompile" Condition="'$(_SdkSetAndroidResgenFile)' == 'true' And '$(AndroidResgenFile)' != '' And !Exists('$(AndroidResgenFile)')">
         <ItemGroup>
-            <_CopyItems Include="**\*.xbf" />
+            <Compile Remove="$(AndroidResgenFile)"/>
         </ItemGroup>
-        <Copy SourceFiles="@(_CopyItems)" DestinationFolder="$(BuildOutput)\Acr.UserDialogs\Platforms\Uwp" />
-    </Target>-->
-
+    </Target>
 </Project>
