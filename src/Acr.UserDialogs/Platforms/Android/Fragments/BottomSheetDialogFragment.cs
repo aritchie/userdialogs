@@ -46,7 +46,7 @@ namespace Acr.UserDialogs.Fragments
 
         protected override Dialog CreateDialog(ActionSheetConfig config)
         {
-            var dlg = new BottomSheetDialog(this.Activity);
+            var dlg = new BottomSheetDialog(this.Activity, config.AndroidStyleId ?? 0);
             var layout = new LinearLayout(this.Activity)
             {
                 Orientation = Orientation.Vertical
