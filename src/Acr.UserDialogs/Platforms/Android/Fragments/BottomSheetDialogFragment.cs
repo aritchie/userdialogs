@@ -84,6 +84,8 @@ namespace Acr.UserDialogs.Fragments
                 Orientation = Orientation.Horizontal,
                 LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(48))
             };
+            row.SetBackgroundResource(Extensions.GetSelectableItemBackground(this.Activity));
+
             if (action.ItemIcon != null)
                 row.AddView(this.GetIcon(action.ItemIcon));
 

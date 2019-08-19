@@ -2,7 +2,7 @@ using System;
 using Android.App;
 using Android.Graphics;
 using Acr.UserDialogs.Infrastructure;
-
+using Android.Content;
 
 namespace Acr.UserDialogs
 {
@@ -78,6 +78,18 @@ namespace Acr.UserDialogs
                 default:
                     throw new ArgumentException("Invalid Mask Type");
             }
+        }
+
+        static int selectableItemBackground = 0;
+        public static int GetSelectableItemBackground(Context context)
+        {
+            if (selectableItemBackground == 0)
+            {
+                var outValue = new Android.Util.TypedValue();
+                context.Theme.ResolveAttribute(Android.Resource.Attribute.SelectableItemBackground, outValue, true);
+                selectableItemBackground = outValue.ResourceId;
+            }
+            return selectableItemBackground;
         }
     }
 }

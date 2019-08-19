@@ -38,6 +38,7 @@ namespace Acr.UserDialogs.Builders
                 var dp = (int) (10*parent.Context.Resources.DisplayMetrics.Density + 0.5f);
                 textView.CompoundDrawablePadding = dp;
             }
+            view.SetBackgroundResource(Extensions.GetSelectableItemBackground(Context));
             return view;
         }
     }
