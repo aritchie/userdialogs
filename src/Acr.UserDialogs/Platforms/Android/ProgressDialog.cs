@@ -141,7 +141,7 @@ namespace Acr.UserDialogs
                 return;
 
             //Maintain Immersive mode
-            if (this.config.ShowsImmersive)
+            if (ProgressDialogConfig.ShowsImmersive)
             {
                 dialog.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)(
                                                         SystemUiFlags.ImmersiveSticky |

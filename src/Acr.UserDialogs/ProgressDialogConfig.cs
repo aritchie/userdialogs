@@ -16,7 +16,7 @@ namespace Acr.UserDialogs
         public bool IsDeterministic { get; set; }
         public MaskType MaskType { get; set; }
         public Action OnCancel { get; set; }
-        public bool ShowsImmersive { get; set; }
+        public static bool ShowsImmersive { get; set; }
 
 
         public ProgressDialogConfig()
@@ -25,7 +25,7 @@ namespace Acr.UserDialogs
             this.CancelText = DefaultCancelText;
             this.MaskType = DefaultMaskType;
             this.AutoShow = true;
-            this.ShowsImmersive = false;
+            ShowsImmersive = false;
         }
 
 
@@ -63,12 +63,6 @@ namespace Acr.UserDialogs
         public ProgressDialogConfig SetIsDeterministic(bool isDeterministic)
         {
             this.IsDeterministic = isDeterministic;
-            return this;
-        }
-
-        public ProgressDialogConfig SetImmersive(bool isImmersive)
-        {
-            this.ShowsImmersive = isImmersive;
             return this;
         }
     }
