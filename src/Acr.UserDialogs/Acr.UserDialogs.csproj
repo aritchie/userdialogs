@@ -8,13 +8,13 @@
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
         <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, and UWP</Description>
-        <PackageLicenseUrl>https://github.com/aritchie/userdialogs/blob/master/LICENSE.md</PackageLicenseUrl>
         <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
         <PackageVersion>7.0.5</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <LangVersion>7.3</LangVersion>
-        <NoWarn>$(NoWarn);1591;1701;1702;1705;VSX1000;NU1603</NoWarn>
+        <NoWarn>$(NoWarn);1591;1701;1591;1702;1705;VSX1000;NU1603</NoWarn>
         <GenerateLibraryLayout Condition="$(TargetFramework.StartsWith('uap'))">true</GenerateLibraryLayout>
         <RepositoryUrl>https://github.com/aritchie/userdialogs</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
@@ -24,7 +24,6 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
         <DesignTimeBuild>false</DesignTimeBuild>
-        <DisableEmbeddedXbf>false</DisableEmbeddedXbf>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -33,8 +32,8 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DebugType Condition=" !$(TargetFramework.StartsWith('MonoAndroid')) ">portable</DebugType>
-        <DebugType Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">full</DebugType>
+        <DebugType Condition=" !$(TargetFramework.StartsWith('monoandroid')) ">portable</DebugType>
+        <DebugType Condition=" $(TargetFramework.StartsWith('monoandroid')) ">full</DebugType>
         <!--<OutputPath>.\</OutputPath>-->
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -45,6 +44,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="readme.txt" pack="true" PackagePath="." />
         <Compile Remove="Platforms\**\*.*" />
         <None Include="Platforms\**\*.*" />
     </ItemGroup>
@@ -86,52 +86,16 @@
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
         <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
-
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Uwp\**\*.cs" />
-        <Page Include="Platforms\Uwp\**\*.xaml" />
-        <!--<Page Include="Platforms\Uwp\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
-        <None Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
-        <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />-->
+        <Page Include="Platforms\Uwp\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+        <Compile Update="Platforms\Uwp\**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Tizen\**\*.cs" />
         <PackageReference Include="Xamarin.Forms" Version="4.1.0.673156" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Platforms\Uwp\ActionSheetContentDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="Platforms\Uwp\DatePickerControl.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="Platforms\Uwp\LoginContentDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="Platforms\Uwp\ProgressContentDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="Platforms\Uwp\TimePickerControl.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="uap10.0.16299\Acr.UserDialogs\Platforms\Uwp\ActionSheetContentDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="uap10.0.16299\Acr.UserDialogs\Platforms\Uwp\DatePickerControl.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="uap10.0.16299\Acr.UserDialogs\Platforms\Uwp\LoginContentDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="uap10.0.16299\Acr.UserDialogs\Platforms\Uwp\ProgressContentDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
-      <None Update="uap10.0.16299\Acr.UserDialogs\Platforms\Uwp\TimePickerControl.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </None>
     </ItemGroup>
 
     <!--https://github.com/onovotny/MSBuildSdkExtras/issues/174-->
