@@ -40,7 +40,7 @@
 
     <ItemGroup Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' ">
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
-        <Reference Include="netstandard" />
+        <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     </ItemGroup>
 
     <ItemGroup>
