@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.31">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.41">
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid90</TargetFrameworks>
@@ -23,7 +23,6 @@
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-        <DesignTimeBuild>false</DesignTimeBuild>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -97,11 +96,5 @@
         <Compile Include="Platforms\Tizen\**\*.cs" />
         <PackageReference Include="Xamarin.Forms" Version="4.1.0.673156" />
     </ItemGroup>
-
-    <!--https://github.com/onovotny/MSBuildSdkExtras/issues/174-->
-    <Target Name="_RemoveNonExistingResgenFile" BeforeTargets="CoreCompile" Condition="'$(_SdkSetAndroidResgenFile)' == 'true' And '$(AndroidResgenFile)' != '' And !Exists('$(AndroidResgenFile)')">
-        <ItemGroup>
-            <Compile Remove="$(AndroidResgenFile)" />
-        </ItemGroup>
-    </Target>
+  
 </Project>
