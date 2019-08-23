@@ -7,11 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acr.UserDialogs", "Acr.User
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6BC05413-873B-460E-BDA0-82BD63FC13DC}"
 	ProjectSection(SolutionItems) = preProject
+		..\faq.md = ..\faq.md
 		..\icon.png = ..\icon.png
-		..\ISSUE_TEMPLATE = ..\ISSUE_TEMPLATE
-		..\LICENSE.md = ..\LICENSE.md
-		..\nuget.exe = ..\nuget.exe
-		..\push.cmd = ..\push.cmd
+		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "Samples\Samples\Samples.csproj", "{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}"
@@ -21,23 +19,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid", "Samples\Samples.Droid\Samples.Droid.csproj", "{1AA0F8D6-3F27-4461-B5FD-1C8F1000FCE3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Uwp", "Samples\Samples.Uwp\Samples.Uwp.csproj", "{CCA8B1CA-C9C6-4441-BC45-B3A95EDB43FA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E016AD70-2C74-4ADE-8189-7E7D90018423}"
-	ProjectSection(SolutionItems) = preProject
-		..\docs\actionsheets.md = ..\docs\actionsheets.md
-		..\docs\alerts.md = ..\docs\alerts.md
-		..\docs\android.md = ..\docs\android.md
-		..\docs\changelog.md = ..\docs\changelog.md
-		..\docs\confirm.md = ..\docs\confirm.md
-		..\docs\date.md = ..\docs\date.md
-		..\docs\faq.md = ..\docs\faq.md
-		..\docs\login.md = ..\docs\login.md
-		..\docs\progress.md = ..\docs\progress.md
-		..\docs\prompt.md = ..\docs\prompt.md
-		..\readme.md = ..\readme.md
-		..\docs\time.md = ..\docs\time.md
-		..\docs\toasts.md = ..\docs\toasts.md
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

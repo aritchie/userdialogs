@@ -10,7 +10,7 @@
         <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, and UWP</Description>
         <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
         <PackageVersion>7.0.24</PackageVersion>
-        <PackageReleaseNotes>https://github.com/aritchie/userdialogs/blob/master/docs/changelog.md</PackageReleaseNotes>
+        <PackageReleaseNotes></PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <LangVersion>7.3</LangVersion>
@@ -33,7 +33,6 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugType Condition=" !$(TargetFramework.StartsWith('monoandroid')) ">portable</DebugType>
         <DebugType Condition=" $(TargetFramework.StartsWith('monoandroid')) ">full</DebugType>
-        <!--<OutputPath>.\</OutputPath>-->
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
@@ -64,7 +63,7 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <Compile Include="Platforms\Apple\**\*.cs" />
-        <Reference Include="OpenTK-1.0" />
+        <!--<Reference Include="OpenTK-1.0" />-->
         <PackageReference Include="BTProgressHUD" Version="1.2.0.6" />
     </ItemGroup>
 
