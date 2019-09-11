@@ -54,6 +54,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="netstandard" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.Mac" />
@@ -84,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="UserDialogsImpl\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -93,15 +93,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="UserDialogsImpl\UserDialogs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UserDialogsImpl\UserDialogsImpl.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UserDialogsImpl\ProgressDialog.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Samples\Samples.csproj">

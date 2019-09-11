@@ -18,7 +18,7 @@ namespace Samples.macOS
 
             var rect = new CoreGraphics.CGRect(200, 200, 800, 600);
             this._window = new NSWindow(rect, style, NSBackingStore.Buffered, false);
-            this._window.Title = "SamplesMacOS";
+            this._window.Title = "User Dialogs";
         }
 
         public override void DidFinishLaunching(NSNotification notification)
