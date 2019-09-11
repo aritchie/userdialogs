@@ -7,17 +7,16 @@ namespace Acr.UserDialogs
     public class ProgressDialog : IProgressDialog
     {
         readonly ProgressDialogConfig config;
-        private readonly NSPanel progressPanel;
-        private readonly NSProgressIndicator progressIndicator;
-        private readonly NSTextField txtTitle;
-
-        private readonly NSWindow mainWindow;
-
+        readonly NSPanel progressPanel;
+        readonly NSProgressIndicator progressIndicator;
+        readonly NSTextField txtTitle;
+        readonly NSWindow mainWindow;
+        
         public ProgressDialog(ProgressDialogConfig config)
         {
             this.config = config;
             this.title = config.Title;
-            mainWindow = NSApplication.SharedApplication.KeyWindow;
+            this.mainWindow = NSApplication.SharedApplication.KeyWindow;
 
             progressPanel = new NSPanel(new CGRect(0, 0, 100, 140), NSWindowStyle.DocModal, NSBackingStore.Buffered, true)
             {

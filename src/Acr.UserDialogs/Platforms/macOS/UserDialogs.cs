@@ -11,7 +11,7 @@ namespace Acr.UserDialogs
         /// </summary>
         public static void Init(Func<NSWindow> windowFunc)
         {
-            Acr.UserDialogs.UserDialogs.Instance = new UserDialogsImpl(windowFunc);
+            Instance = new UserDialogsImpl(windowFunc);
         }
 
 
