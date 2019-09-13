@@ -94,3 +94,4 @@ To use, simply reference the nuget package in each of your platform projects.
 
 * **[Jelle Damen](https://twitter.com/JelleDamen)** for the wonderful icons
 * **[Jong Heon Choi](https://github.com/JongHeonChoi)** for the Tizen implementation
+* **[Federico Maccaroni](https://github.com/fedemkr)** for the macOS Implementation
