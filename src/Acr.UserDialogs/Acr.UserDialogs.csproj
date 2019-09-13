@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.43">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid81;monoandroid90</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid81;monoandroid90;xamarin.mac20</TargetFrameworks>
         <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.16299;$(TargetFrameworks)</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -82,4 +82,9 @@
         <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
     </ItemGroup>
 
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\macOS\**\*.cs" />
+        <Reference Include="System.Drawing.Common" />
+    </ItemGroup>
 </Project>
