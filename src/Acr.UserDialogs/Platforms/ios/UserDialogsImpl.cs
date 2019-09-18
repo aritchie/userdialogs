@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Text;
 using UIKit;
@@ -50,7 +50,9 @@ namespace Acr.UserDialogs
         {
             var picker = new AI.AIDatePickerController
             {
+#if __IOS__
                 Mode = UIDatePickerMode.Date,
+#endif
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
@@ -71,8 +73,10 @@ namespace Acr.UserDialogs
         {
             var picker = new AI.AIDatePickerController
             {
+#if __IOS__
                 Mode = UIDatePickerMode.Time,
-				SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add ((TimeSpan)config.SelectedTime) : DateTime.Now,
+#endif
+                SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add ((TimeSpan)config.SelectedTime) : DateTime.Now,
                 MinuteInterval = config.MinuteInterval,
                 OkText = config.OkText,
                 CancelText = config.CancelText,
@@ -269,10 +273,11 @@ namespace Acr.UserDialogs
                     var x = top.View.Bounds.Width / 2;
                     var y = top.View.Bounds.Bottom;
                     var rect = new CGRect(x, y, 0, 0);
-
+#if __IOS__
                     alert.PopoverPresentationController.SourceView = top.View;
                     alert.PopoverPresentationController.SourceRect = rect;
                     alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
+#endif
                 }
                 top.PresentViewController(alert, true, null);
             });

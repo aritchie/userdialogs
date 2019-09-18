@@ -1,5 +1,7 @@
-using System;
+﻿using System;
+#if __IOS__
 using BigTed;
+#endif
 using UIKit;
 
 
@@ -68,7 +70,9 @@ namespace Acr.UserDialogs
         public virtual void Hide()
         {
             this.IsShowing = false;
+#if __IOS__
             UIApplication.SharedApplication.InvokeOnMainThread(BTProgressHUD.Dismiss);
+#endif
         }
 
         #endregion
@@ -105,14 +109,17 @@ namespace Acr.UserDialogs
             {
                 if (this.config.OnCancel == null)
                 {
+#if __IOS__
                     BTProgressHUD.Show(
                         this.Title,
                         p,
                         this.config.MaskType.ToNative()
                     );
+#endif
                 }
                 else
                 {
+#if __IOS__
                     BTProgressHUD.Show(
                         this.config.CancelText,
                         this.config.OnCancel,
@@ -120,10 +127,11 @@ namespace Acr.UserDialogs
                         p,
                         this.config.MaskType.ToNative()
                     );
+#endif
                 }
             });
         }
 
-        #endregion
+#endregion
     }
 }
