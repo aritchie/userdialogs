@@ -1,5 +1,7 @@
-using System;
+﻿using System;
+#if __IOS__
 using BigTed;
+#endif
 using Foundation;
 using UIKit;
 using Acr.UserDialogs.Infrastructure;
@@ -25,7 +27,7 @@ namespace Acr.UserDialogs
             }
         });
 
-
+#if __IOS__
         public static ProgressHUD.MaskType ToNative(this MaskType maskType)
         {
             switch (maskType)
@@ -38,7 +40,7 @@ namespace Acr.UserDialogs
                     throw new ArgumentException("Invalid mask type");
             }
         }
-
+#endif
 
 		public static DateTime ToDateTime(this NSDate nsDate)
 		{
