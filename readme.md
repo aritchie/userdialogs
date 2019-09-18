@@ -89,9 +89,14 @@ To use, simply reference the nuget package in each of your platform projects.
 7. Why does the library allow me to open multiple windows?
 
     * Similar to #6 - the library does not manage windows.  It opens dialogs - SURPRISE
-    * 
+    
+8. I'd like to customize the dialogs
+
+    * The library wasn't really designed or meant for this.  It was meant for using native dialogs.  That's it.  If you need something more customizable, this is not the library for it.
+    
 ## Contributors
 
+* **[Martijn van Dijk](https://github.com/martijn00)** for tvOS and all of his contributions over the years!!
 * **[Jelle Damen](https://twitter.com/JelleDamen)** for the wonderful icons
 * **[Jong Heon Choi](https://github.com/JongHeonChoi)** for the Tizen implementation
 * **[Federico Maccaroni](https://github.com/fedemkr)** for the macOS Implementation
