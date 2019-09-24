@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.43">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.46">
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid81;monoandroid90;xamarin.mac20;xamarin.tvos10</TargetFrameworks>
@@ -55,8 +55,7 @@
         <Compile Include="Platforms\Android\**\*.cs" />
         <Reference Include="System.Drawing.Common" />
         <PackageReference Include="AndHUD" Version="1.4.2" />
-        <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
-        <PackageReference Include="Xamarin.Build.Download" Version="0.4.11" PrivateAssets="All" />
+        <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
