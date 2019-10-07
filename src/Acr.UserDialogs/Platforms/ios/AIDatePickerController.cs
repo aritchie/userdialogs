@@ -13,9 +13,11 @@ namespace AI
         public double AnimatedTransitionDuration { get; set; } = 0.4;
 #if __IOS__
 		public UIDatePickerMode Mode { get; set; } = UIDatePickerMode.Date;
+        public UIColor BackgroundColor { get; set; } = UIColor.TertiarySystemBackgroundColor;
+#else
+        public UIColor BackgroundColor { get; set; } = UIColor.White;
 #endif
-	    public UIColor BackgroundColor { get; set; } = UIColor.White;
-	    public DateTime SelectedDateTime { get; set; } = DateTime.Now;
+        public DateTime SelectedDateTime { get; set; } = DateTime.Now;
         public DateTime? MaximumDateTime { get; set; }
         public DateTime? MinimumDateTime { get; set; }
 	    public int MinuteInterval { get; set; } = 1;
@@ -36,6 +38,7 @@ namespace AI
             //this.ModalPresentationStyle = UIModalPresentationStyle.Custom;
             this.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
             this.TransitioningDelegate = this;        
+            this.TransitioningDelegate = this;
 
             SetupSafeAreaInsets();
         }
@@ -90,7 +93,7 @@ namespace AI
 			var containerView = new UIView
 			{
                 ClipsToBounds = true,
-                BackgroundColor = UIColor.White,
+                BackgroundColor = BackgroundColor,
 			    TranslatesAutoresizingMaskIntoConstraints = false
 			};
 			containerView.Layer.CornerRadius = 5.0f;
@@ -101,7 +104,7 @@ namespace AI
 			var buttonContainerView = new UIView
 			{
 			    TranslatesAutoresizingMaskIntoConstraints = false,
-                BackgroundColor = UIColor.White
+                BackgroundColor = BackgroundColor
 			};
 			buttonContainerView.Layer.CornerRadius = 5.0f;
 			this.View.AddSubview(buttonContainerView);
