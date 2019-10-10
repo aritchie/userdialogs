@@ -13,10 +13,8 @@ namespace AI
         public double AnimatedTransitionDuration { get; set; } = 0.4;
 #if __IOS__
 		public UIDatePickerMode Mode { get; set; } = UIDatePickerMode.Date;
-        public UIColor BackgroundColor { get; set; } = UIColor.TertiarySystemBackgroundColor;
-#else
-        public UIColor BackgroundColor { get; set; } = UIColor.White;
 #endif
+        public UIColor BackgroundColor { get; set; }
         public DateTime SelectedDateTime { get; set; } = DateTime.Now;
         public DateTime? MaximumDateTime { get; set; }
         public DateTime? MinimumDateTime { get; set; }
@@ -33,14 +31,21 @@ namespace AI
 	    UIView dimmedView;
 
 
-        public AIDatePickerController() 
+        public AIDatePickerController()
         {
+#if __IOS__
+            this.BackgroundColor = (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+                ? UIColor.TertiarySystemBackgroundColor
+                : UIColor.White;
+#else
+            this.BackgroundColor = UIColor.White;
+#endif
             //this.ModalPresentationStyle = UIModalPresentationStyle.Custom;
             this.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-            this.TransitioningDelegate = this;        
+            this.TransitioningDelegate = this;
             this.TransitioningDelegate = this;
 
-            SetupSafeAreaInsets();
+            this.SetupSafeAreaInsets();
         }
 
 
@@ -144,17 +149,17 @@ namespace AI
 			buttonContainerView.AddSubview(button);
 
 			var views = NSDictionary.FromObjectsAndKeys(
-				new NSObject[] 
-                { 
-                    dismissButton, 
-                    containerView, 
-                    datePicker, 
-                    buttonContainerView, 
-                    buttonDividerView, 
-                    cancelButton, 
-                    button 
+				new NSObject[]
+                {
+                    dismissButton,
+                    containerView,
+                    datePicker,
+                    buttonContainerView,
+                    buttonDividerView,
+                    cancelButton,
+                    button
                 },
-				new NSObject[] 
+				new NSObject[]
                 {
 					new NSString("DismissButton"),
                     new NSString("DatePickerContainerView"),
