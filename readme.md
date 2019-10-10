@@ -30,7 +30,7 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 ## Setup
 
-To use, simply reference the nuget package in each of your platform projects.
+To use, simply reference the nuget package in each of your platform projects.  If you are getting issues with System.Drawing.Color, please make sure you are using the latest version of Xamarin
 
 #### iOS and Windows
 
@@ -39,11 +39,10 @@ To use, simply reference the nuget package in each of your platform projects.
 
 #### Android Initialization (In your main activity)
 
-    UserDialogs.Init(this);
-    OR UserDialogs.Init(() => provide your own top level activity provider)
-    OR MvvmCross - UserDialogs.Init(() => Mvx.IoCProvider.Resolve<IMvxAndroidCurrentTopActivity>().Activity)
-    OR Xamarin.Forms - UserDialogs.Init(() => this);
-
+```csharp
+UserDialogs.Init(this);
+OR UserDialogs.Init(() => provide your own top level activity provider)
+```
 
 ## Powered By:
 
@@ -93,7 +92,11 @@ To use, simply reference the nuget package in each of your platform projects.
 8. I'd like to customize the dialogs
 
     * The library wasn't really designed or meant for this.  It was meant for using native dialogs.  That's it.  If you need something more customizable, this is not the library for it.
-    
+
+9. I'm getting a linker issue with System.Drawing.Color
+
+    * This is due to a new BCL library being added in new versions of Xamarin.  You need to upgrade to the latest version of Xamarin (VS2019) to use anything beyond 7.0.4
+
 ## Contributors
 
 * **[Martijn van Dijk](https://github.com/martijn00)** for tvOS and all of his contributions over the years!!
