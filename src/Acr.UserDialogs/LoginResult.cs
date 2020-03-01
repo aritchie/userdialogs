@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace Acr.UserDialogs
+﻿namespace Acr.UserDialogs
 {
 
     public class LoginResult : AbstractStandardDialogResult<Credentials>

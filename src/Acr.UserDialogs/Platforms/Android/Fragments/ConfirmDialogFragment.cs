@@ -1,4 +1,3 @@
-using System;
 using Acr.UserDialogs.Builders;
 using Android.App;
 using Android.Content;

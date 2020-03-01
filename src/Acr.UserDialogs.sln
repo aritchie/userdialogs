@@ -22,9 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.macOS", "Samples\Samples.macOS\Samples.macOS.csproj", "{AEA8EE60-DEBE-4632-A554-16CCD013CD6A}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Acr.UserDialogs.Shared\Acr.UserDialogs.Shared.projitems*{ad34aa53-f275-4f18-a51c-9809c4e1f3bc}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
 		Ad-Hoc|ARM = Ad-Hoc|ARM

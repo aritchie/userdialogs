@@ -1,7 +1,5 @@
-using System;
-using Android.App;
-using Android.Support.V7.App;
-
+﻿using Android.App;
+using AndroidX.AppCompat.App;
 
 namespace Acr.UserDialogs.Builders
 {

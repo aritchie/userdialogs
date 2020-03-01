@@ -1,14 +1,14 @@
-using System;
+﻿using System;
 using System.Globalization;
 using Android.App;
 using Android.Content;
-using Android.Support.V7.App;
 using Android.Text;
 using Android.Text.Method;
 using Android.Views.InputMethods;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using AlertDialog = Android.App.AlertDialog;
-using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
+using AppCompatAlertDialog = AndroidX.AppCompat.App.AlertDialog;
 
 
 namespace Acr.UserDialogs.Builders

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Acr.UserDialogs.Builders;
 using Acr.UserDialogs.Fragments;
 using Acr.UserDialogs.Infrastructure;
@@ -6,11 +6,10 @@ using Android.App;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.App;
-using Android.Support.Design.Widget;
 using Android.Text.Style;
 using AndroidHUD;
-
+using AndroidX.AppCompat.App;
+using Google.Android.Material.Snackbar;
 
 namespace Acr.UserDialogs
 {

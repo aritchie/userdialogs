@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using Acr.UserDialogs.Infrastructure;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.Support.Design.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Google.Android.Material.BottomSheet;
 using Orientation = Android.Widget.Orientation;
 
 

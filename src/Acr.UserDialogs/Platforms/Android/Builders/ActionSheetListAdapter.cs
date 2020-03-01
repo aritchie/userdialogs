@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Acr.UserDialogs.Infrastructure;
 using Android.Content;
