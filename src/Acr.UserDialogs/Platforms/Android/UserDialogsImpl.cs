@@ -6,10 +6,15 @@ using Android.App;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.App;
-using Android.Support.Design.Widget;
 using Android.Text.Style;
 using AndroidHUD;
+#if ANDROIDX
+using AndroidX.AppCompat.App;
+using Google.Android.Material.Snackbar;
+#else
+using Android.Support.V7.App;
+using Android.Support.Design.Widget;
+#endif
 
 
 namespace Acr.UserDialogs
@@ -26,7 +31,7 @@ namespace Acr.UserDialogs
         }
 
 
-        #region Alert Dialogs
+#region Alert Dialogs
 
         public override IDisposable Alert(AlertConfig config)
         {
@@ -102,9 +107,9 @@ namespace Acr.UserDialogs
             return this.Show(activity, () => TimePromptBuilder.Build(activity, config));
         }
 
-        #endregion
+#endregion
 
-        #region Toasts
+#region Toasts
 
         public override IDisposable Toast(ToastConfig cfg)
         {
@@ -235,9 +240,9 @@ namespace Acr.UserDialogs
             });
         }
 
-        #endregion
+#endregion
 
-        #region Internals
+#region Internals
 
         protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
         {
@@ -286,6 +291,6 @@ namespace Acr.UserDialogs
             );
         }
 
-        #endregion
+#endregion
     }
 }

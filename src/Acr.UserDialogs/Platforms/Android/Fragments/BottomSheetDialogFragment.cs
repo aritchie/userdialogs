@@ -4,12 +4,15 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.Support.Design.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Orientation = Android.Widget.Orientation;
-
+#if ANDROIDX
+using Google.Android.Material.BottomSheet;
+#else
+using Android.Support.Design.Widget;
+#endif
 
 namespace Acr.UserDialogs.Fragments
 {
