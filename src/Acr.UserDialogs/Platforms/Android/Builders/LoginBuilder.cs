@@ -22,7 +22,7 @@ namespace Acr.UserDialogs.Builders
             var txtUser = new EditText(activity)
             {
                 Hint = config.LoginPlaceholder,
-                InputType = InputTypes.TextVariationVisiblePassword,
+                InputType = InputTypes.ClassText,
                 Text = config.LoginValue ?? String.Empty
             };
             txtUser.SetSingleLine(true);
@@ -66,7 +66,7 @@ namespace Acr.UserDialogs.Builders
             var txtUser = new EditText(activity)
             {
                 Hint = config.LoginPlaceholder,
-                InputType = InputTypes.TextVariationVisiblePassword,
+                InputType = InputTypes.ClassText,
                 Text = config.LoginValue ?? String.Empty
             };
             txtUser.SetSingleLine(true);
