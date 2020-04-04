@@ -184,7 +184,19 @@ namespace Acr.UserDialogs
                     ShowOnTop = cfg.Position == ToastPosition.Top
                 };
                 if (cfg.Icon != null)
-                    snackbar.Icon = UIImage.FromBundle(cfg.Icon);
+                {
+                    if (ToastConfig.DefaultImageResolver != null)
+                    {
+                        using (var stream = ToastConfig.DefaultImageResolver.FromName(cfg.Icon))
+                        {
+                            if (null != stream)
+                                using (var imageData = NSData.FromStream(stream))
+                                    snackbar.Icon = UIImage.LoadFromData(imageData);
+                        }
+                    }
+                    else
+                        snackbar.Icon = UIImage.FromBundle(cfg.Icon);
+                }
 
                 if (cfg.BackgroundColor != null)
                     snackbar.BackgroundColor = cfg.BackgroundColor.Value.ToNative();

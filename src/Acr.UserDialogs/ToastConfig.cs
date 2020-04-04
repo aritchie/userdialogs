@@ -28,6 +28,8 @@ namespace Acr.UserDialogs
 
         public static ToastPosition? DefaultPosition { get; set; }
 
+        public static IResourceResolver DefaultImageResolver { get; set; }
+
         public string Message { get; set; }
         public Color? MessageTextColor { get; set; } = DefaultMessageTextColor;
         public Color? BackgroundColor { get; set; } = DefaultBackgroundColor;
