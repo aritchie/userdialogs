@@ -34,9 +34,10 @@ namespace AI
         public AIDatePickerController()
         {
 #if __IOS__
-            this.BackgroundColor = (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
-                ? UIColor.TertiarySystemBackgroundColor
-                : UIColor.White;
+            bool isDarkMode = this.TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark;
+            UIColor altTextColor = isDarkMode ? UIColor.Black : UIColor.TertiarySystemBackgroundColor;
+            bool isv13 = UIDevice.CurrentDevice.CheckSystemVersion(13, 0);
+            this.BackgroundColor = isv13 ? altTextColor : UIColor.White;
 #else
             this.BackgroundColor = UIColor.White;
 #endif
