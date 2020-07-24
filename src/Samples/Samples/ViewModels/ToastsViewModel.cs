@@ -108,7 +108,7 @@ namespace Samples.ViewModels
                 if (this.showOnTop == value)
                     return;
 
-                this.showOnTop = true;
+                this.showOnTop = value;
                 this.OnPropertyChanged();
             }
         }
