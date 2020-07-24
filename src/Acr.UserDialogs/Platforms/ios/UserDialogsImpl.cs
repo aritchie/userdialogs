@@ -183,6 +183,19 @@ namespace Acr.UserDialogs
                     AnimationType = TTGSnackbarAnimationType.FadeInFadeOut,
                     ShowOnTop = cfg.Position == ToastPosition.Top
                 };
+
+                if (cfg.LeftMargin.HasValue)
+                    snackbar.LeftMargin = cfg.LeftMargin.Value;
+
+                if (cfg.TopMargin.HasValue)
+                    snackbar.TopMargin = cfg.TopMargin.Value;
+
+                if (cfg.RightMargin.HasValue)
+                    snackbar.RightMargin = cfg.RightMargin.Value;
+
+                if (cfg.BottomMargin.HasValue)
+                    snackbar.BottomMargin = cfg.BottomMargin.Value;
+
                 if (cfg.Icon != null)
                     snackbar.Icon = UIImage.FromBundle(cfg.Icon);
 

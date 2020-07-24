@@ -36,6 +36,10 @@ namespace Acr.UserDialogs
         public ToastAction Action { get; set; }
         public string Icon { get; set; }
 
+        public int? LeftMargin { get; set; }
+        public int? TopMargin { get; set; }
+        public int? RightMargin { get; set; }
+        public int? BottomMargin { get; set; }
 
         public ToastConfig(string message)
         {
@@ -95,6 +99,16 @@ namespace Acr.UserDialogs
         public ToastConfig SetIcon(string icon)
         {
             this.Icon = icon;
+            return this;
+        }
+
+        public ToastConfig SetMargin(int? left, int? top, int? right, int? bottom)
+        {
+            this.LeftMargin = left;
+            this.TopMargin = top;
+            this.RightMargin = right;
+            this.BottomMargin = bottom;
+
             return this;
         }
     }

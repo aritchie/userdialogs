@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Xamarin.Forms;
@@ -19,6 +19,11 @@ namespace Samples.ViewModels
             this.MessageTextColor = ToHex(Color.White);
             this.BackgroundColor = ToHex(Color.Blue);
 
+            this.LeftMargin = 0;
+            this.TopMargin = 0;
+            this.RightMargin = 0;
+            this.BottomMargin = 0;
+
             this.Open = new Command(() =>
             {
                 // var icon = await BitmapLoader.Current.LoadFromResource("emoji_cool_small.png", null, null);
@@ -35,6 +40,7 @@ namespace Samples.ViewModels
                     //.SetMessageTextColor(msgColor)
                     .SetDuration(TimeSpan.FromSeconds(this.SecondsDuration))
                     .SetPosition(this.ShowOnTop ? ToastPosition.Top : ToastPosition.Bottom)
+                    .SetMargin(this.LeftMargin, this.TopMargin, this.RightMargin, this.BottomMargin)
                     //.SetIcon(icon)
                     .SetAction(x => x
                         .SetText(this.ActionText)
@@ -94,6 +100,66 @@ namespace Samples.ViewModels
                     return;
 
                 this.secondsDuration = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+
+        int leftMargin;
+        public int LeftMargin
+        {
+            get => this.leftMargin;
+            set
+            {
+                if (this.leftMargin == value)
+                    return;
+
+                this.leftMargin = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+
+        int topMargin;
+        public int TopMargin
+        {
+            get => this.topMargin;
+            set
+            {
+                if (this.topMargin == value)
+                    return;
+
+                this.topMargin = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+
+        int rightMargin;
+        public int RightMargin
+        {
+            get => this.rightMargin;
+            set
+            {
+                if (this.rightMargin == value)
+                    return;
+
+                this.rightMargin = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+
+        int bottomMargin;
+        public int BottomMargin
+        {
+            get => this.bottomMargin;
+            set
+            {
+                if (this.bottomMargin == value)
+                    return;
+
+                this.bottomMargin = value;
                 this.OnPropertyChanged();
             }
         }

@@ -18,6 +18,16 @@
                     <SwitchCell Text="Show On Top" On="{Binding ShowOnTop}" />
 <!--                    <EntryCell Label="Background Color" Text="{Binding BackgroundColor}" />-->
                     <EntryCell Label="Duration (sec)" Text="{Binding SecondsDuration}" Keyboard="Numeric" />
+                </TableSection>
+
+                <TableSection Title="Margin">
+                    <EntryCell Label="Left Margin" Text="{Binding LeftMargin}" Keyboard="Numeric" />
+                    <EntryCell Label="Top Margin" Text="{Binding TopMargin}" Keyboard="Numeric" />
+                    <EntryCell Label="Right Margin" Text="{Binding RightMargin}" Keyboard="Numeric" />
+                    <EntryCell Label="Bottom Margin" Text="{Binding BottomMargin}" Keyboard="Numeric" />
+                </TableSection>
+
+                <TableSection Title="Action">
                     <TextCell Text="Open Toast" Command="{Binding Open}" />
                 </TableSection>
             </TableRoot>

@@ -137,17 +137,14 @@ namespace Acr.UserDialogs
                 if (cfg.BackgroundColor != null)
                     snackBar.View.SetBackgroundColor(cfg.BackgroundColor.Value.ToNative());
 
-                if (cfg.Position == ToastPosition.Top)
+                var layoutParams = snackBar.View.LayoutParameters as FrameLayout.LayoutParams;
+                if (layoutParams != null)
                 {
-                    // watch for this to change in future support lib versions
-                    var layoutParams = snackBar.View.LayoutParameters as FrameLayout.LayoutParams;
-                    if (layoutParams != null)
-                    {
-                        layoutParams.Gravity = GravityFlags.Top;
-                        layoutParams.SetMargins(0, 80, 0, 0);
-                        snackBar.View.LayoutParameters = layoutParams;
-                    }
+                    layoutParams.Gravity = cfg.Position == ToastPosition.Top ? GravityFlags.Top : GravityFlags.Bottom;
+                    layoutParams.SetMargins(cfg.LeftMargin ?? 0, cfg.TopMargin ?? 80, cfg.RightMargin ?? 0, cfg.BottomMargin ?? 0);
+                    snackBar.View.LayoutParameters = layoutParams;
                 }
+
                 if (cfg.Action != null)
                 {
                     snackBar.SetAction(cfg.Action.Text, x =>
