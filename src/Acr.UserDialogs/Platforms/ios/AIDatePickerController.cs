@@ -33,14 +33,7 @@ namespace AI
 
         public AIDatePickerController()
         {
-#if __IOS__
-            bool isDarkMode = this.TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark;
-            UIColor altTextColor = isDarkMode ? UIColor.Black : UIColor.TertiarySystemBackgroundColor;
-            bool isv13 = UIDevice.CurrentDevice.CheckSystemVersion(13, 0);
-            this.BackgroundColor = isv13 ? altTextColor : UIColor.White;
-#else
-            this.BackgroundColor = UIColor.White;
-#endif
+            this.BackgroundColor = GetBackgroundColor();
             //this.ModalPresentationStyle = UIModalPresentationStyle.Custom;
             this.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
             this.TransitioningDelegate = this;
@@ -270,6 +263,31 @@ namespace AI
 		{
 			return this;
 		}
+
+        private UIColor GetBackgroundColor()
+        {
+            if (UIDevice.CurrentDevice.CheckSystemVersion(12, 0))
+            {
+                if (this.TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
+                {
+                    return UIColor.Black;
+                }
+#if __IOS__
+                else if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+                {
+                    return UIColor.TertiarySystemBackgroundColor;
+                }
+#endif
+                else
+                {
+                    return UIColor.White;
+                }
+            }
+            else
+            {
+                return UIColor.White;
+            }
+        }
 	}
 }
 
