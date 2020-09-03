@@ -48,7 +48,13 @@ namespace Acr.UserDialogs
                 else
                     this.percent = value;
                 this.Change();
+                this.Change("PercentCompleteString");
             }
+        }
+
+        public string PercentCompleteString
+        {
+            get { return this.percent + "%"; }
         }
 
 

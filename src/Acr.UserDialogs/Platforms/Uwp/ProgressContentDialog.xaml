@@ -20,11 +20,11 @@
                         Minimum="0"
                         Maximum="100" />
 
-        <TextBlock Text="{Binding PercentComplete}"
-                    HorizontalAlignment="Center"
-                    FontSize="17"
-                    Visibility="{Binding TextPercentVisibility}"
-                    Margin="0,0,0,5" />
+        <TextBlock Text="{Binding PercentCompleteString}"
+                   HorizontalAlignment="Center"
+                   FontSize="17"
+                   Visibility="{Binding TextPercentVisibility}"
+                   Margin="0,0,0,5" />
 
         <Button Visibility="{Binding CancelVisibility}"
                 HorizontalAlignment="Center"
