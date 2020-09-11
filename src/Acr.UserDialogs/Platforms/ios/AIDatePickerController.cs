@@ -33,7 +33,7 @@ namespace AI
 
         public AIDatePickerController()
         {
-            this.BackgroundColor = GetBackgroundColor();
+            SetTheme();
             //this.ModalPresentationStyle = UIModalPresentationStyle.Custom;
             this.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
             this.TransitioningDelegate = this;
@@ -263,6 +263,24 @@ namespace AI
 		{
 			return this;
 		}
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(12, 0))
+            {
+                if (this.TraitCollection.UserInterfaceStyle != previousTraitCollection.UserInterfaceStyle)
+                {
+                    SetTheme();
+                }
+            }
+        }
+
+        private void SetTheme()
+        {
+            this.BackgroundColor = GetBackgroundColor();
+        }
 
         private UIColor GetBackgroundColor()
         {
