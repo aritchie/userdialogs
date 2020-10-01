@@ -52,6 +52,7 @@ namespace Acr.UserDialogs
             {
 #if __IOS__
                 Mode = UIDatePickerMode.Date,
+                DatePickerStyle = GetPickerStyle(config),
 #endif
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
@@ -331,6 +332,18 @@ namespace Acr.UserDialogs
                     txt.KeyboardType = UIKeyboardType.Url;
                     break;
             }
+        }
+
+        protected iOSDatePickerStyle GetPickerStyle(DatePromptConfig config)
+        {
+            var iOSConfig = (config as IiOSStyleDialogConfig);
+            if (iOSConfig == null)
+                return iOSDatePickerStyle.Auto;
+
+            if (!iOSConfig.iOSDatePickerStyle.HasValue)
+                return iOSDatePickerStyle.Auto;
+
+            return iOSConfig.iOSDatePickerStyle.Value;
         }
 
         #endregion

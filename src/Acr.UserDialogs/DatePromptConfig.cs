@@ -3,13 +3,13 @@
 
 namespace Acr.UserDialogs
 {
-    public class DatePromptConfig : IAndroidStyleDialogConfig
+    public class DatePromptConfig : IAndroidStyleDialogConfig, IiOSStyleDialogConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static DateTimeKind DefaultUnspecifiedDateTimeKindReplacement { get; set; } = DateTimeKind.Local;
         public static int? DefaultAndroidStyleId { get; set; }
-
+        public static iOSDatePickerStyle? DefaultiOSDatePickerStyle { get; set; }
 
         public string Title { get; set; }
         public string OkText { get; set; } = DefaultOkText;
@@ -23,7 +23,6 @@ namespace Acr.UserDialogs
         public DateTime? MinimumDate { get; set; }
         public DateTime? MaximumDate { get; set; }
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
-        //public bool UwpCancelOnEscKey { get; set; }
-        //public bool UwpSubmitOnEnterKey { get; set; }
+        public iOSDatePickerStyle? iOSDatePickerStyle { get; set; } = DefaultiOSDatePickerStyle;
     }
 }

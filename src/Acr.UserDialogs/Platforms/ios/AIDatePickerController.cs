@@ -14,7 +14,8 @@ namespace AI
 #if __IOS__
 		public UIDatePickerMode Mode { get; set; } = UIDatePickerMode.Date;
 #endif
-        public UIColor BackgroundColor { get; set; }
+		public iOSDatePickerStyle DatePickerStyle { get; set; }
+		public UIColor BackgroundColor { get; set; }
         public DateTime SelectedDateTime { get; set; } = DateTime.Now;
         public DateTime? MaximumDateTime { get; set; }
         public DateTime? MinimumDateTime { get; set; }
@@ -50,10 +51,11 @@ namespace AI
 #if __IOS__
 			var datePicker = new UIDatePicker
 			{
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                Date = this.SelectedDateTime.ToNSDate(),
-                BackgroundColor = BackgroundColor,
-                Mode = Mode,
+				TranslatesAutoresizingMaskIntoConstraints = false,
+				Date = this.SelectedDateTime.ToNSDate(),
+				BackgroundColor = BackgroundColor,
+				PreferredDatePickerStyle = GetDatePickerStyle(DatePickerStyle),
+				Mode = Mode,
                 MinuteInterval = MinuteInterval
 			};
             if (Use24HourClock == true)
@@ -306,6 +308,22 @@ namespace AI
                 return UIColor.White;
             }
         }
+
+		private UIDatePickerStyle GetDatePickerStyle(iOSDatePickerStyle? style)
+        {
+			if (!style.HasValue)
+			{
+				return UIDatePickerStyle.Automatic;
+			}
+			switch (style.Value)
+            {
+				case iOSDatePickerStyle.Auto: return UIDatePickerStyle.Automatic;
+				case iOSDatePickerStyle.Inline: return UIDatePickerStyle.Inline;
+				case iOSDatePickerStyle.Wheels: return UIDatePickerStyle.Wheels;
+				case iOSDatePickerStyle.Compact: return UIDatePickerStyle.Compact;
+			}
+			return UIDatePickerStyle.Automatic;
+		}
 	}
 }
 
