@@ -54,10 +54,12 @@ namespace AI
 				TranslatesAutoresizingMaskIntoConstraints = false,
 				Date = this.SelectedDateTime.ToNSDate(),
 				BackgroundColor = BackgroundColor,
-				PreferredDatePickerStyle = GetDatePickerStyle(DatePickerStyle),
 				Mode = Mode,
                 MinuteInterval = MinuteInterval
 			};
+
+			SetPrefferedDatePickerStyle(ref datePicker,DatePickerStyle);
+
             if (Use24HourClock == true)
                 datePicker.Locale = NSLocale.FromLocaleIdentifier("NL");
 
@@ -310,20 +312,29 @@ namespace AI
         }
 
 #if __IOS__
-		private UIDatePickerStyle GetDatePickerStyle(iOSDatePickerStyle? style)
+		private void SetPrefferedDatePickerStyle(ref UIDatePicker datePicker, iOSDatePickerStyle? style)
         {
-			if (!style.HasValue)
+			if (!UIDevice.CurrentDevice.CheckSystemVersion(13, 4) ||
+				datePicker == null ||
+				!style.HasValue)
 			{
-				return UIDatePickerStyle.Automatic;
+				return;
 			}
+
+			if (UIDevice.CurrentDevice.CheckSystemVersion(14, 0) && style.Value == iOSDatePickerStyle.Compact)
+			{
+				datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Compact;
+				return;
+			}
+
 			switch (style.Value)
             {
-				case iOSDatePickerStyle.Auto: return UIDatePickerStyle.Automatic;
-				case iOSDatePickerStyle.Inline: return UIDatePickerStyle.Inline;
-				case iOSDatePickerStyle.Wheels: return UIDatePickerStyle.Wheels;
-				case iOSDatePickerStyle.Compact: return UIDatePickerStyle.Compact;
+				case iOSDatePickerStyle.Auto: datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Automatic; return;
+				case iOSDatePickerStyle.Inline: datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Inline; return;
+				case iOSDatePickerStyle.Wheels: datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels; return;
 			}
-			return UIDatePickerStyle.Automatic;
+
+			datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Automatic;
 		}
 #endif
 	}
