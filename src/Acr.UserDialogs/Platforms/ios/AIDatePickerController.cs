@@ -309,6 +309,7 @@ namespace AI
             }
         }
 
+#if __IOS__
 		private UIDatePickerStyle GetDatePickerStyle(iOSDatePickerStyle? style)
         {
 			if (!style.HasValue)
@@ -324,6 +325,7 @@ namespace AI
 			}
 			return UIDatePickerStyle.Automatic;
 		}
+#endif
 	}
 }
 
