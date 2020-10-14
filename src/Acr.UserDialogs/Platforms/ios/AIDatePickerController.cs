@@ -58,7 +58,7 @@ namespace AI
                 MinuteInterval = MinuteInterval
 			};
 
-			SetPrefferedDatePickerStyle(ref datePicker,DatePickerStyle);
+			SetPreferredDatePickerStyle(ref datePicker,DatePickerStyle);
 
             if (Use24HourClock == true)
                 datePicker.Locale = NSLocale.FromLocaleIdentifier("NL");
