@@ -312,7 +312,7 @@ namespace AI
         }
 
 #if __IOS__
-		private void SetPrefferedDatePickerStyle(ref UIDatePicker datePicker, iOSDatePickerStyle? style)
+		private void SetPreferredDatePickerStyle(ref UIDatePicker datePicker, iOSDatePickerStyle? style)
         {
 			if (!UIDevice.CurrentDevice.CheckSystemVersion(13, 4) ||
 				datePicker == null ||
