@@ -268,7 +268,7 @@ namespace AI
         {
             base.TraitCollectionDidChange(previousTraitCollection);
 
-            if (UIDevice.CurrentDevice.CheckSystemVersion(12, 0))
+            if (UIDevice.CurrentDevice.CheckSystemVersion(12, 0) && previousTraitCollection != null)
             {
                 if (this.TraitCollection.UserInterfaceStyle != previousTraitCollection.UserInterfaceStyle)
                 {
