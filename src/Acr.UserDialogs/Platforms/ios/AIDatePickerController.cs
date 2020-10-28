@@ -14,7 +14,8 @@ namespace AI
 #if __IOS__
 		public UIDatePickerMode Mode { get; set; } = UIDatePickerMode.Date;
 #endif
-        public UIColor BackgroundColor { get; set; }
+		public iOSDatePickerStyle DatePickerStyle { get; set; }
+		public UIColor BackgroundColor { get; set; }
         public DateTime SelectedDateTime { get; set; } = DateTime.Now;
         public DateTime? MaximumDateTime { get; set; }
         public DateTime? MinimumDateTime { get; set; }
@@ -50,12 +51,15 @@ namespace AI
 #if __IOS__
 			var datePicker = new UIDatePicker
 			{
-                TranslatesAutoresizingMaskIntoConstraints = false,
-                Date = this.SelectedDateTime.ToNSDate(),
-                BackgroundColor = BackgroundColor,
-                Mode = Mode,
+				TranslatesAutoresizingMaskIntoConstraints = false,
+				Date = this.SelectedDateTime.ToNSDate(),
+				BackgroundColor = BackgroundColor,
+				Mode = Mode,
                 MinuteInterval = MinuteInterval
 			};
+
+			SetPreferredDatePickerStyle(ref datePicker,DatePickerStyle);
+
             if (Use24HourClock == true)
                 datePicker.Locale = NSLocale.FromLocaleIdentifier("NL");
 
@@ -306,6 +310,33 @@ namespace AI
                 return UIColor.White;
             }
         }
+
+#if __IOS__
+		private void SetPreferredDatePickerStyle(ref UIDatePicker datePicker, iOSDatePickerStyle? style)
+        {
+			if (!UIDevice.CurrentDevice.CheckSystemVersion(13, 4) ||
+				datePicker == null ||
+				!style.HasValue)
+			{
+				return;
+			}
+
+			if (UIDevice.CurrentDevice.CheckSystemVersion(14, 0) && style.Value == iOSDatePickerStyle.Compact)
+			{
+				datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Compact;
+				return;
+			}
+
+			switch (style.Value)
+            {
+				case iOSDatePickerStyle.Auto: datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Automatic; return;
+				case iOSDatePickerStyle.Inline: datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Inline; return;
+				case iOSDatePickerStyle.Wheels: datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels; return;
+			}
+
+			datePicker.PreferredDatePickerStyle = UIDatePickerStyle.Automatic;
+		}
+#endif
 	}
 }
 
