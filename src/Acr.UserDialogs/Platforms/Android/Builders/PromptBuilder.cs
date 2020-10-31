@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using Android.App;
 using Android.Content;
@@ -187,11 +187,12 @@ namespace Acr.UserDialogs.Builders
 
                 case InputType.NumericPassword:
                     txt.TransformationMethod = PasswordTransformationMethod.Instance;
-                    txt.InputType = InputTypes.ClassNumber;
+                    txt.InputType = InputTypes.ClassNumber | InputTypes.TextFlagNoSuggestions;
                     break;
 
                 case InputType.Password:
                     txt.TransformationMethod = PasswordTransformationMethod.Instance;
+                    txt.InputType = InputTypes.TextFlagNoSuggestions;
                     //txt.InputType = InputTypes.ClassText | InputTypes.TextVariationPassword;
                     break;
 
