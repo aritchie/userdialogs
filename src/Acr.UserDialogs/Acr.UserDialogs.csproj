@@ -34,8 +34,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DebugType Condition=" !$(TargetFramework.StartsWith('monoandroid')) ">portable</DebugType>
-        <DebugType Condition=" $(TargetFramework.StartsWith('monoandroid')) ">full</DebugType>
+        <DebugType>portable</DebugType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
