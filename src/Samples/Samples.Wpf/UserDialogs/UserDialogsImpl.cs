@@ -96,6 +96,30 @@ namespace Acr.UserDialogs
 
                 if (config.InputType == InputType.Password || config.InputType == InputType.NumericPassword)
                 {
+                    var control = new PasswordPromptControl();
+                    control.PasswordEdit.PasswordChanged += (s, e) =>
+                    {
+                        config.Text = control.PasswordEdit.Password;
+                        if (config.OnTextChanged != null)
+                        {
+                            var args = new PromptTextChangedArgs() { Value = control.PasswordEdit.Password };
+                            config.OnTextChanged(args);
+                            dialog.IsPrimaryButtonEnabled = args.IsValid;
+                            if (control.PasswordEdit.Password != args.Value)
+                            {
+                                control.PasswordEdit.Password = args.Value;
+                            }
+                        }
+                    };
+                    dialog.Content = control;
+                    // First run of text changed
+                    if (config.OnTextChanged != null)
+                    {
+                        var args = new PromptTextChangedArgs() { Value = control.PasswordEdit.Password };
+                        config.OnTextChanged(args);
+                        dialog.IsPrimaryButtonEnabled = args.IsValid;
+                        control.PasswordEdit.Password = args.Value;
+                    }
 
                 }
                 else

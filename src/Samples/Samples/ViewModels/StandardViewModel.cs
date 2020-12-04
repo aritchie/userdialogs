@@ -174,6 +174,20 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Prompt Password",
+                    Command = this.Create(async token =>
+                    {
+                        var result = await this.Dialogs.PromptAsync(new PromptConfig()
+
+                            .SetTitle("Password Prompt")
+                            .SetPlaceholder("Enter password")
+                            .SetInputMode(InputType.Password), token);
+
+                        this.Result($"Result - {result.Ok} - {result.Text}");
+                    })
+                },
+                new CommandViewModel
+                {
                     Text = "Date",
                     Command = this.Create(async token =>
                     {

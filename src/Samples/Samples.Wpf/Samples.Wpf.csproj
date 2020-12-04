@@ -57,6 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserDialogs\PasswordPromptControl.xaml.cs">
+      <DependentUpon>PasswordPromptControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserDialogs\DefaultPromptControl.xaml.cs">
       <DependentUpon>DefaultPromptControl.xaml</DependentUpon>
     </Compile>
@@ -79,6 +82,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserDialogs\PasswordPromptControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserDialogs\DefaultPromptControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -110,6 +117,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="UserDialogs\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
