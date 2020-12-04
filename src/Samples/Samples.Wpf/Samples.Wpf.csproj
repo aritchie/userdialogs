@@ -63,6 +63,9 @@
     <Compile Include="UserDialogs\MaxLengthConverter.cs" />
     <Compile Include="UserDialogs\MessageVisibilityConverter.cs" />
     <Compile Include="UserDialogs\NullImageConverter.cs" />
+    <Compile Include="UserDialogs\LoginControl.xaml.cs">
+      <DependentUpon>LoginControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserDialogs\PasswordPromptControl.xaml.cs">
       <DependentUpon>PasswordPromptControl.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserDialogs\ActionSheetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserDialogs\LoginControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

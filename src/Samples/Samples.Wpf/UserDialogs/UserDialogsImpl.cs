@@ -14,7 +14,7 @@ namespace Acr.UserDialogs
         readonly Func<Action, Task> dispatcher;
 
         // For not implemented features but not throw exception
-        class DummyDisposable : IDisposable 
+        class DummyDisposable : IDisposable
         {
             void IDisposable.Dispose() { }
         }
@@ -41,9 +41,9 @@ namespace Acr.UserDialogs
                     AndroidStyleId = config.AndroidStyleId,
                     UseBottomSheet = config.UseBottomSheet,
                     ItemIcon = config.ItemIcon,
-                    Options = config.Options.Select(o => new ActionSheetOption(o.Text, o.Action, 
+                    Options = config.Options.Select(o => new ActionSheetOption(o.Text, o.Action,
                         (o.ItemIcon ?? config.ItemIcon) == null ? null :
-                            (o.ItemIcon ?? config.ItemIcon).Contains(":") ? (o.ItemIcon ?? config.ItemIcon) : 
+                            (o.ItemIcon ?? config.ItemIcon).Contains(":") ? (o.ItemIcon ?? config.ItemIcon) :
                                 $"pack://application:,,,/{o.ItemIcon ?? config.ItemIcon}")).ToList()
                 };
                 var dialog = new FormsContentDialog()
@@ -125,7 +125,7 @@ namespace Acr.UserDialogs
                 {
                     Title = config.Title,
                     Content = new System.Windows.Controls.Viewbox()
-                    { 
+                    {
                         Stretch = System.Windows.Media.Stretch.Uniform,
                         StretchDirection = System.Windows.Controls.StretchDirection.UpOnly,
                         Child = calendar,
@@ -144,7 +144,24 @@ namespace Acr.UserDialogs
 
         public override IDisposable Login(LoginConfig config)
         {
-            return new DummyDisposable();
+            Dispatch(() =>
+            {
+                var loginControl = new LoginControl() { LoginValue = config.LoginValue };
+                FormsContentDialog dialog = new FormsContentDialog()
+                {
+                    DataContext = config,
+                    Title = config.Title,
+                    Content = loginControl,
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = config.OkText,
+                    IsSecondaryButtonEnabled = true,
+                    SecondaryButtonText = config.CancelText
+                };
+                dialog.PrimaryButtonClick += (s, e) => { HideContentDialog(); config.OnAction(new LoginResult(true, loginControl.LoginValue, loginControl.Password)); e.Cancel = true; };
+                dialog.SecondaryButtonClick += (s, e) => { HideContentDialog(); config.OnAction(new LoginResult(false, config.LoginValue, String.Empty)); e.Cancel = true; };
+                ShowContentDialog(dialog);
+            });
+            return new DisposableAction(HideContentDialog);
         }
 
         public override IDisposable Prompt(PromptConfig config)
