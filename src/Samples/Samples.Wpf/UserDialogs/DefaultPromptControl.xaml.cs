@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Acr.UserDialogs
 {
     /// <summary>
-    /// Interaction logic for ProgressDialogControl.xaml
+    /// Interaction logic for XAML
     /// </summary>
     public partial class DefaultPromptControl : ContentControl
     {
