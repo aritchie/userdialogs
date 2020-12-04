@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -29,7 +30,38 @@ namespace Acr.UserDialogs
 
         public override IDisposable ActionSheet(ActionSheetConfig config)
         {
-            return new DummyDisposable();
+            Dispatch(() =>
+            {
+                var dataContext = new ActionSheetConfig
+                {
+                    Title = config.Title,
+                    Message = config.Message,
+                    Cancel = config.Cancel,
+                    Destructive = config.Destructive,
+                    AndroidStyleId = config.AndroidStyleId,
+                    UseBottomSheet = config.UseBottomSheet,
+                    ItemIcon = config.ItemIcon,
+                    Options = config.Options.Select(o => new ActionSheetOption(o.Text, o.Action, 
+                        (o.ItemIcon ?? config.ItemIcon) == null ? null :
+                            (o.ItemIcon ?? config.ItemIcon).Contains(":") ? (o.ItemIcon ?? config.ItemIcon) : 
+                                $"pack://application:,,,/{o.ItemIcon ?? config.ItemIcon}")).ToList()
+                };
+                var dialog = new FormsContentDialog()
+                {
+                    DataContext = dataContext,
+                    Title = config.Title,
+                    Content = new ActionSheetControl(),
+                    IsPrimaryButtonEnabled = !string.IsNullOrEmpty(config.Destructive?.Text),
+                    PrimaryButtonText = config.Destructive?.Text,
+                    IsSecondaryButtonEnabled = !string.IsNullOrEmpty(config.Cancel?.Text),
+                    SecondaryButtonText = config.Cancel?.Text
+                };
+
+                dialog.PrimaryButtonClick += (s, e) => { HideContentDialog(); config.Destructive?.Action?.Invoke(); e.Cancel = true; };
+                dialog.SecondaryButtonClick += (s, e) => { HideContentDialog(); config.Cancel?.Action?.Invoke(); e.Cancel = true; };
+                ShowContentDialog(dialog);
+            });
+            return new DisposableAction(HideContentDialog);
         }
 
         public override IDisposable Alert(AlertConfig config)

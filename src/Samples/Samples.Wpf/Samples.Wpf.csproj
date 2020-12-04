@@ -57,7 +57,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserDialogs\ActionSheetControl.xaml.cs">
+      <DependentUpon>ActionSheetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserDialogs\MaxLengthConverter.cs" />
+    <Compile Include="UserDialogs\MessageVisibilityConverter.cs" />
+    <Compile Include="UserDialogs\NullImageConverter.cs" />
     <Compile Include="UserDialogs\PasswordPromptControl.xaml.cs">
       <DependentUpon>PasswordPromptControl.xaml</DependentUpon>
     </Compile>
@@ -83,6 +88,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserDialogs\ActionSheetControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserDialogs\PasswordPromptControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -137,6 +146,11 @@
     <PackageReference Include="Xamarin.Forms.Platform.WPF">
       <Version>4.5.0.356</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.png">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
