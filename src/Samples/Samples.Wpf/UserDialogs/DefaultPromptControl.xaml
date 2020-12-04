@@ -17,8 +17,7 @@
             <TextBox x:Name="TextEdit" 
                      Text="{Binding Text}"
                      FontSize="17"         
-                     MaxLength="{Binding MaxLength}"                 
-                     Foreground="Black"
+                     MaxLength="{Binding MaxLength, Converter={acr:MaxLengthConverter}}"                 
                      Background="Transparent"/>
         </Grid>
     </StackPanel>

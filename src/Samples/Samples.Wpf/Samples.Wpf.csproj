@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserDialogs\MaxLengthConverter.cs" />
     <Compile Include="UserDialogs\PasswordPromptControl.xaml.cs">
       <DependentUpon>PasswordPromptControl.xaml</DependentUpon>
     </Compile>
