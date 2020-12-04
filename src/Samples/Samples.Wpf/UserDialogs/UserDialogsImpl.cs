@@ -103,7 +103,43 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            return new DummyDisposable();
+            Dispatch(() =>
+            {
+                var calendar = new System.Windows.Controls.Calendar()
+                {
+                    DisplayDateStart = config.MinimumDate,
+                    DisplayDateEnd = config.MaximumDate,
+                    DisplayMode = System.Windows.Controls.CalendarMode.Month,
+                    SelectionMode = System.Windows.Controls.CalendarSelectionMode.SingleDate
+                };
+                if (config.SelectedDate != null)
+                {
+                    DateTime selectedDate = DateTime.Today;
+                    if (selectedDate > (config.SelectedDate ?? DateTime.MaxValue))
+                        selectedDate = config.SelectedDate ?? DateTime.MaxValue;
+                    if (selectedDate < (config.SelectedDate ?? DateTime.MinValue))
+                        selectedDate = config.SelectedDate ?? DateTime.MinValue;
+                    calendar.SelectedDate = selectedDate;
+                }
+                FormsContentDialog dialog = new FormsContentDialog()
+                {
+                    Title = config.Title,
+                    Content = new System.Windows.Controls.Viewbox()
+                    { 
+                        Stretch = System.Windows.Media.Stretch.Uniform,
+                        StretchDirection = System.Windows.Controls.StretchDirection.UpOnly,
+                        Child = calendar,
+                    },
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = config.OkText,
+                    IsSecondaryButtonEnabled = config.IsCancellable,
+                    SecondaryButtonText = config.CancelText
+                };
+                dialog.PrimaryButtonClick += (s, e) => { HideContentDialog(); config.OnAction(new DatePromptResult(true, calendar.SelectedDate ?? DateTime.Today)); e.Cancel = true; };
+                dialog.SecondaryButtonClick += (s, e) => { HideContentDialog(); config.OnAction(new DatePromptResult(false, calendar.SelectedDate ?? DateTime.Today)); e.Cancel = true; };
+                ShowContentDialog(dialog);
+            });
+            return new DisposableAction(HideContentDialog);
         }
 
         public override IDisposable Login(LoginConfig config)
