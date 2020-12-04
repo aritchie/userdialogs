@@ -2,4 +2,7 @@
 WPF implementation of UserDialogs
 
 **Known bugs:**
- * Password prompt does not have placeholder
+ * Toast not supported
+ * Date prompt not supported
+ * Time prompt not supported
+ * Themes not supported

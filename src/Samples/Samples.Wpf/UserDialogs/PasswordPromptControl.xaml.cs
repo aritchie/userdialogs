@@ -23,6 +23,10 @@ namespace Acr.UserDialogs
         public PasswordPromptControl()
         {
             InitializeComponent();
+            this.PasswordEdit.PasswordChanged += (s, e) =>
+            {
+                this.Placeholder.Visibility = String.IsNullOrEmpty(this.PasswordEdit.Password) ? Visibility.Visible : Visibility.Collapsed;
+            };
         }
     }
 }
