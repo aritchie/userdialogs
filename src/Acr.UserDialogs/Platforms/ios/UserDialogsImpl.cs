@@ -52,7 +52,7 @@ namespace Acr.UserDialogs
             {
 #if __IOS__
                 Mode = UIDatePickerMode.Date,
-                DatePickerStyle = GetPickerStyle(config),
+                PickerStyle = GetPickerStyle(config),
 #endif
                 SelectedDateTime = config.SelectedDate ?? DateTime.Now,
                 OkText = config.OkText,
@@ -76,6 +76,7 @@ namespace Acr.UserDialogs
             {
 #if __IOS__
                 Mode = UIDatePickerMode.Time,
+                PickerStyle = GetPickerStyle(config),
 #endif
                 SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add ((TimeSpan)config.SelectedTime) : DateTime.Now,
                 MinuteInterval = config.MinuteInterval,
@@ -334,16 +335,16 @@ namespace Acr.UserDialogs
             }
         }
 
-        protected iOSDatePickerStyle GetPickerStyle(DatePromptConfig config)
+        protected iOSPickerStyle GetPickerStyle(IiOSStyleDialogConfig config)
         {
-            var iOSConfig = (config as IiOSStyleDialogConfig);
-            if (iOSConfig == null)
-                return iOSDatePickerStyle.Auto;
+            //var iOSConfig = (config as IiOSStyleDialogConfig);
+            if (config == null)
+                return iOSPickerStyle.Auto;
 
-            if (!iOSConfig.iOSDatePickerStyle.HasValue)
-                return iOSDatePickerStyle.Auto;
+            if (!config.iOSPickerStyle.HasValue)
+                return iOSPickerStyle.Auto;
 
-            return iOSConfig.iOSDatePickerStyle.Value;
+            return config.iOSPickerStyle.Value;
         }
 
         #endregion
