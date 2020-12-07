@@ -13,12 +13,6 @@ namespace Acr.UserDialogs
     {
         readonly Func<Action, Task> dispatcher;
 
-        // For not implemented features but not throw exception
-        class DummyDisposable : IDisposable
-        {
-            void IDisposable.Dispose() { }
-        }
-
         public UserDialogsImpl(Func<Action, Task> dispatcher = null)
         {
             this.dispatcher = dispatcher ?? new Func<Action, Task>(async x => await System.Windows.Application
@@ -269,7 +263,7 @@ namespace Acr.UserDialogs
 
         public override IDisposable Toast(ToastConfig config)
         {
-            return new DummyDisposable();
+            throw new PlatformNotSupportedException();
         }
 
         protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
