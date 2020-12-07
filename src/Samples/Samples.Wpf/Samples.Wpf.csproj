@@ -57,32 +57,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UserDialogs\ActionSheetControl.xaml.cs">
-      <DependentUpon>ActionSheetControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserDialogs\NotBoolToVisibilityConverter.cs" />
-    <Compile Include="UserDialogs\MaxLengthConverter.cs" />
-    <Compile Include="UserDialogs\MessageVisibilityConverter.cs" />
-    <Compile Include="UserDialogs\NullImageConverter.cs" />
-    <Compile Include="UserDialogs\LoginControl.xaml.cs">
-      <DependentUpon>LoginControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserDialogs\PasswordPromptControl.xaml.cs">
-      <DependentUpon>PasswordPromptControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserDialogs\DefaultPromptControl.xaml.cs">
-      <DependentUpon>DefaultPromptControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserDialogs\TimePromptControl.xaml.cs">
-      <DependentUpon>TimePromptControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserDialogs\ProgressDialogControl.xaml.cs">
-      <DependentUpon>ProgressDialogControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserDialogs\ProgressDialog.cs" />
-    <Compile Include="UserDialogs\PlaceholderVisibilityConverter.cs" />
-    <Compile Include="UserDialogs\UserDialogs.cs" />
-    <Compile Include="UserDialogs\UserDialogsImpl.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,30 +69,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserDialogs\ActionSheetControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserDialogs\LoginControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserDialogs\PasswordPromptControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserDialogs\DefaultPromptControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserDialogs\TimePromptControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserDialogs\ProgressDialogControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -142,7 +92,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="UserDialogs\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

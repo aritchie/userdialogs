@@ -15,7 +15,7 @@ namespace Samples.Wpf
     {
         public App()
         {
-            Acr.UserDialogs.UserDialogs.Instance = new Acr.UserDialogs.UserDialogsImpl();
+            Acr.UserDialogs.UserDialogs.Init();
         }
     }
 }

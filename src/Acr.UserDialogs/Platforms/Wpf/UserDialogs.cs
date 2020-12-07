@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 namespace Acr.UserDialogs
 {
-    /* ******* Prepared for move to Acr.UserDialogs project
     public static partial class UserDialogs
     {
         /// <summary>
@@ -14,7 +13,6 @@ namespace Acr.UserDialogs
         {
             Instance = new UserDialogsImpl(customDispatcher);
         }
-
 
         static IUserDialogs currentInstance;
         public static IUserDialogs Instance
@@ -27,5 +25,4 @@ namespace Acr.UserDialogs
             set => currentInstance = value;
         }
     }
-    */
 }
