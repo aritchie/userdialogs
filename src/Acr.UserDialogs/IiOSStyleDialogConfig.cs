@@ -2,6 +2,6 @@
 {
     public interface IiOSStyleDialogConfig
     {
-        iOSDatePickerStyle? iOSDatePickerStyle { get; set; }
+        iOSPickerStyle? iOSPickerStyle { get; set; }
     }
 }

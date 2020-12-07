@@ -3,13 +3,14 @@
 
 namespace Acr.UserDialogs
 {
-    public class TimePromptConfig : IAndroidStyleDialogConfig
+    public class TimePromptConfig : IAndroidStyleDialogConfig, IiOSStyleDialogConfig
     {
         public static string DefaultOkText { get; set; } = "Ok";
         public static string DefaultCancelText { get; set; } = "Cancel";
         public static int DefaultMinuteInterval { get; set; } = 1;
         public static bool? DefaultUse24HourClock { get; set; }
         public static int? DefaultAndroidStyleId { get; set; }
+        public static iOSPickerStyle? DefaultiOSTimePickerStyle { get; set; }
 
         public string Title { get; set; }
         public string OkText { get; set; } = DefaultOkText;
@@ -38,5 +39,6 @@ namespace Acr.UserDialogs
         public int MinuteInterval { get; set; } = DefaultMinuteInterval;
 
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
+        public iOSPickerStyle? iOSPickerStyle { get; set; } = DefaultiOSTimePickerStyle;
     }
 }

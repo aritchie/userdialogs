@@ -1,6 +1,6 @@
 ﻿namespace Acr.UserDialogs
 {
-    public enum iOSDatePickerStyle
+    public enum iOSPickerStyle
     {
         Auto,
         Inline,
