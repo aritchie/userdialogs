@@ -75,7 +75,7 @@ namespace Acr.UserDialogs
             set { SetValue(DesignatorIndexProperty, value); }
         }
 
-        private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             TimePromptControl control = obj as TimePromptControl;
             control.Hours = control.Use24HourClock || ((TimeSpan)e.NewValue).Hours <= 12 ? ((TimeSpan)e.NewValue).Hours : ((TimeSpan)e.NewValue).Hours - 12;
@@ -83,7 +83,7 @@ namespace Acr.UserDialogs
             control.DesignatorIndex = ((TimeSpan)e.NewValue).Hours > 12 ? 1 : 0;
         }
 
-        private static void OnTimeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        static void OnTimeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             TimePromptControl control = obj as TimePromptControl;
             control.Hours = Math.Min(Math.Max(control.MinHours, control.Hours), control.MaxHours);
@@ -91,7 +91,7 @@ namespace Acr.UserDialogs
             control.Value = new TimeSpan(control.Use24HourClock || control.DesignatorIndex == 0 ? control.Hours : control.Hours + 12, control.Minutes, 0);
         }
 
-        private void IncHours()
+        void IncHours()
         {
             if (Hours < MaxHours)
                 Hours++;
@@ -99,7 +99,7 @@ namespace Acr.UserDialogs
                 Hours = MinHours;
         }
 
-        private void DecHours()
+        void DecHours()
         {
             if (Hours > MinHours)
                 Hours--;
@@ -107,7 +107,7 @@ namespace Acr.UserDialogs
                 Hours = MaxHours;
         }
 
-        private void IncMinutes()
+        void IncMinutes()
         {
             if (Minutes < 59)
                 Minutes++;
@@ -115,7 +115,7 @@ namespace Acr.UserDialogs
                 Minutes = 0;
         }
 
-        private void DecMinutes()
+        void DecMinutes()
         {
             if (Minutes > 0)
                 Minutes--;
@@ -123,11 +123,11 @@ namespace Acr.UserDialogs
                 Minutes = 59;
         }
 
-        private void Down(object sender, KeyEventArgs args)
+        void Down(object sender, KeyEventArgs args)
         {
         }
 
-        private void Hour_KeyDown(object sender, KeyEventArgs e)
+        void Hour_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Up)
                 IncHours();
@@ -135,7 +135,7 @@ namespace Acr.UserDialogs
                 DecHours();
         }
 
-        private void Hour_MouseWheel(object sender, MouseWheelEventArgs e)
+        void Hour_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
                 IncHours();
@@ -143,7 +143,7 @@ namespace Acr.UserDialogs
                 DecHours();
         }
 
-        private void Hour_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        void Hour_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (Int32.TryParse(e.Text, out var result))
             {
@@ -153,7 +153,7 @@ namespace Acr.UserDialogs
                 e.Handled = true;
         }
 
-        private void Minute_KeyDown(object sender, KeyEventArgs e)
+        void Minute_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Up)
                 IncMinutes();
@@ -161,7 +161,7 @@ namespace Acr.UserDialogs
                 DecMinutes();
         }
 
-        private void Minute_MouseWheel(object sender, MouseWheelEventArgs e)
+        void Minute_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
                 IncMinutes();
@@ -169,7 +169,7 @@ namespace Acr.UserDialogs
                 DecMinutes();
         }
 
-        private void Minute_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        void Minute_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (Int32.TryParse(e.Text, out var result))
             {
@@ -179,22 +179,22 @@ namespace Acr.UserDialogs
                 e.Handled = true;
         }
 
-        private void HourUp_Click(object sender, RoutedEventArgs e)
+        void HourUp_Click(object sender, RoutedEventArgs e)
         {
             IncHours();
         }
 
-        private void HourDn_Click(object sender, RoutedEventArgs e)
+        void HourDn_Click(object sender, RoutedEventArgs e)
         {
             DecHours();
         }
 
-        private void MinuteUp_Click(object sender, RoutedEventArgs e)
+        void MinuteUp_Click(object sender, RoutedEventArgs e)
         {
             IncMinutes();
         }
 
-        private void MinuteDn_Click(object sender, RoutedEventArgs e)
+        void MinuteDn_Click(object sender, RoutedEventArgs e)
         {
             DecMinutes();
         }
