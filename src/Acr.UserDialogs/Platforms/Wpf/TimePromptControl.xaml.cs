@@ -123,10 +123,6 @@ namespace Acr.UserDialogs
                 Minutes = 59;
         }
 
-        void Down(object sender, KeyEventArgs args)
-        {
-        }
-
         void Hour_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Up)
