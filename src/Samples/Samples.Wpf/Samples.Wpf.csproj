@@ -60,6 +60,7 @@
     <Compile Include="UserDialogs\ActionSheetControl.xaml.cs">
       <DependentUpon>ActionSheetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserDialogs\NotBoolToVisibilityConverter.cs" />
     <Compile Include="UserDialogs\MaxLengthConverter.cs" />
     <Compile Include="UserDialogs\MessageVisibilityConverter.cs" />
     <Compile Include="UserDialogs\NullImageConverter.cs" />
@@ -71,6 +72,9 @@
     </Compile>
     <Compile Include="UserDialogs\DefaultPromptControl.xaml.cs">
       <DependentUpon>DefaultPromptControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserDialogs\TimePromptControl.xaml.cs">
+      <DependentUpon>TimePromptControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserDialogs\ProgressDialogControl.xaml.cs">
       <DependentUpon>ProgressDialogControl.xaml</DependentUpon>
@@ -104,6 +108,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserDialogs\DefaultPromptControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserDialogs\TimePromptControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

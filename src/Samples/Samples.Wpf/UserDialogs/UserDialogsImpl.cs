@@ -247,7 +247,24 @@ namespace Acr.UserDialogs
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            return new DummyDisposable();
+            Dispatch(() =>
+            {
+                var timePromptControl = new TimePromptControl() { Use24HourClock = config.Use24HourClock ?? false, Value = config.SelectedTime ?? TimeSpan.Zero };
+                FormsContentDialog dialog = new FormsContentDialog()
+                {
+                    DataContext = config,
+                    Title = config.Title,
+                    Content = timePromptControl,
+                    IsPrimaryButtonEnabled = true,
+                    PrimaryButtonText = config.OkText,
+                    IsSecondaryButtonEnabled = true,
+                    SecondaryButtonText = config.CancelText
+                };
+                dialog.PrimaryButtonClick += (s, e) => { HideContentDialog(); config.OnAction(new TimePromptResult(true, timePromptControl.Value)); e.Cancel = true; };
+                dialog.SecondaryButtonClick += (s, e) => { HideContentDialog(); config.OnAction(new TimePromptResult(false, timePromptControl.Value)); e.Cancel = true; };
+                ShowContentDialog(dialog);
+            });
+            return new DisposableAction(HideContentDialog);
         }
 
         public override IDisposable Toast(ToastConfig config)
