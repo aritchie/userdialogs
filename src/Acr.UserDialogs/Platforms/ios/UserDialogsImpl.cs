@@ -137,6 +137,7 @@ namespace Acr.UserDialogs
                 this.SetInputType(txt, config.InputType);
                 txt.Placeholder = config.Placeholder ?? String.Empty;
                 txt.Text = config.Text ?? String.Empty;
+                txt.AutocorrectionType = (UITextAutocorrectionType)config.AutoCorrectionConfig;
 
                 if (config.MaxLength != null)
                 {

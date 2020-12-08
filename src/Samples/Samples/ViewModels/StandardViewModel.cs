@@ -174,6 +174,19 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Prompt AutoCorrect",
+                    Command = new Command(async () =>
+                    {
+                        var result = await this.Dialogs.PromptAsync(new PromptConfig
+                        {
+                            Title = "Prompt AutoCorrect",
+                            Message = "When entering text, the keyboard should provide autocorrect options",
+                            AutoCorrectionConfig = AutoCorrectionConfig.Yes
+                        });
+                    })
+                },
+                new CommandViewModel
+                {
                     Text = "Date",
                     Command = this.Create(async token =>
                     {
@@ -210,6 +223,7 @@ namespace Samples.ViewModels
                     })
                 }
             };
+            Console.WriteLine("Test");
         }
 
 
