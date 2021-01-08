@@ -174,6 +174,19 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
+                    Text = "Prompt NoAutoCorrect",
+                    Command = new Command(async () =>
+                    {
+                        var result = await this.Dialogs.PromptAsync(new PromptConfig
+                        {
+                            Title = "Prompt NoAutoCorrect",
+                            Message = "When entering text, the keyboard should not provide autocorrect options",
+                            AutoCorrectionConfig = AutoCorrectionConfig.No
+                        });
+                    })
+                },
+                new CommandViewModel
+                {
                     Text = "Prompt AutoCorrect",
                     Command = new Command(async () =>
                     {
