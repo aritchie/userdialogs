@@ -236,7 +236,6 @@ namespace Samples.ViewModels
                     })
                 }
             };
-            Console.WriteLine("Test");
         }
 
 
