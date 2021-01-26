@@ -137,6 +137,7 @@ namespace Acr.UserDialogs
                 this.SetInputType(txt, config.InputType);
                 txt.Placeholder = config.Placeholder ?? String.Empty;
                 txt.Text = config.Text ?? String.Empty;
+                txt.AutocorrectionType = (UITextAutocorrectionType)config.AutoCorrectionConfig;
 
                 if (config.MaxLength != null)
                 {
@@ -229,13 +230,13 @@ namespace Acr.UserDialogs
         {
             var sheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
 
-            if (config.Destructive != null)
-                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive, config.ItemIcon);
-
             config
                 .Options
                 .ToList()
                 .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
+
+            if (config.Destructive != null)
+                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive, config.ItemIcon);
 
             if (config.Cancel != null)
                 this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel, config.ItemIcon);

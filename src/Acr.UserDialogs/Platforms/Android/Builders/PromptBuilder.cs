@@ -38,6 +38,21 @@ namespace Acr.UserDialogs.Builders
 
             SetInputType(txt, config.InputType);
 
+            if (config.AutoCorrectionConfig != AutoCorrectionConfig.Default)
+            {
+                switch (config.AutoCorrectionConfig)
+                {
+                    case AutoCorrectionConfig.No:
+                        txt.InputType |= InputTypes.TextFlagNoSuggestions; // Add Flag
+                        break;
+                    case AutoCorrectionConfig.Yes:
+                        txt.InputType &= ~InputTypes.TextFlagNoSuggestions; // Remove Flag
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             var builder = new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
                 .SetMessage(config.Message)
@@ -76,6 +91,21 @@ namespace Acr.UserDialogs.Builders
                 txt.SetFilters(new[] { new InputFilterLengthFilter(config.MaxLength.Value) });
 
             SetInputType(txt, config.InputType);
+
+            if (config.AutoCorrectionConfig != AutoCorrectionConfig.Default)
+            {
+                switch(config.AutoCorrectionConfig)
+                {
+                    case AutoCorrectionConfig.No:
+                        txt.InputType |= InputTypes.TextFlagNoSuggestions; // Add Flag
+                        break;
+                    case AutoCorrectionConfig.Yes:
+                        txt.InputType &= ~InputTypes.TextFlagNoSuggestions; // Remove Flag
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             var builder = new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
