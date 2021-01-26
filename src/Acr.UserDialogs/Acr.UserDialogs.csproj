@@ -16,7 +16,7 @@
         <LangVersion>latest</LangVersion>
         <NoWarn>$(NoWarn);1591;1701;1591;1702;1705;VSX1000;NU1603</NoWarn>
         <DisableExtraReferences>true</DisableExtraReferences>
-        <GenerateLibraryLayout Condition=" $(TargetFramework.StartsWith('uap')) OR $(TargetFramework.StartsWith('net7')) ">true</GenerateLibraryLayout>
+        <GenerateLibraryLayout Condition=" $(TargetFramework.StartsWith('uap')) OR $(TargetFramework.StartsWith('net4')) ">true</GenerateLibraryLayout>
         <EnableSourceLink Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' AND '$(MSBuildRuntimeType)' == 'Core' ">true</EnableSourceLink>
         <EnableSourceControlManagerQueries>$(EnableSourceLink)</EnableSourceControlManagerQueries>
         <RepositoryUrl>https://github.com/aritchie/userdialogs</RepositoryUrl>
