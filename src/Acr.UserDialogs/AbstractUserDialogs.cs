@@ -20,7 +20,6 @@ namespace Acr.UserDialogs
         public abstract IDisposable Toast(ToastConfig config);
         protected abstract IProgressDialog CreateDialogInstance(ProgressDialogConfig config);
 
-
         public virtual async Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
         {
             var tcs = new TaskCompletionSource<string>();
@@ -46,6 +45,33 @@ namespace Acr.UserDialogs
             }
         }
 
+        public virtual async Task<string> ActionSheetAsync(string message, string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
+        {
+            var tcs = new TaskCompletionSource<string>();
+            var cfg = new ActionSheetConfig();
+            if (title != null)
+                cfg.Title = title;
+
+            if (message != null)
+                cfg.Message = message;
+
+            // you must have a cancel option for actionsheetasync
+            if (cancel == null)
+                throw new ArgumentException("You must have a cancel option for the async version");
+
+            cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
+            if (destructive != null)
+                cfg.SetDestructive(destructive, () => tcs.TrySetResult(destructive));
+
+            foreach (var btn in buttons)
+                cfg.Add(btn, () => tcs.TrySetResult(btn));
+
+            var disp = this.ActionSheet(cfg);
+            using (cancelToken?.Register(disp.Dispose))
+            {
+                return await tcs.Task;
+            }
+        }
 
         public virtual IDisposable Alert(string message, string title, string okText)
             => this.Alert(new AlertConfig
