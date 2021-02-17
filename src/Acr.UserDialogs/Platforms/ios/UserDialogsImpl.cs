@@ -230,6 +230,9 @@ namespace Acr.UserDialogs
         {
             var sheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
 
+            if (config.Message != null)
+                sheet.Message = config.Message;
+
             config
                 .Options
                 .ToList()

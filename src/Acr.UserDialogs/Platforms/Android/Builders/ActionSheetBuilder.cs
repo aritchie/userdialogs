@@ -24,6 +24,11 @@ namespace Acr.UserDialogs.Builders
             //    TextSize = 18.0f
             //});
 
+            if (config.Message != null)
+            {
+                dlg.SetMessage(config.Message);
+            }
+
             if (config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null))
             {
                 var adapter = new ActionSheetListAdapter(activity, Android.Resource.Layout.SelectDialogItem,
@@ -58,6 +63,11 @@ namespace Acr.UserDialogs.Builders
             //    Text = config.Title,
             //    TextSize = 18.0f
             //});
+
+            if (config.Message != null)
+            {
+                dlg.SetMessage(config.Message);
+            }
 
             if (config.ItemIcon != null || config.Options.Any(x => x.ItemIcon != null))
             {
