@@ -1,4 +1,6 @@
-﻿# <img src="icon.png" width="71" height="71"/> ACR User Dialogs
+# As of March 5, 2021 - this library is now in lockdown.  You are welcome to submit PR's for issues you may be having and they will be reviewed, but I will no longer be adding features or frontlining issues any longer.
+
+# <img src="icon.png" width="71" height="71"/> ACR User Dialogs
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
 Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
