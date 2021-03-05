@@ -222,7 +222,8 @@ namespace Acr.UserDialogs.Builders
 
                 case InputType.Password:
                     txt.TransformationMethod = PasswordTransformationMethod.Instance;
-                    txt.InputType = InputTypes.ClassText | InputTypes.TextVariationPassword | InputTypes.TextFlagNoSuggestions;
+                    txt.InputType = InputTypes.TextFlagNoSuggestions;
+                    //txt.InputType = InputTypes.ClassText | InputTypes.TextVariationPassword | InputTypes.TextFlagNoSuggestions;
                     break;
 
                 case InputType.Phone:
