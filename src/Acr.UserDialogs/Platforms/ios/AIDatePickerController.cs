@@ -9,8 +9,9 @@ namespace AI
 	public class AIDatePickerController : UIViewController, IUIViewControllerAnimatedTransitioning, IUIViewControllerTransitioningDelegate
 	{
         private UIEdgeInsets safeAreaInsets;
+		private const int additionalInset = 5;
 
-        public double AnimatedTransitionDuration { get; set; } = 0.4;
+		public double AnimatedTransitionDuration { get; set; } = 0.4;
 #if __IOS__
 		public UIDatePickerMode Mode { get; set; } = UIDatePickerMode.Date;
 #endif
@@ -45,109 +46,109 @@ namespace AI
 
 
 		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
+        {
+            base.ViewDidLoad();
             this.View.BackgroundColor = UIColor.Clear;
 #if __IOS__
-			var datePicker = new UIDatePicker
-			{
-				TranslatesAutoresizingMaskIntoConstraints = false,
-				Date = this.SelectedDateTime.ToNSDate(),
-				BackgroundColor = BackgroundColor,
-				Mode = Mode,
+            var datePicker = new UIDatePicker
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Date = this.SelectedDateTime.ToNSDate(),
+                BackgroundColor = BackgroundColor,
+                Mode = Mode,
                 MinuteInterval = MinuteInterval
-			};
+            };
 
-			SetPreferredDatePickerStyle(ref datePicker,PickerStyle);
+            SetPreferredDatePickerStyle(ref datePicker, PickerStyle);
 
             if (Use24HourClock == true)
                 datePicker.Locale = NSLocale.FromLocaleIdentifier("NL");
 
-		    if (MinimumDateTime != null)
-		        datePicker.MinimumDate = MinimumDateTime.Value.ToNSDate();
+            if (MinimumDateTime != null)
+                datePicker.MinimumDate = MinimumDateTime.Value.ToNSDate();
 
-		    if (MaximumDateTime != null)
-		        datePicker.MaximumDate = MaximumDateTime.Value.ToNSDate();
+            if (MaximumDateTime != null)
+                datePicker.MaximumDate = MaximumDateTime.Value.ToNSDate();
 #elif __TVOS__
             var datePicker = new UIControl();
             //TODO: Fake Date picker on tvOS
 #endif
             dimmedView = new UIView(this.View.Bounds)
-			{
-			    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+            {
+                AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
                 TintAdjustmentMode = UIViewTintAdjustmentMode.Dimmed,
                 BackgroundColor = UIColor.Black,
                 Alpha = 0.7F
-			};
+            };
 
 
-			var dismissButton = new UIButton
-			{
-			    TranslatesAutoresizingMaskIntoConstraints = false,
+            var dismissButton = new UIButton
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
                 UserInteractionEnabled = true
-			};
-			dismissButton.TouchUpInside += async (s, e) =>
-			{
+            };
+            dismissButton.TouchUpInside += async (s, e) =>
+            {
                 await this.DismissViewControllerAsync(true);
-				this.Cancel?.Invoke(this);
-			};
-			this.View.AddSubview(dismissButton);
+                this.Cancel?.Invoke(this);
+            };
+            this.View.AddSubview(dismissButton);
 
-			var containerView = new UIView
-			{
+            var containerView = new UIView
+            {
                 ClipsToBounds = true,
                 BackgroundColor = BackgroundColor,
-			    TranslatesAutoresizingMaskIntoConstraints = false
-			};
-			containerView.Layer.CornerRadius = 5.0f;
-			this.View.AddSubview(containerView);
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+            containerView.Layer.CornerRadius = 5.0f;
+            this.View.AddSubview(containerView);
 
-			containerView.AddSubview(datePicker);
+            containerView.AddSubview(datePicker);
 
-			var buttonContainerView = new UIView
-			{
-			    TranslatesAutoresizingMaskIntoConstraints = false,
+            var buttonContainerView = new UIView
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
                 BackgroundColor = BackgroundColor
-			};
-			buttonContainerView.Layer.CornerRadius = 5.0f;
-			this.View.AddSubview(buttonContainerView);
+            };
+            buttonContainerView.Layer.CornerRadius = 5.0f;
+            this.View.AddSubview(buttonContainerView);
 
-			var buttonDividerView = new UIView
-			{
-			    TranslatesAutoresizingMaskIntoConstraints = false,
+            var buttonDividerView = new UIView
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
                 BackgroundColor = UIColor.FromRGBA(205 / 255, 205 / 255, 205 / 255, 1)
-			};
-			this.View.AddSubview(buttonDividerView);
+            };
+            this.View.AddSubview(buttonDividerView);
 
-			var cancelButton = new UIButton();
-			cancelButton.TranslatesAutoresizingMaskIntoConstraints = false;
-			cancelButton.SetTitle(this.CancelText, UIControlState.Normal);
-			cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
+            var cancelButton = new UIButton();
+            cancelButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            cancelButton.SetTitle(this.CancelText, UIControlState.Normal);
+            cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
 
-			cancelButton.TitleLabel.Font = UIFont.SystemFontOfSize(this.FontSize);
-			cancelButton.TouchUpInside += async (s, e) =>
-			{
+            cancelButton.TitleLabel.Font = UIFont.SystemFontOfSize(this.FontSize);
+            cancelButton.TouchUpInside += async (s, e) =>
+            {
                 await this.DismissViewControllerAsync(true);
-				this.Cancel?.Invoke(this);
-			};
-			buttonContainerView.AddSubview(cancelButton);
+                this.Cancel?.Invoke(this);
+            };
+            buttonContainerView.AddSubview(cancelButton);
 
-			var button = new UIButton(UIButtonType.System);
-			button.TranslatesAutoresizingMaskIntoConstraints = false;
+            var button = new UIButton(UIButtonType.System);
+            button.TranslatesAutoresizingMaskIntoConstraints = false;
             button.TitleLabel.Font = UIFont.BoldSystemFontOfSize(this.FontSize);
-			button.SetTitle(this.OkText, UIControlState.Normal);
-			button.TouchUpInside += async (s, e) =>
-			{
+            button.SetTitle(this.OkText, UIControlState.Normal);
+            button.TouchUpInside += async (s, e) =>
+            {
 #if __IOS__
                 this.SelectedDateTime = datePicker.Date.ToDateTime();
 #endif
-                await this.DismissViewControllerAsync (true);
-				Ok?.Invoke(this);
-			};
-			buttonContainerView.AddSubview(button);
+                await this.DismissViewControllerAsync(true);
+                Ok?.Invoke(this);
+            };
+            buttonContainerView.AddSubview(button);
 
-			var views = NSDictionary.FromObjectsAndKeys(
-				new NSObject[]
+            var views = NSDictionary.FromObjectsAndKeys(
+                new NSObject[]
                 {
                     dismissButton,
                     containerView,
@@ -157,33 +158,43 @@ namespace AI
                     cancelButton,
                     button
                 },
-				new NSObject[]
+                new NSObject[]
                 {
-					new NSString("DismissButton"),
+                    new NSString("DismissButton"),
                     new NSString("DatePickerContainerView"),
                     new NSString("datePicker"),
-					new NSString("ButtonContainerView"),
+                    new NSString("ButtonContainerView"),
                     new NSString("ButtonDividerView"),
                     new NSString("CancelButton"),
-					new NSString("SelectButton")
-				}
-			);
+                    new NSString("SelectButton")
+                }
+            );
 
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[CancelButton][ButtonDividerView(0.5)][SelectButton(CancelButton)]|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[CancelButton][ButtonDividerView(0.5)][SelectButton(CancelButton)]|", 0, null, views));
 
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[CancelButton]|", 0, null, views));
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[ButtonDividerView]|", 0, null, views));
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[SelectButton]|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[CancelButton]|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[ButtonDividerView]|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[SelectButton]|", 0, null, views));
 
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[datePicker]|", 0, null, views));
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[datePicker]|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[datePicker]|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[datePicker]|", 0, null, views));
 
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[DismissButton]|", 0, null, views));
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|-5-[DatePickerContainerView]-5-|", 0, null, views));
-			this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|-5-[ButtonContainerView]-5-|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[DismissButton]|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|-5-[DatePickerContainerView]-5-|", 0, null, views));
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|-5-[ButtonContainerView]-5-|", 0, null, views));
 
-            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat($"V:|[DismissButton][DatePickerContainerView]-10-[ButtonContainerView(40)]-{5 + safeAreaInsets.Bottom}-|", 0, null, views));
-		}
+            this.View.AddConstraints(NSLayoutConstraint.FromVisualFormat($"V:|[DismissButton][DatePickerContainerView]-10-[ButtonContainerView(40)]-{CalculateBottomInset()}-|", 0, null, views));
+        }
+
+        private string CalculateBottomInset()
+        {
+            nfloat bottomInset = additionalInset + safeAreaInsets.Bottom;
+            NSNumber bottomNumber = new NSNumber(bottomInset);
+
+            var numberFormatter = new NSNumberFormatter();
+            numberFormatter.Locale = new NSLocale("en-US");
+            return numberFormatter.StringFromNumber(bottomNumber);
+        }
 
         private void SetupSafeAreaInsets()
         {
