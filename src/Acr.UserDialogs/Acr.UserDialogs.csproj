@@ -3,15 +3,15 @@
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid90;monoandroid10.0;xamarin.mac20;xamarin.tvos10</TargetFrameworks>
         <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.16299;$(TargetFrameworks)</TargetFrameworks>
-        <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/emclient/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
         <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, and UWP</Description>
         <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
         <VersionPrefix>7.1.0</VersionPrefix>
         <VersionPrefix Condition=" $(BUILD_BUILDNUMBER) != '' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
-        <PackageReleaseNotes>https://github.com/aritchie/userdialogs/raw/master/ChangeLog.md</PackageReleaseNotes>
-        <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
+        <PackageReleaseNotes>https://github.com/emclient/userdialogs/raw/master/ChangeLog.md</PackageReleaseNotes>
+        <PackageIconUrl>https://github.com/emclient/userdialogs/raw/master/icon.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <LangVersion>latest</LangVersion>
         <NoWarn>$(NoWarn);1591;1701;1591;1702;1705;VSX1000;NU1603</NoWarn>
@@ -19,12 +19,13 @@
         <GenerateLibraryLayout Condition="$(TargetFramework.StartsWith('uap'))">true</GenerateLibraryLayout>
         <EnableSourceLink Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' AND '$(MSBuildRuntimeType)' == 'Core' ">true</EnableSourceLink>
         <EnableSourceControlManagerQueries>$(EnableSourceLink)</EnableSourceControlManagerQueries>
-        <RepositoryUrl>https://github.com/aritchie/userdialogs</RepositoryUrl>
+        <RepositoryUrl>https://github.com/emclient/userdialogs</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>True</IncludeSymbols>
         <IncludeSource>True</IncludeSource>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
 
