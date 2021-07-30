@@ -23,7 +23,6 @@ namespace Samples.Droid
         {
             base.OnCreate(bundle);
             Forms.Init(this, bundle);
-            FormsAppCompatActivity.ToolbarResource = Resource.Layout.toolbar;
             FormsAppCompatActivity.TabLayoutResource = Resource.Layout.tabs;
 
             UserDialogs.Init(this);

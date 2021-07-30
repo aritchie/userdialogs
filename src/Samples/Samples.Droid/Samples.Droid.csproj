@@ -19,7 +19,7 @@
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseIntermediateDesignerFile>true</AndroidUseIntermediateDesignerFile>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -78,7 +78,7 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.5.0.356</Version>
+      <Version>5.0.0.2083</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +86,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\toolbar.axml" />
     <AndroidResource Include="Resources\layout\tabs.axml" />
     <AndroidResource Include="Resources\drawable\emoji_cool_small.png" />
   </ItemGroup>
