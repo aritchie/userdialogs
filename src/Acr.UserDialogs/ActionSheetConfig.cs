@@ -16,6 +16,10 @@ namespace Acr.UserDialogs
 
 
         public string Title { get; set; }
+        // used only on Android and only for bottom sheets
+        public string Subtitle { get; set; }
+        // used only on Android and only for bottom sheets
+        public string TitleIcon { get; set; }
         public string Message { get; set; }
         public ActionSheetOption Cancel { get; set; }
         public ActionSheetOption Destructive { get; set; }
@@ -38,6 +42,12 @@ namespace Acr.UserDialogs
         public ActionSheetConfig SetTitle(string title)
         {
             this.Title = title;
+            return this;
+        }
+
+        public ActionSheetConfig SetSubtitle(string subtitle)
+        {
+            this.Subtitle = subtitle;
             return this;
         }
 

@@ -269,6 +269,12 @@ namespace Samples.ViewModels
                     .SetMessage(message)
                     .SetUseBottomSheet(useBottomSheet);
 
+                if (useBottomSheet)
+                {
+                    cfg.Subtitle = "Subtitle";
+                    cfg.TitleIcon = "icon.png";
+                }
+
                 for (var i = 0; i < items; i++)
                 {
                     var display = i + 1;
