@@ -259,6 +259,10 @@ namespace Samples.ViewModels
             }
         }
 
+        private uint ColorToInt(Color clr)
+        {
+            return ((uint)(clr.A * 255) & 0xff) << 24 | ((uint)(clr.R * 255) & 0xff) << 16 | ((uint)(clr.G * 255) & 0xff) << 8 | ((uint)(clr.B * 255) & 0xff);
+        }
 
         ICommand CreateActionSheetCommand(bool useBottomSheet, bool cancel, int items, string message = null)
         {
