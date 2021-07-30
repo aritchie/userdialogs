@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Acr.UserDialogs.Infrastructure;
 using Android.App;
 using Android.Content;
@@ -56,7 +56,10 @@ namespace Acr.UserDialogs.Fragments
             };
 
             if (!String.IsNullOrWhiteSpace(config.Title))
-                layout.AddView(this.GetHeaderText(config.Title));
+            {
+                layout.AddView(this.GetTitle(config.Title, config.Subtitle, config.TitleIcon));
+                layout.AddView(this.CreateDivider());
+            }
 
             foreach (var action in config.Options)
                 layout.AddView(this.CreateRow(action, false));
@@ -102,20 +105,61 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
-        protected virtual TextView GetHeaderText(string text)
+        protected virtual View GetTitle(string text, string subtitle, string icon)
         {
-            var layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(56))
+            var hasSubtitle = !string.IsNullOrEmpty(subtitle);
+            var heightWithSubtitle = 64;
+
+            var row = new LinearLayout(this.Activity)
             {
-                LeftMargin = this.DpToPixels(16)
+                Orientation = Orientation.Horizontal,
+                LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(hasSubtitle ? heightWithSubtitle : 48))
             };
-            var txt = new TextView(this.Activity)
+
+            if (icon != null)
+                row.AddView(this.GetIcon(icon));
+
+            if (hasSubtitle)
             {
-                Text = text,
-                LayoutParameters = layout,
-                Gravity = GravityFlags.CenterVertical
-            };
-            txt.SetTextSize(ComplexUnitType.Sp, 16);
-            return txt;
+                var lay = new LinearLayout(this.Activity)
+                {
+                    Orientation = Orientation.Vertical,
+                    LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent)
+                };
+                var textTitle = new TextView(this.Activity)
+                {
+                    Text = text,
+                    LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(heightWithSubtitle / 2 - 8))
+                    {
+                        TopMargin = this.DpToPixels(8),
+                        LeftMargin = this.DpToPixels(16)
+                    },
+                    Gravity = GravityFlags.CenterVertical
+                };
+                textTitle.SetTextSize(ComplexUnitType.Sp, 16);
+
+                var textSubtitle = new TextView(this.Activity)
+                {
+                    Text = subtitle,
+                    LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, this.DpToPixels(heightWithSubtitle / 2 - 8))
+                    {
+                        BottomMargin = this.DpToPixels(8),
+                        LeftMargin = this.DpToPixels(16)
+                    },
+                    Gravity = GravityFlags.CenterVertical,
+                };
+                // this uses the textColorSecondary color, so we can style it easily
+                textSubtitle.SetTextAppearance(Android.Resource.Style.TextAppearanceMaterialWidgetActionBarSubtitle);
+                textSubtitle.SetTextSize(ComplexUnitType.Sp, 16);
+
+                lay.AddView(textTitle);
+                lay.AddView(textSubtitle);
+                row.AddView(lay);
+            }
+            else
+                row.AddView(this.GetText(text, false));
+
+            return row;
         }
 
 
