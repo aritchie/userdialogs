@@ -57,7 +57,7 @@ namespace Acr.UserDialogs.Fragments
 
             if (!String.IsNullOrWhiteSpace(config.Title))
             {
-                layout.AddView(this.GetTitle(config.Title, config.Subtitle, config.TitleIcon));
+                layout.AddView(this.GetTitle(config.Title, config.Subtitle, config.TitleIcon, config.TitleIconTint));
                 layout.AddView(this.CreateDivider());
             }
 
@@ -93,7 +93,7 @@ namespace Acr.UserDialogs.Fragments
             row.SetBackgroundResource(Extensions.GetSelectableItemBackground(this.Activity));
 
             if (action.ItemIcon != null)
-                row.AddView(this.GetIcon(action.ItemIcon));
+                row.AddView(this.GetIcon(action.ItemIcon, action.IconTint));
 
             row.AddView(this.GetText(action.Text, isDestructive));
             row.Click += (sender, args) =>
@@ -104,8 +104,17 @@ namespace Acr.UserDialogs.Fragments
             return row;
         }
 
+        private Color GetColorFromUint(uint color)
+        {
+            int a = (int)((color >> 24) & 0xff);
+            int r = (int)((color >> 16) & 0xff);
+            int g = (int)((color >> 8) & 0xff);
+            int b = (int)((color) & 0xff);
 
-        protected virtual View GetTitle(string text, string subtitle, string icon)
+            return new Color(r, g, b, a);
+        }
+
+        protected virtual View GetTitle(string text, string subtitle, string icon, uint? iconTint = null)
         {
             var hasSubtitle = !string.IsNullOrEmpty(subtitle);
             var heightWithSubtitle = 64;
@@ -117,7 +126,10 @@ namespace Acr.UserDialogs.Fragments
             };
 
             if (icon != null)
-                row.AddView(this.GetIcon(icon));
+            {
+                var imageView = this.GetIcon(icon, iconTint);
+                row.AddView(imageView);
+            }
 
             if (hasSubtitle)
             {
@@ -186,7 +198,7 @@ namespace Acr.UserDialogs.Fragments
         }
 
 
-        protected virtual ImageView GetIcon(string icon)
+        protected virtual ImageView GetIcon(string icon, uint? iconTint = null)
         {
             var layout = new LinearLayout.LayoutParams(this.DpToPixels(24), this.DpToPixels(24))
             {
@@ -203,6 +215,8 @@ namespace Acr.UserDialogs.Fragments
             };
             if (icon != null)
                 img.SetImageDrawable(ImageLoader.Load(icon));
+            if (iconTint.HasValue)
+                img.SetColorFilter(GetColorFromUint(iconTint.Value));
 
             return img;
         }

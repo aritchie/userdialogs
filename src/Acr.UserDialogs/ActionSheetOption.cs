@@ -10,13 +10,15 @@ namespace Acr.UserDialogs
         public string Text { get; set; }
         public Action Action { get; set; }
         public string ItemIcon { get; set; }
+        public uint? IconTint { get; set; }
 
 
-        public ActionSheetOption(string text, Action action = null, string icon = null)
+        public ActionSheetOption(string text, Action action = null, string icon = null, uint? iconTint = null)
         {
             this.Text = text;
             this.Action = action;
             this.ItemIcon = icon;
+            this.IconTint = iconTint;
         }
     }
 }

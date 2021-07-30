@@ -20,6 +20,8 @@ namespace Acr.UserDialogs
         public string Subtitle { get; set; }
         // used only on Android and only for bottom sheets
         public string TitleIcon { get; set; }
+        // used only on Android and only for bottom sheets
+        public uint? TitleIconTint { get; set; }
         public string Message { get; set; }
         public ActionSheetOption Cancel { get; set; }
         public ActionSheetOption Destructive { get; set; }
@@ -59,16 +61,16 @@ namespace Acr.UserDialogs
         }
 
 
-        public ActionSheetConfig SetCancel(string text = null, Action action = null, string icon = null)
+        public ActionSheetConfig SetCancel(string text = null, Action action = null, string icon = null, uint? iconTint = null)
         {
-            this.Cancel = new ActionSheetOption(text ?? DefaultCancelText, action, icon);
+            this.Cancel = new ActionSheetOption(text ?? DefaultCancelText, action, icon, iconTint);
             return this;
         }
 
 
-        public ActionSheetConfig SetDestructive(string text = null, Action action = null, string icon = null)
+        public ActionSheetConfig SetDestructive(string text = null, Action action = null, string icon = null, uint? iconTint = null)
         {
-            this.Destructive = new ActionSheetOption(text ?? DefaultDestructiveText, action, icon);
+            this.Destructive = new ActionSheetOption(text ?? DefaultDestructiveText, action, icon, iconTint);
             return this;
         }
 
@@ -80,9 +82,9 @@ namespace Acr.UserDialogs
         }
 
 
-        public ActionSheetConfig Add(string text, Action action = null, string icon = null)
+        public ActionSheetConfig Add(string text, Action action = null, string icon = null, uint? iconTint = null)
         {
-            this.Options.Add(new ActionSheetOption(text, action, icon));
+            this.Options.Add(new ActionSheetOption(text, action, icon, iconTint));
             return this;
         }
     }
