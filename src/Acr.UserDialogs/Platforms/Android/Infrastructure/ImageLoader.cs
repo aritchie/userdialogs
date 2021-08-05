@@ -29,6 +29,8 @@ namespace Acr.UserDialogs.Infrastructure
                 resourceName = resourceName.Substring(0, index);
 
             var resourceId = res.GetIdentifier(resourceName, "drawable", con.PackageName);
+            if (resourceId == 0)
+                return null;
             return ContextCompat.GetDrawable(Application.Context, resourceId);
         }
     }

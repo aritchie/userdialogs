@@ -214,7 +214,16 @@ namespace Acr.UserDialogs.Fragments
                 LayoutParameters = layout
             };
             if (icon != null)
-                img.SetImageDrawable(ImageLoader.Load(icon));
+            {
+                var drawable = ImageLoader.Load(icon);
+                if (drawable is object)
+                    img.SetImageDrawable(drawable);
+                else {
+                    var uri = Android.Net.Uri.Parse(icon);
+                    if (uri is object)
+                        img.SetImageURI(uri);
+                }
+            }
             if (iconTint.HasValue)
                 img.SetColorFilter(GetColorFromUint(iconTint.Value));
 
