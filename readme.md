@@ -1,4 +1,4 @@
-# As of March 5, 2021 - this library is now in lockdown.  You are welcome to submit PR's for issues you may be having and they will be reviewed, but I will no longer be adding features or frontlining issues any longer.
+# As of March 5, 2021 - this library is now in lockdown.  You are welcome to submit PR's for issues you may be having and they will be reviewed, but I will no longer be adding new features or frontlining issues.
 
 # <img src="icon.png" width="71" height="71"/> ACR User Dialogs
 
