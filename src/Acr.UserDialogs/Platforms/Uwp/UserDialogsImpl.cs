@@ -237,6 +237,7 @@ namespace Acr.UserDialogs
             {
                 Title = config.Title ?? String.Empty,
                 Content = stack,
+                DefaultButton = ContentDialogButton.Primary,
                 PrimaryButtonText = config.OkText
             };
 
