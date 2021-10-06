@@ -1,7 +1,4 @@
 ﻿using System;
-#if __IOS__
-using BigTed;
-#endif
 using Foundation;
 using UIKit;
 using Acr.UserDialogs.Infrastructure;
@@ -28,14 +25,14 @@ namespace Acr.UserDialogs
 
 #if __IOS__
 
-        public static ProgressHUD.MaskType ToNative(this MaskType maskType)
+        public static BTProgressHUD.MaskType ToNative(this MaskType maskType)
         {
             switch (maskType)
             {
-                case MaskType.Black: return ProgressHUD.MaskType.Black;
-                case MaskType.Clear: return ProgressHUD.MaskType.Clear;
-                case MaskType.Gradient: return ProgressHUD.MaskType.Gradient;
-                case MaskType.None: return ProgressHUD.MaskType.None;
+                case MaskType.Black: return BTProgressHUD.MaskType.Black;
+                case MaskType.Clear: return BTProgressHUD.MaskType.Clear;
+                case MaskType.Gradient: return BTProgressHUD.MaskType.Gradient;
+                case MaskType.None: return BTProgressHUD.MaskType.None;
                 default:
                     throw new ArgumentException("Invalid mask type");
             }
