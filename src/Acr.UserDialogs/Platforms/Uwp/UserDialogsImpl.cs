@@ -371,6 +371,8 @@ namespace Acr.UserDialogs
 
             stack.Children.Add(txt);
 
+            txt.SelectAll();
+
             dialog.PrimaryButtonCommand = new Command(() =>
             {
                 config.OnAction?.Invoke(new PromptResult(true, txt.Text.Trim()));
