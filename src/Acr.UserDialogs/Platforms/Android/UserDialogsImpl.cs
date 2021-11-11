@@ -280,9 +280,10 @@ namespace Acr.UserDialogs
 
         protected virtual IDisposable ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()
         {
-            var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
+            TFragment frag = null;
             activity.SafeRunOnUi(() =>
             {
+                frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
                 frag.Config = config;
                 frag.Show(activity.SupportFragmentManager, FragmentTag);
             });
