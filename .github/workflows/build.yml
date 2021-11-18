@@ -35,7 +35,7 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Build
-      run: dotnet build Build.slnf --BuildNumber=${{steps.buildnumber.outputs.build_number}}
+      run: dotnet build Build.slnf /p:BuildNumber=${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2
