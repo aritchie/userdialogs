@@ -1,26 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29009.5
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acr.UserDialogs", "Acr.UserDialogs\Acr.UserDialogs.csproj", "{AD34AA53-F275-4F18-A51C-9809C4E1F3BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acr.UserDialogs", "src\Acr.UserDialogs\Acr.UserDialogs.csproj", "{AD34AA53-F275-4F18-A51C-9809C4E1F3BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6BC05413-873B-460E-BDA0-82BD63FC13DC}"
 	ProjectSection(SolutionItems) = preProject
-		changelog.md = changelog.md
+		.github\workflows\build.yml = .github\workflows\build.yml
 		..\icon.png = ..\icon.png
 		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "Samples\Samples\Samples.csproj", "{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "sample\Samples\Samples.csproj", "{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.iOS", "Samples\Samples.iOS\Samples.iOS.csproj", "{E65BABF2-F96E-4256-A169-4ECB8136FBB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.iOS", "sample\Samples.iOS\Samples.iOS.csproj", "{E65BABF2-F96E-4256-A169-4ECB8136FBB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid", "Samples\Samples.Droid\Samples.Droid.csproj", "{1AA0F8D6-3F27-4461-B5FD-1C8F1000FCE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Droid", "sample\Samples.Droid\Samples.Droid.csproj", "{1AA0F8D6-3F27-4461-B5FD-1C8F1000FCE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Uwp", "Samples\Samples.Uwp\Samples.Uwp.csproj", "{CCA8B1CA-C9C6-4441-BC45-B3A95EDB43FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Uwp", "sample\Samples.Uwp\Samples.Uwp.csproj", "{CCA8B1CA-C9C6-4441-BC45-B3A95EDB43FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.macOS", "Samples\Samples.macOS\Samples.macOS.csproj", "{AEA8EE60-DEBE-4632-A554-16CCD013CD6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.macOS", "sample\Samples.macOS\Samples.macOS.csproj", "{AEA8EE60-DEBE-4632-A554-16CCD013CD6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{C88D14B5-E775-4EE0-91A4-FD321B18415F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -358,6 +360,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18} = {C88D14B5-E775-4EE0-91A4-FD321B18415F}
+		{E65BABF2-F96E-4256-A169-4ECB8136FBB3} = {C88D14B5-E775-4EE0-91A4-FD321B18415F}
+		{1AA0F8D6-3F27-4461-B5FD-1C8F1000FCE3} = {C88D14B5-E775-4EE0-91A4-FD321B18415F}
+		{CCA8B1CA-C9C6-4441-BC45-B3A95EDB43FA} = {C88D14B5-E775-4EE0-91A4-FD321B18415F}
+		{AEA8EE60-DEBE-4632-A554-16CCD013CD6A} = {C88D14B5-E775-4EE0-91A4-FD321B18415F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17CCE1B1-75B2-4B32-8BCA-DF55666927A4}

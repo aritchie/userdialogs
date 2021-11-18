@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2125</Version>
+      <Version>5.0.0.2244</Version>
     </PackageReference>
     <PackageReference Include="NETStandard.Library">
       <Version>2.0.3</Version>
@@ -97,13 +97,13 @@
     <Compile Include="AppDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Acr.UserDialogs\Acr.UserDialogs.csproj">
+      <Project>{ad34aa53-f275-4f18-a51c-9809c4e1f3bc}</Project>
+      <Name>Acr.UserDialogs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
       <Project>{74CEE6C1-4CE8-4279-82AF-D5A5DDD76D18}</Project>
       <Name>Samples</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj">
-      <Project>{AD34AA53-F275-4F18-A51C-9809C4E1F3BC}</Project>
-      <Name>Acr.UserDialogs</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />

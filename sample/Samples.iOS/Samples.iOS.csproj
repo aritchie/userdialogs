@@ -103,11 +103,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2125</Version>
+      <Version>5.0.0.2244</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Acr.UserDialogs\Acr.UserDialogs.csproj">
+    <ProjectReference Include="..\..\src\Acr.UserDialogs\Acr.UserDialogs.csproj">
       <Project>{ad34aa53-f275-4f18-a51c-9809c4e1f3bc}</Project>
       <Name>Acr.UserDialogs</Name>
     </ProjectReference>

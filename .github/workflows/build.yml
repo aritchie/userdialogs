@@ -11,12 +11,6 @@ on:
     branches: [ master, main, dev, preview ]
     paths:
     - "src/**"
-    - "docs/**"
-    - "build/**"
-  #pull_request:
-  #  branches: [ master, main, dev ]
-  #  paths:
-  #  - "src/**"
 
 env:
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
@@ -41,7 +35,7 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Build
-      run: dotnet build --project src/Acr.UserDialogs.csproj --BuildNumber=${{steps.buildnumber.outputs.build_number}}
+      run: dotnet build Build.slnf --BuildNumber=${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2

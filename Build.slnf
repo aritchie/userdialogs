@@ -1,0 +1,8 @@
+{
+  "solution": {
+    "path": "Acr.UserDialogs.sln",
+    "projects": [
+      "src\\Acr.UserDialogs\\Acr.UserDialogs.csproj"
+    ]
+  }
+}
