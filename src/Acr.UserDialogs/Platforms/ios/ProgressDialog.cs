@@ -1,4 +1,7 @@
 ﻿using System;
+#if __IOS__
+using BigTed;
+#endif
 using UIKit;
 
 
@@ -68,7 +71,7 @@ namespace Acr.UserDialogs
         {
             this.IsShowing = false;
 #if __IOS__
-            UIApplication.SharedApplication.InvokeOnMainThread(BTProgressHUD.BTProgressHUD.Dismiss);
+            UIApplication.SharedApplication.InvokeOnMainThread(BTProgressHUD.Dismiss);
 #endif
         }
 
@@ -107,7 +110,7 @@ namespace Acr.UserDialogs
                 if (this.config.OnCancel == null)
                 {
 #if __IOS__
-                    BTProgressHUD.BTProgressHUD.Show(
+                    BTProgressHUD.Show(
                         this.Title,
                         p,
                         this.config.MaskType.ToNative()
@@ -117,7 +120,7 @@ namespace Acr.UserDialogs
                 else
                 {
 #if __IOS__
-                    BTProgressHUD.BTProgressHUD.Show(
+                    BTProgressHUD.Show(
                         this.config.CancelText,
                         this.config.OnCancel,
                         txt,
