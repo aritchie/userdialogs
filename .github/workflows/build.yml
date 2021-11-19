@@ -8,7 +8,7 @@ on:
         required: true
         default: 'warning'
   push:
-    branches: [ master, main, dev, preview ]
+    branches: [ master, dev, preview ]
     paths:
     - "src/**"
 
@@ -43,3 +43,7 @@ jobs:
         name: nugets
         path: ${{ github.workspace }}/artifacts
         retention-days: 5
+
+    - name: Publish to Nuget
+      if: ${{ github.ref == 'refs/heads/master' }}
+      run: dotnet nuget push **/*.nupkg --api-key ${{ env.NugetApiKey }}
