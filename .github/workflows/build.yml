@@ -39,7 +39,7 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Build
-      run: msbuild Build.slnf -t:rebuild -property:Configuration=Release -property:LibraryVersion=${env.LibraryVersion}.${{steps.buildnumber.outputs.build_number}}
+      run: msbuild Build.slnf -t:rebuild -property:Configuration=Release -property:LibraryVersion=${{env.LibraryVersion}}.${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2
