@@ -29,6 +29,9 @@ jobs:
       with:
         dotnet-version: 6.0.100
 
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
     - name: Generate Build Number
       id: buildnumber
       uses: einaregilsson/build-number@v3
@@ -36,7 +39,7 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Build
-      run: dotnet msbuild Build.slnf /p:LibraryVersion=${env.Version}.${{steps.buildnumber.outputs.build_number}}
+      run: msbuild Build.slnf -t:rebuild -property:Configuration=Release -property:LibraryVersion=${env.Version}.${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2
