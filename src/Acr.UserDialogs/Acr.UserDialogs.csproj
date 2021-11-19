@@ -8,8 +8,8 @@
         <Authors>Allan Ritchie</Authors>
         <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, and UWP</Description>
         <PackageTags>windows ios android xamarin xam.pcl dialogs plugin</PackageTags>
-        <VersionPrefix>7.2.0</VersionPrefix>
-        <VersionPrefix Condition=" $(BuildNumber) != '' ">$(VersionPrefix).$(BuildNumber)</VersionPrefix>
+        <LibraryVersion Condition=" '$(LibraryVersion)' == '' ">7.2.0</LibraryVersion>
+        <PackageVersion>$(LibraryVersion)</PackageVersion>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/raw/master/ChangeLog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
