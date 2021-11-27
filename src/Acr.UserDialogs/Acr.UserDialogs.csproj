@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0;xamarin.mac20;xamarin.tvos10</TargetFrameworks>
-        <!--<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>-->
         <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.19041;$(TargetFrameworks)</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -76,7 +75,6 @@
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
-        <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.13" />
         <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Uwp\**\*.cs" />

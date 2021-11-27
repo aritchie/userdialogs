@@ -2,7 +2,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="Acr.UserDialogs.ActionSheetContentDialog"
-    xmlns:local="using:Acr.UserDialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{Binding Title}"
@@ -10,8 +9,9 @@
     <ContentDialog.Content>
         <ScrollViewer>
             <StackPanel>
-                <TextBlock Text="{Binding Message}" FontSize="12" Visibility="{Binding MessageVisibility}" />
-                <!--Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
+                <TextBlock Text="{Binding Message}" 
+                           FontSize="12" 
+                           Visibility="{Binding MessageVisibility}" />
                 <ListBox x:Name="List" ItemsSource="{Binding Options}" SelectionMode="Single">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -23,16 +23,15 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button
-                    DataContext="{Binding Destructive}"
-                    Content="{Binding Text}"
-                    Command="{Binding Action}"
-                    Visibility="{Binding Visible}" />
-                    <Button
-                    DataContext="{Binding Cancel}"
-                    Content="{Binding Text}"
-                    Command="{Binding Action}"
-                    Visibility="{Binding Visible}" />
+                    <Button DataContext="{Binding Destructive}"
+                            Content="{Binding Text}"
+                            Command="{Binding Action}"
+                            Visibility="{Binding Visible}" />
+                    
+                    <Button DataContext="{Binding Cancel}" 
+                            Content="{Binding Text}"
+                            Command="{Binding Action}"
+                            Visibility="{Binding Visible}" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
