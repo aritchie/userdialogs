@@ -11,10 +11,11 @@ on:
     branches: [ master, dev, preview ]
     paths:
     - "src/**"
+    - "build/**"
 
 env:
+  DotNetVersion: 6.0.100
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
-  LibraryVersion: 7.2.0
 
 jobs:
   build:
@@ -27,13 +28,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.100
-
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
-      with:
-        msbuild-architecture: x64
-        vs-version: '[17.0,17.2)'
+        dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Generate Build Number
       id: buildnumber
@@ -42,7 +37,7 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Build
-      run: msbuild Build.slnf -t:rebuild -property:Configuration=Release -property:LibraryVersion=${{env.LibraryVersion}}.${{steps.buildnumber.outputs.build_number}}
+      run: dotnet run --project build/Build.csproj --BuildNumber=${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2
@@ -50,20 +45,3 @@ jobs:
         name: nugets
         path: ${{ github.workspace }}/artifacts
         retention-days: 5
-
-    - name: Publish to Nuget
-      if: ${{ github.ref == 'refs/heads/master' }}
-      run: dotnet nuget push **/*.nupkg --api-key ${{ env.NugetApiKey }}
-
-    - name: Create Release
-      id: create_release
-      if: ${{ github.ref == 'refs/heads/master' }}
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: Release
-        draft: false
-        prerelease: false

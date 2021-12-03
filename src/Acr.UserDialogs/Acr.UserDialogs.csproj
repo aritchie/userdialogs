@@ -32,7 +32,7 @@
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' OR '$(CI)' == 'true'">
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
-  
+
     <PropertyGroup Condition="$(TargetFramework.StartsWith('uap'))">
         <GenerateLibraryLayout>true</GenerateLibraryLayout>
         <DisableEmbeddedXbf>false</DisableEmbeddedXbf>
