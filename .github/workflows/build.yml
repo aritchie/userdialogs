@@ -10,6 +10,7 @@ on:
   push:
     branches: [ master, dev, preview ]
     paths:
+    - ".github/workflows/*.yml"
     - "src/**"
     - "build/**"
 
