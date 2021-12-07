@@ -52,7 +52,7 @@ jobs:
     #    retention-days: 5
 
     - name: Build
-      run: msbuild Build.slnf /p:LibraryVersion=${env.Version}.${{steps.buildnumber.outputs.build_number}}
+      run: msbuild Build.slnf /restore /p:LibraryVersion=${{env.Version}}.${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish to Nuget
       if: ${{ github.ref == 'refs/heads/master' }}
