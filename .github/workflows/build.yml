@@ -32,6 +32,9 @@ jobs:
       with:
         dotnet-version: ${{ env.DotNetVersion }}
 
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
     - name: Generate Build Number
       id: buildnumber
       uses: einaregilsson/build-number@v3
@@ -49,7 +52,7 @@ jobs:
     #    retention-days: 5
 
     - name: Build
-      run: dotnet msbuild Build.slnf /p:LibraryVersion=${env.Version}.${{steps.buildnumber.outputs.build_number}}
+      run: msbuild Build.slnf /p:LibraryVersion=${env.Version}.${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish to Nuget
       if: ${{ github.ref == 'refs/heads/master' }}
