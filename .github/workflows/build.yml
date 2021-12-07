@@ -16,6 +16,7 @@ on:
 
 env:
   #DotNetVersion: 6.0.100
+  Version: 7.2.0
   DotNetVersion: 5.0.403
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
 
@@ -52,7 +53,7 @@ jobs:
     #    retention-days: 5
 
     - name: Build
-      run: msbuild Build.slnf /restore /p:LibraryVersion=${{env.Version}}.${{steps.buildnumber.outputs.build_number}}
+      run: msbuild Build.slnf /restore /p:Configuration=Release /p:LibraryVersion=${{env.Version}}.${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish to Nuget
       if: ${{ github.ref == 'refs/heads/master' }}
