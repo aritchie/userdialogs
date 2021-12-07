@@ -42,22 +42,12 @@ jobs:
       with:
         token: ${{secrets.github_token}}
 
-    #- name: Build
-    #  run: dotnet run --project build/Build.csproj --BuildNumber=${{steps.buildnumber.outputs.build_number}}
-
-    #- name: Publish Artifacts
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: nugets
-    #    path: ${{ github.workspace }}/artifacts
-    #    retention-days: 5
-
     - name: Build
       run: msbuild Build.slnf /restore /p:Configuration=Release /p:LibraryVersion=${{env.Version}}.${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish to Nuget
       if: ${{ github.ref == 'refs/heads/master' }}
-      run: dotnet nuget push **/*.nupkg --api-key ${{ env.NugetApiKey }}
+      run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ env.NugetApiKey }}
 
     #- name: Create Release
     #  id: create_release
