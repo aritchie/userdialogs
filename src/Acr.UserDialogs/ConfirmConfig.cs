@@ -6,6 +6,7 @@ namespace Acr.UserDialogs
 
     public class ConfirmConfig : IStandardDialogConfig, IAndroidStyleDialogConfig
     {
+        public static bool DefaultUseYesNo { get; set; }
         public static string DefaultYes { get; set; } = "Yes";
         public static string DefaultNo { get; set; } = "No";
         public static string DefaultOkText { get; set; } = "Ok";
@@ -20,8 +21,8 @@ namespace Acr.UserDialogs
         //public bool UwpCancelOnEscKey { get; set; }
         //public bool UwpSubmitOnEnterKey { get; set; }
 
-        public string OkText { get; set; } = DefaultOkText;
-        public string CancelText { get; set; } = DefaultCancelText;
+        public string OkText { get; set; } = !DefaultUseYesNo ? DefaultOkText : DefaultYes;
+        public string CancelText { get; set; } = !DefaultUseYesNo ? DefaultCancelText : DefaultNo;
 
 
         public ConfirmConfig UseYesNo()
