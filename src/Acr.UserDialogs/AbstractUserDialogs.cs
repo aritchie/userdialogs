@@ -158,8 +158,8 @@ namespace Acr.UserDialogs
             {
                 Message = message,
                 Title = title,
-                CancelText = cancelText ?? ConfirmConfig.DefaultCancelText,
-                OkText = okText ?? ConfirmConfig.DefaultOkText
+                CancelText = cancelText ?? (!ConfirmConfig.DefaultUseYesNo ? ConfirmConfig.DefaultCancelText : ConfirmConfig.DefaultNo),
+                OkText = okText ?? (!ConfirmConfig.DefaultUseYesNo ? ConfirmConfig.DefaultOkText : ConfirmConfig.DefaultYes)
             }, cancelToken);
         }
 
