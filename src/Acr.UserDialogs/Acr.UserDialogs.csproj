@@ -72,7 +72,7 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <Compile Include="Platforms\Apple\**\*.cs" />
-        <PackageReference Include="BTProgressHUD" Version="1.3.5" />
+        <PackageReference Include="BTProgressHUD" Version="1.4.0" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.Contains('tvos')) ">
