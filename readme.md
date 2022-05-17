@@ -20,7 +20,7 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 * Prompt
 * Toasts
 * Time
-* [Samples](https://github.com/aritchie/userdialogs/tree/master/src/Samples/Samples)
+* [Sample](https://github.com/aritchie/userdialogs/tree/master/sample)
 
 
 ## Support Platforms
