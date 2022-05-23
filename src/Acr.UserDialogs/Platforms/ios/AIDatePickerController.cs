@@ -305,10 +305,10 @@ namespace AI
                 {
                     return UIColor.Black;
                 }
-#if __IOS__
+#if IOS
                 else if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
                 {
-                    return UIColor.TertiarySystemBackgroundColor;
+                    return UIColor.TertiarySystemBackground;
                 }
 #endif
                 else

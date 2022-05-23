@@ -1,11 +1,7 @@
 ﻿ACR UserDialogs
 
 # Support Platforms
-
-* iOS 8+
-* Android - Set your target to Android 8.1+
-* Universal Windows Platform (Win10/UWP)
-* NET Standard 2.0
+* NET Standard 2.0/NET6 - iOS, MacCatalyst, & Android
 
 ## Setup
 
