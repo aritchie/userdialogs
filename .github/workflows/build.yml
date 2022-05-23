@@ -45,7 +45,7 @@ jobs:
       run: dotnet workload install maui
 
     - name: Build
-      run: dotnet build Build.slnf
+      run: dotnet build Build.slnf -property:PublicRelease=true
 
     - name: Publish to Nuget
       if: ${{ github.ref == 'refs/heads/master' }}

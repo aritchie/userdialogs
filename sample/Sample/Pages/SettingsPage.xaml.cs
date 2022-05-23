@@ -1,7 +1,6 @@
 ﻿using System;
 using Acr.UserDialogs;
 using Samples.ViewModels;
-using Xamarin.Forms;
 
 
 namespace Samples

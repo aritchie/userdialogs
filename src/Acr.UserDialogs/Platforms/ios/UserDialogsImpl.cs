@@ -15,14 +15,12 @@ namespace Acr.UserDialogs
         readonly Func<UIViewController> viewControllerFunc;
 
 
-        public UserDialogsImpl() : this(() => UIApplication.SharedApplication.GetTopViewController())
+        public UserDialogsImpl(Func<UIViewController> viewControllerFunc = null)
         {
-        }
-
-
-        public UserDialogsImpl(Func<UIViewController> viewControllerFunc)
-        {
-            this.viewControllerFunc = viewControllerFunc;
+            if (viewControllerFunc == null)
+                this.viewControllerFunc = () => UIApplication.SharedApplication.GetTopViewController();
+            else
+                this.viewControllerFunc = viewControllerFunc;
         }
 
 

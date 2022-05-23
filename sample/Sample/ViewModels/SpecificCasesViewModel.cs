@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
-using Xamarin.Forms;
 
 
 namespace Samples.ViewModels

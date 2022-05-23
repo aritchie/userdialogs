@@ -4,12 +4,12 @@
              x:Class="Samples.SpecificCasesPage"
              Title="Specific Cases">
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Commands}">
-            <ListView.ItemTemplate>
+        <CollectionView ItemsSource="{Binding Commands}">
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Text}" Command="{Binding Command}" />
+                    <Button Text="{Binding Text}" Command="{Binding Command}" />
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ContentPage.Content>
 </ContentPage>

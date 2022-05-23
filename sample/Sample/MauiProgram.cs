@@ -1,4 +1,7 @@
-﻿namespace Sample
+﻿using Acr.UserDialogs;
+using Microsoft.Maui.LifecycleEvents;
+
+namespace Sample
 {
     public static class MauiProgram
     {
@@ -11,7 +14,14 @@
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                .ConfigureLifecycleEvents(events =>
+                {
+#if ANDROID
+                    events.AddAndroid(android => android.OnApplicationCreate(app => UserDialogs.Init(app)));
+#endif
+                })
+                ;
 
             return builder.Build();
         }

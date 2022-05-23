@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using Xamarin.Forms;
 
 
 namespace Samples.ViewModels
@@ -15,9 +14,9 @@ namespace Samples.ViewModels
             this.ActionText = "Ok";
             this.Message = "This is a test of the emergency toast system";
 
-            this.ActionTextColor = ToHex(Color.White);
-            this.MessageTextColor = ToHex(Color.White);
-            this.BackgroundColor = ToHex(Color.Blue);
+            //this.ActionTextColor = ToHex(Color.White);
+            //this.MessageTextColor = ToHex(Color.White);
+            //this.BackgroundColor = ToHex(Color.Blue);
 
             this.Open = new Command(() =>
             {
@@ -49,16 +48,16 @@ namespace Samples.ViewModels
         static System.Drawing.Color FromHex(string hex)
         {
             var c = Color.FromHex(hex);
-            var dc = System.Drawing.Color.FromArgb((int)c.A, (int)c.R, (int)c.G, (int)c.B);
+            var dc = System.Drawing.Color.FromArgb((int)c.Alpha, (int)c.Red, (int)c.Green, (int)c.Blue);
             return dc;
         }
 
 
         static string ToHex(Color color)
         {
-            var red = (int)(color.R * 255);
-            var green = (int)(color.G * 255);
-            var blue = (int)(color.B * 255);
+            var red = (int)(color.Red * 255);
+            var green = (int)(color.Green * 255);
+            var blue = (int)(color.Blue * 255);
             //var alpha = (int)(color.A * 255);
             //var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}{alpha:X2}");
             var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}");
