@@ -1,9 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-<!--<Project Sdk="Xamarin.Legacy.Sdk/0.1.2-alpha6">-->
+﻿<!--<Project Sdk="Microsoft.NET.Sdk">-->
+<Project Sdk="Xamarin.Legacy.Sdk/0.1.2-alpha6">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0-ios;net6.0-android</TargetFrameworks>
-        <!--<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid12.0;net6.0-ios;net6.0-maccatalyst;net6.0-android</TargetFrameworks>-->
+        <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid12.0;net6.0-ios;net6.0-android</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
