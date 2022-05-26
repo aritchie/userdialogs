@@ -1,5 +1,4 @@
-﻿<!--<Project Sdk="Microsoft.NET.Sdk">-->
-<Project Sdk="Xamarin.Legacy.Sdk/0.1.2-alpha6">
+﻿<Project Sdk="Xamarin.Legacy.Sdk/0.2.0-alpha1">
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid12.0;net6.0-ios;net6.0-android</TargetFrameworks>
