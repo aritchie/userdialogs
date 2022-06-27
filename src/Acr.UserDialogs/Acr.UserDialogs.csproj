@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Xamarin.Legacy.Sdk/0.2.0-alpha1">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid12.0;net6.0-ios;net6.0-android</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
+        <!--<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid12.0;net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>-->
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
@@ -44,6 +45,15 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+        <Reference Include="OpenTK-1.0" />
+        <!--<Reference Include="../OpenTK-1.0.dll" />-->
+    </ItemGroup>
+
+    <ItemGroup Condition="$(TargetFramework.Contains('mono'))">
+        <Reference Include="System.Drawing.Common" />
+    </ItemGroup>
+
     <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
     </ItemGroup>
@@ -51,7 +61,7 @@
     <ItemGroup Condition=" $(TargetFramework.Contains('android')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
-        <PackageReference Include="AndHUD" Version="1.4.3" />
+        <PackageReference Include="AndHUD" Version="1.5.0" />
         <PackageReference Include="Xamarin.Google.Android.Material" Version="1.6.0" />
     </ItemGroup>
 
@@ -59,6 +69,6 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <Compile Include="Platforms\Apple\**\*.cs" />
-        <PackageReference Include="BTProgressHUD" Version="1.4.0" />
+        <PackageReference Include="BTProgressHUD" Version="1.5.0" />
     </ItemGroup>
 </Project>
