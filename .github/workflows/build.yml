@@ -7,12 +7,16 @@ on:
         description: 'Log level'
         required: true
         default: 'warning'
+
   push:
-    branches: [ master, dev, preview ]
+    branches:
+    - master
+    - dev
+    - preview
+    - v*
     paths:
-    - ".github/workflows/*.yml"
     - "src/**"
-    - "build/**"
+    - ".github/workflows/**"
 
 env:
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
@@ -47,9 +51,67 @@ jobs:
     - name: Build
       run: dotnet build Build.slnf -property:PublicRelease=true -property:Configuration=Release
 
-    - name: Publish to Nuget
-      if: ${{ github.ref == 'refs/heads/master' }}
-      run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ env.NugetApiKey }}
+
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+
+  push:
+    branches:
+    - master
+    - dev
+    - preview
+    - v*
+    paths:
+    - "src/**"
+    - ".github/workflows/**"
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: 0
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.300
+
+    - name: Add .NET 6 Android Workload
+      run: dotnet workload install android
+
+    - name: Add .NET 6 iOS Workload
+      run: dotnet workload install ios
+
+    - name: Add .NET 6 MacCatalyst Workload
+      run: dotnet workload install maccatalyst
+
+    - name: Add MAUI Workload
+      run: dotnet workload install maui
+
+    - name: Build
+      run: dotnet build Shiny.Framework.sln /restore -m -property:Configuration=Release -property:PublicRelease=true
+
+    - name: Post NuGet Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: nuget-artifacts
+        path: '**/*.nupkg'
+
+    - name: Publish NuGets
+      if: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/v') }}
+      run: dotnet nuget push **\*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGETAPIKEY }} --skip-duplicate
 
     #- name: Create Release
     #  id: create_release
