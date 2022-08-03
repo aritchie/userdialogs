@@ -8,11 +8,14 @@ on:
         required: true
         default: 'warning'
   push:
-    branches: [ master, dev, preview ]
+    branches:
+    - master
+    - dev
+    - preview
+    - v*
     paths:
-    - ".github/workflows/*.yml"
     - "src/**"
-    - "build/**"
+    - ".github/workflows/**"
 
 env:
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
