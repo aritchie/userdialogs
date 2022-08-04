@@ -1,11 +1,23 @@
 ﻿ACR UserDialogs
 
 # Support Platforms
-* NET Standard 2.0/NET6 - iOS, MacCatalyst, & Android
+8.x - .NET 6 targets only
+    * .NET for iOS
+    * .NET for MacCatalyst
+    * .NET for Android
+    * .NET 6
+
+7.x
+    * Xamarin Android (Major Target 12)
+    * Xamarin iOS
+    * Xamarin MacOS
+    * Xamarin tvOS
+    * Universal Windows Platform (UWP)
+    * NET Standard 2.0
 
 ## Setup
 
-To use, simply reference the nuget package in each of your platform projects. If you are getting issues with System.Drawing.Color, please make sure you are using the latest version of Xamarin
+To use, simply reference the nuget package in each of your platform projects.
 
 #### iOS and Windows
 

@@ -6,7 +6,6 @@ A cross platform library that allows you to call for standard user dialogs from 
 Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
-[![Build status](https://dev.azure.com/allanritchie/Plugins/_apis/build/status/UserDialogs)](https://dev.azure.com/allanritchie/Plugins/_build/latest?definitionId=8)
 
 
 ### Features
@@ -25,10 +24,16 @@ Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 ## Support Platforms
 
+v7.x Supports
 * iOS 8+
 * Android
 * Universal Windows Platform (Win10/UWP)
 * NET Standard 2.0
+
+v8.x Supports ONLY .NET 6 target
+* .NET for Android (major target 12)
+* .NET for iOS
+* .NET for MacCatalyst
 
 ## Setup
 
@@ -95,9 +100,6 @@ OR UserDialogs.Init(() => provide your own top level activity provider)
 
     * The library wasn't really designed or meant for this.  It was meant for using native dialogs.  That's it.  If you need something more customizable, this is not the library for it.
 
-9. I'm getting a linker issue with System.Drawing.Color
-
-    * This is due to a new BCL library being added in new versions of Xamarin.  You need to upgrade to the latest version of Xamarin (VS2019) to use anything beyond 7.0.4
 
 ## Contributors
 
