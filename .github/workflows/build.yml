@@ -43,8 +43,8 @@ jobs:
     - name: Add .NET 6 MacCatalyst Workload
       run: dotnet workload install maccatalyst
 
-    - name: Add MAUI Workload
-      run: dotnet workload install maui
+    # - name: Add MAUI Workload
+    #  run: dotnet workload install maui
 
     - name: Build
       run: dotnet build Build.slnf /restore -m -property:Configuration=Release -property:PublicRelease=true
