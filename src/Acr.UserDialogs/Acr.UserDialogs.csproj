@@ -1,9 +1,14 @@
-﻿<!--<Project Sdk="Xamarin.Legacy.Sdk/0.2.0-alpha1">-->
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <UseMSBuild Condition="$([MSBuild]::IsOSPlatform('windows'))">true</UseMSBuild>
+        <MSBuildSdkExtrasVersion>3.0.44</MSBuildSdkExtrasVersion>
+    </PropertyGroup>
+
+    <Import Project="Sdk.props" Sdk="MSBuild.Sdk.Extras" Version="$(MSBuildSdkExtrasVersion)" Condition="'$(UseMSBuild)' == 'true'" />
 
     <PropertyGroup>
         <TargetFrameworks>net6.0;net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
-        <!--<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid12.0;net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>-->
+        <TargetFrameworks Condition="'$(UseMSBuild)' == 'true'">$(TargetFrameworks);netstandard2.0;xamarin.ios10;monoandroid12.0</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
@@ -40,7 +45,7 @@
         <None Include="Platforms\**\*.*" />
         <Compile Remove="Platforms\**\*.*" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-        <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.107">
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.109">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
@@ -72,4 +77,6 @@
         <Compile Include="Platforms\Apple\**\*.cs" />
         <PackageReference Include="BTProgressHUD" Version="1.5.0" />
     </ItemGroup>
+
+    <Import Project="Sdk.targets" Sdk="MSBuild.Sdk.Extras" Version="$(MSBuildSdkExtrasVersion)" Condition="'$(UseMSBuild)' == 'true'" />
 </Project>
