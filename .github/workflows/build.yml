@@ -38,8 +38,11 @@ jobs:
     - name: Add .NET 6 Workloads
       run: dotnet workload install maui ios android maccatalyst
 
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
     - name: Build
-      run: dotnet msbuild Build.slnf -property:PublicRelease=true -property:Configuration=Release
+      run: msbuild Build.slnf /restore /p:Configuration=Release /p:PublicRelease=true
 
     - name: Publish to Nuget
       if: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/v') }}
