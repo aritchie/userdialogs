@@ -33,25 +33,16 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '6.0.400'
 
-    - name: Add .NET 6 Android Workload
-      run: dotnet workload install android
-
-    - name: Add .NET 6 iOS Workload
-      run: dotnet workload install ios
-
-    - name: Add .NET 6 MacCatalyst Workload
-      run: dotnet workload install maccatalyst
-
-    - name: Add MAUI Workload
-      run: dotnet workload install maui
+    - name: Add .NET 6 Workloads
+      run: dotnet workload install maui ios android maccatalyst
 
     - name: Build
-      run: dotnet build Build.slnf -property:PublicRelease=true -property:Configuration=Release
+      run: dotnet msbuild Build.slnf -property:PublicRelease=true -property:Configuration=Release
 
     - name: Publish to Nuget
-      if: ${{ github.ref == 'refs/heads/master' }}
+      if: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/v') }}
       run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ env.NugetApiKey }}
 
     #- name: Create Release
