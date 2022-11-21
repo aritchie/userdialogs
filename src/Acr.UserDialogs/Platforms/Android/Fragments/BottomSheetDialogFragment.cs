@@ -149,6 +149,8 @@ namespace Acr.UserDialogs.Fragments
                     Gravity = GravityFlags.CenterVertical
                 };
                 textTitle.SetTextSize(ComplexUnitType.Sp, 16);
+                textTitle.SetMaxLines(1);
+                textTitle.Ellipsize = Android.Text.TextUtils.TruncateAt.End;
 
                 var textSubtitle = new TextView(this.Activity)
                 {
@@ -163,6 +165,8 @@ namespace Acr.UserDialogs.Fragments
                 // this uses the textColorSecondary color, so we can style it easily
                 textSubtitle.SetTextAppearance(Android.Resource.Style.TextAppearanceMaterialWidgetActionBarSubtitle);
                 textSubtitle.SetTextSize(ComplexUnitType.Sp, 16);
+                textSubtitle.SetMaxLines(1);
+                textSubtitle.Ellipsize = Android.Text.TextUtils.TruncateAt.End;
 
                 lay.AddView(textTitle);
                 lay.AddView(textSubtitle);
