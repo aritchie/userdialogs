@@ -1,0 +1,54 @@
+name: Build and publish
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build number
+      run: echo "Build $env:GITHUB_RUN_NUMBER"
+    - name: Build
+      run: msbuild src/Acr.UserDialogs /p:Configuration=Release /p:BUILD_BUILDNUMBER=$env:GITHUB_RUN_NUMBER /restore
+    - name: Pack
+      run: msbuild src/Acr.UserDialogs /p:Configuration=Release /p:BUILD_BUILDNUMBER=$env:GITHUB_RUN_NUMBER /t:Pack
+    - uses: actions/upload-artifact@master
+      with:
+        name: build-artifacts
+        path: src/Acr.UserDialogs/bin
+
+  publish:
+    permissions:
+      packages: write
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        include-prerelease: true
+    - uses: actions/download-artifact@master
+      with:
+        name: build-artifacts
+        path: src/Acr.UserDialogs/bin
+    - name: Publish
+      if: ${{ github.event_name == 'push' }}
+      env:
+        token: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        dotnet nuget add source https://nuget.pkg.github.com/emclient/index.json -n github
+        find src/Acr.UserDialogs/bin/Release -name '*.nupkg' | xargs -i dotnet nuget push {} -s github --api-key ${{ secrets.GITHUB_TOKEN }}
