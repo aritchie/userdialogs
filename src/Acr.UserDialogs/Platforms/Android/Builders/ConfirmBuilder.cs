@@ -1,13 +1,9 @@
 using System;
 using Android.App;
 using AlertDialog = Android.App.AlertDialog;
-#if ANDROIDX
 using AndroidX.AppCompat.App;
 using AppCompatAlertDialog = AndroidX.AppCompat.App.AlertDialog;
-#else
-using Android.Support.V7.App;
-using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
-#endif
+
 
 namespace Acr.UserDialogs.Builders
 {

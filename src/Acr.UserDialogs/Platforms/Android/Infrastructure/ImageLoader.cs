@@ -2,11 +2,8 @@
 using Android.App;
 using Android.Graphics.Drawables;
 using Android.Util;
-#if ANDROIDX
 using AndroidX.Core.Content;
-#else
-using Android.Support.V4.Content;
-#endif
+
 
 namespace Acr.UserDialogs.Infrastructure
 {

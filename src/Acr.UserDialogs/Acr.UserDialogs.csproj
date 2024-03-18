@@ -1,14 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <UseMSBuild Condition="$([MSBuild]::IsOSPlatform('windows'))">true</UseMSBuild>
-        <MSBuildSdkExtrasVersion>3.0.44</MSBuildSdkExtrasVersion>
-    </PropertyGroup>
-
-    <Import Project="Sdk.props" Sdk="MSBuild.Sdk.Extras" Version="$(MSBuildSdkExtrasVersion)" Condition="'$(UseMSBuild)' == 'true'" />
-
-    <PropertyGroup>
-        <TargetFrameworks>net6.0;net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
-        <TargetFrameworks Condition="'$(UseMSBuild)' == 'true'">$(TargetFrameworks);netstandard2.0;xamarin.ios10;monoandroid12.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net8.0-ios;net8.0-android;net8.0-maccatalyst</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
@@ -30,53 +22,31 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PublishRepositoryUrl>True</PublishRepositoryUrl>
         <EmbedUntrackedSources>True</EmbedUntrackedSources>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' OR '$(CI)' == 'true'">
-        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" $(TargetFramework.Contains('android')) ">
-        <DefineConstants>$(DefineConstants);ANDROIDX</DefineConstants>
+        <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true' OR '$(CI)' == 'true'">true</ContinuousIntegrationBuild>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="readme.txt" pack="true" PackagePath="." />
         <None Include="Platforms\**\*.*" />
         <Compile Remove="Platforms\**\*.*" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-        <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.109">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
-        <Reference Include="OpenTK-1.0" />
-        <!--<Reference Include="../OpenTK-1.0.dll" />-->
-    </ItemGroup>
-
-    <ItemGroup Condition="$(TargetFramework.Contains('mono'))">
-        <Reference Include="System.Drawing.Common" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-    </ItemGroup>
-
     <ItemGroup Condition=" $(TargetFramework.Contains('android')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
-        <PackageReference Include="AndHUD" Version="1.5.0" />
-        <PackageReference Include="Xamarin.Google.Android.Material" Version="1.6.0" />
+        <PackageReference Include="AndHUD" Version="2.0.1" />
+        <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.3" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.Contains('ios')) OR $(TargetFramework.Contains('catalyst')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <Compile Include="Platforms\Apple\**\*.cs" />
-        <PackageReference Include="BTProgressHUD" Version="1.5.0" />
+        <PackageReference Include="BTProgressHUD" Version="2.0.1" />
     </ItemGroup>
-
-    <Import Project="Sdk.targets" Sdk="MSBuild.Sdk.Extras" Version="$(MSBuildSdkExtrasVersion)" Condition="'$(UseMSBuild)' == 'true'" />
 </Project>

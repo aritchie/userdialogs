@@ -3,11 +3,8 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
-#if ANDROIDX
 using AndroidX.AppCompat.App;
-#else
-using Android.Support.V7.App;
-#endif
+
 
 namespace Acr.UserDialogs.Fragments
 {

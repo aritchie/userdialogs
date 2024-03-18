@@ -74,7 +74,7 @@ namespace Acr.UserDialogs
             this.IsShowing = false;
             try
             {
-                AndHUD.Shared.Dismiss(activity);
+                AndHUD.Shared.Dismiss();
             }
             catch(Exception exc)
             {

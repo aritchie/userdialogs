@@ -1,13 +1,8 @@
 using System;
 using System.Linq;
 using Android.App;
-#if ANDROIDX
 using AndroidX.AppCompat.App;
 using AppCompatAlertDialog = AndroidX.AppCompat.App.AlertDialog;
-#else
-using Android.Support.V7.App;
-using AppCompatAlertDialog = Android.Support.V7.App.AlertDialog;
-#endif
 using AlertDialog = Android.App.AlertDialog;
 
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <RootNamespace>Sample</RootNamespace>
     <UseMaui>true</UseMaui>
@@ -33,8 +33,8 @@
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Acr.UserDialogs\Acr.UserDialogs.csproj" />
+      <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.10" />
+      <ProjectReference Include="..\..\src\Acr.UserDialogs\Acr.UserDialogs.csproj" />
   </ItemGroup>
 </Project>

@@ -8,13 +8,8 @@ using Android.Views;
 using Android.Widget;
 using Android.Text.Style;
 using AndroidHUD;
-#if ANDROIDX
 using AndroidX.AppCompat.App;
 using Google.Android.Material.Snackbar;
-#else
-using Android.Support.V7.App;
-using Android.Support.Design.Widget;
-#endif
 
 
 namespace Acr.UserDialogs
@@ -232,7 +227,7 @@ namespace Acr.UserDialogs
             {
                 try
                 {
-                    AndHUD.Shared.Dismiss(activity);
+                    AndHUD.Shared.Dismiss();
                 }
                 catch
                 {
