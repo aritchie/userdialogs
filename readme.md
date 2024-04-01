@@ -3,7 +3,6 @@
 # <img src="icon.png" width="71" height="71"/> ACR User Dialogs
 
 A cross platform library that allows you to call for standard user dialogs from a shared/portable library.
-Supports Android, iOS, and Unified Windows Platform (UWP, UAP)
 
 [![NuGet](https://img.shields.io/nuget/v/Acr.UserDialogs.svg?maxAge=2592000)](https://www.nuget.org/packages/Acr.UserDialogs/)
 
@@ -32,6 +31,11 @@ v7.x Supports
 
 v8.x Supports ONLY .NET 6 target
 * .NET for Android (major target 12)
+* .NET for iOS
+* .NET for MacCatalyst
+
+v9.x Supports ONLY .NET 8 target
+* .NET for Android
 * .NET for iOS
 * .NET for MacCatalyst
 

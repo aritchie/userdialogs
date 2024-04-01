@@ -40,7 +40,7 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="AndHUD" Version="2.0.1" />
-        <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.3" />
+        <PackageReference Include="Xamarin.Google.Android.Material" Version="1.9.0.2" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.Contains('ios')) OR $(TargetFramework.Contains('catalyst')) ">
