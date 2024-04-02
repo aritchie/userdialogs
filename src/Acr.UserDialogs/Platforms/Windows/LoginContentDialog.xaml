@@ -1,0 +1,26 @@
+﻿<ContentDialog
+    x:Class="Acr.UserDialogs.LoginContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="{Binding Title}"
+    PrimaryButtonText="{Binding LoginText}"
+    PrimaryButtonCommand="{Binding Login}"
+    IsPrimaryButtonEnabled="True"
+    SecondaryButtonText="{Binding CancelText}"
+    SecondaryButtonCommand="{Binding Cancel}"
+    IsSecondaryButtonEnabled="True">
+    <ContentDialog.Content>
+        <StackPanel>
+            <TextBlock Text="{Binding Message}" />
+
+            <TextBlock Text="{Binding UserNameText}" />
+            <TextBox PlaceholderText="{Binding UserNamePlaceholder}" Text="{Binding UserName, Mode=TwoWay, FallbackValue=''}" />
+
+            <TextBlock Text="{Binding PasswordText}" />
+            <PasswordBox PlaceholderText="{Binding PasswordPlaceholder}" Password="{Binding Password, Mode=TwoWay, FallbackValue=''}" />
+        </StackPanel>
+    </ContentDialog.Content>
+</ContentDialog>

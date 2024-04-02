@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{C88D14B5-E775-4EE0-91A4-FD321B18415F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "sample\Sample\Sample.csproj", "{15294F23-E346-4DD3-A0EA-FDAB8F73B9A9}"
 EndProject
 Global
@@ -180,7 +178,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{15294F23-E346-4DD3-A0EA-FDAB8F73B9A9} = {C88D14B5-E775-4EE0-91A4-FD321B18415F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17CCE1B1-75B2-4B32-8BCA-DF55666927A4}

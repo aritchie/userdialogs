@@ -1,18 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net8.0-ios;net8.0-android;net8.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks>net8.0;net8.0-ios;net8.0-android;net8.0-maccatalyst;net8.0-macos</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
         <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, and UWP</Description>
         <PackageTags>ios android xamarin xam.pcl dialogs plugin</PackageTags>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/raw/master/ChangeLog.md</PackageReleaseNotes>
-        <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <LangVersion>latest</LangVersion>
         <NoWarn>$(NoWarn);1591;1701;1591;1702;1705;VSX1000;NU1603</NoWarn>
         <RepositoryUrl>https://github.com/aritchie/userdialogs</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -26,7 +28,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="readme.txt" pack="true" PackagePath="." />
+        <None Include="$(MSBuildThisFileDirectory)nuget.png" Pack="true" PackagePath="icon.png" />
+        <None Include="$(MSBuildThisFileDirectory)nuget.txt" Pack="true" PackagePath="readme.txt" />
         <None Include="Platforms\**\*.*" />
         <Compile Remove="Platforms\**\*.*" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
@@ -46,7 +49,18 @@
     <ItemGroup Condition=" $(TargetFramework.Contains('ios')) OR $(TargetFramework.Contains('catalyst')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
-        <Compile Include="Platforms\Apple\**\*.cs" />
         <PackageReference Include="BTProgressHUD" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('macos')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\macOS\**\*.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('windows')) ">
+        <Compile Include="Platforms\Shared\**\*.cs" />
+        <Compile Include="Platforms\Windows\**\*.cs" />
+        <Page Include="Platforms\Windows\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+        <Compile Update="Platforms\Windows\**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
     </ItemGroup>
 </Project>
