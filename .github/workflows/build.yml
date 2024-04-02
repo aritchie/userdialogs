@@ -36,7 +36,7 @@ jobs:
           dotnet-version: '8.0.201'
 
     - name: Add .NET Workloads
-      run: dotnet workload install maui
+      run: dotnet workload install maui macos
 
     - name: Build
       run: dotnet build Build.slnf /restore -m -property:Configuration=Release -property:PublicRelease=true

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFrameworks>net8.0;net8.0-ios;net8.0-android;net8.0-maccatalyst;net8.0-macos</TargetFrameworks>
-        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
@@ -28,8 +28,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="$(MSBuildThisFileDirectory)nuget.png" Pack="true" PackagePath="icon.png" />
-        <None Include="$(MSBuildThisFileDirectory)nuget.txt" Pack="true" PackagePath="readme.txt" />
+        <None Include="$(SolutionDir)icon.png" Pack="true" PackagePath="icon.png" />
+        <None Include="$(SolutionDir)readme.md" Pack="true" PackagePath="readme.md" />
         <None Include="Platforms\**\*.*" />
         <Compile Remove="Platforms\**\*.*" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
@@ -39,25 +39,25 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.Contains('android')) ">
+    <ItemGroup Condition="$(TargetFramework.Contains('android'))">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="AndHUD" Version="2.0.1" />
         <PackageReference Include="Xamarin.Google.Android.Material" Version="1.9.0.2" />
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.Contains('ios')) OR $(TargetFramework.Contains('catalyst')) ">
+    <ItemGroup Condition="$(TargetFramework.Contains('ios')) OR $(TargetFramework.Contains('catalyst'))">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\ios\**\*.cs" />
         <PackageReference Include="BTProgressHUD" Version="2.0.1" />
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('macos')) ">
+    <ItemGroup Condition="$(TargetFramework.StartsWith('macos'))">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\macOS\**\*.cs" />
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('windows')) ">
+    <ItemGroup Condition="$(TargetFramework.StartsWith('windows'))">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Windows\**\*.cs" />
         <Page Include="Platforms\Windows\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
