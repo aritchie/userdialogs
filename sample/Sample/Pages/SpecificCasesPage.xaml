@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace=Samples.ViewModels"
+             xmlns:local="clr-namespace:Samples.ViewModels"
+             x:DataType="local:SpecificCasesViewModel"
              x:Class="Samples.SpecificCasesPage"
              Title="Specific Cases">
     <ContentPage.Content>
         <CollectionView ItemsSource="{Binding Commands}">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Button Text="{Binding Text}" Command="{Binding Command}" />
+                <DataTemplate x:DataType="local:CommandViewModel">
+                    <Button Text="{Binding Text}"
+                            Command="{Binding Command}" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

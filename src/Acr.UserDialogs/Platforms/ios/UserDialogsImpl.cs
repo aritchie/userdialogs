@@ -252,6 +252,9 @@ namespace Acr.UserDialogs
             if (opt.ItemIcon != null)
             {
                 var icon = UIImage.FromBundle(opt.ItemIcon);
+                if (icon == null)
+                    throw new InvalidOperationException("Invalid Icon Name: " + opt.ItemIcon);
+
                 alertAction.SetValueForKey(icon, new NSString("image"));
             }
             controller.AddAction(alertAction);

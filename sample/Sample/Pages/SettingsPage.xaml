@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace=Samples.ViewModels"
+             xmlns:local="clr-namespace:Samples.ViewModels"
+             x:DataType="local:SettingsViewModel"
              x:Class="Samples.SettingsPage"
              Title="Settings/Themes">
     <ContentPage.Content>
-        <StackLayout>
+        <VerticalStackLayout>
             <Button Text="Load Standard Theme" Command="{Binding StandardSettings}" />
             <Button Text="Load Funny Theme" Command="{Binding LoadAbnormalSettings}" />
-        </StackLayout>
+        </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

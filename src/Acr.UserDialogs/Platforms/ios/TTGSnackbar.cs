@@ -3,7 +3,6 @@ using Foundation;
 using UIKit;
 
 
-
 namespace TTG
 {
     public enum TTGSnackbarAnimationType

@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace=Samples.ViewModels"
+             xmlns:local="clr-namespace:Samples.ViewModels"
+             x:DataType="local:ProgressViewModel"
              x:Class="Samples.ProgressPage"
              Title="Progress">
     <ContentPage.Content>
         <ListView ItemsSource="{Binding Commands}">
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Text}" Command="{Binding Command}" />
+                <DataTemplate x:DataType="local:CommandViewModel">
+                    <TextCell Text="{Binding Text}"
+                              Command="{Binding Command}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
