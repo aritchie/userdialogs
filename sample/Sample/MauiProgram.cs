@@ -1,7 +1,4 @@
-﻿using Acr.UserDialogs;
-using Microsoft.Maui.LifecycleEvents;
-
-namespace Sample;
+﻿namespace Samples;
 
 
 public static class MauiProgram
@@ -18,7 +15,7 @@ public static class MauiProgram
             });
 
 #if ANDROID
-        UserDialogs.Init(() => Platform.CurrentActivity);
+        Acr.UserDialogs.UserDialogs.Init(() => Platform.CurrentActivity);
 #endif
         return builder.Build();
     }

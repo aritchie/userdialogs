@@ -1,8 +1,6 @@
-﻿using ObjCRuntime;
+﻿using UIKit;
 
-using UIKit;
-
-namespace Sample
+namespace Samples
 {
     public class Program
     {

@@ -1,14 +1,11 @@
-﻿using Samples;
+﻿namespace Samples;
 
-namespace Sample
+public partial class App : Application
 {
-    public partial class App : Application
+    public App()
     {
-        public App()
-        {
-            InitializeComponent();
+        this.InitializeComponent();
 
-            this.MainPage = new MainPage();
-        }
+        this.MainPage = new MainPage();
     }
 }

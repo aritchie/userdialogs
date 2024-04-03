@@ -45,24 +45,24 @@ namespace Samples.ViewModels
         }
 
 
-        static System.Drawing.Color FromHex(string hex)
-        {
-            var c = Color.FromHex(hex);
-            var dc = System.Drawing.Color.FromArgb((int)c.Alpha, (int)c.Red, (int)c.Green, (int)c.Blue);
-            return dc;
-        }
+        //static System.Drawing.Color FromHex(string hex)
+        //{
+        //    var c = Color.FromArgb(hex);
+        //    var dc = System.Drawing.Color.FromArgb((int)c.Alpha, (int)c.Red, (int)c.Green, (int)c.Blue);
+        //    return dc;
+        //}
 
 
-        static string ToHex(Color color)
-        {
-            var red = (int)(color.Red * 255);
-            var green = (int)(color.Green * 255);
-            var blue = (int)(color.Blue * 255);
-            //var alpha = (int)(color.A * 255);
-            //var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}{alpha:X2}");
-            var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}");
-            return hex;
-        }
+        //static string ToHex(Color color)
+        //{
+        //    var red = (int)(color.Red * 255);
+        //    var green = (int)(color.Green * 255);
+        //    var blue = (int)(color.Blue * 255);
+        //    //var alpha = (int)(color.A * 255);
+        //    //var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}{alpha:X2}");
+        //    var hex = String.Format($"#{red:X2}{green:X2}{blue:X2}");
+        //    return hex;
+        //}
 
 
         public ICommand Open { get; }

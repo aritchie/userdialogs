@@ -123,7 +123,7 @@ namespace Samples.ViewModels
                     Text = "Toast with image",
                     Command = new Command(() =>
                     {
-                        var img = Device.RuntimePlatform == Device.UWP ? "ms-appx:///Assets/emoji_cool_small.png" : "emoji_cool_small.png";
+                        var img = DeviceInfo.Platform == DevicePlatform.WinUI ? "ms-appx:///Assets/emoji_cool_small.png" : "emoji_cool_small.png";
                         this.Dialogs.Toast(new ToastConfig("Wow what a cool guy").SetIcon(img));
                     })
                 },
