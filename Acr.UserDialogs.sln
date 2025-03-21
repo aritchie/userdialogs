@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "sample\Sample\Sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.UserDialogs.Maui", "src\Acr.UserDialogs.Maui\Acr.UserDialogs.Maui.csproj", "{D45ECD34-ED85-4F09-914F-0D2A566C39C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.UserDialogs.Uno", "src\Acr.UserDialogs.Uno\Acr.UserDialogs.Uno.csproj", "{511F6DE1-61E3-4C22-9E54-6260D44009B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

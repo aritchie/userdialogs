@@ -1,0 +1,15 @@
+<Project Sdk="Uno.Sdk/5.6.20">
+    <PropertyGroup>
+        <TargetFrameworks>net8.0-ios;net8.0-maccatalyst;net8.0-android</TargetFrameworks>
+        <UnoSingleProject>true</UnoSingleProject>
+        <OutputType>Library</OutputType>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UnoFeatures>Hosting</UnoFeatures>
+        <RootNamespace>Acr.UserDialogs</RootNamespace>
+    </PropertyGroup>
+  
+    <ItemGroup>
+        <ProjectReference Include="..\Acr.UserDialogs\Acr.UserDialogs.csproj"/>
+    </ItemGroup>
+</Project>
