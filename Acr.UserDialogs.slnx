@@ -1,0 +1,14 @@
+﻿<Solution>
+    <Folder Name="/Solution Items/">
+        <File Path=".github\workflows\build.yml"/>
+        <File Path="version.json"/>
+        <File Path="Build.slnf"/>
+        <File Path="icon.png"/>
+        <File Path="readme.md"/>
+        <File Path="src\Directory.build.props"/>
+    </Folder>
+    <Project Path="sample\Sample\Sample.csproj" Type="Classic C#" />
+    <Project Path="src\Acr.UserDialogs.Maui\Acr.UserDialogs.Maui.csproj" Type="Classic C#" />
+    <Project Path="src\Acr.UserDialogs.Uno\Acr.UserDialogs.Uno.csproj" Type="Classic C#"/>
+    <Project Path="src\Acr.UserDialogs\Acr.UserDialogs.csproj" Type="Classic C#"/>
+</Solution>

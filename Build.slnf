@@ -1,9 +1,10 @@
 {
     "solution": {
-        "path": "Acr.UserDialogs.sln",
+        "path": "Acr.UserDialogs.slnx",
         "projects": [
             "src\\Acr.UserDialogs\\Acr.UserDialogs.csproj",
-            "src\\Acr.UserDialogs.Maui\\Acr.UserDialogs.Maui.csproj"
+            "src\\Acr.UserDialogs.Maui\\Acr.UserDialogs.Maui.csproj",
+            "src\\Acr.UserDialogs.Uno\\Acr.UserDialogs.Uno.csproj"
         ]
     }
 }

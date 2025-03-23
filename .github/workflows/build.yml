@@ -33,10 +33,10 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-          dotnet-version: '8.0.201'
+          dotnet-version: '9.0.200'
 
-    - name: Add .NET Workloads
-      run: dotnet workload install maui macos
+#    - name: Add .NET Workloads
+#      run: dotnet workload install maui macos
 
     - name: Build
       run: dotnet build Build.slnf /restore -m -property:Configuration=Release -property:PublicRelease=true
