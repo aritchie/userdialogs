@@ -1,9 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net8.0-ios;net8.0-maccatalyst;net8.0-android</TargetFrameworks>
+        <TargetFrameworks>$(PlatformTargetFrameworks)</TargetFrameworks>
+        <Description>ACR UserDialogs Extensions for .NET MAUI</Description>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Acr.UserDialogs</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

@@ -12,11 +12,14 @@ public static class AppBuilderExtensions
     public static IHostBuilder AddUserDialogs(this IHostBuilder builder)
         => builder.ConfigureServices(services =>
         {
-            services.AddSingleton(UserDialogs.Instance);
-            #if __ANDROID__
-            // hope for the best casting for now
+#if __ANDROID__
             UserDialogs.Init(() => (Android.App.Activity)ContextHelper.Current);
-            #endif
+            services.AddSingleton(UserDialogs.Instance);
+        
+#elif __IOS__
+            services.AddSingleton(UserDialogs.Instance);
+#else
+            throw new ApplicationException("This plugin only works with .NET 8.0 for Android, iOS, and Mac Catalyst.  You are calling this, but it isn't from one of those targets!");
+#endif
         });
 }
-

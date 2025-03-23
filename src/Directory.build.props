@@ -2,8 +2,8 @@
     <PropertyGroup>
         <Authors>Allan Ritchie</Authors>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
-        <Description>A cross platform library that allows you to call for standard user dialogs from a shared/portable library. Supports Android, iOS, and UWP</Description>
-        <PackageTags>ios android xamarin xam.pcl dialogs plugin</PackageTags>
+        <Description>A cross platform library that allows you to call for standard user dialogs like Alerts, Confirmations, Prompts, and more. Supports Android, iOS, and MacCatalyst</Description>
+        <PackageTags>ios android xamarin xam.pcl dialogs plugin maui uno userdialogs</PackageTags>
         <PackageReleaseNotes>https://github.com/aritchie/userdialogs/raw/master/ChangeLog.md</PackageReleaseNotes>
         <PackageIconUrl>https://github.com/aritchie/userdialogs/raw/master/icon.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -11,6 +11,7 @@
         <NoWarn>$(NoWarn);1591;1701;1591;1702;1705;VSX1000;NU1603</NoWarn>
         <RepositoryUrl>https://github.com/aritchie/userdialogs</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+        <PlatformTargetFrameworks>net8.0;net8.0-ios18.0;net8.0-maccatalyst18.0;net8.0-android34.0</PlatformTargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net8.0-ios18.0;net8.0-android34.0;net8.0-maccatalyst18.0</TargetFrameworks>
+        <TargetFrameworks>$(PlatformTargetFrameworks)</TargetFrameworks>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
     </PropertyGroup>
 
