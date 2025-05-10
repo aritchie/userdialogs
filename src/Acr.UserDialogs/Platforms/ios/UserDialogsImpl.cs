@@ -272,15 +272,20 @@ namespace Acr.UserDialogs
             {
                 alert = alertFunc();
                 var top = this.viewControllerFunc();
-                if (alert.PreferredStyle == UIAlertControllerStyle.ActionSheet && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
+                if (alert.PreferredStyle == UIAlertControllerStyle.ActionSheet &&
+                    UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad &&
+                    top is { View: not null })
                 {
                     var x = top.View.Bounds.Width / 2;
                     var y = top.View.Bounds.Bottom;
                     var rect = new CGRect(x, y, 0, 0);
 #if __IOS__
-                    alert.PopoverPresentationController.SourceView = top.View;
-                    alert.PopoverPresentationController.SourceRect = rect;
-                    alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
+                    if (alert.PopoverPresentationController != null)
+                    {
+                        alert.PopoverPresentationController.SourceView = top.View;
+                        alert.PopoverPresentationController.SourceRect = rect;
+                        alert.PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Unknown;
+                    }
 #endif
                 }
                 top.PresentViewController(alert, true, null);
